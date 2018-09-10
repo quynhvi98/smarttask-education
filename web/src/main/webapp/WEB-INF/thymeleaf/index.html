@@ -26,7 +26,7 @@
     <!--&lt;!&ndash; Daterange picker &ndash;&gt;-->
     <!--<link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">-->
     <!-- bootstrap wysihtml5 - text editor -->
-    <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap3-wysihtml5.min.css}">
     <link rel="stylesheet" th:href="@{/css/_all-skins.min.css}">
     <link rel="stylesheet" th:href="@{/css/AdminLTE.min.css}">
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
@@ -67,83 +67,7 @@
 
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                    <!-- Messages: style can be found in dropdown.less-->
-                    <li class="dropdown messages-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-envelope-o"></i>
-                            <span class="label label-success">4</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="header">You have 4 messages</li>
-                            <li>
-                                <!-- inner menu: contains the actual data -->
-                                <ul class="menu">
-                                    <li><!-- start message -->
-                                        <a href="#">
-                                            <div class="pull-left">
-                                                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                                            </div>
-                                            <h4>
-                                                Support Team
-                                                <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                                            </h4>
-                                            <p>Why not buy a new awesome theme?</p>
-                                        </a>
-                                    </li>
-                                    <!-- end message -->
-                                    <li>
-                                        <a href="#">
-                                            <div class="pull-left">
-                                                <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
-                                            </div>
-                                            <h4>
-                                                AdminLTE Design Team
-                                                <small><i class="fa fa-clock-o"></i> 2 hours</small>
-                                            </h4>
-                                            <p>Why not buy a new awesome theme?</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <div class="pull-left">
-                                                <img src="dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
-                                            </div>
-                                            <h4>
-                                                Developers
-                                                <small><i class="fa fa-clock-o"></i> Today</small>
-                                            </h4>
-                                            <p>Why not buy a new awesome theme?</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <div class="pull-left">
-                                                <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
-                                            </div>
-                                            <h4>
-                                                Sales Department
-                                                <small><i class="fa fa-clock-o"></i> Yesterday</small>
-                                            </h4>
-                                            <p>Why not buy a new awesome theme?</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <div class="pull-left">
-                                                <img src="dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
-                                            </div>
-                                            <h4>
-                                                Reviewers
-                                                <small><i class="fa fa-clock-o"></i> 2 days</small>
-                                            </h4>
-                                            <p>Why not buy a new awesome theme?</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="footer"><a href="#">See All Messages</a></li>
-                        </ul>
-                    </li>
+
                     <!-- Notifications: style can be found in dropdown.less -->
                     <li class="dropdown notifications-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -961,29 +885,30 @@
         <!-- Add the sidebar's background. This div must be placed
              immediately after the control sidebar -->
         <div class="control-sidebar-bg"></div>
+    </section>
 </div>
 <!-- ./wrapper -->
 <script>
-    $.widget.bridge('uibutton', $.ui.button);
+    // $.widget.bridge('uibutton', $.ui.button);
 </script>
 <!-- jQuery 3 -->
-<script src="../../../resources/js/adminlte.min.js"></script>
-<script src="../../../resources/js/bootstrap.min.js"></script>
-<script src="../../../resources/js/bootstrap3-wysihtml5.all.min.js"></script>
-<script src="../../../resources/js/bootstrap-datepicker.min.js"></script>
-<script src="../../../resources/js/dashboard.js"></script>
-<script src="../../../resources/js/daterangepicker.js"></script>
-<script src="../../../resources/js/demo.js"></script>
-<script src="../../../resources/js/fastclick.js"></script>
-<script src="../../../resources/js/jquery.knob.min.js"></script>
-<script src="../../../resources/js/jquery.slimscroll.min.js"></script>
-<script src="../../../resources/js/jquery.sparkline.min.js"></script>
-<script src="../../../resources/js/jquery-jvectormap-1.2.2.min.js"></script>
-<script src="../../../resources/js/jquery-jvectormap-world-mill-en.js"></script>
-<script src="../../../resources/js/moment.min.js"></script>
-<script src="../../../resources/js/morris.min.js"></script>
-<script src="../../../resources/js/raphael.min.js"></script>
-<script src="../../../resources/js/jquery.min.js"></script>
-<script src="../../../resources/js/jquery-ui.min.js"></script>
+<script type="text/javascript" th:src="@{/js/adminlte.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap3-wysihtml5.all.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap-datepicker.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/dashboard.js}"></script>
+<script type="text/javascript" th:src="@{/js/daterangepicker.js}"></script>
+<script type="text/javascript" th:src="@{/js/demo.js}"></script>
+<script type="text/javascript" th:src="@{/js/fastclick.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.knob.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.slimscroll.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.sparkline.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery-jvectormap-1.2.2.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery-jvectormap-world-mill-en.js}"></script>
+<script type="text/javascript" th:src="@{/js/moment.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/morris.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/raphael.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery-ui.min.js}"></script>
 </body>
 </html>
