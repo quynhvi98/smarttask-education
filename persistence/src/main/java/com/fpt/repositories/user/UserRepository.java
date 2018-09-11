@@ -6,5 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 public interface UserRepository extends CrudRepository<User, Integer> {
-    User findByEmail(String email);
+    @Query(value = "from User u where u.userName =: username", nativeQuery = false)
+    User findByUsername(@Param("username") String email);
 }

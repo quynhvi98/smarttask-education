@@ -23,7 +23,7 @@ public class UserController {
 
     @PostMapping("/sign-in")
     public String signIn(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setUserPassWord(passwordEncoder.encode(user.getUserPassWord()));
         Set<Role> roles = new HashSet<>();
         Role role = roleService.findById(1);
         roles.add(role);
