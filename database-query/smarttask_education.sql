@@ -189,6 +189,7 @@ CREATE TABLE IF NOT EXISTS nop_de_tai(
   path VARCHAR(255),
   ma_nhom VARCHAR(255),
   PRIMARY KEY (id),
-  CONSTRAINT FK_ma_nhom_nop_de_tai FOREIGN KEY (ma_nhom) REFERENCES nhom(ma_nhom)
+  CONSTRAINT FK_ma_nhom_nop_de_tai FOREIGN KEY (ma_nhom) REFERENCES nhom(ma_nhom),
+   CONSTRAINT FK_ma_nop_de_tai FOREIGN KEY (ma_de_tai) REFERENCES de_tai(ma_de_tai)
 ) engine=InnoDB;
 

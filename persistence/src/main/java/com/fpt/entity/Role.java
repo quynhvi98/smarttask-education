@@ -2,6 +2,7 @@ package com.fpt.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -11,12 +12,11 @@ public class Role implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private int id;
+    @Column(name = "ma_quyen", nullable = false)
+    private String maQuyen;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "ten_quyen", nullable = false)
+    private String tenQuyen;
 
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
@@ -24,24 +24,24 @@ public class Role implements Serializable {
     public Role() {
     }
 
-    public Role(String name) {
-        this.name = name;
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
-    public int getId() {
-        return id;
+    public String getMaQuyen() {
+        return maQuyen;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setMaQuyen(String maQuyen) {
+        this.maQuyen = maQuyen;
     }
 
-    public String getName() {
-        return name;
+    public String getTenQuyen() {
+        return tenQuyen;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTenQuyen(String tenQuyen) {
+        this.tenQuyen = tenQuyen;
     }
 
     public Set<User> getUsers() {
@@ -51,5 +51,4 @@ public class Role implements Serializable {
     public void setUsers(Set<User> users) {
         this.users = users;
     }
-
 }
