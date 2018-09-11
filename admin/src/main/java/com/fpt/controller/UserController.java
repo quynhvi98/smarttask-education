@@ -25,7 +25,7 @@ public class UserController {
     public String signIn(User user) {
         user.setUserPassWord(passwordEncoder.encode(user.getUserPassWord()));
         Set<Role> roles = new HashSet<>();
-        Role role = roleService.findById(1);
+        Role role = roleService.findById("sv01");
         roles.add(role);
         user.setRoles(roles);
         User result = userService.createAccount(user);

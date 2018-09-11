@@ -12,7 +12,7 @@ public class RoleServiceImpl implements RoleService {
     RoleRepository roleRepository;
 
     @Override
-    public Role findById(Integer id) {
+    public Role findById(String id) {
         return roleRepository.findOne(id);
     }
 }
