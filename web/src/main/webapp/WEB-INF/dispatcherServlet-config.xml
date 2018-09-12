@@ -23,9 +23,9 @@
         <property name="characterEncoding" value="UTF-8"/>
         <property name="templateEngine" ref="templateEngine"/>
     </bean>
-    <mvc:resources mapping="/css/**" location="classpath:/css/" />
-    <mvc:resources mapping="/js/**" location="classpath:/js/" />
-    <mvc:resources mapping="/img/**" location="classpath:/img/" />
+    <mvc:resources mapping="/css/**" location="WEB-INF/css/" />
+    <mvc:resources mapping="/js/**" location="WEB-INF/js/" />
+    <mvc:resources mapping="/img/**" location="WEB-INF/img/" />
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
     <property name="maxInMemorySize" value="100000"/>
     </bean>
