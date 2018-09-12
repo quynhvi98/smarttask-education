@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout}">
+<head>
+<title>Content page</title>
+</head>
+<body>
+<th:block layout:fragment="content">
+	<!-- <h3 class="title" th:text="#{dashboard.page.title}">Dashboard</h3> -->
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1 class="title">Dashboard</h1>
+		<ol class="breadcrumb">
+			<li>
+				<a href="#">Home</a>
+			</li>
+			<li class="active">
+				Dashboard
+			</li>
+		</ol>
+	</section>
+	<section class="content">
+	</section>
+</th:block>
+</body>
+</html>

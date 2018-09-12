@@ -16,7 +16,22 @@ public class MainController {
 
     @GetMapping("/")
     public String index() {
+        return "home";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @GetMapping("/register")
+    public String register() {
         return "registration";
+    }
+
+    @GetMapping("/403")
+    public String page403() {
+        return "403";
     }
 
 }

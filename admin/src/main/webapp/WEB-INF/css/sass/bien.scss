@@ -1,0 +1,34 @@
+$blue: #007bff;
+$indigo: #6610f2;
+$purple: #6f42c1;
+$pink: #e83e8c;
+$red: #dc3545;
+$orange: #fd7e14;
+$yellow: #ffc107;
+$green: #28a745;
+$teal: #20c997;
+$cyan: #17a2b8;
+$primary: #007bff;
+$success: #28a745;
+$info: #17a2b8;
+$warning: #ffc107;
+$danger: #dc3545;
+$white: #fff;
+$f7: #f7f7f7;
+$f5: #f5f5f5;
+$light: #f8f9fa;
+$e: #eee;
+$c: #ccc;
+$gray9: #999;
+$dark: #343a40;
+$gray: #6c757d;
+$gray-dark: #343a40;
+$secondary: #6c757d;
+
+
+$primary-color: #17a2b8;
+$primary-color-hover: darken($primary-color, 5%);
+$primary-color-border: darken($primary-color, 15%);
+$primary-color20: lighten($primary-color, 20%);
+$primary-color30: lighten($primary-color, 30%);
+$primary-color40: lighten($primary-color, 35%);

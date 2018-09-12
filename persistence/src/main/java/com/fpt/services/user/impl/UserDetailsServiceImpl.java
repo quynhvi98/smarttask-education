@@ -2,7 +2,7 @@ package com.fpt.services.user.impl;
 
 import com.fpt.entity.Role;
 import com.fpt.entity.User;
-import com.fpt.repositories.user.UserRepository;
+import com.fpt.repositories.user.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,12 +19,12 @@ import java.util.Set;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserDao userDao;
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findUserByUserName(username);
+        User user = userDao.findUserByUserName(username);
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }

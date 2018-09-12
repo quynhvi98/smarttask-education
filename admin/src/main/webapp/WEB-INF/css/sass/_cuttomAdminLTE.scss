@@ -1,0 +1,68 @@
+table{
+  .btn.btn-app {
+      min-width: unset;
+      height: auto;
+      padding: 2px 4px;
+      line-height:  1;
+      vertical-align:  middle;
+      display: inline-flex;
+      align-items:  center;
+      margin: 0;
+      background-color: #ffffff;
+      &:hover {
+        background: #f4f4f4;
+        color: #444;
+        border-color: #aaa;
+    }
+  }
+  .btn-app>.fa, .btn-app>.glyphicon, .btn-app>.ion {
+      display:  inline-block;
+      margin-right:  3px;
+      font-size: 15px;
+  }
+}
+// class="btn btn-app"
+.bacham .dropdown-menu > li > a {
+    border-radius: 3px;
+    position: relative;
+    text-align: center;
+    color: #666;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    vertical-align: middle;
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+    &:hover {
+      background: #f4f4f4;
+      color: #444;
+      border-color: #aaa;
+  }
+ }
+ .chat-mobile {
+     padding-left: 0;
+ }
+ .box.box-primary{
+   .box-header {
+       background: $primary-color;
+       color: $white;
+       padding-top: 5px;
+       padding-bottom: 5px;
+       &>.box-tools {
+           top: 1px;
+       }
+       [data-toggle="tooltip"] {
+           background: $primary-color40;
+            color: $white;
+           &:hover{
+             background: $primary-color40;
+             color: $white;
+           }
+       }
+       .btn-box-tool,
+       .open .btn-box-tool,
+       .btn-box-tool:hover {
+           color: $white;
+       }
+   }
+ }
