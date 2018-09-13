@@ -1,0 +1,163 @@
+.khunganh {
+  border: solid 1px $c;
+  width: auto;
+  display: inline-block;
+  padding: 10px;
+  background: $white;
+}
+
+.anhdaidien {
+  max-width: 100%;
+  min-width: 260px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 0;
+
+  &:before {
+    content: "Chưa có ảnh đại diện";
+    padding-top: 50%;
+    padding-bottom: 50%;
+    width: 100%;
+    display: block;
+    background: $c;
+    text-align: center;
+  }
+
+  img {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: auto;
+    z-index: 9;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+.avatar.avatar-24 {
+    float: left;
+    position: relative;
+    margin-left: -5px;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    box-shadow: 0px 0px 0px 1px #fff;
+    cursor: pointer;
+    &:hover {
+        box-shadow: 0px 0px 0px 1px #17a2b8;
+        z-index:  99;
+    }
+    > .more,
+    > .image {
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+    }
+    img {
+        width: 24px;
+        height: 24px;
+    }
+}
+.avatar.avatar-42 {
+    float: left;
+    position: relative;
+    margin-left: -5px;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    box-shadow: 0px 0px 0px 1px #17a2b8;
+    cursor: pointer;
+    &:hover {
+        box-shadow: 0px 0px 0px 1px #fff;
+        z-index:  99;
+    }
+    > .more,
+    > .image {
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+    }
+    img {
+        width: 42px;
+        height: 42px;
+    }
+}
+.khung-avatar {
+    position:  relative;
+    overflow:  visible !important;
+    .tooltip.top .tooltip-inner {
+        text-align:  left;
+    }
+    .tooltip.top .tooltip-arrow{
+      margin-left: -1px;
+    }
+
+    .tooltip.top .tooltip-inner .xam {
+        color: #004c58;
+    }
+}
+
+.khung-avatar .tooltip.top {
+    white-space:  nowrap;
+}
+.avatar-24-username {
+    padding:  2px;
+    font-weight: 600;
+}
+.card .avatar-42-username h1 {
+    text-align:  left;
+    padding-left: 6px;
+    padding-top: 0px;
+    font-weight: 600;
+}
+.card .avatar-42-username h1 small {
+    color: #fff;
+    text-transform: none;
+    float:  left;
+    width:  100%;
+    margin-bottom:  5px;
+    font-size:  14px;
+}
+.card .avatar.avatar-42:hover:before {
+    content: "\f021";
+    font-family:  FontAwesome;
+    position:  absolute;
+    top:  0;
+    left:  0;
+    right:  0;
+    bottom:  0;
+    background: rgba(23, 162, 184, 0.8);
+    display:  flex;
+    align-items:  center;
+    justify-content:  center;
+    color: #fff;
+    font-size: 18px;
+    font-weight: normal;
+}
+.card h4 {
+    color:  #fff;
+    font-weight: 600;
+    font-size: 16px;
+}
+.card.guoixulychinh .article > span .xam {
+    color:  $primary-color40;
+}
+.card.guoixulychinh {
+    min-width: 100%;
+        .table.no-datatable {
+        border: solid 1px #17a2b8;
+        background: #17a2b8;
+    }
+
+    .table.no-datatable table {
+        background:  #fff;
+    }
+
+    .table.no-datatable table td {
+        border-right: solid 1px #ffffff;
+    }
+}
