@@ -11,6 +11,11 @@
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
         <input type="text" name="userName" placeholder="Your userName" /><br />
         <input type="password" name="userPassWord" placeholder="Your userPassWord" /><br />
+        <select name="role">
+            <option value="ad01">Admin</option>
+            <option value="gv01">Giảng viên</option>
+            <option value="sv01">Sinh viên</option>
+        </select>
         <button type="submit">Sign in</button> <br />
     </form>
 </div>
