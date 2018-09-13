@@ -15,7 +15,7 @@ public class MainController {
 
     @GetMapping("/")
     public String index() {
-        return "index";
+        return "trangchu";
     }
 
     @GetMapping("/admin")
@@ -33,7 +33,7 @@ public class MainController {
         return "login";
     }
 
-    @PostMapping("/logout")
+    @GetMapping ("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null) {
