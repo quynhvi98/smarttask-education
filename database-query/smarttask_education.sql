@@ -185,6 +185,7 @@ CREATE TABLE IF NOT EXISTS chi_tiet_nhom_de_tai(
 
 CREATE TABLE IF NOT EXISTS nop_de_tai(
   id BIGINT NOT NULL auto_increment,
+  ma_de_tai VARCHAR(255),
   ngay_nop datetime,
   path VARCHAR(255),
   ma_nhom VARCHAR(255),

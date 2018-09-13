@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,10 +23,10 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/sign-in")
-    public String signIn(User user) {
+    public String signIn(User user, @RequestParam("role") String roleStr) {
         user.setUserPassWord(passwordEncoder.encode(user.getUserPassWord()));
         Set<Role> roles = new HashSet<>();
-        Role role = roleService.findById("ad01");
+        Role role = roleService.findById(roleStr);
         roles.add(role);
         user.setRoles(roles);
         User result = userService.createAccount(user);
