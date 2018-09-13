@@ -4,4 +4,5 @@ import com.fpt.entity.User;
 
 public interface UserService {
     User createAccount(User user);
+    User findUserByUserName(String username);
 }

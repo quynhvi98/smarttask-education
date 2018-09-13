@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -38,14 +39,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/*").hasRole("ADMIN")
                 .and()
                 .formLogin()
+                .successHandler(myAuthenticationSuccessHandler())
                 .loginPage("/login")
                 .usernameParameter("userName")
                 .passwordParameter("userPassWord")
-                .defaultSuccessUrl("/")
+//                .defaultSuccessUrl("/")
                 .failureUrl("/login?error")
                 .and()
                 .exceptionHandling()
                 .accessDeniedPage("/403");
     }
-
+    @Bean
+    public AuthenticationSuccessHandler myAuthenticationSuccessHandler() {
+        return new MyAuthenticationSuccessHandler();
+    }
 }

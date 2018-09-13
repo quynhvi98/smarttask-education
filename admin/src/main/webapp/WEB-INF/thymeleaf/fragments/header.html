@@ -7,7 +7,7 @@
 	<div th:fragment="header">
 		<header class="main-header">
 			<!-- Logo -->
-			<a href="#" th:action="@{/home}" class="logo">
+			<a href="#" class="logo">
 				<span class="logo-lg"><b>Agri</b>WORK</span>
 			</a>
 
@@ -19,9 +19,9 @@
 				</a>
 			<div class="dashboard">
 					<ul class="nav navbar-nav">
-						<li class="dropdown notifications-menu" th:each="m : ${session.menuNav}">
-							<a th:href="@{${m.pageUri}}" class="dropdown-toggle">
-								<span th:text="#{${m.displayName}}">Dash board</span>
+						<li class="dropdown notifications-menu" >
+							<a  class="dropdown-toggle">
+								<span >Dash board</span>
 							</a>
 						</li>
 					</ul>
@@ -43,7 +43,7 @@
 											<!-- start message -->
 											<a href="#">
 												<div class="pull-left">
-													<img src="../../images/gtvglogo.png" th:attr="src=@{/images/logo.jpg}, title='User Image',alt='User Image',class='user-image'" />
+													<img src="../../images/gtvglogo.png"/>
 												</div>
 												<h4>
 													Support Team <small><i class="fa fa-clock-o"></i> 5 mins</small>
@@ -150,15 +150,18 @@
 			<section class="sidebar">
 
 				<ul class="sidebar-menu">
-					<li class="treeview" th:each="lMenu : ${session.menu}">
+					<li class="treeview">
 						<a href="#">
-							<i th:attr="class=${lMenu.key.feeType}"></i>
-							<span th:text="#{${lMenu.key.displayName}}">Display name</span>
+							<i></i>
+							<span>Display name</span>
 							<i class="fa fa-angle-left pull-right"></i>
 						</a>
 						<ul class="treeview-menu">
-							<li th:each="m2 : ${lMenu.value}">
-								<a th:href="@{${m2.pageUri}}" th:text="#{${m2.displayName}}"><i th:attr="class=${m2.feeType}"></i>function</a>
+							<li>
+								<a href="#"><i></i>A</a>
+							</li>
+							<li>
+								<a href="#"><i></i>B</a>
 							</li>
 						</ul>
 					</li>
