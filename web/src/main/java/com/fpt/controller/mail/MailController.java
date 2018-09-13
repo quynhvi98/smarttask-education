@@ -1,4 +1,4 @@
-package com.fpt.controller.StudentController.Mail;
+package com.fpt.controller.mail;
 
 import com.fpt.controller.UserInfoController;
 import org.slf4j.Logger;
@@ -26,5 +26,10 @@ public class MailController {
     @RequestMapping("/mailbox/compose")
     public String compose(HttpServletRequest request, Model model) {
         return "mail/compose";
+    }
+
+    @RequestMapping("/mailbox/read-mail")
+    public String readMail(HttpServletRequest request, Model model) {
+        return "mail/read-mail";
     }
 }

@@ -1,4 +1,4 @@
-package com.fpt.controller.StudentController;
+package com.fpt.controller.studentcontroller;
 
 public class Member {
 
