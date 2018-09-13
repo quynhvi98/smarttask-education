@@ -102,6 +102,11 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.7.3</version>
         </dependency>
+        <dependency>
+            <groupId>com.agapsys.archetypes</groupId>
+            <artifactId>agreste-app-archetype</artifactId>
+            <version>6.0.0</version>
+        </dependency>
         <!---->
     </dependencies>
 </project>
