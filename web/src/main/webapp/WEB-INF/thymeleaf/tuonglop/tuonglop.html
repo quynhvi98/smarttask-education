@@ -63,8 +63,7 @@
                                 <option>Nộp bài tập</option>
                             </select>
                         </div>
-                        <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Đăng bài</button>
-                        </button>
+
                     </div>
                     <div class="box-footer">
                         <form action="#" method="post">
@@ -80,8 +79,22 @@
             </div>
             <div class="col-md-3">
                 <td>
-                    <button type="button" class="btn btn-block btn-default btn-lg">Đăng kí</button>
+                    <button type="button" class="btn btn-block btn-default btn-lg" data-toggle="modal" data-target="#myModal">Đăng kí</button>
                 </td>
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog" style="margin-left: 7%;width: 88%;">
+                        <!-- Modal content-->i
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <legend class="modal-title" style="float:  left;width: auto;">Đăng ký nhóm</legend>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body" style="background-color: #f8f8f8;">
+                                <div th:replace="student/register-member"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="col-md-9">
                 <div class="box box-widget">
