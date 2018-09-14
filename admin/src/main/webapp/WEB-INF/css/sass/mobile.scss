@@ -1,0 +1,61 @@
+
+@media all and (max-width: 768px) {
+  .khung {
+    min-width: auto;
+    padding-right: 0;
+
+    .input {
+      width: 49% !important;
+    }
+
+    .submit {
+      position: unset;
+      float: left;
+      width: 49%;
+      min-height: 53px;
+    }
+  }
+  .table {
+    overflow: auto;
+    min-width: 100%;
+}
+.bacham{
+  .dropdown-menu.dropdown-menu-right {
+      position: fixed;
+      top: 100px;
+      right: 30px;
+      left: 30px;
+      &:before {
+          display: none;
+      }
+      li {
+          display:  block;
+          width:  100%;
+          a {
+              margin: 5px;
+              display:  block;
+              padding:  8px;
+          }
+      }
+  }
+  &.open:after {
+      content: "";
+      background: rgba(0, 0, 0, 0.3);
+      display:  block;
+      position:  fixed;
+      top:  0;
+      left:  0;
+      right:  0;
+      bottom:  0;
+      height:  100%;
+      z-index:  0;
+  }
+}
+.card {
+    max-width: unset;
+}
+
+.modal.modal-full .modal-dialog {
+    width:  auto;
+}
+}

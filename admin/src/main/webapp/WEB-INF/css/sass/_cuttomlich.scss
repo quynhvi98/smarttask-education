@@ -1,0 +1,101 @@
+.daterangepicker {
+  .calendar {
+    .fa-calendar:before {
+      font-family: sans-serif;
+      font-weight: normal;
+    }
+
+    &.left {
+      .input-mini {
+        padding-left: 75px;
+      }
+
+      .fa-calendar:before {
+        content: "Từ ngày: ";
+        color: #fff;
+      }
+    }
+
+    &.right {
+      .input-mini {
+        padding-left: 85px;
+      }
+
+      .fa-calendar:before {
+        content: "Đến ngày: ";
+        color: #fff;
+      }
+    }
+  }
+}
+
+body {
+  .daterangepicker .daterangepicker_input {
+    padding: 4px 2px 0 4px !important;
+    z-index: 9;
+  }
+
+  .daterangepicker .daterangepicker_input i {
+    top: 12px;
+    left: 12px;
+  }
+
+  .daterangepicker .calendar .input-mini {
+    border-radius: 0 !important;
+    border: none !important;
+    margin: 0;
+    background: #17a2b8;
+    color: #fff;
+  }
+
+  .daterangepicker .left .daterangepicker_input {
+    padding-left: 1px !important;
+    padding-right: 3px !important;
+  }
+
+  .daterangepicker.dropdown-menu {
+    border-radius: 0;
+    padding: 0;
+  }
+
+  .daterangepicker .calendar th {
+    background: #17a2b8;
+    border-radius: 0;
+    color: #fff;
+    font-weight: normal;
+  }
+
+  .daterangepicker .calendar-table {
+    padding-top: 0;
+    margin-top: 0;
+  }
+
+  .daterangepicker .input-mini {
+    padding: 0;
+  }
+
+  .daterangepicker .calendar.left .calendar-table {
+    padding-right: 3px;
+    padding-left: 0;
+  }
+
+  .daterangepicker .calendar.right .calendar-table {
+    padding-right: 0;
+  }
+}
+
+.form-group.giahan{
+  .input-group,
+  .input-group input {
+      width: 100% !important;
+      text-align:  center;
+  }
+  .input-group .btn {
+      width: 100% !important;
+      text-align:  left;
+      i.fa.fa-caret-down {
+          float:  right;
+          margin-top:  3px;
+      }
+  }
+}
