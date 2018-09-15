@@ -24,6 +24,9 @@ public class BaiViet {
     @Column(name = "noi_dung")
     private String noiDung;
 
+    @Column(name = "trang_thai")
+    private String trangThai;
+
     @Column(name = "ngay_tao")
     private Date ngay_tao;
 
@@ -78,5 +81,11 @@ public class BaiViet {
         this.maBaiTap = maBaiTap;
     }
 
+    public String getTrangThai() {
+        return trangThai;
+    }
 
+    public void setTrangThai(String trangThai) {
+        this.trangThai = trangThai;
+    }
 }

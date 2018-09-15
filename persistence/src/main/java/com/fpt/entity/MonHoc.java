@@ -15,6 +15,9 @@ public class MonHoc {
     @Column(name = "ten_mon_hoc")
     private String tenMonHoc;
 
+    @Column(name = "trang_thai")
+    private String trangThai;
+
     @OneToMany(fetch=FetchType.EAGER)
     @JoinColumn(name="ma_mon_hoc", nullable=false)
     private Set<LopHoc> maLopHoc;
@@ -60,5 +63,13 @@ public class MonHoc {
 
     public void setBoMon(BoMon boMon) {
         this.boMon = boMon;
+    }
+
+    public String getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(String trangThai) {
+        this.trangThai = trangThai;
     }
 }

@@ -16,6 +16,17 @@ public class BoMon implements Serializable {
     @Column(name = "ten_nganh")
     private String tenNganh;
 
+    public String getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(String trangThai) {
+        this.trangThai = trangThai;
+    }
+
+    @Column(name = "trang_thai")
+    private String trangThai;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ma_vien")
     private KhoaVien khoaVien;

@@ -1,5 +1,7 @@
 package com.fpt.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -21,8 +23,20 @@ public class LopHoc {
     @Column(name = "mo_ta")
     private String moTa;
 
+    @Column(name = "trang_thai")
+    private String trangThai;
+
+    @Column(name = "phong_hoc")
+    private String phongHoc;
+
     @Column(name = "ngay_tao")
     private Date ngayTao;
+
+    @Column(name = "ngay_bat_dau")
+    private Date ngayBatDau;
+
+    @Column(name = "ngay_ket_thuc")
+    private Date ngayKetThuc;
 
     @OneToMany(fetch=FetchType.EAGER)
     @JoinColumn(name="ma_lop", nullable=false)
@@ -31,6 +45,10 @@ public class LopHoc {
     @OneToMany(fetch=FetchType.EAGER)
     @JoinColumn(name="ma_lop", nullable=false)
     private Set<Nhom> maNhom;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "lopHoc")
+    private Set<ThongBao> lstThongBao;
 
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
@@ -93,5 +111,37 @@ public class LopHoc {
 
     public void setNgayTao(Date ngayTao) {
         this.ngayTao = ngayTao;
+    }
+
+    public String getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(String trangThai) {
+        this.trangThai = trangThai;
+    }
+
+    public String getPhongHoc() {
+        return phongHoc;
+    }
+
+    public void setPhongHoc(String phongHoc) {
+        this.phongHoc = phongHoc;
+    }
+
+    public Date getNgayBatDau() {
+        return ngayBatDau;
+    }
+
+    public void setNgayBatDau(Date ngayBatDau) {
+        this.ngayBatDau = ngayBatDau;
+    }
+
+    public Date getNgayKetThuc() {
+        return ngayKetThuc;
+    }
+
+    public void setNgayKetThuc(Date ngayKetThuc) {
+        this.ngayKetThuc = ngayKetThuc;
     }
 }

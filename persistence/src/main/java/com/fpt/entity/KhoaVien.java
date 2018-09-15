@@ -18,6 +18,9 @@ public class KhoaVien implements Serializable {
     @Column(name = "ten_vien")
     private String tenVien;
 
+    @Column(name = "trang_thai")
+    private String trangThai;
+
     @JsonIgnore
     @OneToMany(mappedBy = "khoaVien")
     private Set<BoMon> lstBoMon;
@@ -25,6 +28,14 @@ public class KhoaVien implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "khoaVien")
     private Set<SinhVien> lstSinhVien;
+
+    public String getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(String trangThai) {
+        this.trangThai = trangThai;
+    }
 
     public String getMaVien() {
         return maVien;

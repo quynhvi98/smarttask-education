@@ -22,6 +22,8 @@ DROP TABLE IF EXISTS chi_tiet_nhom;
 DROP TABLE IF EXISTS de_tai;
 DROP TABLE IF EXISTS chi_tiet_nhom_de_tai;
 DROP TABLE IF EXISTS nop_de_tai;
+DROP TABLE IF EXISTS thong_bao;
+
 
 CREATE TABLE IF NOT EXISTS role (
   ma_quyen VARCHAR(255),
@@ -39,12 +41,14 @@ CREATE TABLE IF NOT EXISTS config (
 CREATE TABLE IF NOT EXISTS khoa_vien (
   ma_vien VARCHAR(255),
   ten_vien VARCHAR(255),
+  trang_thai varchar(255),
   PRIMARY KEY (ma_vien)
 ) engine=InnoDB;
 
 CREATE TABLE IF NOT EXISTS bo_mon (
   ma_nganh VARCHAR(255),
   ten_nganh VARCHAR(255),
+  trang_thai varchar(255),
   ma_vien VARCHAR(255),
   PRIMARY KEY (ma_nganh),
   CONSTRAINT FK_ma_vien FOREIGN KEY (ma_vien) REFERENCES khoa_vien(ma_vien)
@@ -53,6 +57,7 @@ CREATE TABLE IF NOT EXISTS bo_mon (
 CREATE TABLE IF NOT EXISTS mon_hoc (
   ma_mon_hoc VARCHAR(255),
   ten_mon_hoc VARCHAR(255),
+  trang_thai varchar(255),
   ma_nganh VARCHAR(255),
   PRIMARY KEY (ma_mon_hoc),
   CONSTRAINT FK_ma_nganh FOREIGN KEY (ma_nganh) REFERENCES bo_mon(ma_nganh)
@@ -96,6 +101,10 @@ CREATE TABLE IF NOT EXISTS lop_hoc (
   ma_lop VARCHAR(255),
   mo_ta VARCHAR(255),
   ngay_tao datetime,
+  phong_hoc varchar (255),
+  ngay_bat_dau datetime,
+  ngay_ket_thuc datetime,
+  trang_thai varchar(255),
   ma_giao_vien VARCHAR(255),
   ma_mon_hoc VARCHAR(255),
   PRIMARY KEY (ma_lop),
@@ -131,6 +140,7 @@ CREATE TABLE IF NOT EXISTS bai_viet(
   ma_bai_viet VARCHAR(255),
   ten_bai_viet VARCHAR(255),
   noi_dung VARCHAR(255),
+  trang_thai varchar (255),
   ngay_tao datetime,
   ma_lop VARCHAR(255),
   ma_loai VARCHAR(255),
@@ -155,6 +165,7 @@ CREATE TABLE IF NOT EXISTS nhom(
   ten_nhom VARCHAR(255),
   ngay_tao_nhom datetime,
   ma_lop VARCHAR(255),
+  trang_thai varchar (255),
   PRIMARY KEY (ma_nhom),
   CONSTRAINT FK_ma_lop_nhom FOREIGN KEY (ma_lop) REFERENCES lop_hoc(ma_lop)
 ) engine=InnoDB;
@@ -192,5 +203,19 @@ CREATE TABLE IF NOT EXISTS nop_de_tai(
   PRIMARY KEY (id),
   CONSTRAINT FK_ma_nhom_nop_de_tai FOREIGN KEY (ma_nhom) REFERENCES nhom(ma_nhom),
    CONSTRAINT FK_ma_nop_de_tai FOREIGN KEY (ma_de_tai) REFERENCES de_tai(ma_de_tai)
+) engine=InnoDB;
+
+CREATE TABLE IF NOT EXISTS thong_bao(
+  id BIGINT NOT NULL auto_increment,
+  content VARCHAR(255),
+  ma_giao_vien VARCHAR(255),
+  ma_sinh_vien VARCHAR(255),
+  ma_lop VARCHAR(255),
+  ma_nhom VARCHAR(255),
+  PRIMARY KEY (id),
+  CONSTRAINT FK_ma_giao_vien_thong_bao FOREIGN KEY (ma_giao_vien) REFERENCES giao_vien(ma_giao_vien),
+  CONSTRAINT FK_ma_sinh_vien_thong_bao FOREIGN KEY (ma_sinh_vien) REFERENCES sinh_vien(ma_sinh_vien),
+  CONSTRAINT FK_ma_lop_hoc_thong_bao FOREIGN KEY (ma_lop) REFERENCES lop_hoc(ma_lop),
+  CONSTRAINT FK_ma_nhom_thong_bao FOREIGN KEY (ma_nhom) REFERENCES nhom(ma_nhom)
 ) engine=InnoDB;
 

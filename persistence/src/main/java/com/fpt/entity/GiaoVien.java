@@ -1,5 +1,7 @@
 package com.fpt.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -20,6 +22,10 @@ public class GiaoVien {
 
     @Column(name = "mo_ta")
     private String moTa;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "giaoVien")
+    private Set<ThongBao> lstThongBao;
 
     @OneToMany(fetch=FetchType.EAGER)
     @JoinColumn(name="ma_giao_vien", nullable=false)

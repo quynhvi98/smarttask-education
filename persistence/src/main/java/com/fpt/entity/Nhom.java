@@ -1,5 +1,7 @@
 package com.fpt.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -21,12 +23,19 @@ public class Nhom {
     @Column(name = "ten_nhom")
     private String tenNhom;
 
+    @Column(name = "trang_thai")
+    private String trangThai;
+
     @Column(name = "ngay_tao_nhom")
     private Date ngayTaoNhom;
 
     @OneToMany(fetch=FetchType.EAGER)
     @JoinColumn(name="ma_nhom", nullable=false)
     private Set<NopDeTai> maNopDeTai;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "nhom")
+    private Set<ThongBao> lstThongBao;
 
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
@@ -92,5 +101,13 @@ public class Nhom {
 
     public void setSinhViens(Set<SinhVien> sinhViens) {
         this.sinhViens = sinhViens;
+    }
+
+    public String getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(String trangThai) {
+        this.trangThai = trangThai;
     }
 }
