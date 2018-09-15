@@ -294,6 +294,7 @@
            document.getElementById(clicked_id).style.backgroundColor='white';
        }
         var token = document.getElementById('token').value;
+        console.log(token);
         var $dism = $('.inbox-widget');
         $dism.find('a').remove();
         var inputVal = clicked_id;
@@ -304,11 +305,12 @@
         } else {
             document.getElementById(clicked_id).checked = true;
         }
+        var base_url = [[@{/}]];
         $.ajax({
             headers: {'X-CSRF-Token': token},
             type: "POST",
             data: {search: inputVal},
-            url: "/api/member",
+            url: base_url+"api/member",
             success: function (responseJson) {
                 var $dis = $('.inbox-widget');
                 $dis.find('a').remove();
