@@ -23,6 +23,14 @@ public class BaiTap {
     @Column(name = "path")
     private String path;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ma_bai_viet")
+    private BaiViet baiViet;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ma_sinh_vien")
+    private SinhVien sinhVien;
+
     public BaiTap() {
     }
 

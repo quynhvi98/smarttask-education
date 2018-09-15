@@ -11,7 +11,13 @@ import javax.persistence.*;
 @Table(name = "thong_bao")
 public class ThongBao {
     private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private int id;
 
+    @Column(name = "content")
+    private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ma_giao_vien")

@@ -1,5 +1,7 @@
 package com.fpt.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
@@ -31,11 +33,13 @@ public class BoMon implements Serializable {
     @JoinColumn(name = "ma_vien")
     private KhoaVien khoaVien;
 
-    @OneToMany(mappedBy = "boMon")
+    @JsonIgnore
+    @OneToMany(mappedBy = "monHoc")
     private Set<MonHoc> lstMonHoc;
 
-    @OneToMany(mappedBy = "boMon")
-    private Set<GiaoVien> lstGiaoVien;
+    @OneToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="ma_nganh")
+    private GiaoVien giaoVien;
 
     public String getMaNganh() {
         return maNganh;
@@ -67,14 +71,6 @@ public class BoMon implements Serializable {
 
     public void setLstMonHoc(Set<MonHoc> lstMonHoc) {
         this.lstMonHoc = lstMonHoc;
-    }
-
-    public Set<GiaoVien> getLstGiaoVien() {
-        return lstGiaoVien;
-    }
-
-    public void setLstGiaoVien(Set<GiaoVien> lstGiaoVien) {
-        this.lstGiaoVien = lstGiaoVien;
     }
 
     public static long getSerialVersionUID() {

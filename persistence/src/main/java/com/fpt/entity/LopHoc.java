@@ -38,9 +38,9 @@ public class LopHoc {
     @Column(name = "ngay_ket_thuc")
     private Date ngayKetThuc;
 
-    @OneToMany(fetch=FetchType.EAGER)
-    @JoinColumn(name="ma_lop", nullable=false)
-    private Set<BaiViet> maBaiViet;
+    @JsonIgnore
+    @OneToMany(mappedBy = "lopHoc")
+    private Set<BaiViet> lstBaiViet;
 
     @OneToMany(fetch=FetchType.EAGER)
     @JoinColumn(name="ma_lop", nullable=false)
@@ -59,14 +59,6 @@ public class LopHoc {
     Set<SinhVien> sinhViens;
 
     public LopHoc() {
-    }
-
-    public Set<BaiViet> getMaBaiViet() {
-        return maBaiViet;
-    }
-
-    public void setMaBaiViet(Set<BaiViet> maBaiViet) {
-        this.maBaiViet = maBaiViet;
     }
 
     public Set<Nhom> getMaNhom() {

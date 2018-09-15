@@ -1,5 +1,7 @@
 package com.fpt.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -30,9 +32,13 @@ public class BaiViet {
     @Column(name = "ngay_tao")
     private Date ngay_tao;
 
-    @OneToMany(fetch=FetchType.EAGER)
-    @JoinColumn(name="ma_bai_viet", nullable=false)
-    private Set<BaiTap> maBaiTap;
+    @JsonIgnore
+    @OneToMany(mappedBy = "baiViet")
+    private Set<BaiTap> lstBaiTap;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ma_loai")
+    private LoaiBaiViet loaiBaiViet;
 
     public BaiViet() {
     }
@@ -71,14 +77,6 @@ public class BaiViet {
 
     public void setNgay_tao(Date ngay_tao) {
         this.ngay_tao = ngay_tao;
-    }
-
-    public Set<BaiTap> getMaBaiTap() {
-        return maBaiTap;
-    }
-
-    public void setMaBaiTap(Set<BaiTap> maBaiTap) {
-        this.maBaiTap = maBaiTap;
     }
 
     public String getTrangThai() {

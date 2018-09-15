@@ -1,5 +1,7 @@
 package com.fpt.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -20,9 +22,9 @@ public class LoaiBaiViet {
     @Column(name = "ten_loai")
     private String tenLoai;
 
-    @OneToMany(fetch=FetchType.EAGER)
-    @JoinColumn(name="ma_loai", nullable=false)
-    private Set<BaiViet> maBaiViet;
+    @JsonIgnore
+    @OneToMany(mappedBy = "loaiBaiViet")
+    private Set<BaiViet> lstBaiViet;
 
     public LoaiBaiViet() {
     }
@@ -47,11 +49,4 @@ public class LoaiBaiViet {
         this.tenLoai = tenLoai;
     }
 
-    public Set<BaiViet> getMaBaiViet() {
-        return maBaiViet;
-    }
-
-    public void setMaBaiViet(Set<BaiViet> maBaiViet) {
-        this.maBaiViet = maBaiViet;
-    }
 }

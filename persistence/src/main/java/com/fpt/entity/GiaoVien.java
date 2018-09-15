@@ -27,16 +27,16 @@ public class GiaoVien {
     @OneToMany(mappedBy = "giaoVien")
     private Set<ThongBao> lstThongBao;
 
+
     @OneToMany(fetch=FetchType.EAGER)
     @JoinColumn(name="ma_giao_vien", nullable=false)
     private Set<LopHoc> maLopHoc;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ma_nganh")
-    private BoMon boMon;
-
     @OneToOne(mappedBy = "giaoVien", fetch = FetchType.LAZY)
     private User user;
+
+    @OneToOne(mappedBy = "giaoVien", fetch = FetchType.LAZY)
+    private BoMon boMon;
 
     public GiaoVien() {
     }

@@ -23,14 +23,22 @@ public class MonHoc {
     private Set<LopHoc> maLopHoc;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ma_vien")
-    private BoMon boMon;
+    @JoinColumn(name = "ma_nganh")
+    private BoMon monHoc;
 
     public MonHoc() {
     }
 
     public Set<LopHoc> getMaLopHoc() {
         return maLopHoc;
+    }
+
+    public String getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(String trangThai) {
+        this.trangThai = trangThai;
     }
 
     public void setMaLopHoc(Set<LopHoc> maLopHoc) {
@@ -57,19 +65,4 @@ public class MonHoc {
         this.tenMonHoc = tenMonHoc;
     }
 
-    public BoMon getBoMon() {
-        return boMon;
-    }
-
-    public void setBoMon(BoMon boMon) {
-        this.boMon = boMon;
-    }
-
-    public String getTrangThai() {
-        return trangThai;
-    }
-
-    public void setTrangThai(String trangThai) {
-        this.trangThai = trangThai;
-    }
 }

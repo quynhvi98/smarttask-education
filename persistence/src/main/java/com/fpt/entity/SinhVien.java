@@ -19,9 +19,9 @@ public class SinhVien {
     @Column(name = "ma_sinh_vien")
     private String maSinhVien;
 
-    @OneToMany(fetch=FetchType.EAGER)
-    @JoinColumn(name="ma_sinh_vien", nullable=false)
-    private Set<BaiTap> maBaiTap;
+    @JsonIgnore
+    @OneToMany(mappedBy = "sinhVien")
+    private Set<BaiTap> lstBaiTap;
 
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
@@ -46,14 +46,6 @@ public class SinhVien {
     private Set<ThongBao> lstThongBao;
 
     public SinhVien() {
-    }
-
-    public Set<BaiTap> getMaBaiTap() {
-        return maBaiTap;
-    }
-
-    public void setMaBaiTap(Set<BaiTap> maBaiTap) {
-        this.maBaiTap = maBaiTap;
     }
 
     public Set<Nhom> getNhoms() {
