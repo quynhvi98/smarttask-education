@@ -19,6 +19,10 @@ public class MonHoc {
     @JoinColumn(name="ma_mon_hoc", nullable=false)
     private Set<LopHoc> maLopHoc;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ma_vien")
+    private BoMon boMon;
+
     public MonHoc() {
     }
 
@@ -48,5 +52,13 @@ public class MonHoc {
 
     public void setTenMonHoc(String tenMonHoc) {
         this.tenMonHoc = tenMonHoc;
+    }
+
+    public BoMon getBoMon() {
+        return boMon;
+    }
+
+    public void setBoMon(BoMon boMon) {
+        this.boMon = boMon;
     }
 }

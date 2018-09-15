@@ -32,6 +32,13 @@ public class SinhVien {
     @ManyToMany(mappedBy = "sinhViens")
     private Set<LopHoc> lopHocs;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ma_vien")
+    private KhoaVien khoaVien;
+
+    @OneToOne(mappedBy = "sinhVien", fetch = FetchType.LAZY)
+    private User user;
+
     public SinhVien() {
     }
 
@@ -69,5 +76,21 @@ public class SinhVien {
 
     public void setMaSinhVien(String maSinhVien) {
         this.maSinhVien = maSinhVien;
+    }
+
+    public KhoaVien getKhoaVien() {
+        return khoaVien;
+    }
+
+    public void setKhoaVien(KhoaVien khoaVien) {
+        this.khoaVien = khoaVien;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

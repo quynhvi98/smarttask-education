@@ -13,42 +13,18 @@ public class BoMon implements Serializable {
     @Column(name = "ma_nganh")
     private String maNganh;
 
-    @Column(name = "ten_ngang")
+    @Column(name = "ten_nganh")
     private String tenNganh;
 
-    @OneToMany(fetch=FetchType.EAGER)
-    @JoinColumn(name="ma_nganh", nullable=false)
-    private Set<MonHoc> tenMonHoc;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ma_vien")
+    private KhoaVien khoaVien;
 
-    @OneToMany(fetch=FetchType.EAGER)
-    @JoinColumn(name="ma_nganh", nullable=false)
-    private Set<GiaoVien> maGiaoVien;
+    @OneToMany(mappedBy = "boMon")
+    private Set<MonHoc> lstMonHoc;
 
-
-
-    public Set<GiaoVien> getMaGiaoVien() {
-        return maGiaoVien;
-    }
-
-    public void setMaGiaoVien(Set<GiaoVien> maGiaoVien) {
-        this.maGiaoVien = maGiaoVien;
-    }
-
-
-    private Set<MonHoc> getTenMonHoc(){
-        return getTenMonHoc();
-    };
-
-    public void setTenMonHoc(Set<MonHoc> tenMonHoc) {
-        this.tenMonHoc = tenMonHoc;
-    }
-
-    public BoMon() {
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
+    @OneToMany(mappedBy = "boMon")
+    private Set<GiaoVien> lstGiaoVien;
 
     public String getMaNganh() {
         return maNganh;
@@ -66,4 +42,31 @@ public class BoMon implements Serializable {
         this.tenNganh = tenNganh;
     }
 
+    public KhoaVien getKhoaVien() {
+        return khoaVien;
+    }
+
+    public void setKhoaVien(KhoaVien khoaVien) {
+        this.khoaVien = khoaVien;
+    }
+
+    public Set<MonHoc> getLstMonHoc() {
+        return lstMonHoc;
+    }
+
+    public void setLstMonHoc(Set<MonHoc> lstMonHoc) {
+        this.lstMonHoc = lstMonHoc;
+    }
+
+    public Set<GiaoVien> getLstGiaoVien() {
+        return lstGiaoVien;
+    }
+
+    public void setLstGiaoVien(Set<GiaoVien> lstGiaoVien) {
+        this.lstGiaoVien = lstGiaoVien;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 }

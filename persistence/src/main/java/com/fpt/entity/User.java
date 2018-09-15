@@ -12,7 +12,6 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_name", nullable = false, unique = true)
     private String userName;
 
@@ -40,13 +39,13 @@ public class User implements Serializable {
     @Column(name = "user_dob")
     private String userDOB;
 
-    @OneToMany(fetch=FetchType.EAGER)
-    @JoinColumn(name="user_name", nullable=false)
-    private Set<GiaoVien> maGiaoVien;
+    @OneToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="user_name")
+    private GiaoVien giaoVien;
 
-    @OneToMany(fetch=FetchType.EAGER)
-    @JoinColumn(name="user_name", nullable=false)
-    private Set<SinhVien> maSinhVien;
+    @OneToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="user_name")
+    private SinhVien sinhVien;
 
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
@@ -57,18 +56,6 @@ public class User implements Serializable {
     Set<Role> roles;
 
     public User() {
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
     }
 
     public String getUserName() {
@@ -143,20 +130,31 @@ public class User implements Serializable {
         this.userDOB = userDOB;
     }
 
-    public Set<GiaoVien> getMaGiaoVien() {
-        return maGiaoVien;
+    public GiaoVien getGiaoVien() {
+        return giaoVien;
     }
 
-    public void setMaGiaoVien(Set<GiaoVien> maGiaoVien) {
-        this.maGiaoVien = maGiaoVien;
+    public void setGiaoVien(GiaoVien giaoVien) {
+        this.giaoVien = giaoVien;
     }
 
-    public Set<SinhVien> getMaSinhVien() {
-        return maSinhVien;
+    public SinhVien getSinhVien() {
+        return sinhVien;
     }
 
-    public void setMaSinhVien(Set<SinhVien> maSinhVien) {
-        this.maSinhVien = maSinhVien;
+    public void setSinhVien(SinhVien sinhVien) {
+        this.sinhVien = sinhVien;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 }

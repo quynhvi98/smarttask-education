@@ -2,6 +2,13 @@ package com.fpt.services.khoavien;
 
 import com.fpt.entity.KhoaVien;
 
+import java.util.List;
+import java.util.Set;
+
 public interface KhoaVienService {
-    KhoaVien taoKhoaVien(KhoaVien khoaVien);
+    KhoaVien create(KhoaVien khoaVien);
+    KhoaVien update(KhoaVien khoaVien);
+    void delete(String id);
+    KhoaVien findById(String id);
+    List<KhoaVien> getAll();
 }

@@ -1,5 +1,7 @@
 package com.fpt.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
@@ -16,36 +18,13 @@ public class KhoaVien implements Serializable {
     @Column(name = "ten_vien")
     private String tenVien;
 
-    @OneToMany(fetch=FetchType.EAGER)
-    @JoinColumn(name="ma_vien", nullable=false)
-    private Set<BoMon> tenNganh;
+    @JsonIgnore
+    @OneToMany(mappedBy = "khoaVien")
+    private Set<BoMon> lstBoMon;
 
-    @OneToMany(fetch=FetchType.EAGER)
-    @JoinColumn(name="ma_vien", nullable=false)
-    private Set<SinhVien> maSinhVien;
-
-    public Set<SinhVien> getMaSinhVien() {
-        return maSinhVien;
-    }
-
-    public void setMaSinhVien(Set<SinhVien> maSinhVien) {
-        this.maSinhVien = maSinhVien;
-    }
-
-    public void setTenNganh(Set<BoMon> tenNganh) {
-        this.tenNganh = tenNganh;
-    }
-
-    private Set<BoMon> getTenNganh(){
-        return getTenNganh();
-    };
-
-    public KhoaVien() {
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
+    @JsonIgnore
+    @OneToMany(mappedBy = "khoaVien")
+    private Set<SinhVien> lstSinhVien;
 
     public String getMaVien() {
         return maVien;
@@ -61,5 +40,25 @@ public class KhoaVien implements Serializable {
 
     public void setTenVien(String tenVien) {
         this.tenVien = tenVien;
+    }
+
+    public Set<BoMon> getLstBoMon() {
+        return lstBoMon;
+    }
+
+    public void setLstBoMon(Set<BoMon> lstBoMon) {
+        this.lstBoMon = lstBoMon;
+    }
+
+    public Set<SinhVien> getLstSinhVien() {
+        return lstSinhVien;
+    }
+
+    public void setLstSinhVien(Set<SinhVien> lstSinhVien) {
+        this.lstSinhVien = lstSinhVien;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 }

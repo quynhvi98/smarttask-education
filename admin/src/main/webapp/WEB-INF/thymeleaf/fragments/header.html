@@ -128,20 +128,16 @@
 							<ul class="dropdown-menu">
 								<li class="user-body">
 									<div class="list-group random-clolor-avatar">
-										<a th:href="@{/user-info}" th:text="#{menu.user.info}" class="list-group-item">function</a>
-										<a th:href="@{/user-info/userWorkingGroupView}" th:text="#{menu.user.work}" class="list-group-item">function</a>
-										<a th:href="@{/user-info/userDelegateView}" th:text="#{menu.user.delegate}" class="list-group-item">function</a>
-										<a th:href="@{/user-info/assignedView}" th:text="#{menu.user.delegate.to }" class="list-group-item">function</a>
-										<a th:href="@{/user-info/changePassword}" th:text="#{menu.user.change.password}" class="list-group-item">function</a>
+										<a th:href="@{/user-info}" class="list-group-item">function</a>
 									</div>
 								</li>
 								<!-- Menu Footer-->
 								<li class="user-footer">
-									<div class="pull-left">
-										<a href="#" th:text="#{menu.profile}" class="btn btn-default btn-flat">Profile</a>
-									</div>
+									<!--<div class="pull-left">-->
+										<!--<a href="#" class="btn btn-default btn-flat">Profile</a>-->
+									<!--</div>-->
 									<div class="pull-right">
-										<a th:href="@{/logout}" th:text="#{menu.logout}" class="btn btn-default btn-flat">Sign out</a>
+										<a th:href="@{/logout}" class="btn btn-default btn-flat">Sign out</a>
 									</div>
 								</li>
 							</ul>
@@ -157,17 +153,17 @@
 			<section class="sidebar">
 
 				<ul class="sidebar-menu">
-					<li class="treeview" th:each="lMenu : ${session.menu}">
-						<a href="#">
-							<i th:attr="class=${lMenu.key.feeType}"></i>
-							<span th:text="#{${lMenu.key.displayName}}">Display name</span>
+					<li class="treeview">
+						<a th:href="@{/khoavien}">
+							<i></i>
+							<span>Quản lý khoa viện</span>
 							<i class="fa fa-angle-left pull-right"></i>
 						</a>
-						<ul class="treeview-menu">
-							<li th:each="m2 : ${lMenu.value}">
-								<a th:href="@{${m2.pageUri}}" th:text="#{${m2.displayName}}"><i th:attr="class=${m2.feeType}"></i>function</a>
-							</li>
-						</ul>
+						<!--<ul class="treeview-menu">-->
+							<!--<li th:each="m2 : ${lMenu.value}">-->
+								<!--<a th:href="@{${m2.pageUri}}" th:text="#{${m2.displayName}}"><i th:attr="class=${m2.feeType}"></i>function</a>-->
+							<!--</li>-->
+						<!--</ul>-->
 					</li>
 				</ul>
 			</section>

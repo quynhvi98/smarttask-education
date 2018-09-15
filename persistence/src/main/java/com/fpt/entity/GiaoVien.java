@@ -25,6 +25,16 @@ public class GiaoVien {
     @JoinColumn(name="ma_giao_vien", nullable=false)
     private Set<LopHoc> maLopHoc;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ma_nganh")
+    private BoMon boMon;
+
+    @OneToOne(mappedBy = "giaoVien", fetch = FetchType.LAZY)
+    private User user;
+
+    public GiaoVien() {
+    }
+
     public Set<LopHoc> getMaLopHoc() {
         return maLopHoc;
     }
@@ -56,4 +66,22 @@ public class GiaoVien {
     public void setMoTa(String moTa) {
         this.moTa = moTa;
     }
+
+    public BoMon getBoMon() {
+        return boMon;
+    }
+
+    public void setBoMon(BoMon boMon) {
+        this.boMon = boMon;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+
 }
