@@ -20,6 +20,9 @@ public class MonHoc {
     @Column(name = "trang_thai")
     private String trangThai;
 
+    @Column(name = "tin_chi")
+    private int tinChi;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ma_nganh")
     private BoMon boMon;
@@ -29,6 +32,14 @@ public class MonHoc {
     private Set<LopHoc> lstLopHoc;
 
     public MonHoc() {
+    }
+
+    public int getTinChi() {
+        return tinChi;
+    }
+
+    public void setTinChi(int tinChi) {
+        this.tinChi = tinChi;
     }
 
     public BoMon getBoMon() {
