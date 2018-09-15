@@ -1,0 +1,9 @@
+.khung {
+    position: relative;
+    overflow: hidden;
+    padding: 0.5% 8% 0% 2%;
+    background-color: #f7f7f7;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    min-width: 820px;
+    min-height: 53px;
+}
