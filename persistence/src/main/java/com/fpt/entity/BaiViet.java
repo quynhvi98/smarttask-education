@@ -40,7 +40,35 @@ public class BaiViet {
     @JoinColumn(name = "ma_loai")
     private LoaiBaiViet loaiBaiViet;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ma_lop")
+    private LopHoc lopHoc;
+
     public BaiViet() {
+    }
+
+    public Set<BaiTap> getLstBaiTap() {
+        return lstBaiTap;
+    }
+
+    public void setLstBaiTap(Set<BaiTap> lstBaiTap) {
+        this.lstBaiTap = lstBaiTap;
+    }
+
+    public LoaiBaiViet getLoaiBaiViet() {
+        return loaiBaiViet;
+    }
+
+    public void setLoaiBaiViet(LoaiBaiViet loaiBaiViet) {
+        this.loaiBaiViet = loaiBaiViet;
+    }
+
+    public LopHoc getLopHoc() {
+        return lopHoc;
+    }
+
+    public void setLopHoc(LopHoc lopHoc) {
+        this.lopHoc = lopHoc;
     }
 
     public static long getSerialVersionUID() {

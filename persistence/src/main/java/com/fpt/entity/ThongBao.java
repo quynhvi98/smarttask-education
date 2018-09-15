@@ -35,4 +35,55 @@ public class ThongBao {
     @JoinColumn(name = "ma_nhom")
     private Nhom nhom;
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public GiaoVien getGiaoVien() {
+        return giaoVien;
+    }
+
+    public void setGiaoVien(GiaoVien giaoVien) {
+        this.giaoVien = giaoVien;
+    }
+
+    public SinhVien getSinhVien() {
+        return sinhVien;
+    }
+
+    public void setSinhVien(SinhVien sinhVien) {
+        this.sinhVien = sinhVien;
+    }
+
+    public LopHoc getLopHoc() {
+        return lopHoc;
+    }
+
+    public void setLopHoc(LopHoc lopHoc) {
+        this.lopHoc = lopHoc;
+    }
+
+    public Nhom getNhom() {
+        return nhom;
+    }
+
+    public void setNhom(Nhom nhom) {
+        this.nhom = nhom;
+    }
 }

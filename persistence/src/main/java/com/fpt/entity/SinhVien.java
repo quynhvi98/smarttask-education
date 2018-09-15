@@ -48,6 +48,22 @@ public class SinhVien {
     public SinhVien() {
     }
 
+    public Set<BaiTap> getLstBaiTap() {
+        return lstBaiTap;
+    }
+
+    public void setLstBaiTap(Set<BaiTap> lstBaiTap) {
+        this.lstBaiTap = lstBaiTap;
+    }
+
+    public Set<ThongBao> getLstThongBao() {
+        return lstThongBao;
+    }
+
+    public void setLstThongBao(Set<ThongBao> lstThongBao) {
+        this.lstThongBao = lstThongBao;
+    }
+
     public Set<Nhom> getNhoms() {
         return nhoms;
     }

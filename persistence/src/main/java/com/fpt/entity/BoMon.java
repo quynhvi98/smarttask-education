@@ -18,14 +18,6 @@ public class BoMon implements Serializable {
     @Column(name = "ten_nganh")
     private String tenNganh;
 
-    public String getTrangThai() {
-        return trangThai;
-    }
-
-    public void setTrangThai(String trangThai) {
-        this.trangThai = trangThai;
-    }
-
     @Column(name = "trang_thai")
     private String trangThai;
 
@@ -34,13 +26,28 @@ public class BoMon implements Serializable {
     private KhoaVien khoaVien;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "monHoc")
+    @OneToMany(mappedBy = "boMon")
     private Set<MonHoc> lstMonHoc;
 
-    @OneToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="ma_nganh")
-    private GiaoVien giaoVien;
+    @JsonIgnore
+    @OneToMany(mappedBy = "boMon")
+    private Set<GiaoVien> lstGiaoVien;
 
+    public Set<GiaoVien> getLstGiaoVien() {
+        return lstGiaoVien;
+    }
+
+    public void setLstGiaoVien(Set<GiaoVien> lstGiaoVien) {
+        this.lstGiaoVien = lstGiaoVien;
+    }
+
+    public String getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(String trangThai) {
+        this.trangThai = trangThai;
+    }
     public String getMaNganh() {
         return maNganh;
     }

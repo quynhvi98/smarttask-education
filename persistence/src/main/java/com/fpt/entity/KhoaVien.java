@@ -29,6 +29,8 @@ public class KhoaVien implements Serializable {
     @OneToMany(mappedBy = "khoaVien")
     private Set<SinhVien> lstSinhVien;
 
+
+
     public String getTrangThai() {
         return trangThai;
     }

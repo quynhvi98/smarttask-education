@@ -34,6 +34,22 @@ public class BaiTap {
     public BaiTap() {
     }
 
+    public BaiViet getBaiViet() {
+        return baiViet;
+    }
+
+    public void setBaiViet(BaiViet baiViet) {
+        this.baiViet = baiViet;
+    }
+
+    public SinhVien getSinhVien() {
+        return sinhVien;
+    }
+
+    public void setSinhVien(SinhVien sinhVien) {
+        this.sinhVien = sinhVien;
+    }
+
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }

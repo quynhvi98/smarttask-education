@@ -24,7 +24,19 @@ public class NopDeTai {
     @Column(name = "path")
     private String path;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ma_nhom")
+    private Nhom nhom;
+
     public NopDeTai() {
+    }
+
+    public Nhom getNhom() {
+        return nhom;
+    }
+
+    public void setNhom(Nhom nhom) {
+        this.nhom = nhom;
     }
 
     public static long getSerialVersionUID() {

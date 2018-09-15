@@ -29,6 +29,14 @@ public class LoaiBaiViet {
     public LoaiBaiViet() {
     }
 
+    public Set<BaiViet> getLstBaiViet() {
+        return lstBaiViet;
+    }
+
+    public void setLstBaiViet(Set<BaiViet> lstBaiViet) {
+        this.lstBaiViet = lstBaiViet;
+    }
+
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }

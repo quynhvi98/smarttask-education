@@ -27,26 +27,34 @@ public class GiaoVien {
     @OneToMany(mappedBy = "giaoVien")
     private Set<ThongBao> lstThongBao;
 
-
-    @OneToMany(fetch=FetchType.EAGER)
-    @JoinColumn(name="ma_giao_vien", nullable=false)
-    private Set<LopHoc> maLopHoc;
+    @JsonIgnore
+    @OneToMany(mappedBy = "giaoVien")
+    private Set<LopHoc> lstLopHoc;
 
     @OneToOne(mappedBy = "giaoVien", fetch = FetchType.LAZY)
     private User user;
 
-    @OneToOne(mappedBy = "giaoVien", fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ma_nganh")
     private BoMon boMon;
 
     public GiaoVien() {
     }
 
-    public Set<LopHoc> getMaLopHoc() {
-        return maLopHoc;
+    public Set<ThongBao> getLstThongBao() {
+        return lstThongBao;
     }
 
-    public void setMaLopHoc(Set<LopHoc> maLopHoc) {
-        this.maLopHoc = maLopHoc;
+    public void setLstThongBao(Set<ThongBao> lstThongBao) {
+        this.lstThongBao = lstThongBao;
+    }
+
+    public Set<LopHoc> getLstLopHoc() {
+        return lstLopHoc;
+    }
+
+    public void setLstLopHoc(Set<LopHoc> lstLopHoc) {
+        this.lstLopHoc = lstLopHoc;
     }
 
     public String getMaGiaoVien() {

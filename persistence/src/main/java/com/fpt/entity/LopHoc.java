@@ -42,9 +42,17 @@ public class LopHoc {
     @OneToMany(mappedBy = "lopHoc")
     private Set<BaiViet> lstBaiViet;
 
-    @OneToMany(fetch=FetchType.EAGER)
-    @JoinColumn(name="ma_lop", nullable=false)
-    private Set<Nhom> maNhom;
+    @JsonIgnore
+    @OneToMany(mappedBy = "lopHoc")
+    private Set<Nhom> lstNhom;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "giaoVien")
+    private GiaoVien giaoVien;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ma_mon_hoc")
+    private MonHoc monHoc;
 
     @JsonIgnore
     @OneToMany(mappedBy = "lopHoc")
@@ -61,12 +69,44 @@ public class LopHoc {
     public LopHoc() {
     }
 
-    public Set<Nhom> getMaNhom() {
-        return maNhom;
+    public Set<BaiViet> getLstBaiViet() {
+        return lstBaiViet;
     }
 
-    public void setMaNhom(Set<Nhom> maNhom) {
-        this.maNhom = maNhom;
+    public void setLstBaiViet(Set<BaiViet> lstBaiViet) {
+        this.lstBaiViet = lstBaiViet;
+    }
+
+    public Set<Nhom> getLstNhom() {
+        return lstNhom;
+    }
+
+    public void setLstNhom(Set<Nhom> lstNhom) {
+        this.lstNhom = lstNhom;
+    }
+
+    public GiaoVien getGiaoVien() {
+        return giaoVien;
+    }
+
+    public void setGiaoVien(GiaoVien giaoVien) {
+        this.giaoVien = giaoVien;
+    }
+
+    public MonHoc getMonHoc() {
+        return monHoc;
+    }
+
+    public void setMonHoc(MonHoc monHoc) {
+        this.monHoc = monHoc;
+    }
+
+    public Set<ThongBao> getLstThongBao() {
+        return lstThongBao;
+    }
+
+    public void setLstThongBao(Set<ThongBao> lstThongBao) {
+        this.lstThongBao = lstThongBao;
     }
 
     public Set<SinhVien> getSinhViens() {

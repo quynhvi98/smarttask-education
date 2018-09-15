@@ -29,9 +29,9 @@ public class Nhom {
     @Column(name = "ngay_tao_nhom")
     private Date ngayTaoNhom;
 
-    @OneToMany(fetch=FetchType.EAGER)
-    @JoinColumn(name="ma_nhom", nullable=false)
-    private Set<NopDeTai> maNopDeTai;
+    @JsonIgnore
+    @OneToMany(mappedBy = "nhom")
+    private Set<NopDeTai> lstNopDeTai;
 
     @JsonIgnore
     @OneToMany(mappedBy = "nhom")
@@ -48,7 +48,35 @@ public class Nhom {
     @ManyToMany(mappedBy = "nhoms")
     private Set<SinhVien> sinhViens;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ma_lop")
+    private LopHoc lopHoc;
+
     public Nhom() {
+    }
+
+    public Set<NopDeTai> getLstNopDeTai() {
+        return lstNopDeTai;
+    }
+
+    public void setLstNopDeTai(Set<NopDeTai> lstNopDeTai) {
+        this.lstNopDeTai = lstNopDeTai;
+    }
+
+    public Set<ThongBao> getLstThongBao() {
+        return lstThongBao;
+    }
+
+    public void setLstThongBao(Set<ThongBao> lstThongBao) {
+        this.lstThongBao = lstThongBao;
+    }
+
+    public LopHoc getLopHoc() {
+        return lopHoc;
+    }
+
+    public void setLopHoc(LopHoc lopHoc) {
+        this.lopHoc = lopHoc;
     }
 
     public static long getSerialVersionUID() {
@@ -77,14 +105,6 @@ public class Nhom {
 
     public void setNgayTaoNhom(Date ngayTaoNhom) {
         this.ngayTaoNhom = ngayTaoNhom;
-    }
-
-    public Set<NopDeTai> getMaNopDeTai() {
-        return maNopDeTai;
-    }
-
-    public void setMaNopDeTai(Set<NopDeTai> maNopDeTai) {
-        this.maNopDeTai = maNopDeTai;
     }
 
     public Set<DeTai> getDeTais() {

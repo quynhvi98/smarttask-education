@@ -1,5 +1,7 @@
 package com.fpt.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -18,20 +20,33 @@ public class MonHoc {
     @Column(name = "trang_thai")
     private String trangThai;
 
-    @OneToMany(fetch=FetchType.EAGER)
-    @JoinColumn(name="ma_mon_hoc", nullable=false)
-    private Set<LopHoc> maLopHoc;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ma_nganh")
-    private BoMon monHoc;
+    private BoMon boMon;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "monHoc")
+    private Set<LopHoc> lstLopHoc;
 
     public MonHoc() {
     }
 
-    public Set<LopHoc> getMaLopHoc() {
-        return maLopHoc;
+    public BoMon getBoMon() {
+        return boMon;
     }
+
+    public void setBoMon(BoMon boMon) {
+        this.boMon = boMon;
+    }
+
+    public Set<LopHoc> getLstLopHoc() {
+        return lstLopHoc;
+    }
+
+    public void setLstLopHoc(Set<LopHoc> lstLopHoc) {
+        this.lstLopHoc = lstLopHoc;
+    }
+
 
     public String getTrangThai() {
         return trangThai;
@@ -39,10 +54,6 @@ public class MonHoc {
 
     public void setTrangThai(String trangThai) {
         this.trangThai = trangThai;
-    }
-
-    public void setMaLopHoc(Set<LopHoc> maLopHoc) {
-        this.maLopHoc = maLopHoc;
     }
 
     public static long getSerialVersionUID() {
