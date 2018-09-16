@@ -23,18 +23,16 @@ public class GiaoVien {
     @Column(name = "mo_ta")
     private String moTa;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "giaoVien")
+    @OneToMany(mappedBy = "giaoVien", fetch = FetchType.EAGER)
     private Set<ThongBao> lstThongBao;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "giaoVien")
+    @OneToMany(mappedBy = "giaoVien", fetch = FetchType.EAGER)
     private Set<LopHoc> lstLopHoc;
 
-    @OneToOne(mappedBy = "giaoVien", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "giaoVien")
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "ma_nganh")
     private BoMon boMon;
 

@@ -39,11 +39,11 @@ public class User implements Serializable {
     @Column(name = "user_dob")
     private String userDOB;
 
-    @OneToOne(fetch=FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name="user_name")
     private GiaoVien giaoVien;
 
-    @OneToOne(fetch=FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name="user_name")
     private SinhVien sinhVien;
 

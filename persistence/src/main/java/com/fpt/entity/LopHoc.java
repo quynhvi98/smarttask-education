@@ -38,24 +38,21 @@ public class LopHoc {
     @Column(name = "ngay_ket_thuc")
     private Date ngayKetThuc;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "lopHoc")
+    @OneToMany(mappedBy = "lopHoc", fetch = FetchType.EAGER)
     private Set<BaiViet> lstBaiViet;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "lopHoc")
+    @OneToMany(mappedBy = "lopHoc", fetch = FetchType.EAGER)
     private Set<Nhom> lstNhom;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "giaoVien")
     private GiaoVien giaoVien;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "ma_mon_hoc")
     private MonHoc monHoc;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "lopHoc")
+    @OneToMany(mappedBy = "lopHoc", fetch = FetchType.EAGER)
     private Set<ThongBao> lstThongBao;
 
     @ManyToMany(cascade = { CascadeType.ALL })

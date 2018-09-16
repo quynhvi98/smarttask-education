@@ -26,9 +26,7 @@ public class BoMonController {
 
     @GetMapping("/bomon")
     public String base(Model model){
-        List<KhoaVien> lstKhoaVien = khoaVienService.getAll();
-        List<BoMon> lstBoMon = boMonService.getAll();
-        model.addAttribute("lstKhoaVien", lstKhoaVien);
+        List<BoMon> lstBoMon = boMonService.findAll();
         model.addAttribute("lstBoMon", lstBoMon);
         return "bomon/bomon";
     }

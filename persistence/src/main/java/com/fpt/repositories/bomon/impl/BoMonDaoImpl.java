@@ -24,11 +24,7 @@ public class BoMonDaoImpl implements BoMonDaoCustom {
     @Transactional
     @Override
     public List<BoMon> getAll() {
-        List<BoMon> lstBomon = em.createQuery("from BoMon bm").getResultList();
-        Hibernate.initialize(lstBomon);
-        for(BoMon boMon : lstBomon){
-            boMon.getKhoaVien();
-        }
+        List<BoMon> lstBomon = em.createQuery("from BoMon bm join fetch bm.khoaVien").getResultList();
         return lstBomon;
     }
 }

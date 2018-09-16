@@ -21,16 +21,14 @@ public class BoMon implements Serializable {
     @Column(name = "trang_thai")
     private String trangThai;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "ma_vien")
     private KhoaVien khoaVien;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "boMon")
+    @OneToMany(mappedBy = "boMon", fetch = FetchType.EAGER)
     private Set<MonHoc> lstMonHoc;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "boMon")
+    @OneToMany(mappedBy = "boMon", fetch = FetchType.EAGER)
     private Set<GiaoVien> lstGiaoVien;
 
     public Set<GiaoVien> getLstGiaoVien() {

@@ -19,19 +19,19 @@ public class ThongBao {
     @Column(name = "content")
     private String content;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "ma_giao_vien")
     private GiaoVien giaoVien;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "ma_sinh_vien")
     private SinhVien sinhVien;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "ma_lop")
     private LopHoc lopHoc;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "ma_nhom")
     private Nhom nhom;
 

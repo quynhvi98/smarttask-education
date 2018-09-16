@@ -21,12 +21,10 @@ public class KhoaVien implements Serializable {
     @Column(name = "trang_thai")
     private String trangThai;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "khoaVien")
+    @OneToMany(mappedBy = "khoaVien", fetch = FetchType.EAGER)
     private Set<BoMon> lstBoMon;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "khoaVien")
+    @OneToMany(mappedBy = "khoaVien", fetch = FetchType.EAGER)
     private Set<SinhVien> lstSinhVien;
 
 

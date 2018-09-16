@@ -19,8 +19,7 @@ public class SinhVien {
     @Column(name = "ma_sinh_vien")
     private String maSinhVien;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "sinhVien")
+    @OneToMany(mappedBy = "sinhVien", fetch = FetchType.EAGER)
     private Set<BaiTap> lstBaiTap;
 
     @ManyToMany(cascade = { CascadeType.ALL })
@@ -34,15 +33,14 @@ public class SinhVien {
     @ManyToMany(mappedBy = "sinhViens")
     private Set<LopHoc> lopHocs;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "ma_vien")
     private KhoaVien khoaVien;
 
-    @OneToOne(mappedBy = "sinhVien", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "sinhVien")
     private User user;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "sinhVien")
+    @OneToMany(mappedBy = "sinhVien", fetch = FetchType.EAGER)
     private Set<ThongBao> lstThongBao;
 
     public SinhVien() {

@@ -24,7 +24,7 @@ public class NopDeTai {
     @Column(name = "path")
     private String path;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "ma_nhom")
     private Nhom nhom;
 

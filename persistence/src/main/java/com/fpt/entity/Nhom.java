@@ -29,12 +29,10 @@ public class Nhom {
     @Column(name = "ngay_tao_nhom")
     private Date ngayTaoNhom;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "nhom")
+    @OneToMany(mappedBy = "nhom", fetch = FetchType.EAGER)
     private Set<NopDeTai> lstNopDeTai;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "nhom")
+    @OneToMany(mappedBy = "nhom", fetch = FetchType.EAGER)
     private Set<ThongBao> lstThongBao;
 
     @ManyToMany(cascade = { CascadeType.ALL })
@@ -48,7 +46,7 @@ public class Nhom {
     @ManyToMany(mappedBy = "nhoms")
     private Set<SinhVien> sinhViens;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "ma_lop")
     private LopHoc lopHoc;
 

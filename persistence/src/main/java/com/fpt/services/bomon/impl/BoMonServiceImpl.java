@@ -19,7 +19,7 @@ public class BoMonServiceImpl implements BoMonService {
     }
 
     @Override
-    public List<BoMon> getAll() {
-        return  boMonDao.getAll();
+    public List<BoMon> findAll() {
+        return (List<BoMon>) boMonDao.findAll();
     }
 }

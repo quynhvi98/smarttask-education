@@ -32,15 +32,14 @@ public class BaiViet {
     @Column(name = "ngay_tao")
     private Date ngay_tao;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "baiViet")
+    @OneToMany(mappedBy = "baiViet", fetch = FetchType.EAGER)
     private Set<BaiTap> lstBaiTap;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "ma_loai")
     private LoaiBaiViet loaiBaiViet;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "ma_lop")
     private LopHoc lopHoc;
 

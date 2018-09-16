@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface BoMonService {
     BoMon taoBoMon(BoMon boMon);
-    List<BoMon> getAll();
+    List<BoMon> findAll();
 }

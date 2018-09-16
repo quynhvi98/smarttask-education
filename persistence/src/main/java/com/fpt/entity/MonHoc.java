@@ -23,12 +23,11 @@ public class MonHoc {
     @Column(name = "tin_chi")
     private int tinChi;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "ma_nganh")
     private BoMon boMon;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "monHoc")
+    @OneToMany(mappedBy = "monHoc", fetch = FetchType.EAGER)
     private Set<LopHoc> lstLopHoc;
 
     public MonHoc() {

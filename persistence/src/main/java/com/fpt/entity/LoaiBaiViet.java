@@ -22,8 +22,7 @@ public class LoaiBaiViet {
     @Column(name = "ten_loai")
     private String tenLoai;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "loaiBaiViet")
+    @OneToMany(mappedBy = "loaiBaiViet", fetch = FetchType.EAGER)
     private Set<BaiViet> lstBaiViet;
 
     public LoaiBaiViet() {
