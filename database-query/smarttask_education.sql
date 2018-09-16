@@ -58,6 +58,7 @@ CREATE TABLE IF NOT EXISTS mon_hoc (
   ma_mon_hoc VARCHAR(255),
   ten_mon_hoc VARCHAR(255),
   trang_thai varchar(255),
+  tin_chi int,
   ma_nganh VARCHAR(255),
   PRIMARY KEY (ma_mon_hoc),
   CONSTRAINT FK_ma_nganh FOREIGN KEY (ma_nganh) REFERENCES bo_mon(ma_nganh)
