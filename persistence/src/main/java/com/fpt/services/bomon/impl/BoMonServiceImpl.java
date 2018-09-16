@@ -6,6 +6,8 @@ import com.fpt.services.bomon.BoMonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BoMonServiceImpl implements BoMonService {
     @Autowired
@@ -14,5 +16,10 @@ public class BoMonServiceImpl implements BoMonService {
     @Override
     public BoMon taoBoMon(BoMon boMon) {
         return boMonDao.save(boMon);
+    }
+
+    @Override
+    public List<BoMon> getAll() {
+        return  boMonDao.getAll();
     }
 }

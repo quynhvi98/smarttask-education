@@ -56,7 +56,9 @@ public class KhoaVienController {
     @PostMapping("/khoavien/xoa")
     public void delete(@RequestParam("id") String id, HttpServletResponse response) throws IOException {
         try {
-            khoaVienService.delete(id);
+            KhoaVien persist = khoaVienService.findById(id);
+            persist.setTrangThai(String.valueOf(0));
+            khoaVienService.update(persist);
             response.getWriter().println("success");
         } catch (Exception e) {
             response.getWriter().println("failed");

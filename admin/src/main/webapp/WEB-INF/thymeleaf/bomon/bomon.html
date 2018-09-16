@@ -76,14 +76,14 @@
         <!--<div layout:fragment="content">&nbsp;</div>-->
         <section class="content-header">
             <h1>
-                Quản lý khoa viện
+                Quản lý bộ môn
             </h1>
             <ol class="breadcrumb">
                 <li>
                     <a href="#">Trang chủ</a>
                 </li>
                 <li class="active">
-                    Quản lý khoa viện
+                    Quản lý bộ môn
                 </li>
             </ol>
         </section>
@@ -118,7 +118,7 @@
             <!-- <div class="submit"></div> -->
         </div>
         <h3 class="title">
-            Danh sách khoa viện
+            Danh sách bộ môn
             <a href="#" class="add-use" data-toggle="modal" data-target="#themnhansu">
                 <i class="fa fa-plus-circle" aria-hidden="true"></i>
                 Thêm mới
@@ -133,11 +133,14 @@
                     </th>
                     <th>
                         <div>
-                            <div>Mã khoa viện</div>
+                            <div>Mã bộ môn</div>
                         </div>
                     </th>
                     <th>
-                        <div>Tên khoa viện</div>
+                        <div>Tên bộ môn</div>
+                    </th>
+                    <th>
+                        <div>Khoa/viện</div>
                     </th>
                     <th class="wpx-40">
                         <!-- <div>Chức năng</div> -->
@@ -145,15 +148,18 @@
                 </tr>
                 </thead>
                 <tbody class="text-center">
-                <th:block th:if="${#lists.isEmpty(lstKhoaVien)}">
+                <th:block th:if="${#lists.isEmpty(lstBoMon)}">
                     <p>Không có dữ liệu</p>
                 </th:block>
-                <th:block th:if="${!#lists.isEmpty(lstKhoaVien)}">
-                    <th:block th:each="kv, i : ${lstKhoaVien}">
+                <th:block th:if="${!#lists.isEmpty(lstBoMon)}">
+                    <th:block th:each="bm, i : ${lstBoMon}">
                         <tr>
                             <td th:text="${i.index+1}">1</td>
-                            <td th:text="${kv.maVien}"></td>
-                            <td th:text="${kv.tenVien}"></td>
+                            <td th:text="${bm.maNganh}"></td>
+                            <td th:text="${bm.tenNganh}"></td>
+                            <td>
+
+                            </td>
                             <td class="text-center">
                                 <div class="dropdown bacham">
                                     <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -161,12 +167,12 @@
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-right">
                                         <li class="inline">
-                                            <a class="icon-edit" th:attr="idItem=${kv.maVien}"
+                                            <a class="icon-edit" th:attr="idItem=${bm.maNganh}"
                                                data-toggle="modal"
                                                data-target="#suanhansu"><i class="fa fa-pencil-square-o"
                                                                            aria-hidden="true"></i> Sửa</a></li>
                                         <li class="inline">
-                                            <a class="icon-remove" th:attr="idItem=${kv.maVien}"><i
+                                            <a class="icon-remove" th:attr="idItem=${bm.maNganh}"><i
                                                     class="fa fa-trash-o" aria-hidden="true"></i> Xóa</a>
                                         </li>
                                     </ul>
@@ -195,28 +201,38 @@
                         </h3>
                     </div>
                     <div class="modal-body">
-                        <form id="form-themmoi" th:action="@{/khoavien/them-moi}" method="post" class="form-horizontal">
+                        <form id="form-themmoi" th:action="@{/bomon/them-moi}" method="post" class="form-horizontal">
                             <div class="">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label">Mã khoa viện <span class="red">(*)</span></label>
+                                            <label for="" class="col-sm-3 control-label">Mã bộ môn <span class="red">(*)</span></label>
                                             <div class="col-md-9">
-                                                <input required name="maVien" type="text" class="form-control" id=""
-                                                       placeholder="Mã khoa viện">
+                                                <input required name="maNganh" type="text" class="form-control" id=""
+                                                       placeholder="Mã bộ môn">
                                             </div>
                                             <p class="col-sm-offset-3 help-block red">Example block-level help text
                                                 here.</p>
                                         </div>
                                         <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label">Tên khoa viện <span
+                                            <label for="" class="col-sm-3 control-label">Tên bộ môn <span
                                                     class="red">(*)</span></label>
                                             <div class="col-md-9">
-                                                <input required name="tenVien" type="text" class="form-control" id=""
-                                                       placeholder="Tên khoa viện ">
+                                                <input required name="tenNganh" type="text" class="form-control" id=""
+                                                       placeholder="Tên bộ môn ">
                                             </div>
                                             <p class="col-sm-offset-3 help-block red">Example block-level help text
                                                 here.</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-3 control-label">Khoa/viện</label>
+                                            <div class="col-md-9">
+                                                <select name="khoaVien" class="select2 form-control" title="Khoa/viện">
+                                                    <th:block th:if="${!#lists.isEmpty(lstKhoaVien)}" th:each="kv : ${lstKhoaVien}">
+                                                        <option th:value="${kv.maVien}" th:text="${kv.tenVien}"></option>
+                                                    </th:block>
+                                                </select>
+                                            </div>
                                         </div>
                                         <input name="trangThai" value="1" hidden/>
                                     </div>
@@ -258,27 +274,34 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label">Mã khoa viện <span class="red">(*)</span></label>
+                                            <label for="" class="col-sm-3 control-label">Mã bộ môn <span class="red">(*)</span></label>
                                             <div class="col-md-9">
-                                                <input required name="maVien" readonly type="text" class="form-control"
-                                                       id="maVienEdit"
-                                                       placeholder="Mã khoa viện">
+                                                <input required name="maNganh" readonly type="text" class="form-control"
+                                                       id="maNganhEdit"
+                                                       placeholder="Mã bộ môn">
                                             </div>
                                             <p class="col-sm-offset-3 help-block red">Example block-level help text
                                                 here.</p>
                                         </div>
                                         <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label">Tên khoa viện <span
+                                            <label for="" class="col-sm-3 control-label">Tên bộ môn <span
                                                     class="red">(*)</span></label>
                                             <div class="col-md-9">
-                                                <input required name="tenVien" type="text" class="form-control"
-                                                       id="tenVienEdit"
-                                                       placeholder="Tên khoa viện ">
+                                                <input required name="tenNganh" type="text" class="form-control"
+                                                       id="tenNganhEdit"
+                                                       placeholder="Tên bộ môn ">
                                             </div>
                                             <p class="col-sm-offset-3 help-block red">Example block-level help text
                                                 here.</p>
                                         </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-3 control-label">Khoa/viện</label>
+                                            <div class="col-md-9">
+                                                <select name="khoaVien" class="select2 form-control" title="Khoa/viện">
 
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -311,7 +334,7 @@
             if (valid.isValid()) {
                 var data = $('#form-themmoi').serialize();
                 $.ajax({
-                    url: base_url + 'khoavien/them-moi?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
+                    url: base_url + 'bomon/them-moi?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
                     type: "post",
                     data: data,
                     dataType: "text",
@@ -323,7 +346,7 @@
                                 position: "top right",
                                 sound: false,
                                 delay: 2000,
-                                title: 'Thêm khoa viện',
+                                title: 'Thêm bộ môn',
                                 msg: 'Thêm mới thành công'
                             });
                             setTimeout("location.reload(true);", 2000);
@@ -334,7 +357,7 @@
                                 position: "top right",
                                 sound: false,
                                 delay: 2000,
-                                title: 'Thêm khoa viện',
+                                title: 'Thêm bộ môn',
                                 msg: 'Thêm mới không thành công'
                             });
                         }
@@ -343,106 +366,106 @@
             }
         });
     //
-
-    $('#btn-edit').click(function () {
-        var valid = $("#form-sua").parsley();
-        valid.validate();
-        if (valid.isValid()) {
-            var data = $('#form-sua').serialize();
-            $.ajax({
-                url: base_url + 'khoavien/cap-nhat?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
-                type: "post",
-                data: data,
-                dataType: "text",
-                success: function (result) {
-                    $('#suanhansu').modal('hide');
-                    if (result.trim() === "success") {
-                        Lobibox.notify('success', {
-                            size: 'mini',
-                            position: "top right",
-                            sound: false,
-                            delay: 2000,
-                            title: 'Cập nhật khoa viện',
-                            msg: 'Cập nhật thành công'
-                        });
-                        setTimeout("location.reload(true);", 2000);
-                        // window.location.replace(base_url + 'category');
-                    } else {
-                        Lobibox.notify('error', {
-                            size: 'mini',
-                            position: "top right",
-                            sound: false,
-                            delay: 2000,
-                            title: 'Cập nhật khoa viện',
-                            msg: 'Cập nhật không thành công'
-                        });
-                    }
-                }
-            });
-        }
-    });
-
-
-    $('.icon-remove').click(function () {
-        var idItem = $(this).attr("idItem");
-        swal({
-                title: "Cảnh báo",
-                text: "Bạn có chắc muốn xóa danh mục này không!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonClass: "btn-danger",
-                confirmButtonText: "Đồng ý",
-                cancelButtonText: "Thoát!",
-            },
-            function (isConfirm) {
-                if (isConfirm) {
-                    $.ajax({
-                        url: base_url + 'khoavien/xoa?id=' + idItem + "&" + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
-                        type: "post",
-                        dataType: "text",
-                        success: function (result) {
-                            if (result.trim() === 'success') {
-                                Lobibox.notify('success', {
-                                    size: 'mini',
-                                    position: "top right",
-                                    sound: false,
-                                    delay: 2000,
-                                    title: 'Xóa khoa viện',
-                                    msg: 'Đã xóa thành công'
-                                });
-                                setTimeout("location.reload(true);", 2000);
-                                // window.location.replace(base_url + 'category');
-                            } else {
-                                Lobibox.notify('error', {
-                                    size: 'mini',
-                                    position: "top right",
-                                    sound: false,
-                                    delay: 2000,
-                                    title: 'Xóa khoa viện',
-                                    msg: 'Xóa không thành công'
-                                });
-                            }
-                        }
-                    });
-                }
-            });
-    });
-
-    $('.icon-edit').click(function () {
-        var idItem = $(this).attr("idItem");
-        $.ajax({
-            url: base_url + 'khoavien/timkiem/' + idItem,
-            type: "get",
-            dataType: "text",
-            success: function (result) {
-                var rs = JSON.parse(result);
-                console.log(rs.maVien);
-                console.log(rs.tenVien);
-
-                $('#maVienEdit').val(rs.maVien);
-                $('#tenVienEdit').val(rs.tenVien);
-            }
-        });
-    });
+    //
+    // $('#btn-edit').click(function () {
+    //     var valid = $("#form-sua").parsley();
+    //     valid.validate();
+    //     if (valid.isValid()) {
+    //         var data = $('#form-sua').serialize();
+    //         $.ajax({
+    //             url: base_url + 'bomon/cap-nhat?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
+    //             type: "post",
+    //             data: data,
+    //             dataType: "text",
+    //             success: function (result) {
+    //                 $('#suanhansu').modal('hide');
+    //                 if (result.trim() === "success") {
+    //                     Lobibox.notify('success', {
+    //                         size: 'mini',
+    //                         position: "top right",
+    //                         sound: false,
+    //                         delay: 2000,
+    //                         title: 'Cập nhật bộ môn',
+    //                         msg: 'Cập nhật thành công'
+    //                     });
+    //                     setTimeout("location.reload(true);", 2000);
+    //                     // window.location.replace(base_url + 'category');
+    //                 } else {
+    //                     Lobibox.notify('error', {
+    //                         size: 'mini',
+    //                         position: "top right",
+    //                         sound: false,
+    //                         delay: 2000,
+    //                         title: 'Cập nhật bộ môn',
+    //                         msg: 'Cập nhật không thành công'
+    //                     });
+    //                 }
+    //             }
+    //         });
+    //     }
+    // });
+    //
+    //
+    // $('.icon-remove').click(function () {
+    //     var idItem = $(this).attr("idItem");
+    //     swal({
+    //             title: "Cảnh báo",
+    //             text: "Bạn có chắc muốn xóa danh mục này không!",
+    //             type: "warning",
+    //             showCancelButton: true,
+    //             confirmButtonClass: "btn-danger",
+    //             confirmButtonText: "Đồng ý",
+    //             cancelButtonText: "Thoát!",
+    //         },
+    //         function (isConfirm) {
+    //             if (isConfirm) {
+    //                 $.ajax({
+    //                     url: base_url + 'bomon/xoa?id=' + idItem + "&" + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
+    //                     type: "post",
+    //                     dataType: "text",
+    //                     success: function (result) {
+    //                         if (result.trim() === 'success') {
+    //                             Lobibox.notify('success', {
+    //                                 size: 'mini',
+    //                                 position: "top right",
+    //                                 sound: false,
+    //                                 delay: 2000,
+    //                                 title: 'Xóa bộ môn',
+    //                                 msg: 'Đã xóa thành công'
+    //                             });
+    //                             setTimeout("location.reload(true);", 2000);
+    //                             // window.location.replace(base_url + 'category');
+    //                         } else {
+    //                             Lobibox.notify('error', {
+    //                                 size: 'mini',
+    //                                 position: "top right",
+    //                                 sound: false,
+    //                                 delay: 2000,
+    //                                 title: 'Xóa bộ môn',
+    //                                 msg: 'Xóa không thành công'
+    //                             });
+    //                         }
+    //                     }
+    //                 });
+    //             }
+    //         });
+    // });
+    //
+    // $('.icon-edit').click(function () {
+    //     var idItem = $(this).attr("idItem");
+    //     $.ajax({
+    //         url: base_url + 'bomon/timkiem/' + idItem,
+    //         type: "get",
+    //         dataType: "text",
+    //         success: function (result) {
+    //             var rs = JSON.parse(result);
+    //             console.log(rs.maVien);
+    //             console.log(rs.tenVien);
+    //
+    //             $('#maVienEdit').val(rs.maVien);
+    //             $('#tenVienEdit').val(rs.tenVien);
+    //         }
+    //     });
+    // });
 </script>
 </html>

@@ -155,15 +155,27 @@
 				<ul class="sidebar-menu">
 					<li class="treeview">
 						<a th:href="@{/khoavien}">
-							<i></i>
+
 							<span>Quản lý khoa viện</span>
-							<i class="fa fa-angle-left pull-right"></i>
+							<!--<i class="fa fa-angle-left pull-right"></i>-->
 						</a>
 						<!--<ul class="treeview-menu">-->
 							<!--<li th:each="m2 : ${lMenu.value}">-->
 								<!--<a th:href="@{${m2.pageUri}}" th:text="#{${m2.displayName}}"><i th:attr="class=${m2.feeType}"></i>function</a>-->
 							<!--</li>-->
 						<!--</ul>-->
+					</li>
+					<li class="treeview">
+						<a th:href="@{/bomon}">
+
+							<span>Quản lý bộ môn</span>
+						</a>
+					</li>
+					<li class="treeview">
+						<a th:href="@{/user}">
+
+							<span>Quản lý tài khoản</span>
+						</a>
 					</li>
 				</ul>
 			</section>

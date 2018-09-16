@@ -22,7 +22,7 @@ public class User implements Serializable {
     private String fullName;
 
     @Column(name = "user_email")
-    private String userEmal;
+    private String userEmail;
 
     @Column(name = "user_phone")
     private String userPhone;
@@ -83,12 +83,12 @@ public class User implements Serializable {
         this.fullName = fullName;
     }
 
-    public String getUserEmal() {
-        return userEmal;
+    public String getUserEmail() {
+        return userEmail;
     }
 
-    public void setUserEmal(String userEmal) {
-        this.userEmal = userEmal;
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
     public String getUserPhone() {

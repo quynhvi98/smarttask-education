@@ -16,26 +16,12 @@ import java.util.Set;
 
 @Controller
 public class UserController {
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Autowired
-    private RoleService roleService;
-    @Autowired
-    private UserService userService;
 
-    @GetMapping("/user-management")
+
+    @GetMapping("/user")
     public String userManagement(){
-        return "/user/user-management";
+        return "/user/user";
     }
 
-    @PostMapping("/sign-in")
-    public String signIn(User user, @RequestParam("role") String roleStr) {
-        user.setUserPassWord(passwordEncoder.encode(user.getUserPassWord()));
-        Set<Role> roles = new HashSet<>();
-        Role role = roleService.findById(roleStr);
-        roles.add(role);
-        user.setRoles(roles);
-        User result = userService.createAccount(user);
-        return "redirect:/login";
-    }
+
 }
