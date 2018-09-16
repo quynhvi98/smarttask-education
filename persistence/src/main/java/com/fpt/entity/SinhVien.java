@@ -37,7 +37,8 @@ public class SinhVien {
     @JoinColumn(name = "ma_vien")
     private KhoaVien khoaVien;
 
-    @OneToOne(mappedBy = "sinhVien")
+    @OneToOne
+    @JoinColumn(name="user_name")
     private User user;
 
     @OneToMany(mappedBy = "sinhVien", fetch = FetchType.EAGER)

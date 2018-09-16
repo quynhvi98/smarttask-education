@@ -35,7 +35,7 @@ public class KhoaVienServiceImpl implements KhoaVienService {
     }
 
     @Override
-    public List<KhoaVien> getAll() {
+    public List<KhoaVien> findAll() {
         return (List<KhoaVien>) khoaVienDao.findAll();
     }
 }

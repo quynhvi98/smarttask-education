@@ -25,7 +25,7 @@ public class KhoaVienController {
 
     @GetMapping("/khoavien")
     public String base(Model model) {
-        List<KhoaVien> lstKhoaVien = khoaVienService.getAll();
+        List<KhoaVien> lstKhoaVien = khoaVienService.findAll();
         model.addAttribute("lstKhoaVien", lstKhoaVien);
         return "khoavien/khoavien";
     }

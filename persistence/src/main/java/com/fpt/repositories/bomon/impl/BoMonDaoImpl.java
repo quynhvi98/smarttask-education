@@ -15,16 +15,16 @@ import java.util.List;
 
 @Repository
 public class BoMonDaoImpl implements BoMonDaoCustom {
-    @Autowired
-    KhoaVienDao khoaVienDao;
+//    @Autowired
+//    KhoaVienDao khoaVienDao;
 
     @PersistenceContext
     private EntityManager em;
 
-    @Transactional
-    @Override
-    public List<BoMon> getAll() {
-        List<BoMon> lstBomon = em.createQuery("from BoMon bm join fetch bm.khoaVien").getResultList();
-        return lstBomon;
-    }
+//    @Transactional
+//    @Override
+//    public List<BoMon> getAll() {
+//        List<BoMon> lstBomon = em.createQuery("from BoMon bm join fetch bm.khoaVien").getResultList();
+//        return lstBomon;
+//    }
 }

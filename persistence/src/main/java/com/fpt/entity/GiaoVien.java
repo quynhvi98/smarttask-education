@@ -29,7 +29,8 @@ public class GiaoVien {
     @OneToMany(mappedBy = "giaoVien", fetch = FetchType.EAGER)
     private Set<LopHoc> lstLopHoc;
 
-    @OneToOne(mappedBy = "giaoVien")
+    @OneToOne
+    @JoinColumn(name="user_name")
     private User user;
 
     @ManyToOne

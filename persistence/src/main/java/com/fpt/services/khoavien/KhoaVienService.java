@@ -10,5 +10,5 @@ public interface KhoaVienService {
     KhoaVien update(KhoaVien khoaVien);
     void delete(String id);
     KhoaVien findById(String id);
-    List<KhoaVien> getAll();
+    List<KhoaVien> findAll();
 }

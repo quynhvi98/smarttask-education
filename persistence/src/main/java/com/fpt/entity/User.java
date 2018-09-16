@@ -39,12 +39,10 @@ public class User implements Serializable {
     @Column(name = "user_dob")
     private String userDOB;
 
-    @OneToOne
-    @JoinColumn(name="user_name")
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private GiaoVien giaoVien;
 
-    @OneToOne
-    @JoinColumn(name="user_name")
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private SinhVien sinhVien;
 
     @ManyToMany(cascade = { CascadeType.ALL })
@@ -58,6 +56,16 @@ public class User implements Serializable {
     public User() {
     }
 
+    public User(String userName, String userPassWord, String fullName, String userEmail, String userPhone, String userAddress, String userGender, String userDOB) {
+        this.userName = userName;
+        this.userPassWord = userPassWord;
+        this.fullName = fullName;
+        this.userEmail = userEmail;
+        this.userPhone = userPhone;
+        this.userAddress = userAddress;
+        this.userGender = userGender;
+        this.userDOB = userDOB;
+    }
 
     public String getUserName() {
         return userName;

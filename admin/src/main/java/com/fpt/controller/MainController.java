@@ -56,7 +56,7 @@ public class MainController {
         Role role = roleService.findById(roleStr);
         roles.add(role);
         user.setRoles(roles);
-        User result = userService.createAccount(user);
+//        User result = userService.createAccount(user);
         return "redirect:/login";
     }
 

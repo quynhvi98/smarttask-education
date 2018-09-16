@@ -22,4 +22,9 @@ public class BoMonServiceImpl implements BoMonService {
     public List<BoMon> findAll() {
         return (List<BoMon>) boMonDao.findAll();
     }
+
+    @Override
+    public BoMon findById(String boMon) {
+        return boMonDao.findOne(boMon);
+    }
 }
