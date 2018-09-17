@@ -22,6 +22,9 @@ public class SinhVien {
     @OneToMany(mappedBy = "sinhVien", fetch = FetchType.EAGER)
     private Set<BaiTap> lstBaiTap;
 
+    @OneToMany(mappedBy = "sinhVien", fetch = FetchType.EAGER)
+    private Set<PheDuyet> lstPheDuyet;
+
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
             name = "chi_tiet_nhom",
@@ -45,6 +48,14 @@ public class SinhVien {
     private Set<ThongBao> lstThongBao;
 
     public SinhVien() {
+    }
+
+    public Set<PheDuyet> getLstPheDuyet() {
+        return lstPheDuyet;
+    }
+
+    public void setLstPheDuyet(Set<PheDuyet> lstPheDuyet) {
+        this.lstPheDuyet = lstPheDuyet;
     }
 
     public Set<BaiTap> getLstBaiTap() {

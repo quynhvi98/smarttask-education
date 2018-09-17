@@ -23,6 +23,7 @@ DROP TABLE IF EXISTS de_tai;
 DROP TABLE IF EXISTS chi_tiet_nhom_de_tai;
 DROP TABLE IF EXISTS nop_de_tai;
 DROP TABLE IF EXISTS thong_bao;
+DROP TABLE IF EXISTS phe_duyet;
 
 
 CREATE TABLE IF NOT EXISTS role (
@@ -218,5 +219,17 @@ CREATE TABLE IF NOT EXISTS thong_bao(
   CONSTRAINT FK_ma_sinh_vien_thong_bao FOREIGN KEY (ma_sinh_vien) REFERENCES sinh_vien(ma_sinh_vien),
   CONSTRAINT FK_ma_lop_hoc_thong_bao FOREIGN KEY (ma_lop) REFERENCES lop_hoc(ma_lop),
   CONSTRAINT FK_ma_nhom_thong_bao FOREIGN KEY (ma_nhom) REFERENCES nhom(ma_nhom)
+) engine=InnoDB;
+
+CREATE TABLE IF NOT EXISTS phe_duyet (
+  id BIGINT NOT NULL auto_increment,
+  status VARCHAR(255),
+  ma_giao_vien VARCHAR(255),
+  ma_sinh_vien VARCHAR(255),
+  ma_lop VARCHAR(255),
+  PRIMARY KEY (id),
+  CONSTRAINT FK_ma_giao_vien_phe_duyet FOREIGN KEY (ma_giao_vien) REFERENCES giao_vien(ma_giao_vien),
+  CONSTRAINT FK_ma_sinh_vien_phe_duyet FOREIGN KEY (ma_sinh_vien) REFERENCES sinh_vien(ma_sinh_vien),
+  CONSTRAINT FK_ma_lop_hoc_phe_duyet FOREIGN KEY (ma_lop) REFERENCES lop_hoc(ma_lop)
 ) engine=InnoDB;
 

@@ -29,6 +29,9 @@ public class GiaoVien {
     @OneToMany(mappedBy = "giaoVien", fetch = FetchType.EAGER)
     private Set<LopHoc> lstLopHoc;
 
+    @OneToMany(mappedBy = "giaoVien", fetch = FetchType.EAGER)
+    private Set<PheDuyet> lstPheDuyet;
+
     @OneToOne
     @JoinColumn(name="user_name")
     private User user;
@@ -38,6 +41,14 @@ public class GiaoVien {
     private BoMon boMon;
 
     public GiaoVien() {
+    }
+
+    public Set<PheDuyet> getLstPheDuyet() {
+        return lstPheDuyet;
+    }
+
+    public void setLstPheDuyet(Set<PheDuyet> lstPheDuyet) {
+        this.lstPheDuyet = lstPheDuyet;
     }
 
     public Set<ThongBao> getLstThongBao() {

@@ -44,6 +44,9 @@ public class LopHoc {
     @OneToMany(mappedBy = "lopHoc", fetch = FetchType.EAGER)
     private Set<Nhom> lstNhom;
 
+    @OneToMany(mappedBy = "lopHoc", fetch = FetchType.EAGER)
+    private Set<PheDuyet> lstPheDuyet;
+
     @ManyToOne
     @JoinColumn(name = "giaoVien")
     private GiaoVien giaoVien;
@@ -64,6 +67,14 @@ public class LopHoc {
     Set<SinhVien> sinhViens;
 
     public LopHoc() {
+    }
+
+    public Set<PheDuyet> getLstPheDuyet() {
+        return lstPheDuyet;
+    }
+
+    public void setLstPheDuyet(Set<PheDuyet> lstPheDuyet) {
+        this.lstPheDuyet = lstPheDuyet;
     }
 
     public Set<BaiViet> getLstBaiViet() {
