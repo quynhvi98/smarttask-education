@@ -1,9 +1,25 @@
 .khung {
     position: relative;
     overflow: hidden;
-    padding: 0.5% 8% 0% 2%;
+    padding: 0.5% 8% 0% 0.5%;
     background-color: #f7f7f7;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     min-width: 820px;
-    min-height: 53px;
+    min-height: 50px;
+}
+.title {
+    position: relative;
+    margin-bottom: 15px;
+    overflow: hidden;
+    padding-left: 10px;
+}
+.table{
+    margin-left: 10px;
+    margin-right: 15px;
+}
+aside.main-sidebar .slimScrollDiv .sidebar{
+    padding: 5px;
+}
+.main-header{
+    background-color: #009999;
 }
