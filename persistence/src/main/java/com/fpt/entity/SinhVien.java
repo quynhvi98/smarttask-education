@@ -25,7 +25,7 @@ public class SinhVien {
     @OneToMany(mappedBy = "sinhVien", fetch = FetchType.EAGER)
     private Set<PheDuyet> lstPheDuyet;
 
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
     @JoinTable(
             name = "chi_tiet_nhom",
             joinColumns = { @JoinColumn(name = "ma_sinh_vien") },
@@ -33,7 +33,7 @@ public class SinhVien {
     )
     Set<Nhom> nhoms;
 
-    @ManyToMany(mappedBy = "sinhViens")
+    @ManyToMany(mappedBy = "sinhViens", fetch = FetchType.EAGER)
     private Set<LopHoc> lopHocs;
 
     @ManyToOne
