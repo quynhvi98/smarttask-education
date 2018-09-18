@@ -1,7 +1,14 @@
 package com.fpt.controller.studentcontroller;
 
+import com.fpt.entity.LopHoc;
+import com.fpt.entity.PheDuyet;
+import com.fpt.entity.User;
+import com.fpt.services.lophoc.LopHocService;
+import com.fpt.services.user.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -13,9 +20,13 @@ import java.util.List;
 
 @Controller
 public class StudentController {
-
+    @Autowired
+    private LopHocService lopHocService;
     @GetMapping("/register-class")
-    public String registerclass() {
+    public String registerclass(Model model) {
+        model.addAttribute("lopHoc", new LopHoc());
+        model.addAttribute("listLopHoc", lopHocService.listLopHoc());
+        model.addAttribute("listMonHoc",lopHocService.listMonHoc());
         return "student/register_class";
     }
 
@@ -26,6 +37,36 @@ public class StudentController {
 
 
 
+    @PostMapping("/student/search")
+    public String search(HttpServletRequest request, HttpSession session, HttpServletResponse response,Model model) {
+        String input = request.getParameter("input");
+        String loai=request.getParameter("loai");
+        String bomon=request.getParameter("bomon");
+        model.addAttribute("listMonHoc",lopHocService.listMonHoc());
+        model.addAttribute("lopHoc", new LopHoc());
+        if(loai.equals("giaovien")) {
+            model.addAttribute("listLopHoc", lopHocService.searchGiaoVien(input, bomon));
+        }else {
+            model.addAttribute("listLopHoc", lopHocService.searchLop(input, bomon));
+        }
+        return "student/register_class";
+    }
+
+
+
+    @PostMapping("/api/dangkylop")
+    public ResponseEntity<?> dangKyLop(HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+        String id = request.getParameter("id");
+        LopHoc hoc=lopHocService.findById(id);
+        User user= (User) session.getAttribute("userInfo");
+        PheDuyet pheDuyet=new PheDuyet();
+        pheDuyet.setGiaoVien(hoc.getGiaoVien());
+        pheDuyet.setLopHoc(hoc);
+        pheDuyet.setStatus("false");
+        pheDuyet.setSinhVien(user.getSinhVien());
+        lopHocService.createPheDuyet(pheDuyet);
+        return ResponseEntity.ok(true);
+    }
 
     @PostMapping("/api/member")
     public ResponseEntity<?> getSearchResultViaAjax(HttpServletRequest request, HttpSession session, HttpServletResponse response) {

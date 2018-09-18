@@ -8,7 +8,7 @@ import javax.persistence.*;
  * @author Vi Quynh (vi.quynh.31598@gmail.com)
  */
 @Entity
-@Table(name = "config")
+@Table(name = "phe_duyet")
 public class PheDuyet {
     private static final long serialVersionUID = 1L;
 
