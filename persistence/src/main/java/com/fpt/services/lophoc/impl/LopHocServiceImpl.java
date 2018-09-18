@@ -51,12 +51,12 @@ public class LopHocServiceImpl implements LopHocService {
 
     @Override
     public List<LopHoc> searchGiaoVien(String giaovien, String bomon) {
-        return lopHocDao.listSearchGiaoVien("%" + giaovien + "%", "%" + bomon + "%");
+        return lopHocDao.listSearchGiaoVien(giaovien ,  bomon);
     }
 
     @Override
     public List<LopHoc> searchLop(String lop, String bomon) {
-        return lopHocDao.listSearchLop("%" + lop + "%", "%" + bomon + "%");
+        return lopHocDao.listSearchLop(lop,bomon);
     }
 
     @Override
