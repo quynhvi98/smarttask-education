@@ -64,5 +64,10 @@ public class LopHocServiceImpl implements LopHocService {
         return (List<MonHoc>) monHocDao.findAll();
     }
 
+    @Override
+    public List<LopHoc> findAll() {
+        return (List<LopHoc>) lopHocDao.findAll();
+    }
+
 
 }

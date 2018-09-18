@@ -39,7 +39,7 @@ public class BoMonController {
             String maBoMon = request.getParameter("maNganh");
             String tenBoMon = request.getParameter("tenNganh");
             String strKhoaVien = request.getParameter("khoaVien");
-            KhoaVien khoaVien = khoaVienService.findById(strKhoaVien);
+            KhoaVien khoaVien = khoaVienService.findById(strKhoaVien != null ? strKhoaVien : "");
 
             BoMon boMon = new BoMon();
             boMon.setKhoaVien(khoaVien);

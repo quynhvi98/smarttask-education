@@ -16,4 +16,6 @@ public interface LopHocService {
     List<LopHoc> searchGiaoVien(String giaovien,String bomon);
     List<LopHoc> searchLop(String lop,String bomon);
     List<MonHoc> listMonHoc();
+
+    List<LopHoc> findAll();
 }

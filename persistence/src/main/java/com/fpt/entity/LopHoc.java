@@ -1,6 +1,7 @@
 package com.fpt.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -29,6 +30,8 @@ public class LopHoc {
     @Column(name = "phong_hoc")
     private String phongHoc;
 
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "ngay_tao")
     private Date ngayTao;
 
@@ -48,7 +51,7 @@ public class LopHoc {
     private Set<PheDuyet> lstPheDuyet;
 
     @ManyToOne
-    @JoinColumn(name = "giaoVien")
+    @JoinColumn(name = "ma_giao_vien")
     private GiaoVien giaoVien;
 
     @ManyToOne
