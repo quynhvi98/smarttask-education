@@ -52,6 +52,8 @@
     }
 </style>
 <body class="hold-transition skin-blue sidebar-mini" style="padding-right: 0px;">
+
+<input id="token" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 <div class="wrapper">
     <div th:replace="fragments/header :: header">&nbsp;</div>
     <div th:replace="fragments/sidebar :: aside">&nbsp;</div>
@@ -66,21 +68,25 @@
     border-top: 20px solid transparent;
     border-bottom: 20px solid transparent;
     text-align: center;">
-                    <form action="/search" method="post">
-                        <div id="search">
+
+                        <form th:action="@{/student/search}" method="POST">
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+                            <div id="search">
                             <input onkeyup="ip()" type="text" name="input" autocomplete="off" value="" placeholder="Tìm khóa học...">
                         </div>
                         <div class="mc-select">
-                            <select class="select" name="" id="all-categories" style="z-index: 10;opacity: 2;margin-left: -9px;">
-                                <option value="" selected="">Tìm kiếm theo giáo viên</option>
-                                <option value="">Tìm kiếm theo lớp</option>
+                            <select class="select" name="loai" id="all-categories" style="z-index: 10;opacity: 2;margin-left: -9px;">
+                                <option value="">Loại tìm kiếm</option>
+                                <option value="giaovien" selected="">Tìm kiếm theo giáo viên</option>
+                                <option value="lop">Tìm kiếm theo lớp</option>
                             </select>
                         </div>
                         <div class="mc-select" style="margin-left: 88px;">
-                            <select class="select" name=""  style="z-index: 10; opacity: 2;">
+                            <select th:each="mh : ${listMonHoc}" class="select" name="bomon"  style="z-index: 10; opacity: 2;">
                                 <option value="" selected="">Tìm kiếm theo bộ môn</option>
-                                <option value="">CNTT</option>
-                                <option value="">VSS</option>
+                                <option  th:value="${mh.tenMonHoc}" th:text="${mh.tenMonHoc}">Java</option>
+
                             </select>
                         </div>
                         <button id="srbtn" type="submit"><i class='fontawesome-heart'></i>
@@ -119,551 +125,213 @@
                         </th>
                     </tr>
                     </thead>
+
                     <tbody class="text-center">
-                    <tr>
-                        <td>1</td>
-                        <td>
-                            C16086
+                    <tr th:each="lophoc,i : ${listLopHoc}">
+                        <td th:text="${i.index+1}" ></td>
+                        <td th:text="${lophoc.maLop}">
                         </td>
-                        <td>
-                            Phạm Thị Nga
+                        <td th:text="${lophoc.getGiaoVien().getUser().getFullName()}">
+
                         </td>
-                        <td>
-                            12/12/2019
+                        <td th:text="${#dates.format(lophoc.getNgayBatDau(),'dd-MMM-yyyy')}">
+
                         </td>
-                        <td>
-                            CNTT
+                        <td th:text="${lophoc.getMonHoc().getTenMonHoc()}">
+
                         </td>
                         <td class="text-center">
-                            <div class="stage -closed">
-                                Chưa bắt đầu
+                            <th:block th:if="${lophoc.getTrangThai()}">
+                                <div class="stage">
+                                Hoạt động
+                                </div>
+                            </th:block>
+                            <th:block th:if="${!lophoc.getTrangThai()}">
+                                <div class="stage -closed">
+                                    Chưa bắt đầu
+                                </div>
+                            </th:block>
+
+                        </td>
+
+
+                        <td class="text-center">
+                            <div class="dropdown bacham">
+                                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                                </a>
+
+                                <style>
+                                    .dropdown-menu dropdown-menu-right show{
+                                        transform: translate3d(0px, 0px, 0px) !important;
+                                        top: -8px !important;
+                                        left: -76px !important;
+                                    }
+                                </style>
+                                <ul class="dropdown-menu dropdown-menu-right" style="transform: translate3d(0px, 0px, 0px);
+    top: -8px;
+    left: -76px;">
+                                    <li class="inline">
+                                        <a href="#" data-toggle="modal" data-target="#myModal2"><i class="fa fa-search" aria-hidden="true"></i> Xem</a>
+                                    </li>
+                                    <li class="inline">
+                                        <a href="#" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Đăng ký</a></li>
+                                         </ul>
                             </div>
-                        </td>
-                        <td class="text-center">
-                            <button type="button" style="    margin-top: -8px;font-size: 12px;
-    margin-bottom: -5px;" class="btn btn-info eBtn" data-toggle="modal" data-target="#myModal">Đăng Ký
-                            </button>
-                            <div class="modal fade" id="myModal" role="dialog">
+
+
+                          <div class="modal fade" id="myModal" role="dialog">
                                 <div class="modal-dialog" style="margin-left: 33%;">
                                     <!-- Modal content-->i
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <legend class="modal-title">Class Registration</legend>
                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                                         </div>
-                                        <div class="modal-body">
-                                            <fieldset>
-                                                <div class="form-group">
-                                                    <div class="col-md-4">
-                                                        <h6 style="width: 426px;">Lớp: C16086</h6>
-                                                        <br/>
-                                                        <h6 style="width: 426px;">Giáo viên: Phạm Thị Nga</h6>
-                                                        <br/>
-                                                        <h6 style="width: 426px;">Ngày bắt đầu: 12/12/2019</h6>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="col-sm-2">
-                                                        <button style="margin-top: 10px; margin-bottom: 10px; margin-left: -132px;" type="submit" class="btn btn-primary">Đăng Ký</button>
-                                                    </div>
-                                                </div>
-                                            </fieldset>
+                                        <div class="modal-body" style="padding-bottom: 20px; padding: 0px;padding-bottom: 32px;">
+                                        <legend class="modal-title">Đăng ký</legend>
+
+                                            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+
+                                                <tbody>
+                                                <tr>
+                                                    <td>Lớp Học</td>
+                                                    <td th:text="${lophoc.maLop}">
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Giáo viên</td>
+                                                    <td th:text="${lophoc.getGiaoVien().getUser().getFullName()}"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Phòng học</td>
+                                                    <td th:text="${lophoc.getPhongHoc()}">
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Mô tả</td>
+                                                    <td th:text="${lophoc.getMoTa()}">
+                                                </tr>
+                                                <tr>
+                                                    <td>Ngày bắt đầu</td>
+                                                    <td th:text="${#dates.format(lophoc.getNgayBatDau(),'dd-MMM-yyyy')}">
+                                                </tr>
+                                                <tr>
+                                                    <td>Ngày kết thúc</td>
+                                                    <td th:text="${#dates.format(lophoc.getNgayKetThuc(),'dd-MMM-yyyy')}">
+                                                </tr>
+
+                                                </tbody>
+                                            </table>
+<button th:id="${lophoc.maLop}" onclick="reply_click(this.id)" class="btn btn-info eBtn"  type="button" style="margin-bottom: 20px;margin-top: 14px">Đăng ký</button>
                                         </div>
-                                        <!--<div class="modal-footer">-->
-                                        <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
-                                        <!--</div>-->
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+<style>
+    @media only screen and (max-width: 480px) {
+
+        table, thead, tbody, th, td, tr {
+            display: block;
+        }
+
+        thead {
+            display: none;
+        }
+
+    // mdl specifics
+
+       .mdl-data-table tbody tr {
+           height: auto;
+       }
+
+        .mdl-data-table tbody tr:nth-child(even) {
+            background-color: #eee;
+        }
+
+        .mdl-data-table td,
+        .mdl-data-table td:first-of-type {
+            padding-left: 50%;
+        }
+
+        .mdl-data-table td:before {
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            width: 45%;
+            padding: 6px 18px 0;
+            white-space: nowrap;
+            content: attr(data-label);
+            text-align: left;
+            color: rgba(0, 0, 0, 0.541176);
+            font-weight: bold;
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 12px;
+        }
+
+        .mdl-data-table td:last-of-type {
+            padding-right: 18px;
+        }
+
+    }
+</style>
+
+                            <div class="modal fade" id="myModal2" role="dialog">
+                                <div class="modal-dialog" style="margin-left: 33%;">
+                                    <!-- Modal content-->i
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <div class="modal-body" style="padding-bottom: 20px; padding: 0px;padding-bottom: 32px;">
+                                            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+
+                                                <tbody>
+                                                <tr>
+                                                    <td>Lớp Học</td>
+                                                    <td th:text="${lophoc.maLop}">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Giáo viên</td>
+                                                    <td th:text="${lophoc.getGiaoVien().getUser().getFullName()}"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Phòng học</td>
+                                                    <td th:text="${lophoc.getPhongHoc()}">
+                                                </tr>
+                                                <tr>
+                                                    <td>Mô tả</td>
+                                                    <td th:text="${lophoc.getMoTa()}">
+                                                </tr>
+                                                <tr>
+                                                    <td>Ngày bắt đầu</td>
+                                                    <td th:text="${#dates.format(lophoc.getNgayBatDau(),'dd-MMM-yyyy')}">
+                                                </tr>
+                                                <tr>
+                                                    <td>Ngày kết thúc</td>
+                                                    <td th:text="${#dates.format(lophoc.getNgayKetThuc(),'dd-MMM-yyyy')}">
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>
-                            C1608I
-                        </td>
-                        <td>
-                            Hoàng Văn Quân
-                        </td>
-                        <td>
-                            12/08/2018
-                        </td>
-                        <td>
-                            CNTT
-                        </td>
-                        <td class="text-center">
-                            <div class="stage">
-                                Hoạt động
-                            </div>
-                        </td>
-                        <td class="text-center">
-                            <div class="dropdown bacham">
-                                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li class="inline">
-                                        <a href="#" data-toggle="modal" data-target="#xemnhansu"><i class="fa fa-search" aria-hidden="true"></i> Xem</a>
-                                    </li>
-                                    <li class="inline">
-                                        <a href="#" data-toggle="modal" data-target="#suanhansu"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa</a></li>
-                                    <li class="inline">
-                                        <a href="#" class="xoa"><i class="fa fa-trash-o" aria-hidden="true"></i> Xóa</a>
-                                    </li>
-                                    <li class="inline"><a href="#" class="doimatkhau"><i class="fa fa-key" aria-hidden="true"></i> thiết lập mật khẩu</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>
-                            C1608I
-                        </td>
-                        <td>
-                            Hoàng Văn Quân
-                        </td>
-                        <td>
-                            12/08/2018
-                        </td>
-                        <td>
-                            CNTT
-                        </td>
-                        <td class="text-center">
-                            <div class="stage">
-                                Hoạt động
-                            </div>
-                        </td>
-                        <td class="text-center">
-                            <div class="dropdown bacham">
-                                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li class="inline">
-                                        <a href="#" data-toggle="modal" data-target="#xemnhansu"><i class="fa fa-search" aria-hidden="true"></i> Xem</a>
-                                    </li>
-                                    <li class="inline">
-                                        <a href="#" data-toggle="modal" data-target="#suanhansu"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa</a></li>
-                                    <li class="inline">
-                                        <a href="#" class="xoa"><i class="fa fa-trash-o" aria-hidden="true"></i> Xóa</a>
-                                    </li>
-                                    <li class="inline"><a href="#" class="doimatkhau"><i class="fa fa-key" aria-hidden="true"></i> thiết lập mật khẩu</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>
-                            C1608I
-                        </td>
-                        <td>
-                            Hoàng Văn Quân
-                        </td>
-                        <td>
-                            12/08/2018
-                        </td>
-                        <td>
-                            CNTT
-                        </td>
-                        <td class="text-center">
-                            <div class="stage">
-                                Hoạt động
-                            </div>
-                        </td>
-                        <td class="text-center">
-                            <div class="dropdown bacham">
-                                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li class="inline">
-                                        <a href="#" data-toggle="modal" data-target="#xemnhansu"><i class="fa fa-search" aria-hidden="true"></i> Xem</a>
-                                    </li>
-                                    <li class="inline">
-                                        <a href="#" data-toggle="modal" data-target="#suanhansu"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa</a></li>
-                                    <li class="inline">
-                                        <a href="#" class="xoa"><i class="fa fa-trash-o" aria-hidden="true"></i> Xóa</a>
-                                    </li>
-                                    <li class="inline"><a href="#" class="doimatkhau"><i class="fa fa-key" aria-hidden="true"></i> thiết lập mật khẩu</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>
-                            C1608I
-                        </td>
-                        <td>
-                            Hoàng Văn Quân
-                        </td>
-                        <td>
-                            12/08/2018
-                        </td>
-                        <td>
-                            CNTT
-                        </td>
-                        <td class="text-center">
-                            <div class="stage">
-                                Hoạt động
-                            </div>
-                        </td>
-                        <td class="text-center">
-                            <div class="dropdown bacham">
-                                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li class="inline">
-                                        <a href="#" data-toggle="modal" data-target="#xemnhansu"><i class="fa fa-search" aria-hidden="true"></i> Xem</a>
-                                    </li>
-                                    <li class="inline">
-                                        <a href="#" data-toggle="modal" data-target="#suanhansu"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa</a></li>
-                                    <li class="inline">
-                                        <a href="#" class="xoa"><i class="fa fa-trash-o" aria-hidden="true"></i> Xóa</a>
-                                    </li>
-                                    <li class="inline"><a href="#" class="doimatkhau"><i class="fa fa-key" aria-hidden="true"></i> thiết lập mật khẩu</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>
-                            C1608I
-                        </td>
-                        <td>
-                            Hoàng Văn Quân
-                        </td>
-                        <td>
-                            12/08/2018
-                        </td>
-                        <td>
-                            CNTT
-                        </td>
-                        <td class="text-center">
-                            <div class="stage">
-                                Hoạt động
-                            </div>
-                        </td>
-                        <td class="text-center">
-                            <div class="dropdown bacham">
-                                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li class="inline">
-                                        <a href="#" data-toggle="modal" data-target="#xemnhansu"><i class="fa fa-search" aria-hidden="true"></i> Xem</a>
-                                    </li>
-                                    <li class="inline">
-                                        <a href="#" data-toggle="modal" data-target="#suanhansu"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa</a></li>
-                                    <li class="inline">
-                                        <a href="#" class="xoa"><i class="fa fa-trash-o" aria-hidden="true"></i> Xóa</a>
-                                    </li>
-                                    <li class="inline"><a href="#" class="doimatkhau"><i class="fa fa-key" aria-hidden="true"></i> thiết lập mật khẩu</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>
-                            C1608I
-                        </td>
-                        <td>
-                            Hoàng Văn Quân
-                        </td>
-                        <td>
-                            12/08/2018
-                        </td>
-                        <td>
-                            CNTT
-                        </td>
-                        <td class="text-center">
-                            <div class="stage">
-                                Hoạt động
-                            </div>
-                        </td>
-                        <td class="text-center">
-                            <div class="dropdown bacham">
-                                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li class="inline">
-                                        <a href="#" data-toggle="modal" data-target="#xemnhansu"><i class="fa fa-search" aria-hidden="true"></i> Xem</a>
-                                    </li>
-                                    <li class="inline">
-                                        <a href="#" data-toggle="modal" data-target="#suanhansu"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa</a></li>
-                                    <li class="inline">
-                                        <a href="#" class="xoa"><i class="fa fa-trash-o" aria-hidden="true"></i> Xóa</a>
-                                    </li>
-                                    <li class="inline"><a href="#" class="doimatkhau"><i class="fa fa-key" aria-hidden="true"></i> thiết lập mật khẩu</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>
-                            C1608I
-                        </td>
-                        <td>
-                            Hoàng Văn Quân
-                        </td>
-                        <td>
-                            12/08/2018
-                        </td>
-                        <td>
-                            CNTT
-                        </td>
-                        <td class="text-center">
-                            <div class="stage">
-                                Hoạt động
-                            </div>
-                        </td>
-                        <td class="text-center">
-                            <div class="dropdown bacham">
-                                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li class="inline">
-                                        <a href="#" data-toggle="modal" data-target="#xemnhansu"><i class="fa fa-search" aria-hidden="true"></i> Xem</a>
-                                    </li>
-                                    <li class="inline">
-                                        <a href="#" data-toggle="modal" data-target="#suanhansu"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa</a></li>
-                                    <li class="inline">
-                                        <a href="#" class="xoa"><i class="fa fa-trash-o" aria-hidden="true"></i> Xóa</a>
-                                    </li>
-                                    <li class="inline"><a href="#" class="doimatkhau"><i class="fa fa-key" aria-hidden="true"></i> thiết lập mật khẩu</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>
-                            C1608I
-                        </td>
-                        <td>
-                            Hoàng Văn Quân
-                        </td>
-                        <td>
-                            12/08/2018
-                        </td>
-                        <td>
-                            CNTT
-                        </td>
-                        <td class="text-center">
-                            <div class="stage">
-                                Hoạt động
-                            </div>
-                        </td>
-                        <td class="text-center">
-                            <div class="dropdown bacham">
-                                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li class="inline">
-                                        <a href="#" data-toggle="modal" data-target="#xemnhansu"><i class="fa fa-search" aria-hidden="true"></i> Xem</a>
-                                    </li>
-                                    <li class="inline">
-                                        <a href="#" data-toggle="modal" data-target="#suanhansu"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa</a></li>
-                                    <li class="inline">
-                                        <a href="#" class="xoa"><i class="fa fa-trash-o" aria-hidden="true"></i> Xóa</a>
-                                    </li>
-                                    <li class="inline"><a href="#" class="doimatkhau"><i class="fa fa-key" aria-hidden="true"></i> thiết lập mật khẩu</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>  <tr>
-                        <td>2</td>
-                        <td>
-                            C1608I
-                        </td>
-                        <td>
-                            Hoàng Văn Quân
-                        </td>
-                        <td>
-                            12/08/2018
-                        </td>
-                        <td>
-                            CNTT
-                        </td>
-                        <td class="text-center">
-                            <div class="stage">
-                                Hoạt động
-                            </div>
-                        </td>
-                        <td class="text-center">
-                            <div class="dropdown bacham">
-                                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li class="inline">
-                                        <a href="#" data-toggle="modal" data-target="#xemnhansu"><i class="fa fa-search" aria-hidden="true"></i> Xem</a>
-                                    </li>
-                                    <li class="inline">
-                                        <a href="#" data-toggle="modal" data-target="#suanhansu"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa</a></li>
-                                    <li class="inline">
-                                        <a href="#" class="xoa"><i class="fa fa-trash-o" aria-hidden="true"></i> Xóa</a>
-                                    </li>
-                                    <li class="inline"><a href="#" class="doimatkhau"><i class="fa fa-key" aria-hidden="true"></i> thiết lập mật khẩu</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>  <tr>
-                        <td>2</td>
-                        <td>
-                            C1608I
-                        </td>
-                        <td>
-                            Hoàng Văn Quân
-                        </td>
-                        <td>
-                            12/08/2018
-                        </td>
-                        <td>
-                            CNTT
-                        </td>
-                        <td class="text-center">
-                            <div class="stage">
-                                Hoạt động
-                            </div>
-                        </td>
-                        <td class="text-center">
-                            <div class="dropdown bacham">
-                                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li class="inline">
-                                        <a href="#" data-toggle="modal" data-target="#xemnhansu"><i class="fa fa-search" aria-hidden="true"></i> Xem</a>
-                                    </li>
-                                    <li class="inline">
-                                        <a href="#" data-toggle="modal" data-target="#suanhansu"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa</a></li>
-                                    <li class="inline">
-                                        <a href="#" class="xoa"><i class="fa fa-trash-o" aria-hidden="true"></i> Xóa</a>
-                                    </li>
-                                    <li class="inline"><a href="#" class="doimatkhau"><i class="fa fa-key" aria-hidden="true"></i> thiết lập mật khẩu</a></li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
+
                     </tbody>
                 </table>
             </div>
-            <style>
 
-                h4{
-                    margin-left:  12px;
-                    margin-top: -61px;
-                    float: left;
-                    display: inline-block;
-                    font-family: 'Lato', sans-serif;
-                    font-size: 18px;
-                    font-weight: 700;
-                    color: #fff;
-                    float: left;
-                }
-                .mc-select{
-                    margin-top: 20px;
-                    width: 146px;
-                    float: left;
-                    height: 30px;
-                    margin-top: -6px;
-                    margin-left: 1%;
-                }
-                .containerSearch
-                .content:before {
-                    margin-left: 100%;
-                    content: "";
-                    display: inline-block;
-                    width: 0;
-                    height: 1px;
-                    border-top: 57px solid #11538C;
-                    border-bottom: 42px solid #11538C;
-                    border-left: 31px solid #37ABF2;
-
-                }
-
-                .mc-select select.select {
-                    background-color: #fff;
-                    border: 0;
-                    width: 137%;
-                    height: 36px;
-                    line-height: 40px;
-                    padding: 0 13px;
-                    font-family: 'Lato', sans-serif;
-                    font-size: 14px;
-                    color: #003350;
-                    -webkit-border-radius: 5px;
-                    -moz-border-radius: 5px;
-                    border-radius: 5px;
-                    float: left;
-                }
-
-                .mc-select .fa {
-                    position: absolute;
-                    top: 50%;
-                    right: 15px;
-                    -webkit-transform: translateY(-50%);
-                    -moz-transform: translateY(-50%);
-                    -ms-transform: translateY(-50%);
-                    -o-transform: translateY(-50%);
-                    transform: translateY(-50%);
-                    font-size: 15px;
-                    color: #013450;
-                    z-index: 1;
-                }
-
-                #srbtn {
-                    background: #edeef2;
-                    border: none;
-                    width: 94px;
-                    height: 43px;
-                    margin-top: -10px;
-                    background: #edeef2;
-                    border: none;
-                    width: 100px;
-                    height: 36px;
-                    margin-top: -6px;
-                    padding-left: -8px;
-                    margin-left: 103px;
-                    border-radius: 5px 5px 4px 5px;
-                    position: absolute;
-                    float: left;
-                    margin-left: 3%;
-                }
-
-                #search {
-                    width: 300px;
-                    height: 36px;
-                    background: #ffffff;
-                    margin: 20px 50px 50px 50px;
-                    padding: 5px;
-                    border-radius: 4px;
-                    float: left;
-                    margin-top: -6px;
-                    margin-left: 3%;
-                }
-
-                input {
-                    border-color: inherit;
-                    outline: none;
-                    width: 288px;
-                    height: 26px;
-                    border: none;
-                    margin-top: 1px;
-                    padding-left: 7px;
-                    float: left;
-                }
-            </style>
         </section>
     </div>
     <div th:replace="fragments/footer :: footer">&nbsp;</div>
@@ -731,3 +399,33 @@
 
 </body>
 </html>
+
+
+
+
+
+
+<script>
+    function reply_click(clicked_id) {
+
+
+        var token = document.getElementById('token').value;
+         var base_url = [[@{/}]];
+            $.ajax({
+                headers: {'X-CSRF-Token': token},
+                type: "POST",
+                data: {id: clicked_id},
+                url: base_url+"api/dangkylop",
+                success: function (responseJson) {
+                    $.each(responseJson, function (key, value) {
+
+                        });
+                }
+            })
+
+            $('.close').click();
+
+        }
+
+
+</script>
