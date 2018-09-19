@@ -334,30 +334,30 @@ console.log(tinhphantram);
   });
 
   // ví dụ về popup .........................................................
-  $('.doimatkhau').click(function() {
-    swal({
-        title: "Cảnh báo",
-        text: "Bạn có chắc muốn thiết lập lại mật khẩu",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonClass: "btn-danger",
-        confirmButtonText: "Đồng ý",
-        cancelButtonText: "Thoát!",
-        // closeOnConfirm: false
-      },
-      function() {
-        var matkau = "@xyzzz123";
-        setClipboard(matkau);
-        Lobibox.notify('success', {
-          size: 'mini',
-          position: "top right",
-          sound: false,
-          delay: 4000,
-          title: 'Thiết lập thành công!',
-          msg: 'Mật khẩu mới là: <span class="label label-success">' + matkau + '</span> mật khẩu đã dc sao chép (ctr + v) để paste'
-        });
-      });
-  });
+  // $('.doimatkhau').click(function() {
+  //   swal({
+  //       title: "Cảnh báo",
+  //       text: "Bạn có chắc muốn thiết lập lại mật khẩu",
+  //       type: "warning",
+  //       showCancelButton: true,
+  //       confirmButtonClass: "btn-danger",
+  //       confirmButtonText: "Đồng ý",
+  //       cancelButtonText: "Thoát!",
+  //       // closeOnConfirm: false
+  //     },
+  //     function() {
+  //       var matkau = "@xyzzz123";
+  //       setClipboard(matkau);
+  //       Lobibox.notify('success', {
+  //         size: 'mini',
+  //         position: "top right",
+  //         sound: false,
+  //         delay: 4000,
+  //         title: 'Thiết lập thành công!',
+  //         msg: 'Mật khẩu mới là: <span class="label label-success">' + matkau + '</span> mật khẩu đã dc sao chép (ctr + v) để paste'
+  //       });
+  //     });
+  // });
   $('.xoa').click(function() {
     swal({
         title: "Cảnh báo",
@@ -421,15 +421,15 @@ console.log(tinhphantram);
 
   })
   // hàm copy 1 đoạn text................................................
-  function setClipboard(value) {
-    var tempInput = document.createElement("input");
-    tempInput.style = "position: absolute; left: -1000px; top: -1000px";
-    tempInput.value = value;
-    document.body.appendChild(tempInput);
-    tempInput.select();
-    document.execCommand("copy");
-    document.body.removeChild(tempInput);
-  }
+  // function setClipboard(value) {
+  //   var tempInput = document.createElement("input");
+  //   tempInput.style = "position: absolute; left: -1000px; top: -1000px";
+  //   tempInput.value = value;
+  //   document.body.appendChild(tempInput);
+  //   tempInput.select();
+  //   document.execCommand("copy");
+  //   document.body.removeChild(tempInput);
+  // }
   // vì khi modal chưa show sẽ ko lấy dc width lên phải chạy lại hàm
 	// fixThead()
   // tạm thời tắt tính năng này vì chưa bắt hết các trường hợp

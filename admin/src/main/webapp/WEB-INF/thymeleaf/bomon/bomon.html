@@ -283,7 +283,7 @@
                                         <div class="form-group">
                                             <label for="" class="col-sm-3 control-label">Khoa/viện</label>
                                             <div class="col-md-9">
-                                                <select required name="khoaVien" class="select2 form-control" title="Khoa Viện">
+                                                <select id="khoaVienEdit" required name="khoaVien" class="select2 form-control" title="Khoa Viện">
                                                     <th:block th:if="${!#lists.isEmpty(lstKhoaVien)}" th:each="kv : ${lstKhoaVien}">
                                                         <option th:value="${kv.maVien}" th:text="${kv.tenVien}"></option>
                                                     </th:block>
@@ -339,43 +339,27 @@
         });
     //
     //
-    // $('#btn-edit').click(function () {
-    //     var valid = $("#form-sua").parsley();
-    //     valid.validate();
-    //     if (valid.isValid()) {
-    //         var data = $('#form-sua').serialize();
-    //         $.ajax({
-    //             url: base_url + 'bomon/cap-nhat?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
-    //             type: "post",
-    //             data: data,
-    //             dataType: "text",
-    //             success: function (result) {
-    //                 $('#suanhansu').modal('hide');
-    //                 if (result.trim() === "success") {
-    //                     Lobibox.notify('success', {
-    //                         size: 'mini',
-    //                         position: "top right",
-    //                         sound: false,
-    //                         delay: 2000,
-    //                         title: 'Cập nhật bộ môn',
-    //                         msg: 'Cập nhật thành công'
-    //                     });
-    //                     setTimeout("location.reload(true);", 2000);
-    //                     // window.location.replace(base_url + 'category');
-    //                 } else {
-    //                     Lobibox.notify('error', {
-    //                         size: 'mini',
-    //                         position: "top right",
-    //                         sound: false,
-    //                         delay: 2000,
-    //                         title: 'Cập nhật bộ môn',
-    //                         msg: 'Cập nhật không thành công'
-    //                     });
-    //                 }
-    //             }
-    //         });
-    //     }
-    // });
+    $('#btn-edit').click(function () {
+        var valid = $("#form-sua").parsley();
+        valid.validate();
+        if (valid.isValid()) {
+            var data = $('#form-sua').serialize();
+            $.ajax({
+                url: base_url + 'bomon/cap-nhat?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
+                type: "post",
+                data: data,
+                dataType: "text",
+                success: function (result) {
+                    $('#suanhansu').modal('hide');
+                    if (result.trim() === "success") {
+                        notify_sucess("Cập nhật bộ môn", "Cập nhật");
+                    } else {
+                        notify_error("Cập nhật bộ môn", "Cập nhật");
+                    }
+                }
+            });
+        }
+    });
     //
     //
     // $('.icon-remove').click(function () {
@@ -423,21 +407,19 @@
     //         });
     // });
     //
-    // $('.icon-edit').click(function () {
-    //     var idItem = $(this).attr("idItem");
-    //     $.ajax({
-    //         url: base_url + 'bomon/timkiem/' + idItem,
-    //         type: "get",
-    //         dataType: "text",
-    //         success: function (result) {
-    //             var rs = JSON.parse(result);
-    //             console.log(rs.maVien);
-    //             console.log(rs.tenVien);
-    //
-    //             $('#maVienEdit').val(rs.maVien);
-    //             $('#tenVienEdit').val(rs.tenVien);
-    //         }
-    //     });
-    // });
+    $('.icon-edit').click(function () {
+        var idItem = $(this).attr("idItem");
+        $.ajax({
+            url: base_url + 'bomon/timkiem/' + idItem,
+            type: "get",
+            dataType: "text",
+            success: function (result) {
+                var rs = JSON.parse(result);
+                $('#maNganhEdit').val(rs.maNganh);
+                $('#tenNganhEdit').val(rs.tenNganh);
+                $('#khoaVienEdit').val(rs.khoaVien['maVien']).change();;
+            }
+        });
+    });
 </script>
 </html>

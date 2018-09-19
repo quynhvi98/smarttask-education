@@ -2,29 +2,29 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <title>Agribank works</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
     <!-- style sheet -->
-    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-3.3.7/bootstrap.min.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-datepicker3.min.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/js/plugins/daterangepicker/daterangepicker.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/css/datatables.min.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/css/select2.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-3.3.7/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-datepicker3.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/js/plugins/daterangepicker/daterangepicker.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/datatables.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/select2.min.css}"/>
     <!-- thu vien validate -->
-    <link rel="stylesheet" type="text/css" th:href="@{/css/parsley.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/parsley.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-datepicker.min.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/font-awesome.min.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/css/font-awesome-animation.min.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/css/ionicons.min.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/css/admin-lte.min.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/css/ionicons.min.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/css/sweetalert.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/css/lobibox.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/font-awesome-animation.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/ionicons.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/admin-lte.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/ionicons.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/sweetalert.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lobibox.min.css}"/>
     <!-- css overwrite -->
-    <link rel="stylesheet" type="text/css" th:href="@{/css/overwrite.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/overwrite.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/fixgiaodienadmin.css}">
     <!-- jquery -->
     <script type="text/javascript" th:src="@{/js/jquery-3.3.1/jquery.min.js}"></script>
@@ -99,7 +99,7 @@
             <div class="input nho">
                 <div class="label">Trạng thái</div>
                 <select class="select2" id="select2" title="Trạng thái">
-                    <option value=""> <span class="aaaa">Hoạt động</span></option>
+                    <option value=""><span class="aaaa">Hoạt động</span></option>
                     <option value="">Ngừng hoạt động</option>
                 </select>
             </div>
@@ -164,14 +164,16 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li class="inline">
-                                        <a href="#" data-toggle="modal" data-target="#xemnhansu">
+                                        <a href="#" th:attr="userName=${u.userName}" data-toggle="modal"
+                                           data-target="#xemnhansu">
                                             <i class="fa fa-search" aria-hidden="true"></i> Xem
                                         </a>
                                     </li>
-                                    <li class="inline">
-                                        <a href="#" class="xoa"><i class="fa fa-trash-o" aria-hidden="true"></i> Xóa</a>
-                                    </li>
-                                    <li class="inline"><a href="#" class="doimatkhau"><i class="fa fa-key" aria-hidden="true"></i> thiết lập mật khẩu</a></li>
+
+                                    <li href="#" class="inline"><a th:attr="userName=${u.userName}"
+                                                                   class="doimatkhau"><i class="fa fa-key"
+                                                                                         aria-hidden="true"></i> thiết
+                                        lập mật khẩu</a></li>
                                 </ul>
                             </div>
                         </td>
@@ -189,7 +191,8 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
                         <h3 class="modal-title" id="themnhansuLabel">
                             Thêm mới
                         </h3>
@@ -200,52 +203,69 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label">Mã thành viên <span class="red">(*)</span></label>
+                                            <label for="" class="col-sm-3 control-label">Mã thành viên <span
+                                                    class="red">(*)</span></label>
                                             <div class="col-md-9">
-                                                <input required name="memberId" type="text" class="form-control"  placeholder="Mã nhân viên">
+                                                <input required name="memberId" type="text" class="form-control"
+                                                       placeholder="Mã nhân viên">
                                             </div>
-                                            <p class="col-sm-offset-3 help-block red">Example block-level help text here.</p>
+                                            <p class="col-sm-offset-3 help-block red">Example block-level help text
+                                                here.</p>
                                         </div>
                                         <div class="form-group">
                                             <label for="" class="col-sm-3 control-label">Tên truy cập <span class="red">(*)</span></label>
                                             <div class="col-md-9">
-                                                <input required name="userName" type="text" class="form-control"  placeholder="Tên truy cập">
+                                                <input required name="userName" type="text" class="form-control"
+                                                       placeholder="Tên truy cập">
                                             </div>
-                                            <p class="col-sm-offset-3 help-block red">Example block-level help text here.</p>
+                                            <p class="col-sm-offset-3 help-block red">Example block-level help text
+                                                here.</p>
                                         </div>
                                         <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label">Mật khẩu <span class="red">(*)</span></label>
+                                            <label for="" class="col-sm-3 control-label">Mật khẩu <span
+                                                    class="red">(*)</span></label>
                                             <div class="col-md-9">
-                                                <input required name="userPassWord" type="password" class="form-control"  placeholder="Mật khẩu">
+                                                <input required name="userPassWord" type="password" class="form-control"
+                                                       placeholder="Mật khẩu">
                                             </div>
-                                            <p class="col-sm-offset-3 help-block red">Example block-level help text here.</p>
+                                            <p class="col-sm-offset-3 help-block red">Example block-level help text
+                                                here.</p>
                                         </div>
                                         <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label">Số điện thoại  <span class="red">(*)</span></label>
+                                            <label for="" class="col-sm-3 control-label">Số điện thoại <span
+                                                    class="red">(*)</span></label>
                                             <div class="col-md-9">
-                                                <input required name="userPhone" type="text" class="form-control"  placeholder="Số điện thoại">
+                                                <input required name="userPhone" type="text" class="form-control"
+                                                       placeholder="Số điện thoại">
                                             </div>
-                                            <p class="col-sm-offset-3 help-block red">Example block-level help text here.</p>
+                                            <p class="col-sm-offset-3 help-block red">Example block-level help text
+                                                here.</p>
                                         </div>
                                         <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label">Thư điện tử  <span class="red">(*)</span></label>
+                                            <label for="" class="col-sm-3 control-label">Thư điện tử <span class="red">(*)</span></label>
                                             <div class="col-md-9">
-                                                <input required name="userEmail" type="text" class="form-control"  placeholder="Thư điện tử">
+                                                <input required name="userEmail" type="text" class="form-control"
+                                                       placeholder="Thư điện tử">
                                             </div>
-                                            <p class="col-sm-offset-3 help-block red">Example block-level help text here.</p>
+                                            <p class="col-sm-offset-3 help-block red">Example block-level help text
+                                                here.</p>
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label">Họ tên <span class="red">(*)</span></label>
+                                            <label for="" class="col-sm-3 control-label">Họ tên <span
+                                                    class="red">(*)</span></label>
                                             <div class="col-md-9">
-                                                <input required name="fullName" type="text" class="form-control"  placeholder="Họ tên">
+                                                <input required name="fullName" type="text" class="form-control"
+                                                       placeholder="Họ tên">
                                             </div>
-                                            <p class="col-sm-offset-3 help-block red">Example block-level help text here.</p>
+                                            <p class="col-sm-offset-3 help-block red">Example block-level help text
+                                                here.</p>
                                         </div>
                                         <div class="form-group">
                                             <label for="" class="col-sm-3 control-label">Giới tính</label>
                                             <div class="col-md-9">
-                                                <select name="userGender" class="select2 form-control" title="Giới tính">
+                                                <select name="userGender" class="select2 form-control"
+                                                        title="Giới tính">
                                                     <option value="Nam">Nam</option>
                                                     <option value="Nữ">Nữ</option>
                                                 </select>
@@ -254,23 +274,28 @@
                                         <div class="form-group">
                                             <label for="" class="col-sm-3 control-label">Ngày sinh</label>
                                             <div class="col-md-9">
-                                                <input required name="userDOB" type="date" class="form-control" id="" placeholder="Ngày sinh">
+                                                <input required name="userDOB" type="date" class="form-control" id=""
+                                                       placeholder="Ngày sinh">
                                             </div>
-                                            <p class="col-sm-offset-3 help-block red">Example block-level help text here.</p>
+                                            <p class="col-sm-offset-3 help-block red">Example block-level help text
+                                                here.</p>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="" class="col-sm-3 control-label">Địa chỉ</label>
                                             <div class="col-md-9">
-                                                <input required name="userAddress" type="text" class="form-control" placeholder="Địa chỉ">
+                                                <input required name="userAddress" type="text" class="form-control"
+                                                       placeholder="Địa chỉ">
                                             </div>
-                                            <p class="col-sm-offset-3 help-block red">Example block-level help text here.</p>
+                                            <p class="col-sm-offset-3 help-block red">Example block-level help text
+                                                here.</p>
                                         </div>
                                         <div class="form-group">
                                             <label for="" class="col-sm-3 control-label">Loại tài khoản</label>
                                             <div class="col-md-9">
-                                                <select id="memberType" name="memberType" class="select2 form-control" title="Loại tài khoản">
+                                                <select id="memberType" name="memberType" class="select2 form-control"
+                                                        title="Loại tài khoản">
                                                     <option selected value="ad01">Admin</option>
                                                     <option value="gv01">Giảng viên</option>
                                                     <option value="sv01">Sinh viên</option>
@@ -280,9 +305,12 @@
                                         <div class="form-group">
                                             <label for="" class="col-sm-3 control-label">Bộ môn</label>
                                             <div class="col-md-9">
-                                                <select disabled id="boMon" name="boMon" class="select2 form-control" title="Bộ môn">
-                                                    <th:block th:if="${!#lists.isEmpty(lstBoMon)}" th:each="bm : ${lstBoMon}">
-                                                        <option th:value="${bm.maNganh}" th:text="${bm.tenNganh}"></option>
+                                                <select disabled id="boMon" name="boMon" class="select2 form-control"
+                                                        title="Bộ môn">
+                                                    <th:block th:if="${!#lists.isEmpty(lstBoMon)}"
+                                                              th:each="bm : ${lstBoMon}">
+                                                        <option th:value="${bm.maNganh}"
+                                                                th:text="${bm.tenNganh}"></option>
                                                     </th:block>
                                                 </select>
                                             </div>
@@ -290,14 +318,18 @@
                                         <div class="form-group">
                                             <label for="" class="col-sm-3 control-label">Học hàm</label>
                                             <div class="col-md-9">
-                                                <input disabled id="hocHam" name="hocHam" type="text" class="form-control" placeholder="Học hàm">
+                                                <input disabled id="hocHam" name="hocHam" type="text"
+                                                       class="form-control" placeholder="Học hàm">
                                             </div>
-                                            <p class="col-sm-offset-3 help-block red">Example block-level help text here.</p>
+                                            <p class="col-sm-offset-3 help-block red">Example block-level help text
+                                                here.</p>
                                         </div>
                                         <div class="form-group">
                                             <label for="" class="col-sm-3 control-label">Kinh nghiệm</label>
                                             <div class="col-md-9">
-                                                <textarea disabled id="kinhNghiem" name="kinhNghiem" class="form-control"  placeholder="Kinh nghiệm" rows="2"></textarea>
+                                                <textarea disabled id="kinhNghiem" name="kinhNghiem"
+                                                          class="form-control" placeholder="Kinh nghiệm"
+                                                          rows="2"></textarea>
                                             </div>
                                         </div>
 
@@ -308,8 +340,14 @@
                         </form>
                     </div>
                     <div class="modal-footer text-center">
-                        <button type="button" id="btn-themmoi" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm mới</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-sign-out" aria-hidden="true"></i> Thoát</button>
+                        <button type="button" id="btn-themmoi" class="btn btn-primary"><i class="fa fa-plus-circle"
+                                                                                          aria-hidden="true"></i> Thêm
+                            mới
+                        </button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-sign-out"
+                                                                                              aria-hidden="true"></i>
+                            Thoát
+                        </button>
                     </div>
                 </div>
             </div>
@@ -320,7 +358,8 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
                         <h3 class="modal-title" id="xemnhansuLabel">
                             Thông tin cá nhân
                         </h3>
@@ -416,7 +455,10 @@
                         </form>
                     </div>
                     <div class="modal-footer text-center">
-                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-sign-out" aria-hidden="true"></i> Thoát</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-sign-out"
+                                                                                              aria-hidden="true"></i>
+                            Thoát
+                        </button>
                     </div>
                 </div>
             </div>
@@ -431,18 +473,18 @@
 </body>
 <script th:inline="javascript">
     $(function () {
-       $('#memberType').change(function () {
-          var type = $(this).val();
-          if(type == 'gv01'){
-              $("#hocHam").prop('disabled', false);
-              $("#boMon").prop('disabled', false);
-              $("#kinhNghiem").prop('disabled', false);
-          }else {
-              $("#hocHam").prop('disabled', true);
-              $("#boMon").prop('disabled', true);
-              $("#kinhNghiem").prop('disabled', true);
-          }
-       });
+        $('#memberType').change(function () {
+            var type = $(this).val();
+            if (type == 'gv01') {
+                $("#hocHam").prop('disabled', false);
+                $("#boMon").prop('disabled', false);
+                $("#kinhNghiem").prop('disabled', false);
+            } else {
+                $("#hocHam").prop('disabled', true);
+                $("#boMon").prop('disabled', true);
+                $("#kinhNghiem").prop('disabled', true);
+            }
+        });
     });
 
 
@@ -469,6 +511,38 @@
                 });
             }
         });
+    $('.doimatkhau').click(function () {
+        var userName = $(this).attr("userName");
+        swal({
+                title: "Cảnh báo",
+                text: "Bạn có chắc muốn thiết lập lại mật khẩu",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Đồng ý",
+                cancelButtonText: "Thoát!",
+                // closeOnConfirm: false
+            },
+            function () {
+                var matkhau = "123456";
+
+                console.log(userName);
+                $.ajax({
+                    url: base_url + 'user/reset-password?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
+                    type: "post",
+                    data: {userName: userName},
+                    dataType: "text",
+                    success: function (result) {
+                        if (result.trim() === 'success') {
+                            setClipboard(matkhau);
+                            notify_reset_success(matkhau)
+                        } else {
+                            notify_error("Thiết lập mật khẩu", "Thiết lập");
+                        }
+                    }
+                });
+            });
+    });
     //
 </script>
 </html>

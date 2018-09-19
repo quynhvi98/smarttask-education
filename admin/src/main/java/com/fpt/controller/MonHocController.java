@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -49,6 +51,34 @@ public class MonHocController {
             monHoc.setTinChi(Integer.parseInt(tinChi));
 
             monHocService.taoMonHoc(monHoc);
+            response.getWriter().println("success");
+        } catch (Exception e) {
+            response.getWriter().println("failed");
+        }
+    }
+
+    @GetMapping(value = "/monhoc/timkiem/{id}")
+    public @ResponseBody
+    MonHoc search(@PathVariable("id") String id) {
+        MonHoc monHoc = monHocService.findById(id);
+        monHoc.setLstLopHoc(null);
+        monHoc.getBoMon().setLstGiaoVien(null);
+        monHoc.getBoMon().setLstMonHoc(null);
+        monHoc.getBoMon().setKhoaVien(null);
+        return monHoc;
+    }
+
+    @PostMapping("/monhoc/cap-nhat")
+    public void edit(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        MonHoc persist = null;
+        BoMon boMon = null;
+        try {
+            persist = monHocService.findById(request.getParameter("maMonHoc"));
+            boMon = boMonService.findById(request.getParameter("boMon"));
+            persist.setBoMon(boMon);
+            persist.setTenMonHoc(request.getParameter("tenMonHoc"));
+            persist.setTinChi(Integer.parseInt(request.getParameter("tinChi")));
+            monHocService.update(persist);
             response.getWriter().println("success");
         } catch (Exception e) {
             response.getWriter().println("failed");

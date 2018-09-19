@@ -8,9 +8,7 @@ import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -48,6 +46,33 @@ public class BoMonController {
             boMon.setTrangThai(String.valueOf(1));
 
             boMonService.taoBoMon(boMon);
+            response.getWriter().println("success");
+        } catch (Exception e) {
+            response.getWriter().println("failed");
+        }
+    }
+
+    @GetMapping(value = "/bomon/timkiem/{id}")
+    public @ResponseBody
+    BoMon search(@PathVariable("id") String id) {
+        BoMon boMon = boMonService.findById(id);
+        boMon.setLstMonHoc(null);
+        boMon.setLstGiaoVien(null);
+        boMon.getKhoaVien().setLstBoMon(null);
+        boMon.getKhoaVien().setLstSinhVien(null);
+        return boMon;
+    }
+
+    @PostMapping("/bomon/cap-nhat")
+    public void edit(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        BoMon persist = null;
+        KhoaVien khoaVien = null;
+        try {
+            persist = boMonService.findById(request.getParameter("maNganh"));
+            khoaVien = khoaVienService.findById(request.getParameter("khoaVien"));
+            persist.setKhoaVien(khoaVien);
+            persist.setTenNganh(request.getParameter("tenNganh"));
+            boMonService.update(persist);
             response.getWriter().println("success");
         } catch (Exception e) {
             response.getWriter().println("failed");

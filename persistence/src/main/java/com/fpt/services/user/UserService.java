@@ -12,4 +12,6 @@ public interface UserService {
     void createTeacherAccount(User user, GiaoVien giaoVien);
     User findUserByUserName(String username);
     List<User> findAll();
+
+    void update(User user);
 }

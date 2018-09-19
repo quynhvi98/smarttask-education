@@ -10,4 +10,6 @@ public interface MonHocService {
     List<MonHoc> findAll();
 
     MonHoc findById(String monHocId);
+
+    void update(MonHoc persist);
 }

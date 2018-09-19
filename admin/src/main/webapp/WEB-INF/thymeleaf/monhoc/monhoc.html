@@ -157,12 +157,12 @@
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-right">
                                         <li class="inline">
-                                            <a class="icon-edit" th:attr="idItem=${mh.boMon.maNganh}"
+                                            <a class="icon-edit" th:attr="idItem=${mh.maMonHoc}"
                                                data-toggle="modal"
                                                data-target="#suanhansu"><i class="fa fa-pencil-square-o"
                                                                            aria-hidden="true"></i> Sửa</a></li>
                                         <li class="inline">
-                                            <a class="icon-remove" th:attr="idItem=${mh.boMon.maNganh}"><i
+                                            <a class="icon-remove" th:attr="idItem=${mh.maMonHoc}"><i
                                                     class="fa fa-trash-o" aria-hidden="true"></i> Xóa</a>
                                         </li>
                                     </ul>
@@ -273,33 +273,43 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label">Mã bộ môn <span class="red">(*)</span></label>
+                                            <label for="" class="col-sm-3 control-label">Mã môn học <span class="red">(*)</span></label>
                                             <div class="col-md-9">
-                                                <input required name="maNganh" readonly type="text" class="form-control"
-                                                       id="maNganhEdit"
-                                                       placeholder="Mã bộ môn">
+                                                <input  name="maMonHoc" id="maMonHocEdit" readonly required type="text" class="form-control"
+                                                       placeholder="Mã môn học">
                                             </div>
                                             <p class="col-sm-offset-3 help-block red">Example block-level help text
                                                 here.</p>
                                         </div>
                                         <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label">Tên bộ môn <span
+                                            <label for="" class="col-sm-3 control-label">Tên môn học <span
                                                     class="red">(*)</span></label>
                                             <div class="col-md-9">
-                                                <input required name="tenNganh" type="text" class="form-control"
-                                                       id="tenNganhEdit"
-                                                       placeholder="Tên bộ môn ">
+                                                <input id="tenMonHocEdit" required name="tenMonHoc" type="text" class="form-control"
+                                                       placeholder="Tên môn học ">
                                             </div>
                                             <p class="col-sm-offset-3 help-block red">Example block-level help text
                                                 here.</p>
                                         </div>
                                         <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label">Khoa/viện</label>
+                                            <label for="" class="col-sm-3 control-label">Bộ môn</label>
                                             <div class="col-md-9">
-                                                <select name="khoaVien" class="select2 form-control" title="Khoa/viện">
-
+                                                <select required id="boMonEdit"  name="boMon" class="select2 form-control" title="Bộ môn">
+                                                    <th:block th:if="${!#lists.isEmpty(lstBoMon)}" th:each="bm : ${lstBoMon}">
+                                                        <option th:value="${bm.maNganh}" th:text="${bm.tenNganh}"></option>
+                                                    </th:block>
                                                 </select>
                                             </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-3 control-label">Số tín chỉ <span
+                                                    class="red">(*)</span></label>
+                                            <div class="col-md-9">
+                                                <input id="tinChiEdit" required name="tinChi" type="text" class="form-control"
+                                                       placeholder="Số tín chỉ ">
+                                            </div>
+                                            <p class="col-sm-offset-3 help-block red">Example block-level help text
+                                                here.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -350,43 +360,27 @@
         });
     //
     //
-    // $('#btn-edit').click(function () {
-    //     var valid = $("#form-sua").parsley();
-    //     valid.validate();
-    //     if (valid.isValid()) {
-    //         var data = $('#form-sua').serialize();
-    //         $.ajax({
-    //             url: base_url + 'bomon/cap-nhat?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
-    //             type: "post",
-    //             data: data,
-    //             dataType: "text",
-    //             success: function (result) {
-    //                 $('#suanhansu').modal('hide');
-    //                 if (result.trim() === "success") {
-    //                     Lobibox.notify('success', {
-    //                         size: 'mini',
-    //                         position: "top right",
-    //                         sound: false,
-    //                         delay: 2000,
-    //                         title: 'Cập nhật bộ môn',
-    //                         msg: 'Cập nhật thành công'
-    //                     });
-    //                     setTimeout("location.reload(true);", 2000);
-    //                     // window.location.replace(base_url + 'category');
-    //                 } else {
-    //                     Lobibox.notify('error', {
-    //                         size: 'mini',
-    //                         position: "top right",
-    //                         sound: false,
-    //                         delay: 2000,
-    //                         title: 'Cập nhật bộ môn',
-    //                         msg: 'Cập nhật không thành công'
-    //                     });
-    //                 }
-    //             }
-    //         });
-    //     }
-    // });
+    $('#btn-edit').click(function () {
+        var valid = $("#form-sua").parsley();
+        valid.validate();
+        if (valid.isValid()) {
+            var data = $('#form-sua').serialize();
+            $.ajax({
+                url: base_url + 'monhoc/cap-nhat?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
+                type: "post",
+                data: data,
+                dataType: "text",
+                success: function (result) {
+                    $('#suanhansu').modal('hide');
+                    if (result.trim() === "success") {
+                       notify_sucess("Cập nhật môn học", "Cập nhật");
+                    } else {
+                        notify_error("Cập nhật môn học", "Cập nhật");
+                    }
+                }
+            });
+        }
+    });
     //
     //
     // $('.icon-remove').click(function () {
@@ -434,21 +428,20 @@
     //         });
     // });
     //
-    // $('.icon-edit').click(function () {
-    //     var idItem = $(this).attr("idItem");
-    //     $.ajax({
-    //         url: base_url + 'bomon/timkiem/' + idItem,
-    //         type: "get",
-    //         dataType: "text",
-    //         success: function (result) {
-    //             var rs = JSON.parse(result);
-    //             console.log(rs.maVien);
-    //             console.log(rs.tenVien);
-    //
-    //             $('#maVienEdit').val(rs.maVien);
-    //             $('#tenVienEdit').val(rs.tenVien);
-    //         }
-    //     });
-    // });
+    $('.icon-edit').click(function () {
+        var idItem = $(this).attr("idItem");
+        $.ajax({
+            url: base_url + 'monhoc/timkiem/' + idItem,
+            type: "get",
+            dataType: "text",
+            success: function (result) {
+                var rs = JSON.parse(result);
+                $('#maMonHocEdit').val(rs.maMonHoc);
+                $('#tenMonHocEdit').val(rs.tenMonHoc);
+                $('#boMonEdit').val(rs.boMon['maNganh']).change();
+                $('#tinChiEdit').val(rs.tinChi);
+            }
+        });
+    });
 </script>
 </html>

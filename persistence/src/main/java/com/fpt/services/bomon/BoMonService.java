@@ -9,4 +9,6 @@ public interface BoMonService {
     BoMon taoBoMon(BoMon boMon);
     List<BoMon> findAll();
     BoMon findById(String boMon);
+
+    void update(BoMon persist);
 }

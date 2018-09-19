@@ -27,4 +27,9 @@ public class MonHocServiceImpl implements MonHocService {
     public MonHoc findById(String monHocId) {
         return monHocDao.findOne(monHocId);
     }
+
+    @Override
+    public void update(MonHoc persist) {
+        monHocDao.save(persist);
+    }
 }
