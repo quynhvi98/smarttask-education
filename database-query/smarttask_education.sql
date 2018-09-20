@@ -24,6 +24,7 @@ DROP TABLE IF EXISTS chi_tiet_nhom_de_tai;
 DROP TABLE IF EXISTS nop_de_tai;
 DROP TABLE IF EXISTS thong_bao;
 DROP TABLE IF EXISTS phe_duyet;
+DROP TABLE IF EXISTS ki_hoc;
 
 
 CREATE TABLE IF NOT EXISTS role (
@@ -55,16 +56,23 @@ CREATE TABLE IF NOT EXISTS bo_mon (
   CONSTRAINT FK_ma_vien FOREIGN KEY (ma_vien) REFERENCES khoa_vien(ma_vien)
 ) engine=InnoDB;
 
+CREATE TABLE IF NOT EXISTS ki_hoc (
+  id BIGINT NOT NULL auto_increment,
+  ki VARCHAR(255),
+  PRIMARY KEY (id)
+) engine=InnoDB;
+
 CREATE TABLE IF NOT EXISTS mon_hoc (
   ma_mon_hoc VARCHAR(255),
   ten_mon_hoc VARCHAR(255),
   trang_thai varchar(255),
   tin_chi int,
   ma_nganh VARCHAR(255),
+  ma_ki BIGINT,
   PRIMARY KEY (ma_mon_hoc),
-  CONSTRAINT FK_ma_nganh FOREIGN KEY (ma_nganh) REFERENCES bo_mon(ma_nganh)
+  CONSTRAINT FK_ma_nganh FOREIGN KEY (ma_nganh) REFERENCES bo_mon(ma_nganh),
+  CONSTRAINT FK_ma_ki FOREIGN KEY (ma_ki) REFERENCES ki_hoc(id)
 ) engine=InnoDB;
-
 
 CREATE TABLE IF NOT EXISTS user (
   user_name varchar(255),
@@ -106,6 +114,7 @@ CREATE TABLE IF NOT EXISTS lop_hoc (
   phong_hoc varchar (255),
   ngay_bat_dau datetime,
   ngay_ket_thuc datetime,
+  ngay_hoc varchar(255), -- Ngày học để dạng json có thứ(thứ hai, thứ ba,..và tiết học< tiết 1(7h->8h), ...)
   trang_thai varchar(255),
   ma_giao_vien VARCHAR(255),
   ma_mon_hoc VARCHAR(255),
@@ -232,4 +241,5 @@ CREATE TABLE IF NOT EXISTS phe_duyet (
   CONSTRAINT FK_ma_sinh_vien_phe_duyet FOREIGN KEY (ma_sinh_vien) REFERENCES sinh_vien(ma_sinh_vien),
   CONSTRAINT FK_ma_lop_hoc_phe_duyet FOREIGN KEY (ma_lop) REFERENCES lop_hoc(ma_lop)
 ) engine=InnoDB;
+
 

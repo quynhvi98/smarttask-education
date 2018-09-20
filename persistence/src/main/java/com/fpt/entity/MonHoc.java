@@ -27,6 +27,10 @@ public class MonHoc {
     @JoinColumn(name = "ma_nganh")
     private BoMon boMon;
 
+    @ManyToOne
+    @JoinColumn(name = "ma_ki")
+    private KiHoc kiHoc;
+
     @OneToMany(mappedBy = "monHoc", fetch = FetchType.EAGER)
     private Set<LopHoc> lstLopHoc;
 
