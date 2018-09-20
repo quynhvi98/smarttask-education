@@ -37,7 +37,6 @@
                 <strong></strong>
             </div>
             <div class="modal-body">
-                <form id="form-update" class="form-horizontal" role="form" th:action="@{/user-info/userUpdateImage}"  method="post" enctype="multipart/form-data">
                     <div class="row bg-xam">
                         <div class="text-center avantar">
                             <div class="card col-md-3">
@@ -48,7 +47,8 @@
                                 </div>
                                 <div th:if="${giangvien.userAvatar == null}">
                                     <div class="thumb" th:if="${giangvien.userAvatar == null}" alt="User Pic"
-                                         id="view-avatar" th:style="'background-image:url(' + @{/img/user2-160x160.jpg} + ');'"></div>
+                                         id="view-avatar"
+                                         th:style="'background-image:url(' + @{/img/user2-160x160.jpg} + ');'"></div>
                                 </div>
                                 <div class="article" th:with="df=#{date.format}">
                                     <h1 id="view-fullname" th:text="${giangvien != null ? giangvien.fullName : ''}">
@@ -128,13 +128,14 @@
                             <div class="col-md-5 inline-block p-25">
                                 <div class="form-group">
                                     <button id="btn-edit" class="btn btn-success" data-target="#suanhansu">Chỉnh sửa thông
-                                        tin cá nhân
+                                    tin cá nhân
                                     </button>
+
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </form>
                 <div class="row gach-top">
                     <div class="col-md-8">
                         <h4 class="title-sup-modal">
@@ -194,6 +195,112 @@
                 </div>
                 </form>
                 <textarea hidden id="size_max"></textarea>
+            </div>
+
+            <!-- Modal themnhansu-->
+            <div class="modal modal-full fade" id="suanhansu" role="dialog"
+                 aria-labelledby="themnhansuLabel" data-backdrop="static" data-keyboard="false">
+                <div class="modal-dialog" role="document">
+                    <form class="form-horizontal" id="form-update" ole="form"
+                          method="post" enctype="multipart/form-data">
+                            <div class="text-center avantar">
+                                <div class="card col-md-3">
+                                    <div>
+                                        <div class="thumb" alt="User Pic"
+
+                                        ></div>
+                                    </div>
+                                    <div>
+                                        <div class="thumb" alt="User Pic"
+                                            ></div>
+                                    </div>
+                                    <div class="article">
+                                        <h1 >
+                                            Nguyễn Duy
+                                            Trường</h1>
+                                        <span>
+                                    <span class="xam" data-toggle="tooltip" data-placement="top" title="Ngày sinh">
+                                    <i class="fa fa-birthday-cake" aria-hidden="true"></i></span>
+                                    <span
+                                    >20/02/1985</span>
+                                            <!--<span id="view-birthday"   th:text="${#calendars.format(today, 'dd/MM/yyyy hh:mm:ss')}" -->
+                                            <!--th:text="${giangvien != null ? #calendars.format(giangvien.userDOB, 'dd/MM/yyyy hh:mm:ss') : ''}">20/02/1985</span>-->
+                                </span>
+                                        <span>
+                                    <span class="xam" data-toggle="tooltip" data-placement="top" title="Giới tính">
+                                         <i class="fa fa-venus-mars" aria-hidden="true"></i></span>
+                                    <span
+                                    >Nam</span>
+		                        <span
+                                >Nữ</span>
+                                </span>
+                                        <span>
+                                    <span class="xam" data-toggle="tooltip" data-placement="top" title="Số điện thoại">
+                                    <i class="fa fa-phone" aria-hidden="true"></i></span>
+                                    <span
+                                    >0978198420</span>
+                                </span>
+                                        <span>
+                                    <span class="xam" data-toggle="tooltip" data-placement="top" title="Thư điện tử">
+                                        <i class="fa fa-envelope-o" aria-hidden="true"></i></span>
+                                    <span
+                                    >truong@gmail.com</span>
+                                </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 p-25">
+                                    <div class="form-group chamcham">
+                                        <label for="">Tên truy cập</label>
+                                        <span
+                                        >truong@gmail.com</span>
+                                    </div>
+                                    <div class="form-group chamcham">
+                                        <label for="">Mã </label>
+                                        <span
+                                        >truong@gmail.com</span>
+                                    </div>
+                                    <div class="form-group chamcham">
+                                        <label for="">Mã ngành giảng dạy</label>
+                                        <span
+                                        >truong@gmail.com</span>
+                                    </div>
+
+                                    <div class="form-group chamcham">
+                                        <label for="">Tên ngành giảng dạy</label>
+                                        <span
+                                        >truong@gmail.com</span>
+                                    </div>
+                                    <div class="form-group chamcham">
+                                        <label for="">Địa chỉ</label>
+                                        <span>Hà Nội</span>
+                                    </div>
+                                    <div class="form-group chamcham">
+                                        <label for="">Học hàm</label>
+                                        <span>Hà Nội</span>
+                                    </div>
+                                    <div class="form-group chamcham">
+                                        <label for="">Mô tả</label>
+                                        <span>Hà Nội</span>
+                                    </div>
+
+                                    <div class="form-group chamcham">
+                                        <label for="">Trạng thái</label>
+                                        <span>Trạng thái</span>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-5 inline-block p-25">
+                                    <div class="form-group">
+                                        <button id="btn-update" class="btn btn-success" data-target="#suanhansu">Chỉnh sửa
+                                            thông
+                                            tin cá nhân
+                                        </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                    </form>
+                </div>
             </div>
         </section>
     </div>
@@ -259,54 +366,11 @@
 </div>
 
 </body>
-<script th:inline="javascript">
+<script type="text/javascript" th:inline="javascript">
     var base_url = [[@{/}]];
 
-        $('#btn-themmoi').click(function () {
-            var valid = $("#form-themmoi").parsley();
-            valid.validate();
-            if (valid.isValid()) {
-                var data = $('#form-themmoi').serialize();
-                $.ajax({
-                    url: base_url + 'khoavien/them-moi?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
-                    type: "post",
-                    data: data,
-                    dataType: "text",
-                    success: function (result) {
-                        $('#themnhansu').modal('hide');
-                        if (result.trim() === "success") {
-                            notify_sucess('Thêm khoa viện', 'Thêm mới');
-                        } else {
-                            notify_error('Thêm khoa viện', 'Thêm mới');
-                        }
-                    }
-                });
-            }
+        $('#btn-edit').click(function () {
+            $('#suanhansu').modal('show');
         });
-    // var sizeFile = $("#size_max").val();
-    // $(function () {
-    //     $('#avatar').on('click', function () {
-    //         $('#avatar').click();
-    //     });
-    // });
-    // $("#avatar").change(function () {
-    //     if(this.files[0].size / (1024*1024) > sizeFile){
-    //         var msg1 = "File tải lên không quá " + sizeFile + " MB";
-    //         alert(msg1);
-    //         return;
-    //     }
-    //     if (this.files && this.files[0]) {
-    //         var reader = new FileReader();
-    //         reader.onload = function (e) {
-    //             // .css("background-image", "url(/myimage.jpg)");
-    //             $('#view-avatar').css("background-image", "url(" + e.target.result + ")");
-    //             // $('#view-avatar').style('background', e.target.result);
-    //         };
-    //         reader.readAsDataURL(this.files[0]);
-    //     }
-    // });
-    // $('#btn-update').click(function () {
-    //     $('#form-update').submit();
-    // });
 </script>
 </html>
