@@ -33,12 +33,6 @@ public class MainController {
         return "home";
     }
 
-
-    @GetMapping("/register")
-    public String register() {
-        return "register";
-    }
-
     @GetMapping("/login")
     public String login() {
         return "login";
@@ -47,17 +41,6 @@ public class MainController {
     @GetMapping("/403")
     public String page403() {
         return "403";
-    }
-
-    @PostMapping("/sign-in")
-    public String signIn(User user, @RequestParam("role") String roleStr) {
-        user.setUserPassWord(passwordEncoder.encode(user.getUserPassWord()));
-        Set<Role> roles = new HashSet<>();
-        Role role = roleService.findById(roleStr);
-        roles.add(role);
-        user.setRoles(roles);
-//        User result = userService.createAccount(user);
-        return "redirect:/login";
     }
 
     @GetMapping ("/logout")

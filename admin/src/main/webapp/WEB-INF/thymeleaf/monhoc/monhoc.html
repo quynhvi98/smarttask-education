@@ -121,14 +121,17 @@
                     </th>
                     <th>
                         <div>
-                            <div>Mã bộ môn</div>
+                            <div>Mã môn học</div>
                         </div>
                     </th>
                     <th>
-                        <div>Tên bộ môn</div>
+                        <div>Tên môn học</div>
                     </th>
                     <th>
-                        <div>Khoa/viện</div>
+                        <div>Bộ môn</div>
+                    </th>
+                    <th>
+                        <div>Số tín chỉ</div>
                     </th>
                     <th class="wpx-40">
                         <!-- <div>Chức năng</div> -->
@@ -136,16 +139,17 @@
                 </tr>
                 </thead>
                 <tbody class="text-center">
-                <th:block th:if="${#lists.isEmpty(lstBoMon)}">
+                <th:block th:if="${#lists.isEmpty(lstMonHoc)}">
                     <p>Không có dữ liệu</p>
                 </th:block>
-                <th:block th:if="${!#lists.isEmpty(lstBoMon)}">
-                    <th:block th:each="bm, i : ${lstBoMon}">
+                <th:block th:if="${!#lists.isEmpty(lstMonHoc)}">
+                    <th:block th:each="mh, i : ${lstMonHoc}">
                         <tr>
                             <td th:text="${i.index+1}">1</td>
-                            <td th:text="${bm.maNganh}"></td>
-                            <td th:text="${bm.tenNganh}"></td>
-                            <td th:text="${bm.khoaVien.tenVien}"></td>
+                            <td th:text="${mh.maMonHoc}"></td>
+                            <td th:text="${mh.tenMonHoc}"></td>
+                            <td th:text="${mh.boMon.tenNganh}"></td>
+                            <td th:text="${mh.tinChi}"></td>
                             <td class="text-center">
                                 <div class="dropdown bacham">
                                     <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -153,12 +157,12 @@
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-right">
                                         <li class="inline">
-                                            <a class="icon-edit" th:attr="idItem=${bm.maNganh}"
+                                            <a class="icon-edit" th:attr="idItem=${mh.maMonHoc}"
                                                data-toggle="modal"
                                                data-target="#suanhansu"><i class="fa fa-pencil-square-o"
                                                                            aria-hidden="true"></i> Sửa</a></li>
                                         <li class="inline">
-                                            <a class="icon-remove" th:attr="idItem=${bm.maNganh}"><i
+                                            <a class="icon-remove" th:attr="idItem=${mh.maMonHoc}"><i
                                                     class="fa fa-trash-o" aria-hidden="true"></i> Xóa</a>
                                         </li>
                                     </ul>
@@ -187,40 +191,49 @@
                         </h3>
                     </div>
                     <div class="modal-body">
-                        <form id="form-themmoi" th:action="@{/bomon/them-moi}" method="post" class="form-horizontal">
+                        <form id="form-themmoi" method="post" class="form-horizontal">
                             <div class="">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label">Mã bộ môn <span class="red">(*)</span></label>
+                                            <label for="" class="col-sm-3 control-label">Mã môn học <span class="red">(*)</span></label>
                                             <div class="col-md-9">
-                                                <input required name="maNganh" type="text" class="form-control" id=""
-                                                       placeholder="Mã bộ môn">
+                                                <input required name="maMonHoc" type="text" class="form-control" id=""
+                                                       placeholder="Mã môn học">
                                             </div>
                                             <p class="col-sm-offset-3 help-block red">Example block-level help text
                                                 here.</p>
                                         </div>
                                         <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label">Tên bộ môn <span
+                                            <label for="" class="col-sm-3 control-label">Tên môn học <span
                                                     class="red">(*)</span></label>
                                             <div class="col-md-9">
-                                                <input required name="tenNganh" type="text" class="form-control" id=""
-                                                       placeholder="Tên bộ môn ">
+                                                <input required name="tenMonHoc" type="text" class="form-control" id=""
+                                                       placeholder="Tên môn học ">
                                             </div>
                                             <p class="col-sm-offset-3 help-block red">Example block-level help text
                                                 here.</p>
                                         </div>
                                         <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label">Khoa/viện</label>
+                                            <label for="" class="col-sm-3 control-label">Bộ môn</label>
                                             <div class="col-md-9">
-                                                <select name="khoaVien" class="select2 form-control" title="Khoa/viện">
-                                                    <th:block th:if="${!#lists.isEmpty(lstKhoaVien)}" th:each="kv : ${lstKhoaVien}">
-                                                        <option th:value="${kv.maVien}" th:text="${kv.tenVien}"></option>
+                                                <select required  name="boMon" class="select2 form-control" title="Bộ môn">
+                                                    <th:block th:if="${!#lists.isEmpty(lstBoMon)}" th:each="bm : ${lstBoMon}">
+                                                        <option th:value="${bm.maNganh}" th:text="${bm.tenNganh}"></option>
                                                     </th:block>
                                                 </select>
                                             </div>
                                         </div>
-                                        <input name="trangThai" value="1" hidden/>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-3 control-label">Số tín chỉ <span
+                                                    class="red">(*)</span></label>
+                                            <div class="col-md-9">
+                                                <input required name="tinChi" type="text" class="form-control" id=""
+                                                       placeholder="Số tín chỉ ">
+                                            </div>
+                                            <p class="col-sm-offset-3 help-block red">Example block-level help text
+                                                here.</p>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -260,35 +273,43 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label">Mã bộ môn <span class="red">(*)</span></label>
+                                            <label for="" class="col-sm-3 control-label">Mã môn học <span class="red">(*)</span></label>
                                             <div class="col-md-9">
-                                                <input required name="maNganh" readonly type="text" class="form-control"
-                                                       id="maNganhEdit"
-                                                       placeholder="Mã bộ môn">
+                                                <input  name="maMonHoc" id="maMonHocEdit" readonly required type="text" class="form-control"
+                                                       placeholder="Mã môn học">
                                             </div>
                                             <p class="col-sm-offset-3 help-block red">Example block-level help text
                                                 here.</p>
                                         </div>
                                         <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label">Tên bộ môn <span
+                                            <label for="" class="col-sm-3 control-label">Tên môn học <span
                                                     class="red">(*)</span></label>
                                             <div class="col-md-9">
-                                                <input required name="tenNganh" type="text" class="form-control"
-                                                       id="tenNganhEdit"
-                                                       placeholder="Tên bộ môn ">
+                                                <input id="tenMonHocEdit" required name="tenMonHoc" type="text" class="form-control"
+                                                       placeholder="Tên môn học ">
                                             </div>
                                             <p class="col-sm-offset-3 help-block red">Example block-level help text
                                                 here.</p>
                                         </div>
                                         <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label">Khoa/viện</label>
+                                            <label for="" class="col-sm-3 control-label">Bộ môn</label>
                                             <div class="col-md-9">
-                                                <select id="khoaVienEdit" required name="khoaVien" class="select2 form-control" title="Khoa Viện">
-                                                    <th:block th:if="${!#lists.isEmpty(lstKhoaVien)}" th:each="kv : ${lstKhoaVien}">
-                                                        <option th:value="${kv.maVien}" th:text="${kv.tenVien}"></option>
+                                                <select required id="boMonEdit"  name="boMon" class="select2 form-control" title="Bộ môn">
+                                                    <th:block th:if="${!#lists.isEmpty(lstBoMon)}" th:each="bm : ${lstBoMon}">
+                                                        <option th:value="${bm.maNganh}" th:text="${bm.tenNganh}"></option>
                                                     </th:block>
                                                 </select>
                                             </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-3 control-label">Số tín chỉ <span
+                                                    class="red">(*)</span></label>
+                                            <div class="col-md-9">
+                                                <input id="tinChiEdit" required name="tinChi" type="text" class="form-control"
+                                                       placeholder="Số tín chỉ ">
+                                            </div>
+                                            <p class="col-sm-offset-3 help-block red">Example block-level help text
+                                                here.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -322,16 +343,16 @@
             if (valid.isValid()) {
                 var data = $('#form-themmoi').serialize();
                 $.ajax({
-                    url: base_url + 'bomon/them-moi?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
+                    url: base_url + 'monhoc/them-moi?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
                     type: "post",
                     data: data,
                     dataType: "text",
                     success: function (result) {
                         $('#themnhansu').modal('hide');
                         if (result.trim() === "success") {
-                            notify_sucess('Thêm bộ môn', 'Thêm mới');
+                            notify_sucess('Thêm môn học', 'Thêm mới');
                         } else {
-                            notify_error('Thêm bộ môn', 'Thêm mới');
+                            notify_error('Thêm môn học', 'Thêm mới');
                         }
                     }
                 });
@@ -345,16 +366,16 @@
         if (valid.isValid()) {
             var data = $('#form-sua').serialize();
             $.ajax({
-                url: base_url + 'bomon/cap-nhat?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
+                url: base_url + 'monhoc/cap-nhat?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
                 type: "post",
                 data: data,
                 dataType: "text",
                 success: function (result) {
                     $('#suanhansu').modal('hide');
                     if (result.trim() === "success") {
-                        notify_sucess("Cập nhật bộ môn", "Cập nhật");
+                       notify_sucess("Cập nhật môn học", "Cập nhật");
                     } else {
-                        notify_error("Cập nhật bộ môn", "Cập nhật");
+                        notify_error("Cập nhật môn học", "Cập nhật");
                     }
                 }
             });
@@ -410,14 +431,15 @@
     $('.icon-edit').click(function () {
         var idItem = $(this).attr("idItem");
         $.ajax({
-            url: base_url + 'bomon/timkiem/' + idItem,
+            url: base_url + 'monhoc/timkiem/' + idItem,
             type: "get",
             dataType: "text",
             success: function (result) {
                 var rs = JSON.parse(result);
-                $('#maNganhEdit').val(rs.maNganh);
-                $('#tenNganhEdit').val(rs.tenNganh);
-                $('#khoaVienEdit').val(rs.khoaVien['maVien']).change();;
+                $('#maMonHocEdit').val(rs.maMonHoc);
+                $('#tenMonHocEdit').val(rs.tenMonHoc);
+                $('#boMonEdit').val(rs.boMon['maNganh']).change();
+                $('#tinChiEdit').val(rs.tinChi);
             }
         });
     });

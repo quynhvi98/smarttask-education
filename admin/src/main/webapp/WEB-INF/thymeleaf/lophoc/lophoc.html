@@ -64,14 +64,14 @@
         <!--<div layout:fragment="content">&nbsp;</div>-->
         <section class="content-header">
             <h1>
-                Quản lý tài khoản
+                Quản lý lớp học
             </h1>
             <ol class="breadcrumb">
                 <li>
                     <a href="#">Home</a>
                 </li>
                 <li class="active">
-                    Quản lý tài khoản
+                    Quản lý lớp học
                 </li>
             </ol>
         </section>
@@ -107,10 +107,10 @@
             <!-- <div class="submit"></div> -->
         </div>
         <h3 class="title">
-            Danh sách tài khoản
+            Danh sách lớp học
             <a href="#" class="add-use" data-toggle="modal" data-target="#themnhansu">
                 <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                Thêm tài khoản
+                Thêm lớp học
             </a>
         </h3>
         <div class="table">
@@ -121,19 +121,28 @@
                         <div>STT</div>
                     </th>
                     <th>
-                        <div>Mã thành viên</div>
+                        <div>Mã lớp học</div>
                     </th>
                     <th>
-                        <div>Họ tên</div>
+                        <div>Môn học</div>
                     </th>
                     <th>
-                        <div>Tên truy cập</div>
+                        <div>Phòng học</div>
                     </th>
                     <th>
-                        <div>Loại tài khoản</div>
+                        <div>Giảng viên</div>
                     </th>
                     <th>
-                        <div>Số điện thoại</div>
+                        <div>Mô tả</div>
+                    </th>
+                    <th>
+                        <div>Ngày bắt đầu</div>
+                    </th>
+                    <th>
+                        <div>Ngày kết thúc</div>
+                    </th>
+                    <th>
+                        <div>Ngày tạo</div>
                     </th>
                     <th class="wpx-40">
                         <!-- <div>Chức năng</div> -->
@@ -141,22 +150,17 @@
                 </tr>
                 </thead>
                 <tbody class="text-center">
-                <th:block th:if="${!#lists.isEmpty(lstUser)}" th:each="u, i : ${lstUser}">
+                <th:block th:if="${!#lists.isEmpty(lstLopHoc)}" th:each="lh, i : ${lstLopHoc}">
                     <tr>
                         <td th:text="${i.index+1}">1</td>
-
-                        <td th:if="${u.giaoVien != null}" th:text="${u.giaoVien.maGiaoVien}"></td>
-                        <td th:if="${u.sinhVien != null}" th:text="${u.sinhVien.maSinhVien}"></td>
-                        <td th:if="${u.sinhVien == null and u.giaoVien == null}" th:text="${u.userName}"></td>
-
-                        <td th:text="${u.fullName}"></td>
-                        <td th:text="${u.userName}"></td>
-
-                        <td th:if="${u.giaoVien != null}" th:text="'Giảng viên'"></td>
-                        <td th:if="${u.sinhVien != null}" th:text="'Sinh viên'"></td>
-                        <td th:if="${u.sinhVien == null and u.giaoVien == null}" th:text="'Quản trị viên'"></td>
-
-                        <td th:text="${u.userPhone}"></td>
+                        <td th:text="${lh.maLop}"></td>
+                        <td th:text="${lh.monHoc.tenMonHoc}"></td>
+                        <td th:text="${lh.phongHoc}"></td>
+                        <td th:text="${lh.giaoVien.user.fullName}"></td>
+                        <td th:text="${lh.moTa}"></td>
+                        <td th:text="${lh.ngayBatDau}"></td>
+                        <td th:text="${lh.ngayKetThuc}"></td>
+                        <td th:text="${lh.ngayTao}"></td>
                         <td class="text-center">
                             <div class="dropdown bacham">
                                 <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -164,16 +168,13 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li class="inline">
-                                        <a href="#" th:attr="userName=${u.userName}" data-toggle="modal"
-                                           data-target="#xemnhansu">
+                                        <a href="#" data-toggle="modal" data-target="#xemnhansu">
                                             <i class="fa fa-search" aria-hidden="true"></i> Xem
                                         </a>
                                     </li>
-
-                                    <li href="#" class="inline"><a th:attr="userName=${u.userName}"
-                                                                   class="doimatkhau"><i class="fa fa-key"
-                                                                                         aria-hidden="true"></i> thiết
-                                        lập mật khẩu</a></li>
+                                    <li class="inline">
+                                        <a href="#" class="xoa"><i class="fa fa-trash-o" aria-hidden="true"></i> Xóa</a>
+                                    </li>
                                 </ul>
                             </div>
                         </td>
@@ -203,136 +204,74 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label">Mã thành viên <span
-                                                    class="red">(*)</span></label>
+                                            <label for="" class="col-sm-3 control-label">Mã lớp học <span class="red">(*)</span></label>
                                             <div class="col-md-9">
-                                                <input required name="memberId" type="text" class="form-control"
-                                                       placeholder="Mã nhân viên">
+                                                <input required name="maLop" type="text" class="form-control"
+                                                       placeholder="Mã lớp học">
                                             </div>
                                             <p class="col-sm-offset-3 help-block red">Example block-level help text
                                                 here.</p>
                                         </div>
                                         <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label">Tên truy cập <span class="red">(*)</span></label>
+                                            <label for="" class="col-sm-3 control-label">Môn học</label>
                                             <div class="col-md-9">
-                                                <input required name="userName" type="text" class="form-control"
-                                                       placeholder="Tên truy cập">
-                                            </div>
-                                            <p class="col-sm-offset-3 help-block red">Example block-level help text
-                                                here.</p>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label">Mật khẩu <span
-                                                    class="red">(*)</span></label>
-                                            <div class="col-md-9">
-                                                <input required name="userPassWord" type="password" class="form-control"
-                                                       placeholder="Mật khẩu">
-                                            </div>
-                                            <p class="col-sm-offset-3 help-block red">Example block-level help text
-                                                here.</p>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label">Số điện thoại <span
-                                                    class="red">(*)</span></label>
-                                            <div class="col-md-9">
-                                                <input required name="userPhone" type="text" class="form-control"
-                                                       placeholder="Số điện thoại">
-                                            </div>
-                                            <p class="col-sm-offset-3 help-block red">Example block-level help text
-                                                here.</p>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label">Thư điện tử <span class="red">(*)</span></label>
-                                            <div class="col-md-9">
-                                                <input required name="userEmail" type="text" class="form-control"
-                                                       placeholder="Thư điện tử">
-                                            </div>
-                                            <p class="col-sm-offset-3 help-block red">Example block-level help text
-                                                here.</p>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label">Họ tên <span
-                                                    class="red">(*)</span></label>
-                                            <div class="col-md-9">
-                                                <input required name="fullName" type="text" class="form-control"
-                                                       placeholder="Họ tên">
-                                            </div>
-                                            <p class="col-sm-offset-3 help-block red">Example block-level help text
-                                                here.</p>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label">Giới tính</label>
-                                            <div class="col-md-9">
-                                                <select name="userGender" class="select2 form-control"
-                                                        title="Giới tính">
-                                                    <option value="Nam">Nam</option>
-                                                    <option value="Nữ">Nữ</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label">Ngày sinh</label>
-                                            <div class="col-md-9">
-                                                <input required name="userDOB" type="date" class="form-control" id=""
-                                                       placeholder="Ngày sinh">
-                                            </div>
-                                            <p class="col-sm-offset-3 help-block red">Example block-level help text
-                                                here.</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label">Địa chỉ</label>
-                                            <div class="col-md-9">
-                                                <input required name="userAddress" type="text" class="form-control"
-                                                       placeholder="Địa chỉ">
-                                            </div>
-                                            <p class="col-sm-offset-3 help-block red">Example block-level help text
-                                                here.</p>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label">Loại tài khoản</label>
-                                            <div class="col-md-9">
-                                                <select id="memberType" name="memberType" class="select2 form-control"
-                                                        title="Loại tài khoản">
-                                                    <option selected value="ad01">Admin</option>
-                                                    <option value="gv01">Giảng viên</option>
-                                                    <option value="sv01">Sinh viên</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label">Bộ môn</label>
-                                            <div class="col-md-9">
-                                                <select disabled id="boMon" name="boMon" class="select2 form-control"
-                                                        title="Bộ môn">
-                                                    <th:block th:if="${!#lists.isEmpty(lstBoMon)}"
-                                                              th:each="bm : ${lstBoMon}">
-                                                        <option th:value="${bm.maNganh}"
-                                                                th:text="${bm.tenNganh}"></option>
+                                                <select required name="monHoc" class="select2 form-control" title="Bộ môn">
+                                                    <th:block th:if="${!#lists.isEmpty(lstMonHoc)}"
+                                                              th:each="mh : ${lstMonHoc}">
+                                                        <option th:value="${mh.maMonHoc}"
+                                                                th:text="${mh.tenMonHoc}"></option>
                                                     </th:block>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label">Học hàm</label>
+                                            <label for="" class="col-sm-3 control-label">Giảng viên</label>
                                             <div class="col-md-9">
-                                                <input disabled id="hocHam" name="hocHam" type="text"
-                                                       class="form-control" placeholder="Học hàm">
+                                                <select required name="giangVien" class="select2 form-control"
+                                                        title="Giảng viên">
+                                                    <th:block th:if="${!#lists.isEmpty(lstGiaoVien)}"
+                                                              th:each="gv : ${lstGiaoVien}">
+                                                        <option th:value="${gv.maGiaoVien}"
+                                                                th:text="${gv.user.fullName}"></option>
+                                                    </th:block>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-3 control-label">Phòng học <span
+                                                    class="red">(*)</span></label>
+                                            <div class="col-md-9">
+                                                <input required name="phongHoc" type="text" class="form-control"
+                                                       placeholder="Phòng học">
                                             </div>
                                             <p class="col-sm-offset-3 help-block red">Example block-level help text
                                                 here.</p>
                                         </div>
                                         <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label">Kinh nghiệm</label>
+                                            <label for="" class="col-sm-3 control-label">Mô tả</label>
                                             <div class="col-md-9">
-                                                <textarea disabled id="kinhNghiem" name="kinhNghiem"
-                                                          class="form-control" placeholder="Kinh nghiệm"
+                                                <textarea required name="moTa" class="form-control" placeholder="Mô tả"
                                                           rows="2"></textarea>
                                             </div>
                                         </div>
-
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-3 control-label">Ngày bắt đầu</label>
+                                            <div class="col-md-9">
+                                                <input type="date" required name="ngayBatDau" class="form-control"
+                                                       placeholder="Ngày bắt đầu">
+                                            </div>
+                                            <p class="col-sm-offset-3 help-block red">Example block-level help text
+                                                here.</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-3 control-label">Ngày kết thúc</label>
+                                            <div class="col-md-9">
+                                                <input type="date" required name="ngayKetThuc" class="form-control"
+                                                       placeholder="Ngày kết thúc"/>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -496,53 +435,21 @@
             if (valid.isValid()) {
                 var data = $('#form-themmoi').serialize();
                 $.ajax({
-                    url: base_url + 'user/them-moi?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
+                    url: base_url + 'lophoc/them-moi?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
                     type: "post",
                     data: data,
                     dataType: "text",
                     success: function (result) {
                         $('#themnhansu').modal('hide');
                         if (result.trim() === "success") {
-                            notify_sucess("Thêm tài khoản", 'Thêm mới');
+                            notify_sucess("Thêm lớp học", 'Thêm mới');
                         } else {
-                            notify_error("Thêm tài khoản", 'Thêm mới');
+                            notify_error("Thêm lớp học", 'Thêm mới');
                         }
                     }
                 });
             }
         });
-    $('.doimatkhau').click(function () {
-        var userName = $(this).attr("userName");
-        swal({
-                title: "Cảnh báo",
-                text: "Bạn có chắc muốn thiết lập lại mật khẩu",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonClass: "btn-danger",
-                confirmButtonText: "Đồng ý",
-                cancelButtonText: "Thoát!",
-                // closeOnConfirm: false
-            },
-            function () {
-                var matkhau = "123456";
-
-                console.log(userName);
-                $.ajax({
-                    url: base_url + 'user/reset-password?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
-                    type: "post",
-                    data: {userName: userName},
-                    dataType: "text",
-                    success: function (result) {
-                        if (result.trim() === 'success') {
-                            setClipboard(matkhau);
-                            notify_reset_success(matkhau)
-                        } else {
-                            notify_error("Thiết lập mật khẩu", "Thiết lập");
-                        }
-                    }
-                });
-            });
-    });
     //
 </script>
 </html>

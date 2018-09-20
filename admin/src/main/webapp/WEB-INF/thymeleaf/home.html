@@ -24,7 +24,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/lobibox.min.css}" />
     <!-- css overwrite -->
     <link rel="stylesheet" type="text/css" th:href="@{/css/overwrite.css}" />
-
+    <link rel="stylesheet" type="text/css" th:href="@{/css/fixgiaodienadmin.css}">
     <!-- jquery -->
     <script type="text/javascript" th:src="@{/js/jquery-3.3.1/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/bootstrap-3.3.7/bootstrap.min.js}"></script>
@@ -62,7 +62,7 @@
 
 
     </style>
-    <link rel="stylesheet" href="../css/fixgiaodienadmin.css">
+
 </head>
 <body class="hold-transition fixed skin-purple sidebar-mini">
 <div class="wrapper">
@@ -71,187 +71,66 @@
         <!--<div layout:fragment="content">&nbsp;</div>-->
         <section class="content-header">
             <h1>
-                Quản lý danh mục
+                Trang chủ
             </h1>
             <ol class="breadcrumb">
                 <li>
                     <a href="#">Home</a>
                 </li>
-                <li class="active">
-                    Quản lý danh mục
-                </li>
             </ol>
         </section>
-        <div class="khung" data-width="5">
-            <!-- <div class="input">
-              <div class="label"></div>
-              <input type="text" placeholder="Họ và tên" value="">
-            </div> -->
-            <div class="input">
-                <div class="label">Họ tên/Tên truy cập</div>
-                <input type="text" placeholder="Họ tên hoặc Tên truy cập" value="">
-            </div>
-            <div class="input">
-                <div class="label">Đơn vị/ phòng ban</div>
-                <select class="select2" data-class="select2tree" title="Đơn vị/ phòng ban">
-                    <option value="" class="optionlv1">Tất cả</option>
-                    <option value="" class="optionlv2">phòng ban phòng ban phòng ban</option>
-                    <option value="" class="optionlv2">phòng ban phòng ban phòng ban</option>
-                    <option value="" class="optionlv2">phòng ban phòng ban phòng ban</option>
-                    <option value="" class="optionlv3">Đơn vị</option>
-                    <option value="" class="optionlv1">Tất cả</option>
-                    <option value="" class="optionlv2">phòng ban phòng ban phòng ban</option>
-                    <option value="" class="optionlv3">Đơn vị</option>
-                    <option value="" class="optionlv4">Đơn vị</option>
-                    <option value="" class="optionlv4">Đơn vị</option>
-                    <option value="" class="optionlv4">Đơn vị</option>
-                    <option value="" class="optionlv4">Đơn vị</option>
-                    <option value="" class="optionlv3">Đơn vị</option>
-                    <option value="" class="optionlv3">Đơn vị</option>
-                    <option value="" class="optionlv4">Đơn vị</option>
-                    <option value="" class="optionlv4">Đơn vị</option>
-                    <option value="" class="optionlv4">Đơn vị</option>
-                    <option value="" class="optionlv4">Đơn vị</option>
-                    <option value="" class="optionlv4">Đơn vị</option>
-                </select>
-            </div>
-            <div class="input">
-                <div class="label">Mã nhân viên</div>
-                <input type="text" placeholder="Mã nhân viên" value="">
-            </div>
-            <div class="input">
-                <div class="label">Mã vị trí</div>
-                <input type="text" placeholder="Mã vị trí" value="">
-            </div>
-            <div class="input nho">
-                <div class="label">Trạng thái</div>
-                <select class="select2" id="select2" title="Trạng thái">
-                    <option value=""> <span class="aaaa">Hoạt động</span></option>
-                    <option value="">Ngừng hoạt động</option>
-                </select>
-            </div>
-            <a href="#" class="submit">Tìm kiếm</a>
-            <!-- <div class="submit"></div> -->
-        </div>
-        <h3 class="title">
-            Danh sách nhân sự
-            <a href="#" class="add-use" data-toggle="modal" data-target="#themnhansu">
-                <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                Thêm nhân sự
-            </a>
-        </h3>
-        <div class="table">
-            <table class="tree-table">
-                <thead class="fix-w text-center">
-                <tr>
-                    <th class="wpx-60">
-                        <div>STT</div>
-                    </th>
-                    <th>
-                        <div>
-                            <div>Tên hiển thị</div>
-                        </div>
-                    </th>
-                    <th>
-                        <div>Tên truy cập</div>
-                    </th>
-                    <th>
-                        <div>Đơn vị/ phòng ban</div>
-                    </th>
-                    <th>
-                        <div>Vị trí công tác</div>
-                    </th>
-                    <th>
-                        <div class="text-center">Trạng thái</div>
-                    </th>
-                    <th class="wpx-40">
-                        <!-- <div>Chức năng</div> -->
-                    </th>
-                </tr>
-                </thead>
-                <tbody class="text-center">
-                <tr>
-                    <td>1</td>
-                    <td>
-                        Phạm Thị Nga
-                    </td>
-                    <td>
-                        ngapt
-                    </td>
-                    <td>
-                        Trung tâm tin học
-                    </td>
-                    <td>
-                        Trưởng phòng
-                    </td>
-                    <td class="text-center">
-                        <div class="stage -closed">
-                            Ngừng hoạt động
-                        </div>
-                    </td>
-                    <td class="text-center">
-                        <div class="dropdown bacham">
-                            <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                <li class="inline">
-                                    <a href="#" data-toggle="modal" data-target="#xemnhansu">
-                                        <i class="fa fa-search" aria-hidden="true"></i> Xem
-                                    </a>
-                                </li>
-                                <li class="inline">
-                                    <a href="#" data-toggle="modal" data-target="#suanhansu"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa</a></li>
-                                <li class="inline">
-                                    <a href="#" class="xoa"><i class="fa fa-trash-o" aria-hidden="true"></i> Xóa</a>
-                                </li>
-                                <li class="inline"><a href="#" class="doimatkhau"><i class="fa fa-key" aria-hidden="true"></i> thiết lập mật khẩu</a></li>
-                            </ul>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>
-                        Phạm Thị Nga
-                    </td>
-                    <td>
-                        ngapt
-                    </td>
-                    <td>
-                        Trung tâm tin học
-                    </td>
-                    <td>
-                        Trưởng phòng
-                    </td>
-                    <td class="text-center">
-                        <div class="stage">
-                            Hoạt động
-                        </div>
-                    </td>
-                    <td class="text-center">
-                        <div class="dropdown bacham">
-                            <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                <li class="inline">
-                                    <a href="#" data-toggle="modal" data-target="#xemnhansu"><i class="fa fa-search" aria-hidden="true"></i> Xem</a>
-                                </li>
-                                <li class="inline">
-                                    <a href="#" data-toggle="modal" data-target="#suanhansu"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sửa</a></li>
-                                <li class="inline">
-                                    <a href="#" class="xoa"><i class="fa fa-trash-o" aria-hidden="true"></i> Xóa</a>
-                                </li>
-                                <li class="inline"><a href="#" class="doimatkhau"><i class="fa fa-key" aria-hidden="true"></i> thiết lập mật khẩu</a></li>
-                            </ul>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+        <!--<div class="khung" data-width="5">-->
+            <!--&lt;!&ndash; <div class="input">-->
+              <!--<div class="label"></div>-->
+              <!--<input type="text" placeholder="Họ và tên" value="">-->
+            <!--</div> &ndash;&gt;-->
+            <!--<div class="input">-->
+                <!--<div class="label">Họ tên/Tên truy cập</div>-->
+                <!--<input type="text" placeholder="Họ tên hoặc Tên truy cập" value="">-->
+            <!--</div>-->
+            <!--<div class="input">-->
+                <!--<div class="label">Đơn vị/ phòng ban</div>-->
+                <!--<select class="select2" data-class="select2tree" title="Đơn vị/ phòng ban">-->
+                    <!--<option value="" class="optionlv1">Tất cả</option>-->
+                    <!--<option value="" class="optionlv2">phòng ban phòng ban phòng ban</option>-->
+                    <!--<option value="" class="optionlv2">phòng ban phòng ban phòng ban</option>-->
+                    <!--<option value="" class="optionlv2">phòng ban phòng ban phòng ban</option>-->
+                    <!--<option value="" class="optionlv3">Đơn vị</option>-->
+                    <!--<option value="" class="optionlv1">Tất cả</option>-->
+                    <!--<option value="" class="optionlv2">phòng ban phòng ban phòng ban</option>-->
+                    <!--<option value="" class="optionlv3">Đơn vị</option>-->
+                    <!--<option value="" class="optionlv4">Đơn vị</option>-->
+                    <!--<option value="" class="optionlv4">Đơn vị</option>-->
+                    <!--<option value="" class="optionlv4">Đơn vị</option>-->
+                    <!--<option value="" class="optionlv4">Đơn vị</option>-->
+                    <!--<option value="" class="optionlv3">Đơn vị</option>-->
+                    <!--<option value="" class="optionlv3">Đơn vị</option>-->
+                    <!--<option value="" class="optionlv4">Đơn vị</option>-->
+                    <!--<option value="" class="optionlv4">Đơn vị</option>-->
+                    <!--<option value="" class="optionlv4">Đơn vị</option>-->
+                    <!--<option value="" class="optionlv4">Đơn vị</option>-->
+                    <!--<option value="" class="optionlv4">Đơn vị</option>-->
+                <!--</select>-->
+            <!--</div>-->
+            <!--<div class="input">-->
+                <!--<div class="label">Mã nhân viên</div>-->
+                <!--<input type="text" placeholder="Mã nhân viên" value="">-->
+            <!--</div>-->
+            <!--<div class="input">-->
+                <!--<div class="label">Mã vị trí</div>-->
+                <!--<input type="text" placeholder="Mã vị trí" value="">-->
+            <!--</div>-->
+            <!--<div class="input nho">-->
+                <!--<div class="label">Trạng thái</div>-->
+                <!--<select class="select2" id="select2" title="Trạng thái">-->
+                    <!--<option value=""> <span class="aaaa">Hoạt động</span></option>-->
+                    <!--<option value="">Ngừng hoạt động</option>-->
+                <!--</select>-->
+            <!--</div>-->
+            <!--<a href="#" class="submit">Tìm kiếm</a>-->
+            <!--&lt;!&ndash; <div class="submit"></div> &ndash;&gt;-->
+        <!--</div>-->
 
-        </div>
         </section>
 
         <!-- Modal themnhansu-->

@@ -6,6 +6,8 @@ import com.fpt.services.giangvien.GiangVienService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class GiangVienServiceImpl implements GiangVienService {
     @Autowired
@@ -14,5 +16,15 @@ public class GiangVienServiceImpl implements GiangVienService {
     @Override
     public GiaoVien themGiaoVien(GiaoVien giaoVien) {
         return giangVienDao.save(giaoVien);
+    }
+
+    @Override
+    public List<GiaoVien> findAll() {
+        return (List<GiaoVien>) giangVienDao.findAll();
+    }
+
+    @Override
+    public GiaoVien findById(String giangVienId) {
+        return giangVienDao.findOne(giangVienId);
     }
 }

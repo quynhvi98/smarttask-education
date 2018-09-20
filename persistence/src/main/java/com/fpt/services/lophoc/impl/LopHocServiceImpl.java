@@ -56,5 +56,10 @@ public class LopHocServiceImpl implements LopHocService {
         lopHocDao.save(lopHoc);
     }
 
+    @Override
+    public List<LopHoc> findAll() {
+        return (List<LopHoc>) lopHocDao.findAll();
+    }
+
 
 }

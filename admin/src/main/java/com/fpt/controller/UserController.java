@@ -83,9 +83,20 @@ public class UserController {
             }
 
             response.getWriter().println("success");
-        }catch (Exception e){
+        } catch (Exception e) {
             response.getWriter().println("fail");
         }
     }
 
+    @PostMapping("/user/reset-password")
+    public void resetPassword(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        User user = userService.findUserByUserName(request.getParameter("userName"));
+        user.setUserPassWord(passwordEncoder.encode("123456"));
+        try {
+            userService.update(user);
+            response.getWriter().println("success");
+        } catch (Exception e) {
+            response.getWriter().println("failed");
+        }
+    }
 }

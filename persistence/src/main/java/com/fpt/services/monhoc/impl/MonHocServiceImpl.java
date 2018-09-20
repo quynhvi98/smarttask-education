@@ -22,4 +22,19 @@ public class MonHocServiceImpl implements MonHocService {
     public List<MonHoc> listMonHoc() {
         return (List<MonHoc>) monHocDao.findAll();
     }
+
+    @Override
+    public List<MonHoc> findAll() {
+        return (List<MonHoc>) monHocDao.findAll();
+    }
+
+    @Override
+    public MonHoc findById(String monHocId) {
+        return monHocDao.findOne(monHocId);
+    }
+
+    @Override
+    public void update(MonHoc persist) {
+        monHocDao.save(persist);
+    }
 }

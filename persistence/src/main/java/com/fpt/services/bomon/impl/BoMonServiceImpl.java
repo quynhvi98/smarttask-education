@@ -27,4 +27,9 @@ public class BoMonServiceImpl implements BoMonService {
     public BoMon findById(String boMon) {
         return boMonDao.findOne(boMon);
     }
+
+    @Override
+    public void update(BoMon persist) {
+        boMonDao.save(persist);
+    }
 }

@@ -53,4 +53,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationSuccessHandler myAuthenticationSuccessHandler() {
         return new MyAuthenticationSuccessHandler();
     }
+
+    @Autowired
+    public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication().withUser("admin").password("123").roles("ADMIN");
+    }
+
 }
