@@ -40,7 +40,6 @@ public class SinhVien {
     Set<Nhom> nhoms;
 
     @ManyToMany(mappedBy = "sinhViens", fetch = FetchType.EAGER)
-    @ManyToMany(mappedBy = "sinhViens", fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<LopHoc> lopHocs;
 
