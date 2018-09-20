@@ -17,7 +17,6 @@ import java.util.List;
 public class BoMonDaoImpl implements BoMonDaoCustom {
 //    @Autowired
 //    KhoaVienDao khoaVienDao;
-
     @PersistenceContext
     private EntityManager em;
 

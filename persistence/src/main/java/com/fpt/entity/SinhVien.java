@@ -1,6 +1,7 @@
 package com.fpt.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -10,6 +11,8 @@ import java.util.Set;
  *
  * @author Vi Quynh (vi.quynh.31598@gmail.com)
  */
+
+@JsonIgnoreProperties({"lstBaiTap", "lstPheDuyet","nhoms","lopHocs","khoaVien","lstThongBao"})
 @Entity
 @Table(name = "sinh_vien")
 public class SinhVien {
@@ -20,24 +23,29 @@ public class SinhVien {
     private String maSinhVien;
 
     @OneToMany(mappedBy = "sinhVien", fetch = FetchType.EAGER)
+    @JsonIgnore
     private Set<BaiTap> lstBaiTap;
 
     @OneToMany(mappedBy = "sinhVien", fetch = FetchType.EAGER)
+    @JsonIgnore
     private Set<PheDuyet> lstPheDuyet;
 
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
     @JoinTable(
             name = "chi_tiet_nhom",
             joinColumns = { @JoinColumn(name = "ma_sinh_vien") },
             inverseJoinColumns = { @JoinColumn(name = "ma_nhom") }
     )
+    @JsonIgnore
     Set<Nhom> nhoms;
 
-    @ManyToMany(mappedBy = "sinhViens")
+    @ManyToMany(mappedBy = "sinhViens", fetch = FetchType.EAGER)
+    @JsonIgnore
     private Set<LopHoc> lopHocs;
 
     @ManyToOne
     @JoinColumn(name = "ma_vien")
+    @JsonIgnore
     private KhoaVien khoaVien;
 
     @OneToOne
@@ -45,6 +53,7 @@ public class SinhVien {
     private User user;
 
     @OneToMany(mappedBy = "sinhVien", fetch = FetchType.EAGER)
+    @JsonIgnore
     private Set<ThongBao> lstThongBao;
 
     public SinhVien() {
@@ -116,5 +125,19 @@ public class SinhVien {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public boolean equals (Object object) {
+        boolean result = false;
+        if (object == null || object.getClass() != getClass()) {
+            result = false;
+        } else {
+            SinhVien sinhVien = (SinhVien) object;
+            if (this.maSinhVien.equals(sinhVien.getMaSinhVien())  ) {
+                result = true;
+            }
+        }
+        return result;
     }
 }

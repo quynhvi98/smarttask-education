@@ -18,10 +18,7 @@ import java.util.List;
 public class LopHocServiceImpl implements LopHocService {
     @Autowired
     private LopHocDao lopHocDao;
-    @Autowired
-    private PheDuyetDao pheDuyetDao;
-    @Autowired
-    private MonHocDao monHocDao;
+
 
     @Override
     public LopHoc taoLopHoc(LopHoc lopHoc) {
@@ -35,13 +32,8 @@ public class LopHocServiceImpl implements LopHocService {
     }
 
     @Override
-    public List<PheDuyet> listPheDuyet() {
-        return pheDuyetDao.listPheDuyet();
-    }
-
-    @Override
-    public PheDuyet createPheDuyet(PheDuyet pheDuyet) {
-        return pheDuyetDao.save(pheDuyet);
+    public List<LopHoc> listLopHocSinhVien(String msv) {
+        return lopHocDao.listLopHocSV(msv);
     }
 
     @Override
@@ -60,8 +52,8 @@ public class LopHocServiceImpl implements LopHocService {
     }
 
     @Override
-    public List<MonHoc> listMonHoc() {
-        return (List<MonHoc>) monHocDao.findAll();
+    public void createlopSV(LopHoc lopHoc) {
+        lopHocDao.save(lopHoc);
     }
 
 

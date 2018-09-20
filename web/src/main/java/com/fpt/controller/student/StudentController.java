@@ -1,9 +1,11 @@
-package com.fpt.controller.studentcontroller;
+package com.fpt.controller.student;
 
-import com.fpt.entity.LopHoc;
-import com.fpt.entity.PheDuyet;
-import com.fpt.entity.User;
+import com.fpt.entity.*;
+import com.fpt.services.bomon.BoMonService;
 import com.fpt.services.lophoc.LopHocService;
+import com.fpt.services.monhoc.MonHocService;
+import com.fpt.services.pheduyetlop.PheDuyetLopService;
+import com.fpt.services.sinhvien.SinhVienService;
 import com.fpt.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,18 +17,30 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class StudentController {
     @Autowired
     private LopHocService lopHocService;
+
+    @Autowired
+    private SinhVienService sinhVienService;
+
+    @Autowired
+    private PheDuyetLopService pheDuyetLopService;
+
+    @Autowired
+    private MonHocService monHocService;
+
     @GetMapping("/register-class")
-    public String registerclass(Model model) {
+    public String registerclass(Model model, HttpSession session) {
         model.addAttribute("lopHoc", new LopHoc());
         model.addAttribute("listLopHoc", lopHocService.listLopHoc());
-        model.addAttribute("listMonHoc",lopHocService.listMonHoc());
+        model.addAttribute("listMonHoc",monHocService.listMonHoc());
+        User user= (User) session.getAttribute("userInfo");
+        PheDuyet pheDuyet=new PheDuyet();
+        model.addAttribute("listPheDuyetSV",pheDuyetLopService.listPheDuyetTheoSV(user.getUserName()));
         return "student/register_class";
     }
 
@@ -35,14 +49,12 @@ public class StudentController {
         return "student/register-member";
     }
 
-
-
     @PostMapping("/student/search")
     public String search(HttpServletRequest request, HttpSession session, HttpServletResponse response,Model model) {
         String input = request.getParameter("input");
         String loai=request.getParameter("loai");
         String bomon=request.getParameter("bomon");
-        model.addAttribute("listMonHoc",lopHocService.listMonHoc());
+        model.addAttribute("listMonHoc",monHocService.listMonHoc());
         model.addAttribute("lopHoc", new LopHoc());
         if(loai.equals("giaovien")) {
             model.addAttribute("listLopHoc", lopHocService.searchGiaoVien(input, bomon));
@@ -51,8 +63,6 @@ public class StudentController {
         }
         return "student/register_class";
     }
-
-
 
     @PostMapping("/api/dangkylop")
     public ResponseEntity<?> dangKyLop(HttpServletRequest request, HttpSession session, HttpServletResponse response) {
@@ -64,32 +74,48 @@ public class StudentController {
         pheDuyet.setLopHoc(hoc);
         pheDuyet.setStatus("false");
         pheDuyet.setSinhVien(user.getSinhVien());
-        lopHocService.createPheDuyet(pheDuyet);
+        pheDuyetLopService.createPheDuyet(pheDuyet);
+//        LopHoc hoc1=lopHocService.findById(id);
+//        Set<SinhVien> sinhVienSet=hoc1.getSinhViens();
+//        sinhVienSet.add(user.getSinhVien());
+//        hoc1.setMaLop(id);
+//        hoc1.setSinhViens(sinhVienSet);
+//        lopHocService.createlopSV(hoc1);
         return ResponseEntity.ok(true);
     }
 
     @PostMapping("/api/member")
     public ResponseEntity<?> getSearchResultViaAjax(HttpServletRequest request, HttpSession session, HttpServletResponse response) {
         String input = request.getParameter("search");
-        List<Member> s=new LinkedList<>();
+        List<SinhVien> s=new LinkedList<>();
         if(session.getAttribute("listmember")!= null){
-            s= (List<Member>) session.getAttribute("listmember");
-            System.out.println(s.size());
-            Member member=new Member();
-            member.setName(input);
-            if(s.contains(member)){
-                s.remove(member);
+            s= (List<SinhVien>) session.getAttribute("listmember");
+            SinhVien sinhVien=sinhVienService.getSinhVienId(input);
+            if(s.contains(sinhVien)){
+                s.remove(sinhVien);
             }else {
-                s.add(member);
+                s.add(sinhVien);
             }
             session.removeAttribute("listmember");
             session.setAttribute("listmember",s);
         }else {
-            Member member=new Member();
-            member.setName(input);
-            s.add(member);
+            SinhVien sinhVien=sinhVienService.getSinhVienId(input);
+            s.add(sinhVien);
             session.setAttribute("listmember",s);
         }
         return ResponseEntity.ok(s);
+    }
+
+    @GetMapping("/lop")
+    public String getMember(Model model,HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+        String id = request.getParameter("malop");
+        LopHoc hoc=lopHocService.findById(id);
+        Set<SinhVien>sinhViens =hoc.getSinhViens();
+        List<SinhVien> lsv = new LinkedList(sinhViens);
+        model.addAttribute("listSinhVien", lsv);
+        User user= (User) session.getAttribute("userInfo");
+        model.addAttribute("listLopHoc", lopHocService.listLopHocSinhVien(user.getSinhVien().getMaSinhVien()));
+        session.removeAttribute("listmember");
+        return "tuonglop/tuonglop";
     }
 }

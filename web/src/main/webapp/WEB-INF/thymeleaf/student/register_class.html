@@ -69,10 +69,10 @@
     border-bottom: 20px solid transparent;
     text-align: center;">
 
-                        <form th:action="@{/student/search}" method="POST">
-                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    <form th:action="@{/student/search}" method="POST">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 
-                            <div id="search">
+                        <div id="search">
                             <input onkeyup="ip()" type="text" name="input" autocomplete="off" value="" placeholder="Tìm khóa học...">
                         </div>
                         <div class="mc-select">
@@ -83,9 +83,9 @@
                             </select>
                         </div>
                         <div class="mc-select" style="margin-left: 88px;">
-                            <select th:each="mh : ${listMonHoc}" class="select" name="bomon"  style="z-index: 10; opacity: 2;">
+                            <select class="select" name="bomon"  style="z-index: 10; opacity: 2;">
                                 <option value="" selected="">Tìm kiếm theo bộ môn</option>
-                                <option  th:value="${mh.tenMonHoc}" th:text="${mh.tenMonHoc}">Java</option>
+                                <option th:each="mh : ${listMonHoc}"  th:value="${mh.tenMonHoc}" th:text="${mh.tenMonHoc}">Java</option>
 
                             </select>
                         </div>
@@ -143,7 +143,7 @@
                         <td class="text-center">
                             <th:block th:if="${lophoc.getTrangThai()}">
                                 <div class="stage">
-                                Hoạt động
+                                    Hoạt động
                                 </div>
                             </th:block>
                             <th:block th:if="${!lophoc.getTrangThai()}">
@@ -172,15 +172,15 @@
     top: -8px;
     left: -76px;">
                                     <li class="inline">
-                                        <a href="#" data-toggle="modal" data-target="#myModal2"><i class="fa fa-search" aria-hidden="true"></i> Xem</a>
+                                        <a href="#" data-toggle="modal" data-target="#myModal2" th:attrappend="data-target=${lophoc.maLop+2}"><i class="fa fa-search" aria-hidden="true"></i> Xem</a>
                                     </li>
                                     <li class="inline">
-                                        <a href="#" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Đăng ký</a></li>
-                                         </ul>
+                                        <a href="#" data-toggle="modal" data-target="#myModal"  th:attrappend="data-target=${lophoc.maLop}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Đăng ký</a></li>
+                                </ul>
                             </div>
 
 
-                          <div class="modal fade" id="myModal" role="dialog">
+                            <div class="modal fade" id="myModal" role="dialog" th:attrappend="id=${lophoc.maLop}">
                                 <div class="modal-dialog" style="margin-left: 33%;">
                                     <!-- Modal content-->i
                                     <div class="modal-content">
@@ -188,7 +188,7 @@
                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                                         </div>
                                         <div class="modal-body" style="padding-bottom: 20px; padding: 0px;padding-bottom: 32px;">
-                                        <legend class="modal-title">Đăng ký</legend>
+                                            <legend class="modal-title">Đăng ký</legend>
 
                                             <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
 
@@ -223,7 +223,7 @@
 
                                                 </tbody>
                                             </table>
-<button th:id="${lophoc.maLop}" onclick="reply_click(this.id)" class="btn btn-info eBtn"  type="button" style="margin-bottom: 20px;margin-top: 14px">Đăng ký</button>
+                                            <button th:id="${lophoc.maLop}" onclick="reply_click(this.id)" class="btn btn-info eBtn"  type="button" style="margin-bottom: 20px;margin-top: 14px">Đăng ký</button>
                                         </div>
                                     </div>
                                 </div>
@@ -235,55 +235,55 @@
 
 
 
-<style>
-    @media only screen and (max-width: 480px) {
+                            <style>
+                                @media only screen and (max-width: 480px) {
 
-        table, thead, tbody, th, td, tr {
-            display: block;
-        }
+                                    table, thead, tbody, th, td, tr {
+                                        display: block;
+                                    }
 
-        thead {
-            display: none;
-        }
+                                    thead {
+                                        display: none;
+                                    }
 
-    // mdl specifics
+                                // mdl specifics
 
-       .mdl-data-table tbody tr {
-           height: auto;
-       }
+                                   .mdl-data-table tbody tr {
+                                       height: auto;
+                                   }
 
-        .mdl-data-table tbody tr:nth-child(even) {
-            background-color: #eee;
-        }
+                                    .mdl-data-table tbody tr:nth-child(even) {
+                                        background-color: #eee;
+                                    }
 
-        .mdl-data-table td,
-        .mdl-data-table td:first-of-type {
-            padding-left: 50%;
-        }
+                                    .mdl-data-table td,
+                                    .mdl-data-table td:first-of-type {
+                                        padding-left: 50%;
+                                    }
 
-        .mdl-data-table td:before {
-            position: absolute;
-            top: 6px;
-            left: 6px;
-            width: 45%;
-            padding: 6px 18px 0;
-            white-space: nowrap;
-            content: attr(data-label);
-            text-align: left;
-            color: rgba(0, 0, 0, 0.541176);
-            font-weight: bold;
-            font-family: Helvetica, Arial, sans-serif;
-            font-size: 12px;
-        }
+                                    .mdl-data-table td:before {
+                                        position: absolute;
+                                        top: 6px;
+                                        left: 6px;
+                                        width: 45%;
+                                        padding: 6px 18px 0;
+                                        white-space: nowrap;
+                                        content: attr(data-label);
+                                        text-align: left;
+                                        color: rgba(0, 0, 0, 0.541176);
+                                        font-weight: bold;
+                                        font-family: Helvetica, Arial, sans-serif;
+                                        font-size: 12px;
+                                    }
 
-        .mdl-data-table td:last-of-type {
-            padding-right: 18px;
-        }
+                                    .mdl-data-table td:last-of-type {
+                                        padding-right: 18px;
+                                    }
 
-    }
-</style>
+                                }
+                            </style>
 
-                            <div class="modal fade" id="myModal2" role="dialog">
+                            <div class="modal fade" id="myModal2" role="dialog"  th:attrappend="id=${lophoc.maLop+2}">
                                 <div class="modal-dialog" style="margin-left: 33%;">
                                     <!-- Modal content-->i
                                     <div class="modal-content">
@@ -410,7 +410,7 @@
 
 
         var token = document.getElementById('token').value;
-         var base_url = [[@{/}]];
+        var base_url = [[@{/}]];
             $.ajax({
                 headers: {'X-CSRF-Token': token},
                 type: "POST",
@@ -419,7 +419,7 @@
                 success: function (responseJson) {
                     $.each(responseJson, function (key, value) {
 
-                        });
+                    });
                 }
             })
 

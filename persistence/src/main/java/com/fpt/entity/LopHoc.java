@@ -58,7 +58,7 @@ public class LopHoc {
     @OneToMany(mappedBy = "lopHoc", fetch = FetchType.EAGER)
     private Set<ThongBao> lstThongBao;
 
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
     @JoinTable(
             name = "lop_sinhvien",
             joinColumns = { @JoinColumn(name = "ma_lop") },
