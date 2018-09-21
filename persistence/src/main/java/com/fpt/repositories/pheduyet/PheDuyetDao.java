@@ -14,6 +14,7 @@ public interface PheDuyetDao extends CrudRepository<PheDuyet, String> {
     @Query(value = "select * from phe_duyet ",nativeQuery = true)
     List<PheDuyet> listPheDuyet();
 
+
     @Query(value = " select * from phe_duyet join sinh_vien v on phe_duyet.ma_sinh_vien = v.ma_sinh_vien where v.user_name=:us_name",nativeQuery = true)
     List<PheDuyet> listPheDuyetTheoSinhVien(@Param("us_name") String us_name);
 

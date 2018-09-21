@@ -1,5 +1,8 @@
 package com.fpt.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 /**
@@ -7,6 +10,8 @@ import javax.persistence.*;
  *
  * @author Vi Quynh (vi.quynh.31598@gmail.com)
  */
+
+@JsonIgnoreProperties({"giaoVien", "lopHoc","sinhVien"})
 @Entity
 @Table(name = "phe_duyet")
 public class PheDuyet {
@@ -22,14 +27,17 @@ public class PheDuyet {
 
     @ManyToOne
     @JoinColumn(name = "ma_giao_vien")
+    @JsonIgnore
     private GiaoVien giaoVien;
 
     @ManyToOne
     @JoinColumn(name = "ma_lop")
+    @JsonIgnore
     private LopHoc lopHoc;
 
     @ManyToOne
     @JoinColumn(name = "ma_sinh_vien")
+    @JsonIgnore
     private SinhVien sinhVien;
 
     public PheDuyet() {

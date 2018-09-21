@@ -28,7 +28,7 @@ public class MonHoc {
     private BoMon boMon;
 
     @ManyToOne
-    @JoinColumn(name = "ma_ki")
+    @JoinColumn(name = "ma_ki" )
     private KiHoc kiHoc;
 
     @OneToMany(mappedBy = "monHoc", fetch = FetchType.EAGER)
@@ -61,6 +61,13 @@ public class MonHoc {
         this.lstLopHoc = lstLopHoc;
     }
 
+    public KiHoc getKiHoc() {
+        return kiHoc;
+    }
+
+    public void setKiHoc(KiHoc kiHoc) {
+        this.kiHoc = kiHoc;
+    }
 
     public String getTrangThai() {
         return trangThai;

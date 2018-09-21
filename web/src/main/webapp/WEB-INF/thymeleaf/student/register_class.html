@@ -19,9 +19,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
 
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/sweetalert2/latest/sweetalert2.min.css"/>
+    <script src="https://cdn.jsdelivr.net/sweetalert2/latest/sweetalert2.min.js"></script>
+
+
 </head>
 <style>
-    .skin-blue sidebar-mini{
+    .skin-blue sidebar-mini {
         padding-right: 0px;
     }
 
@@ -50,6 +56,25 @@
         padding-right: 0px;
         padding-top: 15px;
     }
+
+    .btndk {
+        /* background-color: #03A9F4; */
+        line-height: 24px;
+        position: relative;
+        padding: 5px 22px;
+        border: 0;
+        margin: 4px;
+        cursor: pointer;
+        border-radius: 2px;
+        text-transform: uppercase;
+        text-decoration: none;
+        outline: none !important;
+        -webkit-transition: 0.2s ease-out;
+        -moz-transition: 0.2s ease-out;
+        -o-transition: 0.2s ease-out;
+        -ms-transition: 0.2s ease-out;
+        transition: 0.2s ease-out;
+    }
 </style>
 <body class="hold-transition skin-blue sidebar-mini" style="padding-right: 0px;">
 
@@ -59,42 +84,8 @@
     <div th:replace="fragments/sidebar :: aside">&nbsp;</div>
     <div class="content-wrapper">
         <section class="content">
-            <div class="containerSearch" style="background-color: #3c8dbc;">
-                <div class="" style="margin-left: 6%;
-    width: 77%;
-    height: 63px;
-    margin-top: -14px;
-    background-color: #3c8dbc;
-    border-top: 20px solid transparent;
-    border-bottom: 20px solid transparent;
-    text-align: center;">
 
-                    <form th:action="@{/student/search}" method="POST">
-                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-
-                        <div id="search">
-                            <input onkeyup="ip()" type="text" name="input" autocomplete="off" value="" placeholder="Tìm khóa học...">
-                        </div>
-                        <div class="mc-select">
-                            <select class="select" name="loai" id="all-categories" style="z-index: 10;opacity: 2;margin-left: -9px;">
-                                <option value="">Loại tìm kiếm</option>
-                                <option value="giaovien" selected="">Tìm kiếm theo giáo viên</option>
-                                <option value="lop">Tìm kiếm theo lớp</option>
-                            </select>
-                        </div>
-                        <div class="mc-select" style="margin-left: 88px;">
-                            <select class="select" name="bomon"  style="z-index: 10; opacity: 2;">
-                                <option value="" selected="">Tìm kiếm theo bộ môn</option>
-                                <option th:each="mh : ${listMonHoc}"  th:value="${mh.tenMonHoc}" th:text="${mh.tenMonHoc}">Java</option>
-
-                            </select>
-                        </div>
-                        <button id="srbtn" type="submit"><i class='fontawesome-heart'></i>
-                            <span>Tìm kiếm</span>
-                        </button>
-                    </form>
-                </div>
-            </div>
+            <h3 th:text="${hocky}"></h3>
 
             <div class="table">
                 <table class="tree-table">
@@ -104,234 +95,117 @@
                             <div>STT</div>
                         </th>
                         <th>
-                            <div>
-                                <div>Tên lớp</div>
-                            </div>
+                            <div>Tên môn học</div>
                         </th>
                         <th>
-                            <div>Tên giáo viên</div>
+                            <div>Số lượng tín chỉ</div>
                         </th>
                         <th>
-                            <div>Ngày bắt đầu</div>
+                            <div>Học kỳ</div>
                         </th>
                         <th>
-                            <div>Bộ môn</div>
-                        </th>
-                        <th>
-                            <div class="text-center">Trạng thái</div>
-                        </th>
-                        <th class="wpx-40">
-                            <!-- <div>Chức năng</div> -->
+                            <div class="text-center">Đăng ký</div>
                         </th>
                     </tr>
                     </thead>
 
                     <tbody class="text-center">
-                    <tr th:each="lophoc,i : ${listLopHoc}">
-                        <td th:text="${i.index+1}" ></td>
-                        <td th:text="${lophoc.maLop}">
-                        </td>
-                        <td th:text="${lophoc.getGiaoVien().getUser().getFullName()}">
-
-                        </td>
-                        <td th:text="${#dates.format(lophoc.getNgayBatDau(),'dd-MMM-yyyy')}">
-
-                        </td>
-                        <td th:text="${lophoc.getMonHoc().getTenMonHoc()}">
-
-                        </td>
+                    <tr th:each="monhoc,i : ${listMonHoc}">
+                        <td th:text="${i.index+1}"></td>
+                        <td th:text="${monhoc.tenMonHoc}">
+                        <td th:text="${monhoc.tinChi}">
+                        <td th:text="${monhoc.getKiHoc().getKiHoc()}">
                         <td class="text-center">
-                            <th:block th:if="${lophoc.getTrangThai()}">
-                                <div class="stage">
-                                    Hoạt động
-                                </div>
-                            </th:block>
-                            <th:block th:if="${!lophoc.getTrangThai()}">
-                                <div class="stage -closed">
-                                    Chưa bắt đầu
-                                </div>
-                            </th:block>
+                            <button class="btndk" data-toggle="modal" data-target="#myModal"
+                                    th:attrappend="data-target=${monhoc.maMonHoc}">Đăng ký
+                            </button>
 
-                        </td>
-
-
-                        <td class="text-center">
-                            <div class="dropdown bacham">
-                                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                                </a>
-
-                                <style>
-                                    .dropdown-menu dropdown-menu-right show{
-                                        transform: translate3d(0px, 0px, 0px) !important;
-                                        top: -8px !important;
-                                        left: -76px !important;
-                                    }
-                                </style>
-                                <ul class="dropdown-menu dropdown-menu-right" style="transform: translate3d(0px, 0px, 0px);
-    top: -8px;
-    left: -76px;">
-                                    <li class="inline">
-                                        <a href="#" data-toggle="modal" data-target="#myModal2" th:attrappend="data-target=${lophoc.maLop+2}"><i class="fa fa-search" aria-hidden="true"></i> Xem</a>
-                                    </li>
-                                    <li class="inline">
-                                        <a href="#" data-toggle="modal" data-target="#myModal"  th:attrappend="data-target=${lophoc.maLop}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Đăng ký</a></li>
-                                </ul>
-                            </div>
-
-
-                            <div class="modal fade" id="myModal" role="dialog" th:attrappend="id=${lophoc.maLop}">
-                                <div class="modal-dialog" style="margin-left: 33%;">
+                            <div class="modal modal-full fade" id="myModal" role="dialog"
+                                 th:attrappend="id=${monhoc.maMonHoc}">
+                                <div class="modal-dialog">
                                     <!-- Modal content-->i
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h3 class="modal-title" id="suanhansuLabel">
+                                                Đăng ký
+                                            </h3>
                                         </div>
-                                        <div class="modal-body" style="padding-bottom: 20px; padding: 0px;padding-bottom: 32px;">
-                                            <legend class="modal-title">Đăng ký</legend>
+                                        <div class="modal-body"
+                                             style="padding-bottom: 20px; padding: 0px;padding-bottom: 32px;">
+                                            <th:block th:if="${#lists.isEmpty(monhoc.getLstLopHoc())}">
+                                                <p>Hiện tại chưa có lớp học nào</p>
+                                            </th:block>
+                                            <th:block th:if="${!#lists.isEmpty(monhoc.getLstLopHoc())}">
 
-                                            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                                                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                                                    <thead class="fix-w text-center">
+                                                    <tr>
+                                                        <th class="wpx-60">
+                                                            <div>STT</div>
+                                                        </th>
+                                                        <th>
+                                                            <div>
+                                                                <div>Tên lớp</div>
+                                                            </div>
+                                                        </th>
+                                                        <th>
+                                                            <div>Tên giáo viên</div>
+                                                        </th>
+                                                        <th>
+                                                            <div>Ghi chú</div>
+                                                        </th>
+                                                        <th>
+                                                            <div>Phòng học</div>
+                                                        </th>
+                                                        <th>
+                                                            <div>Ngày bắt đầu</div>
+                                                        </th>
+                                                        <th>
+                                                            <div>Ngày kết thúc</div>
+                                                        </th>
+                                                        <th>
+                                                            <div>Bộ môn</div>
+                                                        </th>
+                                                        <th>
+                                                            <div>Số sinh viên đăn ký</div>
+                                                        </th>
+                                                        <th>
+                                                            <div>Đăng ký</div>
+                                                        </th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr th:each="lophoc,k : ${monhoc.getLstLopHoc()}">
+                                                        <td th:text="${k.index+1}"></td>
+                                                        <td th:text="${lophoc.maLop}"></td>
+                                                        <td th:text="${lophoc.getGiaoVien().getUser().getFullName()}"></td>
+                                                        <td th:text="${lophoc.moTa}">
+                                                        <td th:text="${lophoc.phongHoc}">
+                                                        <td th:text="${#dates.format(lophoc.getNgayBatDau(),'dd-MMM-yyyy')}"></td>
+                                                        <td th:text="${#dates.format(lophoc.getNgayKetThuc(),'dd-MMM-yyyy')}"></td>
+                                                        <td th:text="${lophoc.getMonHoc().getTenMonHoc()}"></td>
+                                                        <td th:text="${lophoc.getSinhViens().size()}">
+                                                        <td>
+                                                            <button class="btndk" th:id="${lophoc.maLop}"
+                                                                    onclick="dk(this.id)">Đăng ký
+                                                            </button>
+                                                        </td>
 
-                                                <tbody>
-                                                <tr>
-                                                    <td>Lớp Học</td>
-                                                    <td th:text="${lophoc.maLop}">
-                                                    </td>
-
-                                                </tr>
-                                                <tr>
-                                                    <td>Giáo viên</td>
-                                                    <td th:text="${lophoc.getGiaoVien().getUser().getFullName()}"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Phòng học</td>
-                                                    <td th:text="${lophoc.getPhongHoc()}">
-                                                </tr>
-
-                                                <tr>
-                                                    <td>Mô tả</td>
-                                                    <td th:text="${lophoc.getMoTa()}">
-                                                </tr>
-                                                <tr>
-                                                    <td>Ngày bắt đầu</td>
-                                                    <td th:text="${#dates.format(lophoc.getNgayBatDau(),'dd-MMM-yyyy')}">
-                                                </tr>
-                                                <tr>
-                                                    <td>Ngày kết thúc</td>
-                                                    <td th:text="${#dates.format(lophoc.getNgayKetThuc(),'dd-MMM-yyyy')}">
-                                                </tr>
-
-                                                </tbody>
-                                            </table>
-                                            <button th:id="${lophoc.maLop}" onclick="reply_click(this.id)" class="btn btn-info eBtn"  type="button" style="margin-bottom: 20px;margin-top: 14px">Đăng ký</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-
-
-
-
-                            <style>
-                                @media only screen and (max-width: 480px) {
-
-                                    table, thead, tbody, th, td, tr {
-                                        display: block;
-                                    }
-
-                                    thead {
-                                        display: none;
-                                    }
-
-                                // mdl specifics
-
-                                   .mdl-data-table tbody tr {
-                                       height: auto;
-                                   }
-
-                                    .mdl-data-table tbody tr:nth-child(even) {
-                                        background-color: #eee;
-                                    }
-
-                                    .mdl-data-table td,
-                                    .mdl-data-table td:first-of-type {
-                                        padding-left: 50%;
-                                    }
-
-                                    .mdl-data-table td:before {
-                                        position: absolute;
-                                        top: 6px;
-                                        left: 6px;
-                                        width: 45%;
-                                        padding: 6px 18px 0;
-                                        white-space: nowrap;
-                                        content: attr(data-label);
-                                        text-align: left;
-                                        color: rgba(0, 0, 0, 0.541176);
-                                        font-weight: bold;
-                                        font-family: Helvetica, Arial, sans-serif;
-                                        font-size: 12px;
-                                    }
-
-                                    .mdl-data-table td:last-of-type {
-                                        padding-right: 18px;
-                                    }
-
-                                }
-                            </style>
-
-                            <div class="modal fade" id="myModal2" role="dialog"  th:attrappend="id=${lophoc.maLop+2}">
-                                <div class="modal-dialog" style="margin-left: 33%;">
-                                    <!-- Modal content-->i
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        </div>
-                                        <div class="modal-body" style="padding-bottom: 20px; padding: 0px;padding-bottom: 32px;">
-                                            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-
-                                                <tbody>
-                                                <tr>
-                                                    <td>Lớp Học</td>
-                                                    <td th:text="${lophoc.maLop}">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Giáo viên</td>
-                                                    <td th:text="${lophoc.getGiaoVien().getUser().getFullName()}"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Phòng học</td>
-                                                    <td th:text="${lophoc.getPhongHoc()}">
-                                                </tr>
-                                                <tr>
-                                                    <td>Mô tả</td>
-                                                    <td th:text="${lophoc.getMoTa()}">
-                                                </tr>
-                                                <tr>
-                                                    <td>Ngày bắt đầu</td>
-                                                    <td th:text="${#dates.format(lophoc.getNgayBatDau(),'dd-MMM-yyyy')}">
-                                                </tr>
-                                                <tr>
-                                                    <td>Ngày kết thúc</td>
-                                                    <td th:text="${#dates.format(lophoc.getNgayKetThuc(),'dd-MMM-yyyy')}">
-                                                </tr>
-                                                </tbody>
-                                            </table>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </th:block>
+                                            <!--<button th:id="${lophoc.maLop}" onclick="reply_click(this.id)" class="btn btn-info eBtn"  type="button" style="margin-bottom: 20px;margin-top: 14px">Đăng ký</button>-->
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </td>
                     </tr>
-
                     </tbody>
                 </table>
             </div>
-
         </section>
     </div>
     <div th:replace="fragments/footer :: footer">&nbsp;</div>
@@ -347,10 +221,8 @@
                     <li>
                         <a href="javascript:;">
                             <i class="menu-icon fa fa-birthday-cake bg-red"></i>
-
                             <div class="menu-info">
                                 <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
-
                                 <p>Will be 23 on April 24th</p>
                             </div>
                         </a>
@@ -400,32 +272,117 @@
 </body>
 </html>
 
-
-
-
-
-
 <script>
-    function reply_click(clicked_id) {
-
-
+    function dk(id) {
         var token = document.getElementById('token').value;
-        var base_url = [[@{/}]];
-            $.ajax({
-                headers: {'X-CSRF-Token': token},
-                type: "POST",
-                data: {id: clicked_id},
-                url: base_url+"api/dangkylop",
-                success: function (responseJson) {
-                    $.each(responseJson, function (key, value) {
-
+        var base_url = [[@{
+            /}]];
+            swal({
+                title: "Bạn muốn đăng ký lớp học",
+                text: "",
+                type: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Đăng ký',
+                cancelButtonText: 'Hủy',
+                reverseButtons: true
+            }).then(function (isConfirm) {
+                if (isConfirm) {
+                    swal({
+                        imageUrl: 'https://cdn.dribbble.com/users/563824/screenshots/4268258/untitled_180_3.gif',
+                        imageHeight: 200,
+                        showConfirmButton: false,
                     });
+                    $.ajax({
+                        headers: {'X-CSRF-Token': token},
+                        type: "POST",
+                        data: {id: id},
+                        url: base_url + "api/dangkylop",
+                        success: function (responseJson) {
+
+                            if (responseJson.trim() == "quahan") {
+                                swal({
+                                    title: 'Đăng ký không thành công!',
+                                    text: 'Đã quá thời hạn đăng ký lớp',
+                                    type: 'error',
+                                    confirmButtonText: 'Ok',
+                                }).then(function (isConfirm) {
+                                    form.submit();
+                                });
+                            }
+                            if (responseJson.trim() == "maxsv") {
+                                swal({
+                                    title: 'Đăng ký không thành công!',
+                                    text: 'Lớp đã đủ số lượng thành viên',
+                                    type: 'error',
+                                    confirmButtonText: 'Ok',
+                                }).then(function (isConfirm) {
+                                    form.submit();
+                                });
+                            }
+
+                            if (responseJson.trim() == "tontai") {
+                                swal({
+                                    title: 'Đăng ký không thành công!',
+                                    text: 'Bạn đã có trong danh sách lớp',
+                                    type: 'error',
+                                    confirmButtonText: 'Ok',
+                                }).then(function (isConfirm) {
+
+                                    form.submit();
+                                });
+                            }
+                            if (responseJson.trim() == "trungmon") {
+                                swal({
+                                    title: 'Đăng ký không thành công!',
+                                    text: 'Bạn chỉ có thể đăng ký 1 lớp cho 1 môn',
+                                    type: 'error',
+                                    confirmButtonText: 'Ok',
+                                }).then(function (isConfirm) {
+
+                                    form.submit();
+                                });
+                            }
+
+                            if (responseJson.trim() == "success") {
+                                swal({
+                                    title: 'Đăng ký thành công!',
+                                    text: '',
+                                    type: 'success',
+                                    confirmButtonText: 'Ok',
+                                }).then(function () {
+                                    if (isConfirm) {
+                                        location.reload(true);
+                                    }
+                                    form.submit();
+                                });
+                            }
+                            // } else {
+                            //     swal("Cancelled", "Đăng ký thất bại", "error");
+                            // }
+                        }
+                    });
+                } else {
                 }
-            })
-
-            $('.close').click();
-
+            });
         }
-
-
+        ;
 </script>
+
+<style>
+    .swal2-modal .swal2-styled {
+        font-size: 13px;
+        border: 0;
+        border-radius: 3px;
+        box-shadow: none;
+        color: #fff;
+        /* cursor: pointer; */
+        /* font-size: 17px; */
+        font-weight: 500;
+        margin: 15px 5px 0;
+        width: 113px;
+        padding: 10px 32px;
+    }
+
+</style>
+
+

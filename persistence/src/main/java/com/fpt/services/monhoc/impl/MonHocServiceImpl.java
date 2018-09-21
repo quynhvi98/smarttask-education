@@ -24,6 +24,11 @@ public class MonHocServiceImpl implements MonHocService {
     }
 
     @Override
+    public List<MonHoc> listMonHocKy(String hocky) {
+        return monHocDao.listMonHocKy(hocky);
+    }
+
+    @Override
     public List<MonHoc> findAll() {
         return (List<MonHoc>) monHocDao.findAll();
     }
