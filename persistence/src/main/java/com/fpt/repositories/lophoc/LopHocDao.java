@@ -17,9 +17,14 @@ public interface LopHocDao extends CrudRepository<LopHoc, String> {
     @Query(value = "select * from lop_hoc lh join mon_hoc mh where lh.ma_lop like concat('%',:lop,'%') and mh.ten_mon_hoc like concat('%',:mh,'%')",nativeQuery = true)
     List<LopHoc> listSearchLop(@Param("lop") String lop,@Param("mh") String mh);
 
-    @Query(value = "  select * from lop_hoc join lop_sinhvien ls on lop_hoc.ma_lop = ls.ma_lop where ls.ma_sinh_vien=:msv",nativeQuery = true)
+    @Query(value = "select * from lop_hoc join lop_sinhvien ls on lop_hoc.ma_lop = ls.ma_lop where ls.ma_sinh_vien=:msv",nativeQuery = true)
     List<LopHoc> listLopHocSV(@Param("msv") String msv);
 
+    @Query(value = "select * from lop_hoc  lh join lop_sinhvien ls on lh.ma_lop = ls.ma_lop where ls.ma_sinh_vien=:masv and lh.ma_lop=:malop" ,nativeQuery = true)
+    LopHoc getLopHocSv(@Param("malop") String malop,@Param("masv") String masv);
+
+    @Query(value = "select * from lop_hoc join lop_sinhvien ls on lop_hoc.ma_lop = ls.ma_lop join mon_hoc h on lop_hoc.ma_mon_hoc = h.ma_mon_hoc where ls.ma_sinh_vien =:msv and  h.ma_mon_hoc=:mmh" ,nativeQuery = true)
+    LopHoc getLopHocSvBm(@Param("msv") String msv,@Param("mmh") String mmh);
 
 
 }

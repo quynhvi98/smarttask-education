@@ -22,4 +22,30 @@ public class KiHoc {
     @OneToMany(mappedBy = "kiHoc", fetch = FetchType.EAGER)
     private Set<MonHoc> lstMonHoc;
 
+    public KiHoc() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getKiHoc() {
+        return kiHoc;
+    }
+
+    public void setKiHoc(String kiHoc) {
+        this.kiHoc = kiHoc;
+    }
+
+    public Set<MonHoc> getLstMonHoc() {
+        return lstMonHoc;
+    }
+
+    public void setLstMonHoc(Set<MonHoc> lstMonHoc) {
+        this.lstMonHoc = lstMonHoc;
+    }
 }

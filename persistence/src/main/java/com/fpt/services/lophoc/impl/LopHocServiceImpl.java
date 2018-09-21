@@ -61,5 +61,15 @@ public class LopHocServiceImpl implements LopHocService {
         return (List<LopHoc>) lopHocDao.findAll();
     }
 
+    @Override
+    public LopHoc getLopHocSV(String magv,String masv) {
+        return lopHocDao.getLopHocSv(magv,masv);
+    }
+
+    @Override
+    public LopHoc getLopHocSvBm(String masv, String mabomon) {
+        return lopHocDao.getLopHocSvBm(masv,mabomon);
+    }
+
 
 }

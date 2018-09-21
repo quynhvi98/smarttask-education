@@ -22,6 +22,10 @@ public class SinhVien {
     @Column(name = "ma_sinh_vien")
     private String maSinhVien;
 
+    @Column(name = "ngay_nhap_hoc")
+    private String ngayNhapHoc;
+
+
     @OneToMany(mappedBy = "sinhVien", fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<BaiTap> lstBaiTap;
@@ -57,6 +61,14 @@ public class SinhVien {
     private Set<ThongBao> lstThongBao;
 
     public SinhVien() {
+    }
+
+    public String getNgayNhapHoc() {
+        return ngayNhapHoc;
+    }
+
+    public void setNgayNhapHoc(String ngayNhapHoc) {
+        this.ngayNhapHoc = ngayNhapHoc;
     }
 
     public Set<PheDuyet> getLstPheDuyet() {
