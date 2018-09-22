@@ -1,6 +1,5 @@
 package com.fpt.controller;
 
-import com.fpt.entity.BoMon;
 import com.fpt.entity.User;
 import com.fpt.repositories.user.UserDao;
 import com.fpt.services.user.UserService;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 /**
  * Posted from Sep 12, 2018, 10:21 PM
@@ -28,15 +26,18 @@ public class UserInfoController {
     @Autowired
     private UserDao userDao;
 
+
     @RequestMapping("/info")
     public String userProfile(HttpSession session, HttpServletRequest request, Model model) {
         User userInfo = (User) session.getAttribute("userInfo");
         if(userInfo.getSinhVien()!= null){
             model.addAttribute("sinhvien", userInfo);
+            model.addAttribute("user", userInfo);
             return "info/sinhvien";
         }
         if(userInfo.getGiaoVien() != null){
             model.addAttribute("giangvien",userInfo);
+            model.addAttribute("user", userInfo);
             return "info/giangvien";
         }
         return null;
