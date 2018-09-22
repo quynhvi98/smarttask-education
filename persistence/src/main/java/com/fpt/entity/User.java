@@ -7,7 +7,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-@JsonIgnoreProperties({"giaoVien", "sinhVien","roles"})
 @Entity
 @Table(name = "user")
 public class User implements Serializable {
@@ -43,11 +42,9 @@ public class User implements Serializable {
     private String userDOB;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonIgnore
     private GiaoVien giaoVien;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonIgnore
     private SinhVien sinhVien;
 
     @ManyToMany(cascade = { CascadeType.ALL },fetch = FetchType.EAGER)
@@ -56,7 +53,6 @@ public class User implements Serializable {
             joinColumns = { @JoinColumn(name = "user_name") },
             inverseJoinColumns = { @JoinColumn(name = "ma_quyen") }
     )
-    @JsonIgnore
     Set<Role> roles;
 
     public User() {

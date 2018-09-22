@@ -21,18 +21,12 @@ public class LopHocDaoImpl implements LopHocDaoCustom {
     private EntityManager entityManager;
 
     @Override
-    public List<String[]> getSchedule(String maGiaoVien, String kiHoc) {
+    public List<Object[]> getSchedule(String maGiaoVien, String kiHoc) {
         String sql = "select lh.ngayHoc, lh.caHoc from LopHoc lh where lh.giaoVien.maGiaoVien = :maGiaoVien and lh.monHoc.kiHoc.id = :kiHoc";
         Query query = entityManager.createQuery(sql)
                 .setParameter("maGiaoVien", maGiaoVien)
                 .setParameter("kiHoc", Integer.parseInt(kiHoc));
-        List<String[]> lstLichHoc = query.getResultList();
-//        List<String> thoiGianHocConver = new ArrayList<>();
-//        for (int i = 0; i < thoiGianHocAtDB.size(); i++) {
-//            for (Object objects : thoiGianHocAtDB.get(i)) {
-//                thoiGianHocConver.add((String) objects);
-//            }
-//        }
+        List<Object[]> lstLichHoc = query.getResultList();
         return  lstLichHoc;
     }
 }

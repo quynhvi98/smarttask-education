@@ -12,6 +12,7 @@ import com.fpt.services.lophoc.LopHocService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -57,14 +58,17 @@ public class LopHocServiceImpl implements LopHocService {
 
     @Override
     public Boolean checkTimeExits(String maGiaoVien, String kiHoc, String ngayHoc, String caHoc) {
-        List<String[]> lstLichHoc = lopHocDao.getSchedule(maGiaoVien, kiHoc);
+        List<Object[]> lstLichHoc = lopHocDao.getSchedule(maGiaoVien, kiHoc);
 
-        String[] arrNgayHoc;
-        String[] arrCaHoc;
+        String[] arrLichHoc = null;
+        String[] arrNgayHoc = null;
+        String[] arrCaHoc = null;
+
 
         for (int i = 0; i < lstLichHoc.size(); i++) {
-            arrNgayHoc = lstLichHoc.get(i)[0].split(",");
-            arrCaHoc = lstLichHoc.get(i)[1].split(",");
+            arrLichHoc = Arrays.copyOf(lstLichHoc.get(i), lstLichHoc.get(i).length, String[].class);
+            arrNgayHoc = arrLichHoc[0].split(",");
+            arrCaHoc = arrLichHoc[1].split(",");
 
             for (int j = 0; j < arrNgayHoc.length; j++) {
                 if (ngayHoc.equals(arrNgayHoc[j]) && caHoc.equals(arrCaHoc[j])) {
@@ -72,6 +76,7 @@ public class LopHocServiceImpl implements LopHocService {
                 }
             }
         }
+
         return false;
     }
 
@@ -81,13 +86,13 @@ public class LopHocServiceImpl implements LopHocService {
     }
 
     @Override
-    public LopHoc getLopHocSV(String magv,String masv) {
-        return lopHocDao.getLopHocSv(magv,masv);
+    public LopHoc getLopHocSV(String magv, String masv) {
+        return lopHocDao.getLopHocSv(magv, masv);
     }
 
     @Override
     public LopHoc getLopHocSvBm(String masv, String mabomon) {
-        return lopHocDao.getLopHocSvBm(masv,mabomon);
+        return lopHocDao.getLopHocSvBm(masv, mabomon);
     }
 
 

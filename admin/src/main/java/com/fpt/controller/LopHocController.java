@@ -65,40 +65,46 @@ public class LopHocController {
         lstNgayHoc.removeIf(String::isEmpty);
 
         String ngayHocStr = "";
-        for(int i =0; i<lstNgayHoc.size();i++) {
+        for (int i = 0; i < lstNgayHoc.size(); i++) {
             ngayHocStr += lstNgayHoc.get(i) + ",";
         }
 
         String caHocStr = "";
-        for(int i =0; i<caHoc.length;i++) {
-            caHocStr += caHoc[i] + ",";
+        if (caHoc != null) {
+            for (int i = 0; i < caHoc.length; i++) {
+                caHocStr += caHoc[i] + ",";
+            }
         }
 
+        if (!ngayHocStr.equals("") && !caHocStr.equals("")) {
 
-        MonHoc monHoc = monHocService.findById(monHocId != null ? monHocId : "");
-        GiaoVien giaoVien = giangVienService.findById(giangVienId != null ? giangVienId : "");
+            MonHoc monHoc = monHocService.findById(monHocId != null ? monHocId : "");
+            GiaoVien giaoVien = giangVienService.findById(giangVienId != null ? giangVienId : "");
 
-        Date ngayBatDau = null;
-        Date ngayKetThuc = null;
-        try {
-            ngayBatDau = new SimpleDateFormat("yyyy-MM-dd").parse(ngayBatDauTemp);
-            ngayKetThuc = new SimpleDateFormat("yyyy-MM-dd").parse(ngayKetThucTemp);
-        } catch (ParseException e) {
-            e.printStackTrace();
+            Date ngayBatDau = null;
+            Date ngayKetThuc = null;
+            try {
+                ngayBatDau = new SimpleDateFormat("yyyy-MM-dd").parse(ngayBatDauTemp);
+                ngayKetThuc = new SimpleDateFormat("yyyy-MM-dd").parse(ngayKetThucTemp);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            LopHoc lopHoc = new LopHoc();
+            lopHoc.setMaLop(maLop);
+            lopHoc.setMonHoc(monHoc);
+            lopHoc.setGiaoVien(giaoVien);
+            lopHoc.setPhongHoc(phongHoc);
+            lopHoc.setMoTa(moTa);
+            lopHoc.setNgayBatDau(ngayBatDau);
+            lopHoc.setNgayKetThuc(ngayKetThuc);
+            lopHoc.setNgayHoc(ngayHocStr);
+            lopHoc.setCaHoc(caHocStr);
+
+            lopHocService.taoLopHoc(lopHoc);
+        }else {
+            throw new NullPointerException("Bạn phải chọn lịch học");
         }
-
-        LopHoc lopHoc = new LopHoc();
-        lopHoc.setMaLop(maLop);
-        lopHoc.setMonHoc(monHoc);
-        lopHoc.setGiaoVien(giaoVien);
-        lopHoc.setPhongHoc(phongHoc);
-        lopHoc.setMoTa(moTa);
-        lopHoc.setNgayBatDau(ngayBatDau);
-        lopHoc.setNgayKetThuc(ngayKetThuc);
-        lopHoc.setNgayHoc(ngayHocStr);
-        lopHoc.setCaHoc(caHocStr);
-
-        lopHocService.taoLopHoc(lopHoc);
     }
 
     @GetMapping("/lophoc/getValueForBoMon")
@@ -123,6 +129,7 @@ public class LopHocController {
         for (MonHoc mh : lstMonHoc) {
             mh.setBoMon(null);
             mh.setLstLopHoc(null);
+            mh.setKiHoc(null);
         }
         List<GiaoVien> lstGiangVien = giangVienService.getLstGiangVienByMaNganh(boMon);
         for (GiaoVien gv : lstGiangVien) {
