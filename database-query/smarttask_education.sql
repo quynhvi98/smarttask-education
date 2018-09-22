@@ -115,6 +115,7 @@ CREATE TABLE IF NOT EXISTS lop_hoc (
   ngay_bat_dau datetime,
   ngay_ket_thuc datetime,
   ngay_hoc varchar(255), -- Ngày học để dạng json có thứ(thứ hai, thứ ba,..và tiết học< tiết 1(7h->8h), ...)
+  ca_hoc varchar(255),
   trang_thai varchar(255),
   ma_giao_vien VARCHAR(255),
   ma_mon_hoc VARCHAR(255),
@@ -219,6 +220,7 @@ CREATE TABLE IF NOT EXISTS nop_de_tai(
 CREATE TABLE IF NOT EXISTS thong_bao(
   id BIGINT NOT NULL auto_increment,
   content VARCHAR(255),
+  status VARCHAR(255),
   ma_giao_vien VARCHAR(255),
   ma_sinh_vien VARCHAR(255),
   ma_lop VARCHAR(255),

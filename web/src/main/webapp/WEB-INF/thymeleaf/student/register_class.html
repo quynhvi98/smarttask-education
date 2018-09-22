@@ -18,8 +18,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
-
-
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/sweetalert2/latest/sweetalert2.min.css"/>
     <script src="https://cdn.jsdelivr.net/sweetalert2/latest/sweetalert2.min.js"></script>
@@ -87,6 +85,8 @@
 
             <h3 th:text="${hocky}"></h3>
 
+            <th:block th:if="${!#lists.isEmpty(listMonHoc)}">
+
             <div class="table">
                 <table class="tree-table">
                     <thead class="fix-w text-center">
@@ -110,7 +110,8 @@
                     </thead>
 
                     <tbody class="text-center">
-                    <tr th:each="monhoc,i : ${listMonHoc}">
+
+                        <tr th:each="monhoc,i : ${listMonHoc}">
                         <td th:text="${i.index+1}"></td>
                         <td th:text="${monhoc.tenMonHoc}">
                         <td th:text="${monhoc.tinChi}">
@@ -191,7 +192,6 @@
                                                                     onclick="dk(this.id)">Đăng ký
                                                             </button>
                                                         </td>
-
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -203,8 +203,14 @@
                             </div>
                         </td>
                     </tr>
+
                     </tbody>
+
                 </table>
+            </th:block>
+            <th:block th:if="${#lists.isEmpty(listMonHoc)}">
+                <h5>Hiện tại chưa có môn</h5>
+            </th:block>
             </div>
         </section>
     </div>
