@@ -27,4 +27,9 @@ public class GiangVienServiceImpl implements GiangVienService {
     public GiaoVien findById(String giangVienId) {
         return giangVienDao.findOne(giangVienId);
     }
+
+    @Override
+    public List<GiaoVien> getLstGiangVienByMaNganh(String maNganh) {
+        return giangVienDao.getLstGiangVienByMaNganh(maNganh);
+    }
 }

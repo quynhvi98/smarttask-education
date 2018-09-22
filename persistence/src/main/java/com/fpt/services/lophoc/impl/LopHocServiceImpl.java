@@ -26,8 +26,7 @@ public class LopHocServiceImpl implements LopHocService {
     }
 
     @Override
-    public List<LopHoc> listLopHoc()
-    {
+    public List<LopHoc> listLopHoc() {
         return lopHocDao.listLopHoc();
     }
 
@@ -43,17 +42,37 @@ public class LopHocServiceImpl implements LopHocService {
 
     @Override
     public List<LopHoc> searchGiaoVien(String giaovien, String bomon) {
-        return lopHocDao.listSearchGiaoVien(giaovien ,  bomon);
+        return lopHocDao.listSearchGiaoVien(giaovien, bomon);
     }
 
     @Override
     public List<LopHoc> searchLop(String lop, String bomon) {
-        return lopHocDao.listSearchLop(lop,bomon);
+        return lopHocDao.listSearchLop(lop, bomon);
     }
 
     @Override
     public void createlopSV(LopHoc lopHoc) {
         lopHocDao.save(lopHoc);
+    }
+
+    @Override
+    public Boolean checkTimeExits(String maGiaoVien, String kiHoc, String ngayHoc, String caHoc) {
+        List<String[]> lstLichHoc = lopHocDao.getSchedule(maGiaoVien, kiHoc);
+
+        String[] arrNgayHoc;
+        String[] arrCaHoc;
+
+        for (int i = 0; i < lstLichHoc.size(); i++) {
+            arrNgayHoc = lstLichHoc.get(i)[0].split(",");
+            arrCaHoc = lstLichHoc.get(i)[1].split(",");
+
+            for (int j = 0; j < arrNgayHoc.length; j++) {
+                if (ngayHoc.equals(arrNgayHoc[j]) && caHoc.equals(arrCaHoc[j])) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     @Override

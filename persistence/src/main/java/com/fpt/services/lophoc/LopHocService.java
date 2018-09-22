@@ -18,4 +18,6 @@ public interface LopHocService {
     LopHoc getLopHocSV(String malop,String masv);
     LopHoc getLopHocSvBm(String masv,String mabomon);
     void createlopSV(LopHoc lopHoc);
+
+    Boolean checkTimeExits(String maGiaoVien, String kiHoc, String ngayHoc, String caHoc);
 }

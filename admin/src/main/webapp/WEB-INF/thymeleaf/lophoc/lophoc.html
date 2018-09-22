@@ -203,6 +203,171 @@
                             <div class="">
                                 <div class="row">
                                     <div class="col-md-6">
+
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-3 control-label">Khoa/Viện</label>
+                                            <div class="col-md-9">
+                                                <select required id="khoaVien" name="khoaVien"
+                                                        class="select2 form-control" title="Khoa/Viện">
+                                                    <option value="">-- Chọn khoa viện --</option>
+                                                    <th:block th:if="${!#lists.isEmpty(lstKhoaVien)}"
+                                                              th:each="kv : ${lstKhoaVien}">
+                                                        <option th:value="${kv.maVien}"
+                                                                th:text="${kv.tenVien}"></option>
+                                                    </th:block>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-3 control-label">Bộ môn</label>
+                                            <div class="col-md-9">
+                                                <select required id="boMon" name="boMon" class="select2 form-control"
+                                                        title="Bộ môn">
+                                                    <!--<option selected value=""><&#45;&#45;Chọn&ndash;&gt;</option>-->
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-3 control-label">Kì học</label>
+                                            <div class="col-md-9">
+                                                <select required id="kiHoc" name="kiHoc" class="select2 form-control"
+                                                        title="Kì học">
+                                                    <!--<option selected value=""><&#45;&#45;Chọn&ndash;&gt;</option>-->
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-3 control-label">Môn học</label>
+                                            <div class="col-md-9">
+                                                <select required id="monHoc" name="monHoc" class="select2 form-control"
+                                                        title="Bộ môn">
+                                                    <!--<option selected value=""><&#45;&#45;Chọn&ndash;&gt;</option>-->
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-3 control-label">Giảng viên</label>
+                                            <div class="col-md-9">
+                                                <select required id="giangVien" name="giangVien"
+                                                        class="select2 form-control"
+                                                        title="Giảng viên">
+                                                    <!--<option selected value=""><&#45;&#45;Chọn&ndash;&gt;</option>-->
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-3 control-label">Ngày học</label>
+
+                                            <div class="col-md-7">
+                                                <div class="checkbox">
+                                                    <label class="col-sm-3">
+                                                        Thứ 2
+                                                        <input id="day2" onchange="useSelect(2)" type="checkbox"/>
+                                                        <input id="day2Hid" name="ngayHoc" type="text" hidden/>
+                                                    </label>
+                                                    <label class="col-sm-3">
+                                                        Ca
+                                                        <select onchange="selectCa(2)" style="background-color: #DCDCDC" disabled id="ca2"  name="caHoc">
+                                                            <option>1</option>
+                                                            <option>2</option>
+                                                            <option>3</option>
+                                                            <option>4</option>
+                                                            <option>5</option>
+                                                            <option>6</option>
+                                                        </select>
+                                                    </label>
+                                                    <span id="error2"  hidden>Thời gian này đã bị trùng</span>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label class="col-sm-3">
+                                                        Thứ 3
+                                                        <input id="day3" onchange="useSelect(3)" type="checkbox"/>
+                                                        <input id="day3Hid" name="ngayHoc" type="text" hidden/>
+                                                    </label>
+                                                    <label class="col-sm-3">
+                                                        Ca
+                                                        <select onchange="selectCa(3)" style="background-color: #DCDCDC" disabled id="ca3" name="caHoc">
+                                                            <option>1</option>
+                                                            <option>2</option>
+                                                            <option>3</option>
+                                                            <option>4</option>
+                                                            <option>5</option>
+                                                            <option>6</option>
+                                                        </select>
+                                                    </label>
+                                                    <span id="error3" hidden>Thời gian này đã bị trùng</span>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label class="col-sm-3">
+                                                        Thứ 4
+                                                        <input id="day4" onchange="useSelect(4)" type="checkbox"/>
+                                                        <input name="ngayHoc" id="day4Hid" type="text" hidden/>
+                                                    </label>
+                                                    <label class="col-sm-3">
+                                                        Ca
+                                                        <select onchange="selectCa(4)" style="background-color: #DCDCDC" disabled id="ca4" name="caHoc">
+                                                            <option>1</option>
+                                                            <option>2</option>
+                                                            <option>3</option>
+                                                            <option>4</option>
+                                                            <option>5</option>
+                                                            <option>6</option>
+                                                        </select>
+                                                    </label>
+                                                    <span id="error4" hidden>Thời gian này đã bị trùng</span>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label class="col-sm-3">
+                                                        Thứ 5
+                                                        <input id="day5" onchange="useSelect(5)" type="checkbox"/>
+                                                        <input name="ngayHoc" id="day5Hid" type="text" hidden/>
+                                                    </label>
+                                                    <label class="col-sm-3">
+                                                        Ca
+                                                        <select onchange="selectCa(5)" style="background-color: #DCDCDC" disabled id="ca5" name="caHoc">
+                                                            <option>1</option>
+                                                            <option>2</option>
+                                                            <option>3</option>
+                                                            <option>4</option>
+                                                            <option>5</option>
+                                                            <option>6</option>
+                                                        </select>
+                                                    </label>
+                                                    <span id="error5" hidden>Thời gian này đã bị trùng</span>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label class="col-sm-3">
+                                                        Thứ 6
+                                                        <input id="day6" onchange="useSelect(6)" type="checkbox"/>
+                                                        <input name="ngayHoc" id="day6Hid" type="text" hidden/>
+                                                    </label>
+                                                    <label class="col-sm-3">
+                                                        Ca
+                                                        <select onchange="selectCa(6)" style="background-color: #DCDCDC" disabled id="ca6" name="caHoc">
+                                                            <option>1</option>
+                                                            <option>2</option>
+                                                            <option>3</option>
+                                                            <option>4</option>
+                                                            <option>5</option>
+                                                            <option>6</option>
+                                                        </select>
+                                                    </label>
+                                                    <span id="error6" hidden>Thời gian này đã bị trùng</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="" class="col-sm-3 control-label">Mã lớp học <span class="red">(*)</span></label>
                                             <div class="col-md-9">
@@ -211,31 +376,6 @@
                                             </div>
                                             <p class="col-sm-offset-3 help-block red">Example block-level help text
                                                 here.</p>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label">Môn học</label>
-                                            <div class="col-md-9">
-                                                <select required name="monHoc" class="select2 form-control" title="Bộ môn">
-                                                    <th:block th:if="${!#lists.isEmpty(lstMonHoc)}"
-                                                              th:each="mh : ${lstMonHoc}">
-                                                        <option th:value="${mh.maMonHoc}"
-                                                                th:text="${mh.tenMonHoc}"></option>
-                                                    </th:block>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label">Giảng viên</label>
-                                            <div class="col-md-9">
-                                                <select required name="giangVien" class="select2 form-control"
-                                                        title="Giảng viên">
-                                                    <th:block th:if="${!#lists.isEmpty(lstGiaoVien)}"
-                                                              th:each="gv : ${lstGiaoVien}">
-                                                        <option th:value="${gv.maGiaoVien}"
-                                                                th:text="${gv.user.fullName}"></option>
-                                                    </th:block>
-                                                </select>
-                                            </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="" class="col-sm-3 control-label">Phòng học <span
@@ -254,8 +394,6 @@
                                                           rows="2"></textarea>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="" class="col-sm-3 control-label">Ngày bắt đầu</label>
                                             <div class="col-md-9">
@@ -292,116 +430,116 @@
             </div>
         </div>
 
-        <!-- Modal xemnhansu -->
-        <div class="modal modal-full fade" id="xemnhansu" role="dialog" aria-labelledby="xemnhansuLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                        <h3 class="modal-title" id="xemnhansuLabel">
-                            Thông tin cá nhân
-                        </h3>
-                    </div>
-                    <div class="modal-body">
-                        <form class="form-horizontal">
-                            <div class="row bg-xam">
-                                <div class="text-center avantar">
-                                    <div class="card col-md-3">
-                                        <div class="thumb" style="background-image: url(WEB-INF/images/img.jpg);"></div>
-                                        <div class="article">
-                                            <h1>Nguyễn Duy Trường</h1>
-                                            <span>
-                      <span class="xam" data-toggle="tooltip" data-placement="top" title="Ngày sinh">
-                        <i class="fa fa-birthday-cake" aria-hidden="true"></i>
-                      </span>
-                    <span>20/02/1985</span>
-                    </span>
-                                            <span>
-                      <span class="xam" data-toggle="tooltip" data-placement="top" title="Giới tính">
-                        <i class="fa fa-venus-mars" aria-hidden="true"></i>
-                      </span>
-                    <span>Nam</span>
-                    </span>
-                                            <span>
-                      <span class="xam" data-toggle="tooltip" data-placement="top" title="Số điện thoại">
-                        <i class="fa fa-phone" aria-hidden="true"></i>
-                      </span>
-                    <span>0978198420</span>
-                    </span>
-                                            <span>
-                      <span class="xam" data-toggle="tooltip" data-placement="top" title="Thư điện tử">
-                        <i class="fa fa-envelope-o" aria-hidden="true"></i>
-                      </span>
-                    <span>truongnd1380@gmail.com</span>
-                    </span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 p-25">
-                                        <div class="form-group chamcham">
-                                            <label for="">Tên truy cập</label>
-                                            <span>Tên truy cập</span>
-                                        </div>
-                                        <div class="form-group chamcham">
-                                            <label for="">Mã nhân viên</label>
-                                            <span>Mã nhân viên</span>
-                                        </div>
-                                        <div class="form-group chamcham">
-                                            <label for="">Vị trí công tác</label>
-                                            <span>Vị trí công tác</span>
-                                        </div>
+        <!--&lt;!&ndash; Modal xemnhansu &ndash;&gt;-->
+        <!--<div class="modal modal-full fade" id="xemnhansu" role="dialog" aria-labelledby="xemnhansuLabel">-->
+            <!--<div class="modal-dialog" role="document">-->
+                <!--<div class="modal-content">-->
+                    <!--<div class="modal-header">-->
+                        <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span-->
+                                <!--aria-hidden="true">&times;</span></button>-->
+                        <!--<h3 class="modal-title" id="xemnhansuLabel">-->
+                            <!--Thông tin cá nhân-->
+                        <!--</h3>-->
+                    <!--</div>-->
+                    <!--<div class="modal-body">-->
+                        <!--<form class="form-horizontal">-->
+                            <!--<div class="row bg-xam">-->
+                                <!--<div class="text-center avantar">-->
+                                    <!--<div class="card col-md-3">-->
+                                        <!--<div class="thumb" style="background-image: url(WEB-INF/images/img.jpg);"></div>-->
+                                        <!--<div class="article">-->
+                                            <!--<h1>Nguyễn Duy Trường</h1>-->
+                                            <!--<span>-->
+                      <!--<span class="xam" data-toggle="tooltip" data-placement="top" title="Ngày sinh">-->
+                        <!--<i class="fa fa-birthday-cake" aria-hidden="true"></i>-->
+                      <!--</span>-->
+                    <!--<span>20/02/1985</span>-->
+                    <!--</span>-->
+                                            <!--<span>-->
+                      <!--<span class="xam" data-toggle="tooltip" data-placement="top" title="Giới tính">-->
+                        <!--<i class="fa fa-venus-mars" aria-hidden="true"></i>-->
+                      <!--</span>-->
+                    <!--<span>Nam</span>-->
+                    <!--</span>-->
+                                            <!--<span>-->
+                      <!--<span class="xam" data-toggle="tooltip" data-placement="top" title="Số điện thoại">-->
+                        <!--<i class="fa fa-phone" aria-hidden="true"></i>-->
+                      <!--</span>-->
+                    <!--<span>0978198420</span>-->
+                    <!--</span>-->
+                                            <!--<span>-->
+                      <!--<span class="xam" data-toggle="tooltip" data-placement="top" title="Thư điện tử">-->
+                        <!--<i class="fa fa-envelope-o" aria-hidden="true"></i>-->
+                      <!--</span>-->
+                    <!--<span>truongnd1380@gmail.com</span>-->
+                    <!--</span>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="col-md-4 p-25">-->
+                                        <!--<div class="form-group chamcham">-->
+                                            <!--<label for="">Tên truy cập</label>-->
+                                            <!--<span>Tên truy cập</span>-->
+                                        <!--</div>-->
+                                        <!--<div class="form-group chamcham">-->
+                                            <!--<label for="">Mã nhân viên</label>-->
+                                            <!--<span>Mã nhân viên</span>-->
+                                        <!--</div>-->
+                                        <!--<div class="form-group chamcham">-->
+                                            <!--<label for="">Vị trí công tác</label>-->
+                                            <!--<span>Vị trí công tác</span>-->
+                                        <!--</div>-->
 
-                                        <div class="form-group chamcham">
-                                            <label for="">Đơn vị công tác</label>
-                                            <span>Đơn vị công tác</span>
-                                        </div>
+                                        <!--<div class="form-group chamcham">-->
+                                            <!--<label for="">Đơn vị công tác</label>-->
+                                            <!--<span>Đơn vị công tác</span>-->
+                                        <!--</div>-->
 
-                                        <div class="form-group chamcham">
-                                            <label for="">Mã vị trí</label>
-                                            <span>Mã vị trí</span>
-                                        </div>
+                                        <!--<div class="form-group chamcham">-->
+                                            <!--<label for="">Mã vị trí</label>-->
+                                            <!--<span>Mã vị trí</span>-->
+                                        <!--</div>-->
 
-                                        <div class="form-group chamcham">
-                                            <label for="">Trạng thái</label>
-                                            <span>Trạng thái</span>
-                                        </div>
+                                        <!--<div class="form-group chamcham">-->
+                                            <!--<label for="">Trạng thái</label>-->
+                                            <!--<span>Trạng thái</span>-->
+                                        <!--</div>-->
 
-                                        <div class="form-group chamcham">
-                                            <label for="">Quyền hạn</label>
-                                            <span>Quyền hạn</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-5 inline-block p-25">
+                                        <!--<div class="form-group chamcham">-->
+                                            <!--<label for="">Quyền hạn</label>-->
+                                            <!--<span>Quyền hạn</span>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="col-md-5 inline-block p-25">-->
 
-                                        <div class="form-group chamcham">
-                                            <label for="">Trình độ đào tạo</label>
-                                            <span>Trình độ đào tạo Trình độ đào tạo Trình độ đào tạo Trình độ đào tạo Trình độ đào tạo Trình độ đào tạo</span>
-                                        </div>
+                                        <!--<div class="form-group chamcham">-->
+                                            <!--<label for="">Trình độ đào tạo</label>-->
+                                            <!--<span>Trình độ đào tạo Trình độ đào tạo Trình độ đào tạo Trình độ đào tạo Trình độ đào tạo Trình độ đào tạo</span>-->
+                                        <!--</div>-->
 
-                                        <div class="form-group chamcham">
-                                            <label for="">Kiến thức</label>
-                                            <span>Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức</span>
-                                        </div>
+                                        <!--<div class="form-group chamcham">-->
+                                            <!--<label for="">Kiến thức</label>-->
+                                            <!--<span>Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức</span>-->
+                                        <!--</div>-->
 
-                                        <div class="form-group chamcham">
-                                            <label for="">Kinh nghiệm</label>
-                                            <span>Kinh nghiệm Kinh nghiệm Kinh nghiệm Kinh nghiệm Kinh nghiệm Kinh nghiệm Kinh nghiệm Kinh nghiệm Kinh nghiệm</span>
-                                        </div>
-                                    </div>
-                                </div>
+                                        <!--<div class="form-group chamcham">-->
+                                            <!--<label for="">Kinh nghiệm</label>-->
+                                            <!--<span>Kinh nghiệm Kinh nghiệm Kinh nghiệm Kinh nghiệm Kinh nghiệm Kinh nghiệm Kinh nghiệm Kinh nghiệm Kinh nghiệm</span>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
 
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer text-center">
-                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-sign-out"
-                                                                                              aria-hidden="true"></i>
-                            Thoát
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+                            <!--</div>-->
+                        <!--</form>-->
+                    <!--</div>-->
+                    <!--<div class="modal-footer text-center">-->
+                        <!--<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-sign-out"-->
+                                                                                              <!--aria-hidden="true"></i>-->
+                            <!--Thoát-->
+                        <!--</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
 
 
         <!--test-->
@@ -411,28 +549,59 @@
 </div>
 </body>
 <script th:inline="javascript">
-    $(function () {
-        $('#memberType').change(function () {
-            var type = $(this).val();
-            if (type == 'gv01') {
-                $("#hocHam").prop('disabled', false);
-                $("#boMon").prop('disabled', false);
-                $("#kinhNghiem").prop('disabled', false);
-            } else {
-                $("#hocHam").prop('disabled', true);
-                $("#boMon").prop('disabled', true);
-                $("#kinhNghiem").prop('disabled', true);
+
+
+    $('#khoaVien').change(function () {
+        var maKhoaVien = $(this).val();
+        $.ajax({
+            url: base_url + 'lophoc/getValueForBoMon',
+            type: "get",
+            data: {khoaVien: maKhoaVien},
+            dataType: "text",
+            success: function (result) {
+                $('#boMon').empty();
+                var rs = JSON.parse(result);
+                $.each(rs, function (i, obj) {
+                    $('#boMon').append("<option value='" + obj.maNganh + "'>" + obj.tenNganh + "</option>");
+                });
+                var kiHoc = $('#kiHoc').val();
+                var maBoMon = $('#boMon').val();
+                getValueForMonHocAndGiangVien(kiHoc, maBoMon);
             }
         });
     });
 
+    $('#boMon').change(function () {
+        var kiHoc = $('#kiHoc').val();
+        var maBoMon = $(this).val();
+        getValueForMonHocAndGiangVien(kiHoc, maBoMon);
+    });
 
-    var base_url = [[@{/}]];
+    function getValueForMonHocAndGiangVien(kiHoc, maBoMon) {
+        $.ajax({
+            url: base_url + 'lophoc/getValueForMonHocAndGiangVien',
+            type: "get",
+            data: {kiHoc: kiHoc, boMon: maBoMon},
+            dataType: "text",
+            success: function (result) {
+                $('#monHoc, #giangVien').empty();
+                var rs = JSON.parse(result);
+                console.log(rs);
+                $.each(rs[0], function (i, obj) {
+                    $('#monHoc').append("<option value='" + obj.maMonHoc + "'>" + obj.tenMonHoc + "</option>");
+                });
+                $.each(rs[1], function (i, obj) {
+                    $('#giangVien').append("<option value='" + obj.maGiaoVien + "'>" + obj.user.fullName + "</option>");
+                });
+            }
+        });
+    }
 
-        $('#btn-themmoi').click(function () {
-            var valid = $("#form-themmoi").parsley();
-            valid.validate();
-            if (valid.isValid()) {
+    $('#btn-themmoi').click(function () {
+        var valid = $("#form-themmoi").parsley();
+        valid.validate();
+        if (valid.isValid()) {
+            // if(allowSubmit){
                 var data = $('#form-themmoi').serialize();
                 $.ajax({
                     url: base_url + 'lophoc/them-moi?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
@@ -449,7 +618,71 @@
                     }
                 });
             }
+        // }
+    });
+
+    var allowSubmit = false;
+
+    function useSelect(value) {
+        var day = '#day'+value;
+        var ca = '#ca'+value;
+        var dayHid = '#day'+value+'Hid';
+
+        if ($(day).is(":checked")){
+            $(ca).prop('disabled', false);
+            $(ca).css("background-color", "");
+            $(dayHid).val(value);
+
+            var ngayHoc = value;
+            var caHoc = $(ca).val();
+            var maGiaoVien = $('#giangVien').val();
+            var kiHoc = $('#kiHoc').val();
+            checkTimeExits(ngayHoc, caHoc, maGiaoVien, kiHoc, value);
+
+        }else {
+            $(ca).prop('disabled', 'disabled');
+            $(ca).css("background-color", "#DCDCDC");
+            $(dayHid).val('');
+        }
+    }
+
+    function selectCa(value) {
+        var day = '#day'+value;
+        var ca = '#ca'+value;
+        var dayHid = '#day'+value+'Hid';
+
+        var ngayHoc = value;
+        var caHoc = $(ca).val();
+        var maGiaoVien = $('#giangVien').val();
+        var kiHoc = $('#kiHoc').val();
+        checkTimeExits(ngayHoc, caHoc, maGiaoVien, kiHoc, value);
+    }
+
+    function checkTimeExits(ngayHoc, caHoc, maGiaoVien, kiHoc, value) {
+        $.ajax({
+            url: base_url + 'lophoc/checkTimeExits',
+            type: "get",
+            data: {ngayHoc: ngayHoc, caHoc: caHoc, maGiaoVien:maGiaoVien, kiHoc:kiHoc},
+            dataType: "text",
+            success: function (result) {
+                var rs = JSON.parse(result);
+                allowSubmit = !result;
+                alert(rs + allowSubmit);
+                // if(result == false) $('#error'+value).show();
+                // else $('#error'+value).hide();
+                // var rs = JSON.parse(result);
+                // $.each(rs, function (key, value) {
+                //     alert(value.ngayHoc);
+                //     console.log(rs);
+                // });
+            },
+            error: function () {
+              alert("lỗi server");
+            }
         });
+    }
+
+    var base_url = [[@{/}]];
     //
 </script>
 </html>

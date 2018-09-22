@@ -10,4 +10,6 @@ public interface GiangVienService {
     List<GiaoVien> findAll();
 
     GiaoVien findById(String giangVienId);
+
+    List<GiaoVien> getLstGiangVienByMaNganh(String maNganh);
 }

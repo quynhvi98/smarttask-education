@@ -29,6 +29,11 @@ public class MonHocServiceImpl implements MonHocService {
     }
 
     @Override
+    public List<MonHoc> getLstMonHocByHocKiAndBoMon(String boMon, Integer kiHoc) {
+        return monHocDao.getLstMonHocByHocKiAndBoMon(boMon, kiHoc);
+    }
+
+    @Override
     public List<MonHoc> findAll() {
         return (List<MonHoc>) monHocDao.findAll();
     }

@@ -30,6 +30,12 @@ public class LopHoc {
     @Column(name = "phong_hoc")
     private String phongHoc;
 
+    @Column(name = "ngay_hoc")
+    private String ngayHoc;
+
+    @Column(name = "ca_hoc")
+    private String caHoc;
+
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "ngay_tao")
@@ -70,6 +76,22 @@ public class LopHoc {
     Set<SinhVien> sinhViens;
 
     public LopHoc() {
+    }
+
+    public String getNgayHoc() {
+        return ngayHoc;
+    }
+
+    public void setNgayHoc(String ngayHoc) {
+        this.ngayHoc = ngayHoc;
+    }
+
+    public String getCaHoc() {
+        return caHoc;
+    }
+
+    public void setCaHoc(String caHoc) {
+        this.caHoc = caHoc;
     }
 
     public Set<PheDuyet> getLstPheDuyet() {

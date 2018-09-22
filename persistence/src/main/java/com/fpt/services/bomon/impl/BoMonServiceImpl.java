@@ -32,4 +32,9 @@ public class BoMonServiceImpl implements BoMonService {
     public void update(BoMon persist) {
         boMonDao.save(persist);
     }
+
+    @Override
+    public List<BoMon> getLstBoMonByMaVien(String khoaVien) {
+        return boMonDao.getLstBoMonByMaVien(khoaVien);
+    }
 }

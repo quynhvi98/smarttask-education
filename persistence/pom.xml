@@ -82,7 +82,7 @@
             <properties>
                 <jdbc.driver>com.mysql.jdbc.Driver</jdbc.driver>
                 <jdbc.url>
-                    jdbc:mysql://localhost:3306/smarttask_education
+                    jdbc:mysql://localhost:3306/smarttask_education?useSSL=false
                 </jdbc.url>
                 <jdbc.username>root</jdbc.username>
                 <jdbc.password>root</jdbc.password>

@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface LopHocDao extends CrudRepository<LopHoc, String> {
+public interface LopHocDao extends CrudRepository<LopHoc, String>, LopHocDaoCustom {
     @Query(value = "select * from lop_hoc ",nativeQuery = true)
     List<LopHoc> listLopHoc();
 

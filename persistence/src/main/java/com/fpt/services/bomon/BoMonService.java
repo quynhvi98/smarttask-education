@@ -11,4 +11,6 @@ public interface BoMonService {
     BoMon findById(String boMon);
 
     void update(BoMon persist);
+
+    List<BoMon> getLstBoMonByMaVien(String khoaVien);
 }
