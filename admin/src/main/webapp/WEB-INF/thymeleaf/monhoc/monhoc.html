@@ -199,7 +199,8 @@
                                         <div class="form-group">
                                             <label for="" class="col-sm-3 control-label">Mã môn học <span class="red">(*)</span></label>
                                             <div class="col-md-9">
-                                                <input required name="maMonHoc" type="text" class="form-control" id=""
+                                                <input readonly required name="maMonHoc" type="text"
+                                                       class="form-control" id="maCode"
                                                        placeholder="Mã môn học">
                                             </div>
                                             <p class="col-sm-offset-3 help-block red">Example block-level help text
@@ -209,7 +210,7 @@
                                             <label for="" class="col-sm-3 control-label">Tên môn học <span
                                                     class="red">(*)</span></label>
                                             <div class="col-md-9">
-                                                <input required name="tenMonHoc" type="text" class="form-control" id=""
+                                                <input required name="tenMonHoc" type="text" class="form-control"
                                                        placeholder="Tên môn học ">
                                             </div>
                                             <p class="col-sm-offset-3 help-block red">Example block-level help text
@@ -218,9 +219,13 @@
                                         <div class="form-group">
                                             <label for="" class="col-sm-3 control-label">Bộ môn</label>
                                             <div class="col-md-9">
-                                                <select required  name="boMon" class="select2 form-control" title="Bộ môn">
-                                                    <th:block th:if="${!#lists.isEmpty(lstBoMon)}" th:each="bm : ${lstBoMon}">
-                                                        <option th:value="${bm.maNganh}" th:text="${bm.tenNganh}"></option>
+                                                <select required id="boMon" name="boMon" class="select2 form-control"
+                                                        title="Bộ môn">
+                                                    <option value="">--Lựa chọn--</option>
+                                                    <th:block th:if="${!#lists.isEmpty(lstBoMon)}"
+                                                              th:each="bm : ${lstBoMon}">
+                                                        <option th:value="${bm.maNganh}"
+                                                                th:text="${bm.tenNganh}"></option>
                                                     </th:block>
                                                 </select>
                                             </div>
@@ -276,7 +281,8 @@
                                         <div class="form-group">
                                             <label for="" class="col-sm-3 control-label">Mã môn học <span class="red">(*)</span></label>
                                             <div class="col-md-9">
-                                                <input  name="maMonHoc" id="maMonHocEdit" readonly required type="text" class="form-control"
+                                                <input  name="maMonHoc" id="maMonHocEdit" readonly required type="text"
+                                                       class="form-control"
                                                        placeholder="Mã môn học">
                                             </div>
                                             <p class="col-sm-offset-3 help-block red">Example block-level help text
@@ -286,7 +292,8 @@
                                             <label for="" class="col-sm-3 control-label">Tên môn học <span
                                                     class="red">(*)</span></label>
                                             <div class="col-md-9">
-                                                <input id="tenMonHocEdit" required name="tenMonHoc" type="text" class="form-control"
+                                                <input id="tenMonHocEdit" required name="tenMonHoc" type="text"
+                                                       class="form-control"
                                                        placeholder="Tên môn học ">
                                             </div>
                                             <p class="col-sm-offset-3 help-block red">Example block-level help text
@@ -295,9 +302,12 @@
                                         <div class="form-group">
                                             <label for="" class="col-sm-3 control-label">Bộ môn</label>
                                             <div class="col-md-9">
-                                                <select required id="boMonEdit"  name="boMon" class="select2 form-control" title="Bộ môn">
-                                                    <th:block th:if="${!#lists.isEmpty(lstBoMon)}" th:each="bm : ${lstBoMon}">
-                                                        <option th:value="${bm.maNganh}" th:text="${bm.tenNganh}"></option>
+                                                <select required id="boMonEdit" name="boMon"
+                                                        class="select2 form-control" title="Bộ môn">
+                                                    <th:block th:if="${!#lists.isEmpty(lstBoMon)}"
+                                                              th:each="bm : ${lstBoMon}">
+                                                        <option th:value="${bm.maNganh}"
+                                                                th:text="${bm.tenNganh}"></option>
                                                     </th:block>
                                                 </select>
                                             </div>
@@ -306,7 +316,8 @@
                                             <label for="" class="col-sm-3 control-label">Số tín chỉ <span
                                                     class="red">(*)</span></label>
                                             <div class="col-md-9">
-                                                <input id="tinChiEdit" required name="tinChi" type="text" class="form-control"
+                                                <input id="tinChiEdit" required name="tinChi" type="text"
+                                                       class="form-control"
                                                        placeholder="Số tín chỉ ">
                                             </div>
                                             <p class="col-sm-offset-3 help-block red">Example block-level help text
@@ -336,29 +347,28 @@
 </div>
 </body>
 <script th:inline="javascript">
-    var base_url = [[@{/}]];
 
-        $('#btn-themmoi').click(function () {
-            var valid = $("#form-themmoi").parsley();
-            valid.validate();
-            if (valid.isValid()) {
-                var data = $('#form-themmoi').serialize();
-                $.ajax({
-                    url: base_url + 'monhoc/them-moi?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
-                    type: "post",
-                    data: data,
-                    dataType: "text",
-                    success: function (result) {
-                        $('#themnhansu').modal('hide');
-                        if (result.trim() === "success") {
-                            notify_sucess('Thêm môn học', 'Thêm mới');
-                        } else {
-                            notify_error('Thêm môn học', 'Thêm mới');
-                        }
+    $('#btn-themmoi').click(function () {
+        var valid = $("#form-themmoi").parsley();
+        valid.validate();
+        if (valid.isValid()) {
+            var data = $('#form-themmoi').serialize();
+            $.ajax({
+                url: base_url + 'monhoc/them-moi?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
+                type: "post",
+                data: data,
+                dataType: "text",
+                success: function (result) {
+                    $('#themnhansu').modal('hide');
+                    if (result.trim() === "success") {
+                        notify_sucess('Thêm môn học', 'Thêm mới');
+                    } else {
+                        notify_error('Thêm môn học', 'Thêm mới');
                     }
-                });
-            }
-        });
+                }
+            });
+        }
+    });
     //
     //
     $('#btn-edit').click(function () {
@@ -374,7 +384,7 @@
                 success: function (result) {
                     $('#suanhansu').modal('hide');
                     if (result.trim() === "success") {
-                       notify_sucess("Cập nhật môn học", "Cập nhật");
+                        notify_sucess("Cập nhật môn học", "Cập nhật");
                     } else {
                         notify_error("Cập nhật môn học", "Cập nhật");
                     }
@@ -382,53 +392,7 @@
             });
         }
     });
-    //
-    //
-    // $('.icon-remove').click(function () {
-    //     var idItem = $(this).attr("idItem");
-    //     swal({
-    //             title: "Cảnh báo",
-    //             text: "Bạn có chắc muốn xóa danh mục này không!",
-    //             type: "warning",
-    //             showCancelButton: true,
-    //             confirmButtonClass: "btn-danger",
-    //             confirmButtonText: "Đồng ý",
-    //             cancelButtonText: "Thoát!",
-    //         },
-    //         function (isConfirm) {
-    //             if (isConfirm) {
-    //                 $.ajax({
-    //                     url: base_url + 'bomon/xoa?id=' + idItem + "&" + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
-    //                     type: "post",
-    //                     dataType: "text",
-    //                     success: function (result) {
-    //                         if (result.trim() === 'success') {
-    //                             Lobibox.notify('success', {
-    //                                 size: 'mini',
-    //                                 position: "top right",
-    //                                 sound: false,
-    //                                 delay: 2000,
-    //                                 title: 'Xóa bộ môn',
-    //                                 msg: 'Đã xóa thành công'
-    //                             });
-    //                             setTimeout("location.reload(true);", 2000);
-    //                             // window.location.replace(base_url + 'category');
-    //                         } else {
-    //                             Lobibox.notify('error', {
-    //                                 size: 'mini',
-    //                                 position: "top right",
-    //                                 sound: false,
-    //                                 delay: 2000,
-    //                                 title: 'Xóa bộ môn',
-    //                                 msg: 'Xóa không thành công'
-    //                             });
-    //                         }
-    //                     }
-    //                 });
-    //             }
-    //         });
-    // });
-    //
+
     $('.icon-edit').click(function () {
         var idItem = $(this).attr("idItem");
         $.ajax({
@@ -444,5 +408,14 @@
             }
         });
     });
+
+    $('#boMon').change(function () {
+        var count = [[${totalRecord}]] + 1;
+       var maMonHoc = $(this).val() + "-" +count;
+       $('#maCode').val(maMonHoc)
+    });
+
+    var base_url = [[@{/}]];
+
 </script>
 </html>

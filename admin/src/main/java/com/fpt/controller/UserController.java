@@ -2,6 +2,8 @@ package com.fpt.controller;
 
 import com.fpt.entity.*;
 import com.fpt.services.bomon.BoMonService;
+import com.fpt.services.giangvien.GiangVienService;
+import com.fpt.services.khoavien.KhoaVienService;
 import com.fpt.services.role.RoleService;
 import com.fpt.services.sinhvien.SinhVienService;
 import com.fpt.services.user.UserService;
@@ -12,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,13 +36,19 @@ public class UserController {
     private RoleService roleService;
     @Autowired
     private SinhVienService sinhVienService;
+    @Autowired
+    private KhoaVienService khoaVienService;
+    @Autowired
+    private GiangVienService giangVienService;
 
     @GetMapping("/user")
     public String base(Model model) {
-        List<BoMon> lstBoMon = boMonService.findAll();
+        List<KhoaVien> lstKhoaVien = khoaVienService.findAll();
         List<User> lstUser = userService.findAll();
-        model.addAttribute("lstBoMon", lstBoMon);
+        Long totalRecord = giangVienService.count();
+        model.addAttribute("lstKhoaVien", lstKhoaVien);
         model.addAttribute("lstUser", lstUser);
+        model.addAttribute("totalRecord", totalRecord);
         return "/user/user";
     }
 
@@ -98,5 +107,18 @@ public class UserController {
         } catch (Exception e) {
             response.getWriter().println("failed");
         }
+    }
+
+    @GetMapping("/user/getValueForBoMon")
+    public @ResponseBody
+    List<BoMon> getValueForBoMonAndGiangVien(HttpServletRequest request) {
+        String khoaVien = request.getParameter("khoaVien");
+        List<BoMon> lstBoMon = boMonService.getLstBoMonByMaVien(khoaVien);
+        for (BoMon bm : lstBoMon) {
+            bm.setKhoaVien(null);
+            bm.setLstMonHoc(null);
+            bm.setLstGiaoVien(null);
+        }
+        return lstBoMon;
     }
 }

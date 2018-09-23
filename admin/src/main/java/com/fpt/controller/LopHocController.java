@@ -38,13 +38,11 @@ public class LopHocController {
     @GetMapping("/lophoc")
     public String base(Model model) {
         List<KhoaVien> lstKhoaVien = khoaVienService.findAll();
-//        List<MonHoc> lstMonHoc = monHocService.findAll();
-//        List<GiaoVien> lstGiaoVien = giangVienService.findAll();
         List<LopHoc> lstLopHoc = lopHocService.findAll();
-//        model.addAttribute("lstMonHoc", lstMonHoc);
-//        model.addAttribute("lstGiaoVien",lstGiaoVien);
+        Long time = System.currentTimeMillis();
         model.addAttribute("lstKhoaVien", lstKhoaVien);
         model.addAttribute("lstLopHoc", lstLopHoc);
+        model.addAttribute("time", time);
         return "lophoc/lophoc";
     }
 

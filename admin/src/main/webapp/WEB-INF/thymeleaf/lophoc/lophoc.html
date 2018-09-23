@@ -376,7 +376,7 @@
                                         <div class="form-group">
                                             <label for="" class="col-sm-3 control-label">Mã lớp học <span class="red">(*)</span></label>
                                             <div class="col-md-9">
-                                                <input required name="maLop" type="text" class="form-control"
+                                                <input id="maLop" readonly required name="maLop" type="text" class="form-control"
                                                        placeholder="Mã lớp học">
                                             </div>
                                             <p class="col-sm-offset-3 help-block red">Example block-level help text
@@ -598,6 +598,7 @@
                 $.each(rs[1], function (i, obj) {
                     $('#giangVien').append("<option value='" + obj.maGiaoVien + "'>" + obj.user.fullName + "</option>");
                 });
+                getCode();
             }
         });
     }
@@ -679,17 +680,24 @@
                 allowSubmit[value - 2] = !rs;
                 if (rs == 1) $('#error' + value).show();
                 else $('#error' + value).hide();
-                // var rs = JSON.parse(result);
-                // $.each(rs, function (key, value) {
-                //     alert(value.ngayHoc);
-                //     console.log(rs);
-                // });
             },
             error: function () {
                 alert("lỗi server");
             }
         });
     }
+
+
+    $('#monHoc').change(function () {
+       getCode();
+    });
+
+    function getCode() {
+        var maMonHoc = $('#monHoc').val();
+        if(maMonHoc!=null){
+            $('#maLop').val(maMonHoc+"-"+[[${time}]]);
+        }
+     }
 
     var base_url = [[@{/}]];
     //

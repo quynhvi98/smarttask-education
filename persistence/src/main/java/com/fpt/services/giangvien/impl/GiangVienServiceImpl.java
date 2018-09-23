@@ -32,4 +32,9 @@ public class GiangVienServiceImpl implements GiangVienService {
     public List<GiaoVien> getLstGiangVienByMaNganh(String maNganh) {
         return giangVienDao.getLstGiangVienByMaNganh(maNganh);
     }
+
+    @Override
+    public Long count() {
+        return giangVienDao.count();
+    }
 }

@@ -20,4 +20,6 @@ public interface LopHocService {
     void createlopSV(LopHoc lopHoc);
 
     Boolean checkTimeExits(String maGiaoVien, String kiHoc, String ngayHoc, String caHoc);
+
+    Long count();
 }

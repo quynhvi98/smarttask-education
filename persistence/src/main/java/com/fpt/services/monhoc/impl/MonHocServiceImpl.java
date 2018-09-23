@@ -34,6 +34,11 @@ public class MonHocServiceImpl implements MonHocService {
     }
 
     @Override
+    public Long count() {
+        return monHocDao.count();
+    }
+
+    @Override
     public List<MonHoc> findAll() {
         return (List<MonHoc>) monHocDao.findAll();
     }

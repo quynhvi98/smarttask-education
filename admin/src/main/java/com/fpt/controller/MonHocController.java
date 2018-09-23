@@ -29,8 +29,10 @@ public class MonHocController {
     public String base(Model model){
         List<BoMon> lstBoMon = boMonService.findAll();
         List<MonHoc> lstMonHoc = monHocService.findAll();
+        Long totalRecord = monHocService.count();
         model.addAttribute("lstBoMon", lstBoMon);
         model.addAttribute("lstMonHoc", lstMonHoc);
+        model.addAttribute("totalRecord", totalRecord);
         return "monhoc/monhoc";
     }
 

@@ -206,7 +206,7 @@
                                             <label for="" class="col-sm-3 control-label">Mã thành viên <span
                                                     class="red">(*)</span></label>
                                             <div class="col-md-9">
-                                                <input required name="memberId" type="text" class="form-control"
+                                                <input readonly required name="memberId" id="memberId" type="text" class="form-control"
                                                        placeholder="Mã nhân viên">
                                             </div>
                                             <p class="col-sm-offset-3 help-block red">Example block-level help text
@@ -303,15 +303,25 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
+                                            <label for="" class="col-sm-3 control-label">Khoa/Viện</label>
+                                            <div class="col-md-9">
+                                                <select disabled  id="khoaVien" name="khoaVien"
+                                                        class="select2 form-control" title="Khoa/Viện">
+                                                    <option value="">-- Chọn khoa viện --</option>
+                                                    <th:block th:if="${!#lists.isEmpty(lstKhoaVien)}"
+                                                              th:each="kv : ${lstKhoaVien}">
+                                                        <option th:value="${kv.maVien}"
+                                                                th:text="${kv.tenVien}"></option>
+                                                    </th:block>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
                                             <label for="" class="col-sm-3 control-label">Bộ môn</label>
                                             <div class="col-md-9">
                                                 <select disabled id="boMon" name="boMon" class="select2 form-control"
                                                         title="Bộ môn">
-                                                    <th:block th:if="${!#lists.isEmpty(lstBoMon)}"
-                                                              th:each="bm : ${lstBoMon}">
-                                                        <option th:value="${bm.maNganh}"
-                                                                th:text="${bm.tenNganh}"></option>
-                                                    </th:block>
+                                                    <!--<option selected value=""><&#45;&#45;Chọn&ndash;&gt;</option>-->
                                                 </select>
                                             </div>
                                         </div>
@@ -476,10 +486,12 @@
         $('#memberType').change(function () {
             var type = $(this).val();
             if (type == 'gv01') {
+                $("#khoaVien").prop('disabled', false);
                 $("#hocHam").prop('disabled', false);
                 $("#boMon").prop('disabled', false);
                 $("#kinhNghiem").prop('disabled', false);
             } else {
+                $("#khoaVien").prop('disabled', true);
                 $("#hocHam").prop('disabled', true);
                 $("#boMon").prop('disabled', true);
                 $("#kinhNghiem").prop('disabled', true);
@@ -488,29 +500,27 @@
     });
 
 
-    var base_url = [[@{/}]];
-
-        $('#btn-themmoi').click(function () {
-            var valid = $("#form-themmoi").parsley();
-            valid.validate();
-            if (valid.isValid()) {
-                var data = $('#form-themmoi').serialize();
-                $.ajax({
-                    url: base_url + 'user/them-moi?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
-                    type: "post",
-                    data: data,
-                    dataType: "text",
-                    success: function (result) {
-                        $('#themnhansu').modal('hide');
-                        if (result.trim() === "success") {
-                            notify_sucess("Thêm tài khoản", 'Thêm mới');
-                        } else {
-                            notify_error("Thêm tài khoản", 'Thêm mới');
-                        }
+    $('#btn-themmoi').click(function () {
+        var valid = $("#form-themmoi").parsley();
+        valid.validate();
+        if (valid.isValid()) {
+            var data = $('#form-themmoi').serialize();
+            $.ajax({
+                url: base_url + 'user/them-moi?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
+                type: "post",
+                data: data,
+                dataType: "text",
+                success: function (result) {
+                    $('#themnhansu').modal('hide');
+                    if (result.trim() === "success") {
+                        notify_sucess("Thêm tài khoản", 'Thêm mới');
+                    } else {
+                        notify_error("Thêm tài khoản", 'Thêm mới');
                     }
-                });
-            }
-        });
+                }
+            });
+        }
+    });
     $('.doimatkhau').click(function () {
         var userName = $(this).attr("userName");
         swal({
@@ -543,6 +553,32 @@
                 });
             });
     });
+
+    $('#khoaVien').change(function () {
+        var maKhoaVien = $(this).val();
+        $.ajax({
+            url: base_url + 'user/getValueForBoMon',
+            type: "get",
+            data: {khoaVien: maKhoaVien},
+            dataType: "text",
+            success: function (result) {
+                $('#boMon').empty();
+                var rs = JSON.parse(result);
+                $.each(rs, function (i, obj) {
+                    $('#boMon').append("<option value='" + obj.maNganh + "'>" + obj.tenNganh + "</option>");
+                });
+                getGVCode(maKhoaVien);
+            }
+        });
+    });
+
+
+    function getGVCode(maKhoaVien) {
+        var count = [[${totalRecord}]] + 1;
+        $('#memberId').val("GV"+maKhoaVien+"-"+count);
+    }
+    var base_url = [[@{/}]];
+
     //
 </script>
 </html>

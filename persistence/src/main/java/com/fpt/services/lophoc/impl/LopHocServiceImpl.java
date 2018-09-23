@@ -81,6 +81,11 @@ public class LopHocServiceImpl implements LopHocService {
     }
 
     @Override
+    public Long count() {
+        return lopHocDao.count();
+    }
+
+    @Override
     public List<LopHoc> findAll() {
         return (List<LopHoc>) lopHocDao.findAll();
     }
