@@ -194,9 +194,10 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label">Mã bộ môn <span class="red">(*)</span></label>
+                                            <label for="" class="col-sm-3 control-label">Mã bộ môn <span
+                                                    class="red">(*)</span></label>
                                             <div class="col-md-9">
-                                                <input required name="maNganh" type="text" class="form-control" id=""
+                                                <input readonly required name="maNganh" type="text" class="form-control" id="maNganh"
                                                        placeholder="Mã bộ môn">
                                             </div>
                                             <p class="col-sm-offset-3 help-block red">Example block-level help text
@@ -206,7 +207,7 @@
                                             <label for="" class="col-sm-3 control-label">Tên bộ môn <span
                                                     class="red">(*)</span></label>
                                             <div class="col-md-9">
-                                                <input required name="tenNganh" type="text" class="form-control" id=""
+                                                <input required name="tenNganh" type="text" class="form-control" id="tenNganh"
                                                        placeholder="Tên bộ môn ">
                                             </div>
                                             <p class="col-sm-offset-3 help-block red">Example block-level help text
@@ -215,9 +216,11 @@
                                         <div class="form-group">
                                             <label for="" class="col-sm-3 control-label">Khoa/viện</label>
                                             <div class="col-md-9">
-                                                <select name="khoaVien" class="select2 form-control" title="Khoa/viện">
-                                                    <th:block th:if="${!#lists.isEmpty(lstKhoaVien)}" th:each="kv : ${lstKhoaVien}">
-                                                        <option th:value="${kv.maVien}" th:text="${kv.tenVien}"></option>
+                                                <select id="khoaVien" name="khoaVien" class="select2 form-control" title="Khoa/viện">
+                                                    <th:block th:if="${!#lists.isEmpty(lstKhoaVien)}"
+                                                              th:each="kv : ${lstKhoaVien}">
+                                                        <option th:value="${kv.maVien}"
+                                                                th:text="${kv.tenVien}"></option>
                                                     </th:block>
                                                 </select>
                                             </div>
@@ -262,7 +265,8 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label">Mã bộ môn <span class="red">(*)</span></label>
+                                            <label for="" class="col-sm-3 control-label">Mã bộ môn <span
+                                                    class="red">(*)</span></label>
                                             <div class="col-md-9">
                                                 <input required name="maNganh" readonly type="text" class="form-control"
                                                        id="maNganhEdit"
@@ -285,9 +289,12 @@
                                         <div class="form-group">
                                             <label for="" class="col-sm-3 control-label">Khoa/viện</label>
                                             <div class="col-md-9">
-                                                <select id="khoaVienEdit" required name="khoaVien" class="select2 form-control" title="Khoa Viện">
-                                                    <th:block th:if="${!#lists.isEmpty(lstKhoaVien)}" th:each="kv : ${lstKhoaVien}">
-                                                        <option th:value="${kv.maVien}" th:text="${kv.tenVien}"></option>
+                                                <select id="khoaVienEdit" required name="khoaVien"
+                                                        class="select2 form-control" title="Khoa Viện">
+                                                    <th:block th:if="${!#lists.isEmpty(lstKhoaVien)}"
+                                                              th:each="kv : ${lstKhoaVien}">
+                                                        <option th:value="${kv.maVien}"
+                                                                th:text="${kv.tenVien}"></option>
                                                     </th:block>
                                                 </select>
                                             </div>
@@ -316,29 +323,28 @@
 </div>
 </body>
 <script th:inline="javascript">
-    var base_url = [[@{/}]];
 
-        $('#btn-themmoi').click(function () {
-            var valid = $("#form-themmoi").parsley();
-            valid.validate();
-            if (valid.isValid()) {
-                var data = $('#form-themmoi').serialize();
-                $.ajax({
-                    url: base_url + 'bomon/them-moi?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
-                    type: "post",
-                    data: data,
-                    dataType: "text",
-                    success: function (result) {
-                        $('#themnhansu').modal('hide');
-                        if (result.trim() === "success") {
-                            notify_sucess('Thêm bộ môn', 'Thêm mới');
-                        } else {
-                            notify_error('Thêm bộ môn', 'Thêm mới');
-                        }
+    $('#btn-themmoi').click(function () {
+        var valid = $("#form-themmoi").parsley();
+        valid.validate();
+        if (valid.isValid()) {
+            var data = $('#form-themmoi').serialize();
+            $.ajax({
+                url: base_url + 'bomon/them-moi?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
+                type: "post",
+                data: data,
+                dataType: "text",
+                success: function (result) {
+                    $('#themnhansu').modal('hide');
+                    if (result.trim() === "success") {
+                        notify_sucess('Thêm bộ môn', 'Thêm mới');
+                    } else {
+                        notify_error('Thêm bộ môn', 'Thêm mới');
                     }
-                });
-            }
-        });
+                }
+            });
+        }
+    });
     //
     //
     $('#btn-edit').click(function () {
@@ -362,53 +368,7 @@
             });
         }
     });
-    //
-    //
-    // $('.icon-remove').click(function () {
-    //     var idItem = $(this).attr("idItem");
-    //     swal({
-    //             title: "Cảnh báo",
-    //             text: "Bạn có chắc muốn xóa danh mục này không!",
-    //             type: "warning",
-    //             showCancelButton: true,
-    //             confirmButtonClass: "btn-danger",
-    //             confirmButtonText: "Đồng ý",
-    //             cancelButtonText: "Thoát!",
-    //         },
-    //         function (isConfirm) {
-    //             if (isConfirm) {
-    //                 $.ajax({
-    //                     url: base_url + 'bomon/xoa?id=' + idItem + "&" + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
-    //                     type: "post",
-    //                     dataType: "text",
-    //                     success: function (result) {
-    //                         if (result.trim() === 'success') {
-    //                             Lobibox.notify('success', {
-    //                                 size: 'mini',
-    //                                 position: "top right",
-    //                                 sound: false,
-    //                                 delay: 2000,
-    //                                 title: 'Xóa bộ môn',
-    //                                 msg: 'Đã xóa thành công'
-    //                             });
-    //                             setTimeout("location.reload(true);", 2000);
-    //                             // window.location.replace(base_url + 'category');
-    //                         } else {
-    //                             Lobibox.notify('error', {
-    //                                 size: 'mini',
-    //                                 position: "top right",
-    //                                 sound: false,
-    //                                 delay: 2000,
-    //                                 title: 'Xóa bộ môn',
-    //                                 msg: 'Xóa không thành công'
-    //                             });
-    //                         }
-    //                     }
-    //                 });
-    //             }
-    //         });
-    // });
-    //
+
     $('.icon-edit').click(function () {
         var idItem = $(this).attr("idItem");
         $.ajax({
@@ -419,9 +379,28 @@
                 var rs = JSON.parse(result);
                 $('#maNganhEdit').val(rs.maNganh);
                 $('#tenNganhEdit').val(rs.tenNganh);
-                $('#khoaVienEdit').val(rs.khoaVien['maVien']).change();;
+                $('#khoaVienEdit').val(rs.khoaVien['maVien']).change();
             }
         });
     });
+
+
+    function getCode(){
+        var khoaVien = $('#khoaVien').val();
+        var tenNganh = $('#tenNganh').val();
+        var maNganh = khoaVien + "-" + getSuffix(tenNganh);
+        $('#maNganh').val(maNganh);
+    }
+
+    $("#tenNganh").on("input", function() {
+       getCode();
+    });
+
+    $('#khoaVien').change(function () {
+       getCode();
+    });
+
+    var base_url = [[@{/}]];
+
 </script>
 </html>

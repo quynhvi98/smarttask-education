@@ -16,4 +16,6 @@ public interface MonHocService {
     List<MonHoc> listMonHocKy(String hocky);
 
     List<MonHoc> getLstMonHocByHocKiAndBoMon(String boMon, Integer kiHoc);
+
+    Long count();
 }

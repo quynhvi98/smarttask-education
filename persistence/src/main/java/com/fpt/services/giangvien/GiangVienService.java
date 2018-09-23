@@ -12,4 +12,6 @@ public interface GiangVienService {
     GiaoVien findById(String giangVienId);
 
     List<GiaoVien> getLstGiangVienByMaNganh(String maNganh);
+
+    Long count();
 }
