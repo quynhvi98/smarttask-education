@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -155,5 +156,39 @@ public class LopHocController {
         String kiHoc = request.getParameter("kiHoc");
         Boolean isExits = lopHocService.checkTimeExits(maGiaoVien, kiHoc, ngayHoc, caHoc);
         return isExits;
+    }
+
+    @GetMapping(value = "/lophoc/timkiem/{id}")
+    public @ResponseBody
+    LopHoc search(@PathVariable("id") String id) {
+        LopHoc lopHoc = lopHocService.findById(id);
+        lopHoc.getGiaoVien().getUser().setGiaoVien(null);
+        lopHoc.getGiaoVien().getUser().setSinhVien(null);
+        lopHoc.getGiaoVien().getUser().setRoles(null);
+        lopHoc.getGiaoVien().setLstThongBao(null);
+        lopHoc.getGiaoVien().setLstPheDuyet(null);
+        lopHoc.getGiaoVien().setLstLopHoc(null);
+        lopHoc.getGiaoVien().setBoMon(null);
+        lopHoc.getMonHoc().setKiHoc(null);
+        lopHoc.getMonHoc().setLstLopHoc(null);
+        lopHoc.getMonHoc().setBoMon(null);
+        lopHoc.setLstBaiViet(null);
+        lopHoc.setLstNhom(null);
+        lopHoc.setLstPheDuyet(null);
+        lopHoc.setLstThongBao(null);
+
+        Set<SinhVien> lstSinhVien = lopHoc.getSinhViens();
+        for (SinhVien sv : lstSinhVien){
+            sv.setLopHocs(null);
+            sv.setLstBaiTap(null);
+            sv.setLstPheDuyet(null);
+            sv.setKhoaVien(null);
+            sv.setLstThongBao(null);
+            sv.setNhoms(null);
+            sv.getUser().setRoles(null);
+            sv.getUser().setSinhVien(null);
+            sv.getUser().setGiaoVien(null);
+        }
+        return lopHoc;
     }
 }
