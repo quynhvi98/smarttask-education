@@ -37,7 +37,6 @@ public class UserInfoController {
     @RequestMapping("/info")
     public String userProfile(HttpSession session, HttpServletRequest request, Model model) {
         User userInfo = (User) session.getAttribute("userInfo");
-        GiaoVien giaoVien = giangVienService.findById(userInfo.getGiaoVien().getMaGiaoVien());
 
         if(userInfo.getSinhVien()!= null){
             model.addAttribute("sinhvien", userInfo);
@@ -45,6 +44,7 @@ public class UserInfoController {
             return "info/sinhvien";
         }
         if(userInfo.getGiaoVien() != null){
+            GiaoVien giaoVien = giangVienService.findById(userInfo.getGiaoVien().getMaGiaoVien());
             model.addAttribute("giangvien",userInfo);
             model.addAttribute("user", userInfo);
             model.addAttribute("giaoVien", giaoVien);
