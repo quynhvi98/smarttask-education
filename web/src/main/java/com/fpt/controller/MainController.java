@@ -27,11 +27,17 @@ public class MainController {
     @RequestMapping("/")
     public String index(HttpSession session, Model model) {
         User userInfo = (User) session.getAttribute("userInfo");
-        GiaoVien giaoVien = giangVienService.findById(userInfo.getGiaoVien().getMaGiaoVien());
-
         model.addAttribute("user", userInfo);
-        model.addAttribute("giaoVien", giaoVien);
-        return "trangchu";
+        if(userInfo.getSinhVien()!= null){
+            return "trangchusv";
+        }
+        if(userInfo.getGiaoVien() != null){
+            GiaoVien giaoVien = giangVienService.findById(userInfo.getGiaoVien().getMaGiaoVien());
+            model.addAttribute("giaoVien", giaoVien);
+            return "trangchu";
+
+        }
+        return null;
     }
     @GetMapping("/admin")
     public String admin() {
