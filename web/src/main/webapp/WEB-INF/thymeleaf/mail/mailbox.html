@@ -482,7 +482,7 @@
     stompClient.connect({}, onConnected);
 
     function onConnected() {
-        stompClient.subscribe('/topic/public-GVkv01-1', onMessageReceived);
+        stompClient.subscribe('/topic/public-'+username, onMessageReceived);
         stompClient.send("/app/chat.addUser",
             {},
             JSON.stringify({sender: username, type: 'JOIN'})
