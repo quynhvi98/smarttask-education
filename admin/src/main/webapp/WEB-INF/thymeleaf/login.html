@@ -26,6 +26,13 @@
 		text-decoration:none; 
 	}
 </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
+    <script type="text/javascript">
+        function notify() {
+            $.notify("Access granted", "error");
+        }
+    </script>
 </head>
 <body>
 
@@ -50,9 +57,9 @@
 				<input type="password" id="password" name="userPassWord" class="form-control" required>
 			</div>
 
-			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+			<button class="btn btn-lg btn-primary btn-block" onclick="notify()" type="submit">Sign in</button>
 		</form>
-		<p th:if="${param.error}" class="error">Invalid email or password</p>
+        <p th:if="${param.error}"  class="error">Tài khoản hoặc mật khẩu nhập không đúng</p>
 		<p th:if="${param.logout}" class="success">You have been logged out</p>
 	</div>
 	<!-- /container -->
