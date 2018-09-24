@@ -163,9 +163,30 @@
             </ul>
         </div>
     </nav>
+    <input id="username" type="hidden" th:value="${user.getGiaoVien().getMaGiaoVien()}"/>
 </header>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/1.1.28/howler.min.js"></script>
+<script>
+    alert(123);
+</script>
 <script type="text/javascript" th:src="@{/js/jquery/jquery.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/adminlte.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/websocket/websocket.js}"></script>
 </body>
+
+
+
+
 </html>
+
+
+
+
+
+
+
+

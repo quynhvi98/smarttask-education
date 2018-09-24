@@ -3,6 +3,7 @@ package com.fpt.controller;
 import com.fpt.entity.GiaoVien;
 import com.fpt.entity.User;
 import com.fpt.services.giangvien.GiangVienService;
+import com.fpt.services.thongbao.ThongBaoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ import javax.servlet.http.HttpSession;
 public class MainController {
     @Autowired
     private GiangVienService giangVienService;
+    @Autowired
+    private ThongBaoService thongBaoService;
     private final Logger logger = LoggerFactory.getLogger(UserInfoController.class);
     @RequestMapping("/")
     public String index(HttpSession session, Model model) {
@@ -32,6 +35,7 @@ public class MainController {
             return "trangchusv";
         }
         if(userInfo.getGiaoVien() != null){
+            model.addAttribute("moiNhat",thongBaoService.thongBaoMoiNhat(userInfo.getGiaoVien().getMaGiaoVien()));
             GiaoVien giaoVien = giangVienService.findById(userInfo.getGiaoVien().getMaGiaoVien());
             model.addAttribute("giaoVien", giaoVien);
             return "trangchu";
@@ -39,6 +43,8 @@ public class MainController {
         }
         return null;
     }
+
+
     @GetMapping("/admin")
     public String admin() {
         return "admin";

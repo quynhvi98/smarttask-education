@@ -1,126 +1,46 @@
 'use strict';
-var token = document.getElementById('token').value;
-
-console.log(token);
-var usernamePage = document.querySelector('#username-page');
-var chatPage = document.querySelector('#chat-page');
-var usernameForm = document.querySelector('#usernameForm');
-var messageForm = document.querySelector('#messageForm');
-var messageInput = document.querySelector('#message');
-var id = document.querySelector('#id');
-var messageArea = document.querySelector('#messageArea');
-var connectingElement = document.querySelector('.connecting');
 var stompClient = null;
-var username = null;
+var username = document.getElementById('username').value;
+var socket = new SockJS('http://localhost:8080/web/ws');
+stompClient = Stomp.over(socket);
+stompClient.connect({}, onConnected);
 
-var colors = [
-    '#2196F3', '#32c787', '#00BCD4', '#ff5652',
-    '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
-];
-
-
-username = document.querySelector('#name').value.trim();
-if(!username) {
-    usernamePage.classList.add('hidden');
-    chatPage.classList.remove('hidden');
-    var socket = new SockJS('http://localhost:8082/web/ws');
-    stompClient = Stomp.over(socket);
-    stompClient.connect({}, onConnected, onError);
-}
-
-
-
-function connect(event) {
-    username = document.querySelector('#name').value.trim();
-    if(username) {
-        usernamePage.classList.add('hidden');
-        chatPage.classList.remove('hidden');
-        var socket = new SockJS('http://localhost:8082/web/ws');
-        stompClient = Stomp.over(socket);
-        stompClient.connect({}, onConnected, onError);
-    }
-    event.preventDefault();
-}
 function onConnected() {
-    // Subscribe to the Public Topic
-    stompClient.subscribe('/topic/public-'+token, onMessageReceived);
-
-    // Tell your username to the server
+    stompClient.subscribe('/topic/public-'+username, onMessageReceived);
     stompClient.send("/app/chat.addUser",
         {},
         JSON.stringify({sender: username, type: 'JOIN'})
     )
-    connectingElement.classList.add('hidden');
-}
 
-function onError(error) {
-    connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
-    connectingElement.style.color = 'red';
-}
-
-function sendMessage(event) {
-    var messageContent = messageInput.value.trim();
-    if(messageContent && stompClient) {
-        var chatMessage = {
-            sender: id.value,
-            content: messageInput.value,
-            type: 'CHAT'
-        };
-        stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
-        messageInput.value = '';
-    }
-    event.preventDefault();
-}
-
-
-function onMessageReceived(payload) {
-    var message = JSON.parse(payload.body);
-alert(message.content);
-    var messageElement = document.createElement('li');
-
-    if(message.type === 'JOIN') {
-        messageElement.classList.add('event-message');
-        message.content = message.sender + ' joined!';
-    } else if (message.type === 'LEAVE') {
-        messageElement.classList.add('event-message');
-        message.content = message.sender + ' left!';
-    } else {
-        messageElement.classList.add('chat-message');
-
-        var avatarElement = document.createElement('i');
-        var avatarText = document.createTextNode(message.sender[0]);
-        avatarElement.appendChild(avatarText);
-        avatarElement.style['background-color'] = getAvatarColor(message.sender);
-
-        messageElement.appendChild(avatarElement);
-
-        var usernameElement = document.createElement('span');
-        var usernameText = document.createTextNode(message.sender);
-
-        usernameElement.appendChild(usernameText);
-        messageElement.appendChild(usernameElement);
+    function onError() {
+        console.log("error " + error);
     }
 
-    var textElement = document.createElement('p');
-    var messageText = document.createTextNode(message.content);
-    textElement.appendChild(messageText);
+    function onMessageReceived(payload) {
+        playSound();
+        var message = JSON.parse(payload.body);
+        var a = '<li> <ul class="menu"> <li> <a style="height: 39px;"  href="/web/mailbox/read-mail?id='+message.id+'> <i  style="float: left; class="fa fa-users text-aqua"></i>' +'<p style="margin-top: -15px; margin-left: 24px; font-size: 15px;">'+ message.title+' - ('+message.sender+')'+'</p></a></li></ul></li>';
+        var node = document.getElementById('chuong');
+        var txt = parseInt(node.textContent || node.innerText);
+        document.getElementById('chuong').innerHTML = txt + 1;
+        document.getElementById('tb').innerHTML = a + document.getElementById('tb').innerHTML;
 
-    messageElement.appendChild(textElement);
-
-    messageArea.appendChild(messageElement);
-    alert(messageElement);
-    messageArea.scrollTop = messageArea.scrollHeight;
-}
-
-
-function getAvatarColor(messageSender) {
-    var hash = 0;
-    for (var i = 0; i < messageSender.length; i++) {
-        hash = 31 * hash + messageSender.charCodeAt(i);
     }
-    var index = Math.abs(hash % colors.length);
-    return colors[index];
 }
 
-usernameForm.addEventListener('submit', connect, true)
-messageForm.addEventListener('submit', sendMessage, true)
+window.onload = init;
+var sound;
+
+function init() {
+    sound = new Howl({
+        urls: ['https://notificationsounds.com/soundfiles/15de21c670ae7c3f6f3f1f37029303c9/file-sounds-1085-definite.mp3'],
+        onload: function () {
+            console.log("Loaded asset ");
+            button.disabled = false; // enable the play sound button
+        }
+    });
+}
+
+function playSound() {
+    sound.play();
+}

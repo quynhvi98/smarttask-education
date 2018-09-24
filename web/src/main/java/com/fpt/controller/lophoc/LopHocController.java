@@ -8,6 +8,7 @@ import com.fpt.entity.User;
 import com.fpt.services.giangvien.GiangVienService;
 import com.fpt.services.lophoc.LopHocService;
 import com.fpt.services.sinhvien.SinhVienService;
+import com.fpt.services.thongbao.ThongBaoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,8 @@ public class LopHocController {
     private GiangVienService giangVienService;
     @Autowired
     private SinhVienService sinhVienService;
-
+    @Autowired
+    private ThongBaoService thongBaoService;
     @RequestMapping("/giangviendaylop/{maLop}")
     public String userProfile(HttpSession session, @PathVariable("maLop") String maLop, HttpServletRequest request, Model model) {
         User userInfo = (User) session.getAttribute("userInfo");
@@ -43,7 +45,7 @@ public class LopHocController {
         List<SinhVien> sinhViens = sinhVienService.getListSinhVienbyLopHocId(maLop);
         String[] ngayHoc = lopHoc.getNgayHoc().split(",");
         String[] caHoc = lopHoc.getCaHoc().split(",");
-
+        model.addAttribute("moiNhat",thongBaoService.thongBaoMoiNhat(userInfo.getGiaoVien().getMaGiaoVien()));
         model.addAttribute("user", userInfo);
         model.addAttribute("giaoVien", giaoVien);
         model.addAttribute("lopHoc", lopHoc);
