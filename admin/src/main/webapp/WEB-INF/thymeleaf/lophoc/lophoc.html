@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-    <title>Agribank works</title>
+    <title>Smarttask Education</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/datatables.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/select2.min.css}"/>
+
     <!-- thu vien validate -->
     <link rel="stylesheet" type="text/css" th:href="@{/css/parsley.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-datepicker.min.css}">
@@ -50,6 +51,7 @@
     <script type="text/javascript" th:src="@{/js/cuttom.js}"></script>
     <script type="text/javascript" th:src="@{/js/trongtran.js}"></script>
 
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -78,31 +80,14 @@
         <div class="khung" data-width="5">
 
             <div class="input">
-                <div class="label">Họ tên/Tên truy cập</div>
-                <input type="text" placeholder="Họ tên hoặc Tên truy cập" value="">
+                <div class="label">Tên lớp học</div>
+                <input type="text"  value="">
             </div>
             <div class="input">
-                <div class="label">Đơn vị/ phòng ban</div>
-                <select class="select2" data-class="select2tree" title="Đơn vị/ phòng ban">
-                    <option value="" class="optionlv1">Tất cả</option>
-                    <option value="" class="optionlv2">phòng ban phòng ban phòng ban</option>
-                </select>
+                <div class="label">Mã lớp học</div>
+                <input type="text"  value="">
             </div>
-            <div class="input">
-                <div class="label">Mã nhân viên</div>
-                <input type="text" placeholder="Mã nhân viên" value="">
-            </div>
-            <div class="input">
-                <div class="label">Mã vị trí</div>
-                <input type="text" placeholder="Mã vị trí" value="">
-            </div>
-            <div class="input nho">
-                <div class="label">Trạng thái</div>
-                <select class="select2" id="select2" title="Trạng thái">
-                    <option value=""><span class="aaaa">Hoạt động</span></option>
-                    <option value="">Ngừng hoạt động</option>
-                </select>
-            </div>
+
             <a href="#" class="submit">Tìm kiếm</a>
             <!-- <div class="submit"></div> -->
         </div>
@@ -336,7 +321,7 @@
                                                         <input id="day5" onchange="useSelect(5)" type="checkbox"/>
                                                         <input name="ngayHoc" id="day5Hid" type="text" hidden/>
                                                     </label>
-                                                    <label class="col-sm-3">
+                                                    <la bel class="col-sm-3">
                                                         Ca
                                                         <select onchange="selectCa(5)" style="background-color: #DCDCDC"
                                                                 disabled id="ca5" name="caHoc">
@@ -370,8 +355,21 @@
                                                     </label>
                                                     <span id="error6" hidden>Thời gian này đã bị trùng</span>
                                                 </div>
+                                                <label class="col-sm-344">
+                                                   Ca 1: 7h45 - 8h30 |
+                                                    Ca 2: 8h30 - 9h15 |
+                                                    Ca 3: 9h30 - 10h15  <br/>
+                                                    Ca 4: 13h30 - 14h15 |
+                                                    Ca 5: 14h15 - 15h00 |
+                                                    Ca 6: 15h00 - 15h45 |
+
+                                                </label>
                                             </div>
+
+
+
                                         </div>
+
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
