@@ -1,8 +1,10 @@
 package com.fpt.controller;
 
 import com.fpt.entity.BoMon;
+import com.fpt.entity.KiHoc;
 import com.fpt.entity.MonHoc;
 import com.fpt.services.bomon.BoMonService;
+import com.fpt.services.kihoc.KiHocService;
 import com.fpt.services.monhoc.MonHocService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,8 @@ public class MonHocController {
     private BoMonService boMonService;
     @Autowired
     private MonHocService monHocService;
+    @Autowired
+    private KiHocService kiHocService;
 
     @GetMapping("/monhoc")
     public String base(Model model){
@@ -43,6 +47,7 @@ public class MonHocController {
             String tenMonHoc = request.getParameter("tenMonHoc");
             String boMonId = request.getParameter("boMon");
             String tinChi = request.getParameter("tinChi");
+            String kiHoc = request.getParameter("kiHoc");
 
             MonHoc monHoc = new MonHoc();
             BoMon boMon = boMonService.findById(boMonId != null ? boMonId : "");
@@ -51,6 +56,8 @@ public class MonHocController {
             monHoc.setTrangThai(String.valueOf(1));
             monHoc.setBoMon(boMon);
             monHoc.setTinChi(Integer.parseInt(tinChi));
+            KiHoc kiHocE = kiHocService.findById(Integer.parseInt(kiHoc));
+            monHoc.setKiHoc(kiHocE);
 
             monHocService.taoMonHoc(monHoc);
             response.getWriter().println("success");

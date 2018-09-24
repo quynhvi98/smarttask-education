@@ -59,19 +59,26 @@
                 <li class="dropdown notifications-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-bell-o"></i>
-                        <span class="label label-warning">10</span>
+                        <span id="chuong" class="label label-warning">10</span>
                     </a>
-                    <ul class="dropdown-menu">
-                        <li class="header">You have 10 notifications</li>
-                        <li>
-                            <ul class="menu">
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                    <ul id="tb" class="dropdown-menu">
+                        <!--<li class="header">You have 10 notifications</li>-->
+
+                        <li th:each="tbm : ${moiNhat}">
+                           <ul class="menu">
+                               <li>
+                                   <a style="height: 39px;" th:href="${'/web/mailbox/read-mail?id=' + tbm.id}">
+                                       <i class="fa fa-users text-aqua"></i>
+                                       <p style="margin-top: -20px; margin-left: 24px; font-size: 15px;" th:text="${tbm.title+' ('+tbm.sender+')'}">
+                                       </p>
+                                   </a>
+                               </li>
+                           </ul>
+                       </li>
+
+
+
+
                         <li class="footer"><a href="#">View all</a></li>
                     </ul>
                 </li>

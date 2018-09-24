@@ -19,6 +19,19 @@ public class ThongBao {
     @Column(name = "content")
     private String content;
 
+    @Column(name = "sender")
+    private String sender;
+
+    @Column(name = "time")
+    private String time;
+
+    @Column(name = "title")
+    private String title;
+
+    @Column(name = "status")
+    private String status;
+
+
     @ManyToOne
     @JoinColumn(name = "ma_giao_vien")
     private GiaoVien giaoVien;
@@ -34,6 +47,39 @@ public class ThongBao {
     @ManyToOne
     @JoinColumn(name = "ma_nhom")
     private Nhom nhom;
+
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getSender() {
+        return sender;
+    }
+
+    public void setSender(String sender) {
+        this.sender = sender;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public static long getSerialVersionUID() {
         return serialVersionUID;

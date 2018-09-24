@@ -37,4 +37,11 @@ public class GiangVienServiceImpl implements GiangVienService {
     public Long count() {
         return giangVienDao.count();
     }
+
+    @Override
+    public void updateGiaoVien(GiaoVien giaoVien) {
+        if(giaoVien.getUser().getUserName() != null)
+            giangVienDao.save(giaoVien);
+    }
+
 }

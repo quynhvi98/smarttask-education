@@ -8,4 +8,5 @@ public interface SinhVienService {
     SinhVien themSinhVien(SinhVien sinhVien);
     List<SinhVien> listSV();
     SinhVien getSinhVienId(String id);
+    List<SinhVien> getListSinhVienbyLopHocId(String maLop);
 }

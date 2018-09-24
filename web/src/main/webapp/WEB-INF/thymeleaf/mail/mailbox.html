@@ -29,6 +29,7 @@
 
 
 </head>
+<input id="username" type="hidden" th:value="${user.getGiaoVien().getMaGiaoVien()}"/>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
   <div th:replace="fragments/header :: header">&nbsp;</div>
@@ -57,7 +58,8 @@
               <h3 class="box-title">Folders</h3>
 
               <div class="box-tools">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                        class="fa fa-minus"></i>
                 </button>
               </div>
             </div>
@@ -67,7 +69,8 @@
                   <span class="label label-primary pull-right">12</span></a></li>
                 <li><a href="#"><i class="fa fa-envelope-o"></i> Sent</a></li>
                 <li><a href="#"><i class="fa fa-file-text-o"></i> Drafts</a></li>
-                <li><a href="#"><i class="fa fa-filter"></i> Junk <span class="label label-warning pull-right">65</span></a>
+                <li><a href="#"><i class="fa fa-filter"></i> Junk <span
+                        class="label label-warning pull-right">65</span></a>
                 </li>
                 <li><a href="#"><i class="fa fa-trash-o"></i> Trash</a></li>
               </ul>
@@ -80,7 +83,8 @@
               <h3 class="box-title">Labels</h3>
 
               <div class="box-tools">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                        class="fa fa-minus"></i>
                 </button>
               </div>
             </div>
@@ -113,190 +117,116 @@
             <div class="box-body no-padding">
               <div class="mailbox-controls">
                 <!-- Check all button -->
-                <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
+                <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i
+                        class="fa fa-square-o"></i>
                 </button>
                 <div class="btn-group">
-                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
-                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
-                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
+                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i>
+                  </button>
+                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-reply"></i>
+                  </button>
+                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-share"></i>
+                  </button>
                 </div>
                 <!-- /.btn-group -->
-                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
+                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i>
+                </button>
                 <div class="pull-right">
                   1-50/200
                   <div class="btn-group">
-                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
-                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
+                    <button type="button" class="btn btn-default btn-sm"><i
+                            class="fa fa-chevron-left"></i></button>
+                    <button type="button" class="btn btn-default btn-sm"><i
+                            class="fa fa-chevron-right"></i></button>
                   </div>
                   <!-- /.btn-group -->
                 </div>
                 <!-- /.pull-right -->
-              </div>
-              <div class="table-responsive mailbox-messages">
-                <table class="table table-hover table-striped">
-                  <tbody>
-                  <tr>
-                    <td><input type="checkbox"></td>
-                    <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
-                    <td class="mailbox-name"><a th:href="@{/mailbox/readmail}">Alexander Pierce</a></td>
-                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...
-                    </td>
-                    <td class="mailbox-attachment"></td>
-                    <td class="mailbox-date">5 mins ago</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox"></td>
-                    <td class="mailbox-star"><a href="#"><i class="fa fa-star-o text-yellow"></i></a></td>
-                    <td class="mailbox-name"><a th:href="@{/mailbox/readmail}">Alexander Pierce</a></td>
-                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...
-                    </td>
-                    <td class="mailbox-attachment"><i class="fa fa-paperclip"></i></td>
-                    <td class="mailbox-date">28 mins ago</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox"></td>
-                    <td class="mailbox-star"><a href="#"><i class="fa fa-star-o text-yellow"></i></a></td>
-                    <td class="mailbox-name"><a th:href="@{/mailbox/readmail}">Alexander Pierce</a></td>
-                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...
-                    </td>
-                    <td class="mailbox-attachment"><i class="fa fa-paperclip"></i></td>
-                    <td class="mailbox-date">11 hours ago</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox"></td>
-                    <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
-                    <td class="mailbox-name"><a th:href="@{/mailbox/readmail}">Alexander Pierce</a></td>
-                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...
-                    </td>
-                    <td class="mailbox-attachment"></td>
-                    <td class="mailbox-date">15 hours ago</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox"></td>
-                    <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
-                    <td class="mailbox-name"><a th:href="@{/mailbox/readmail}">Alexander Pierce</a></td>
-                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...
-                    </td>
-                    <td class="mailbox-attachment"><i class="fa fa-paperclip"></i></td>
-                    <td class="mailbox-date">Yesterday</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox"></td>
-                    <td class="mailbox-star"><a href="#"><i class="fa fa-star-o text-yellow"></i></a></td>
-                    <td class="mailbox-name"><a th:href="@{/mailbox/readmail}">Alexander Pierce</a></td>
-                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...
-                    </td>
-                    <td class="mailbox-attachment"><i class="fa fa-paperclip"></i></td>
-                    <td class="mailbox-date">2 days ago</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox"></td>
-                    <td class="mailbox-star"><a href="#"><i class="fa fa-star-o text-yellow"></i></a></td>
-                    <td class="mailbox-name"><a th:href="@{/mailbox/readmail}">Alexander Pierce</a></td>
-                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...
-                    </td>
-                    <td class="mailbox-attachment"><i class="fa fa-paperclip"></i></td>
-                    <td class="mailbox-date">2 days ago</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox"></td>
-                    <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
-                    <td class="mailbox-name"><a th:href="@{/mailbox/read-mail}">Alexander Pierce</a></td>
-                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...
-                    </td>
-                    <td class="mailbox-attachment"></td>
-                    <td class="mailbox-date">2 days ago</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox"></td>
-                    <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
-                    <td class="mailbox-name"><a th:href="@{/mailbox/readmail}">Alexander Pierce</a></td>
-                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...
-                    </td>
-                    <td class="mailbox-attachment"></td>
-                    <td class="mailbox-date">2 days ago</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox"></td>
-                    <td class="mailbox-star"><a href="#"><i class="fa fa-star-o text-yellow"></i></a></td>
-                    <td class="mailbox-name"><a th:href="@{/mailbox/readmail}">Alexander Pierce</a></td>
-                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...
-                    </td>
-                    <td class="mailbox-attachment"></td>
-                    <td class="mailbox-date">2 days ago</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox"></td>
-                    <td class="mailbox-star"><a href="#"><i class="fa fa-star-o text-yellow"></i></a></td>
-                    <td class="mailbox-name"><a th:href="@{/mailbox/readmail}">Alexander Pierce</a></td>
-                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...
-                    </td>
-                    <td class="mailbox-attachment"><i class="fa fa-paperclip"></i></td>
-                    <td class="mailbox-date">4 days ago</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox"></td>
-                    <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
-                    <td class="mailbox-name"><a th:href="@{/mailbox/readmail}">Alexander Pierce</a></td>
-                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...
-                    </td>
-                    <td class="mailbox-attachment"></td>
-                    <td class="mailbox-date">12 days ago</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox"></td>
-                    <td class="mailbox-star"><a href="#"><i class="fa fa-star-o text-yellow"></i></a></td>
-                    <td class="mailbox-name"><a th:href="@{/mailbox/readmail}">Alexander Pierce</a></td>
-                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...
-                    </td>
-                    <td class="mailbox-attachment"><i class="fa fa-paperclip"></i></td>
-                    <td class="mailbox-date">12 days ago</td>
-                  </tr>
-                  <tr>
-                    <td><input type="checkbox"></td>
-                    <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
-                    <td class="mailbox-name"><a th:href="@{/mailbox/readmail}">Alexander Pierce</a></td>
-                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...
-                    </td>
-                    <td class="mailbox-attachment"><i class="fa fa-paperclip"></i></td>
-                    <td class="mailbox-date">14 days ago</td>
-                  </tr>
-                  </tbody>
-                </table>
-                <!-- /.table -->
-              </div>
-              <!-- /.mail-box-messages -->
-            </div>
-            <!-- /.box-body -->
-            <div class="box-footer no-padding">
-              <div class="mailbox-controls">
-                <!-- Check all button -->
-                <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
-                </button>
-                <div class="btn-group">
-                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
-                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
-                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
+
+                <style>
+                  .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+                    padding: 8px;
+                    line-height: 1.42857143;
+                    vertical-align: top;
+                    border-top: 1px solid #ddd;
+                    padding-bottom: 1px;
+                  }
+                </style>
+                <div class="table-responsive mailbox-messages">
+                  <table class="table table-hover table-striped">
+                    <tbody id="table">
+
+                    <tr style="" th:each="thongBao : ${listThongBao}">
+                      <td><input style="margin-left: 5px;position: absolute;opacity: 1;"
+                                 type="checkbox"></td>
+                      <td class="mailbox-star"><a href="#"><i
+                              class="fa fa-star-o text-yellow"></i></a></td>
+                      <td class="mailbox-name"><a th:href="@{/mailbox/readmail}"
+                                                  th:text="${thongBao.sender}">Alexander
+                        Pierce</a></td>
+                      <td class="mailbox-subject">
+                        <th:block th:if="${!thongBao.status}">
+                          <a th:href="${'/web/mailbox/read-mail?id=' + thongBao.id}"
+                             style="float: left" th:text="${thongBao.title}">AdminLTE 2.0
+                            Issue</a>
+                          <p style="padding-left: 18px;font-weight: 700; margin-left: 73px; width: 339px; overflow: hidden; /* display: inline-block; */ text-overflow: ellipsis; white-space: nowrap;"
+                             th:text="${thongBao.content}">AdminLTE 2.0 Issue</p>
+                        </th:block>
+                        <th:block th:if="${thongBao.status}">
+                          <a th:href="${'/web/mailbox/read-mail?id=' + thongBao.id}"
+                             style="float: left" th:text="${thongBao.title}">AdminLTE 2.0
+                            Issue</a>
+                          <p style="padding-left: 18px; margin-left: 73px; width: 339px; overflow: hidden; /* display: inline-block; */ text-overflow: ellipsis; white-space: nowrap;"
+                             th:text="${thongBao.content}">AdminLTE 2.0 Issue</p>
+                        </th:block>
+
+                      </td>
+                      <td class="mailbox-attachment"><i class="fa fa-paperclip"></i></td>
+                      <td class="mailbox-date" th:text="${thongBao.time}">28 mins ago</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                  <!-- /.table -->
                 </div>
-                <!-- /.btn-group -->
-                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
-                <div class="pull-right">
-                  1-50/200
+                <!-- /.mail-box-messages -->
+              </div>
+              <!-- /.box-body -->
+              <div class="box-footer no-padding">
+                <div class="mailbox-controls">
+                  <!-- Check all button -->
+                  <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i
+                          class="fa fa-square-o"></i>
+                  </button>
                   <div class="btn-group">
-                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
-                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
+                    <button type="button" class="btn btn-default btn-sm"><i
+                            class="fa fa-trash-o"></i></button>
+                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-reply"></i>
+                    </button>
+                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-share"></i>
+                    </button>
                   </div>
                   <!-- /.btn-group -->
+                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i>
+                  </button>
+                  <div class="pull-right">
+                    1-50/200
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-default btn-sm"><i
+                              class="fa fa-chevron-left"></i></button>
+                      <button type="button" class="btn btn-default btn-sm"><i
+                              class="fa fa-chevron-right"></i></button>
+                    </div>
+                    <!-- /.btn-group -->
+                  </div>
+                  <!-- /.pull-right -->
                 </div>
-                <!-- /.pull-right -->
               </div>
             </div>
+            <!-- /. box -->
           </div>
-          <!-- /. box -->
+          <!-- /.col -->
         </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
+        <!-- /.row -->
     </section>
     <!-- /.content -->
   </div>
@@ -492,51 +422,126 @@
 </div>
 
 <script>
-  $(function () {
-    //Enable iCheck plugin for checkboxes
-    //iCheck for checkbox and radio inputs
-    $('.mailbox-messages input[type="checkbox"]').iCheck({
-      checkboxClass: 'icheckbox_flat-blue',
-      radioClass: 'iradio_flat-blue'
+    $(function () {
+        //Enable iCheck plugin for checkboxes
+        //iCheck for checkbox and radio inputs
+        $('.mailbox-messages input[type="checkbox"]').iCheck({
+            checkboxClass: 'icheckbox_flat-blue',
+            radioClass: 'iradio_flat-blue'
+        });
+
+        //Enable check and uncheck all functionality
+        $(".checkbox-toggle").click(function () {
+            var clicks = $(this).data('clicks');
+            if (clicks) {
+                //Uncheck all checkboxes
+                $(".mailbox-messages input[type='checkbox']").iCheck("uncheck");
+                $(".fa", this).removeClass("fa-check-square-o").addClass('fa-square-o');
+            } else {
+                //Check all checkboxes
+                $(".mailbox-messages input[type='checkbox']").iCheck("check");
+                $(".fa", this).removeClass("fa-square-o").addClass('fa-check-square-o');
+            }
+            $(this).data("clicks", !clicks);
+        });
+
+        //Handle starring for glyphicon and font awesome
+        $(".mailbox-star").click(function (e) {
+            e.preventDefault();
+            //detect type
+            var $this = $(this).find("a > i");
+            var glyph = $this.hasClass("glyphicon");
+            var fa = $this.hasClass("fa");
+
+            //Switch states
+            if (glyph) {
+                $this.toggleClass("glyphicon-star");
+                $this.toggleClass("glyphicon-star-empty");
+            }
+
+            if (fa) {
+                $this.toggleClass("fa-star");
+                $this.toggleClass("fa-star-o");
+            }
+        });
     });
-
-    //Enable check and uncheck all functionality
-    $(".checkbox-toggle").click(function () {
-      var clicks = $(this).data('clicks');
-      if (clicks) {
-        //Uncheck all checkboxes
-        $(".mailbox-messages input[type='checkbox']").iCheck("uncheck");
-        $(".fa", this).removeClass("fa-check-square-o").addClass('fa-square-o');
-      } else {
-        //Check all checkboxes
-        $(".mailbox-messages input[type='checkbox']").iCheck("check");
-        $(".fa", this).removeClass("fa-square-o").addClass('fa-check-square-o');
-      }
-      $(this).data("clicks", !clicks);
-    });
-
-    //Handle starring for glyphicon and font awesome
-    $(".mailbox-star").click(function (e) {
-      e.preventDefault();
-      //detect type
-      var $this = $(this).find("a > i");
-      var glyph = $this.hasClass("glyphicon");
-      var fa = $this.hasClass("fa");
-
-      //Switch states
-      if (glyph) {
-        $this.toggleClass("glyphicon-star");
-        $this.toggleClass("glyphicon-star-empty");
-      }
-
-      if (fa) {
-        $this.toggleClass("fa-star");
-        $this.toggleClass("fa-star-o");
-      }
-    });
-  });
 </script>
 <!-- AdminLTE for demo purposes -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 
 </body>
 </html>
+
+<script>
+    'use strict';
+    var stompClient = null;
+    var username = document.getElementById('username').value;
+    var socket = new SockJS('http://localhost:8080/web/ws');
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, onConnected);
+
+    function onConnected() {
+        stompClient.subscribe('/topic/public-'+username, onMessageReceived);
+        stompClient.send("/app/chat.addUser",
+            {},
+            JSON.stringify({sender: username, type: 'JOIN'})
+        )
+
+        function onError() {
+            console.log("error " + error);
+        }
+
+        function onMessageReceived(payload) {
+            playSound();
+            var message = JSON.parse(payload.body);
+            var a = '<li> <ul class="menu"> <li> <a style="height: 39px;"  href="/web/mailbox/read-mail?id='+message.id+'> <i  style="float: left; class="fa fa-users text-aqua"></i>' +'<p style="margin-top: -15px; margin-left: 24px; font-size: 15px;">'+ message.title+' - ('+message.sender+')'+'</p></a></li></ul></li>';
+            var node = document.getElementById('chuong');
+            var txt = parseInt(node.textContent || node.innerText);
+            document.getElementById('chuong').innerHTML = txt + 1;
+            document.getElementById('tb').innerHTML = a + document.getElementById('tb').innerHTML;
+            var tb = '<tr >' +
+                '<td><input style="margin-left: 5px;position: absolute;opacity: 1;" type="checkbox"></td>\n' +
+                '<td class="mailbox-star"><a href="#"><i class="fa fa-star-o text-yellow"></i></a></td>\n' +
+                '<td class="mailbox-name"><a href="/mailbox/readmail">' +
+                message.sender + '</a></td>\n' +
+                '<td class="mailbox-subject">' +
+                '<a href="/web/mailbox/read-mail?id=' +
+                message.id + '" style="float: left">' +
+                message.title + '</a>\n' +
+                '<p style="padding-left: 18px; margin-left: 73px;font-weight: 700;width: 339px; overflow: hidden; /* display: inline-block; */ text-overflow: ellipsis; white-space: nowrap;" th:text="${thongBao.content}">' +
+                message.content +
+                '</p>\n' +
+                '</td>\n' +
+                '<td class="mailbox-attachment"><i class="fa fa-paperclip"></i></td>\n' +
+                '<td class="mailbox-date">' +
+                message.time +
+                '</td>\n' +
+                '</tr>';
+            document.getElementById('table').innerHTML = tb + document.getElementById('table').innerHTML;
+        }
+    }
+</script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/1.1.28/howler.min.js"></script>
+
+<script>
+    window.onload = init;
+    var sound;
+
+    function init() {
+        sound = new Howl({
+            urls: ['https://notificationsounds.com/soundfiles/15de21c670ae7c3f6f3f1f37029303c9/file-sounds-1085-definite.mp3'],
+            onload: function () {
+                console.log("Loaded asset ");
+                button.disabled = false; // enable the play sound button
+            }
+        });
+    }
+
+    function playSound() {
+        sound.play();
+    }
+
+</script>

@@ -25,14 +25,14 @@
             <div class="pull-left image">
                 <img th:src="@{/img/user2-160x160.jpg}" class="img-circle" alt="User Image">
                 <!--<div th:if="${user.userAvatar != null}" class="img-circle">-->
-                    <!--<div class="thumb" alt="User Pic"-->
-                         <!--id="view-avatar"-->
-                         <!--th:style="'background-image:url('+@{'data:img/jpeg;base64)'"></div>-->
+                <!--<div class="thumb" alt="User Pic"-->
+                <!--id="view-avatar"-->
+                <!--th:style="'background-image:url('+@{'data:img/jpeg;base64)'"></div>-->
                 <!--</div>-->
                 <!--<div th:if="${user.userAvatar == null}" class="img-circle">-->
-                    <!--<div class="thumb" th:if="${user.userAvatar == null}" alt="User Pic"-->
-                         <!--id="view-avatar"-->
-                         <!--th:style="'background-image:url(' + @{/img/user2-160x160.jpg} + ');'"></div>-->
+                <!--<div class="thumb" th:if="${user.userAvatar == null}" alt="User Pic"-->
+                <!--id="view-avatar"-->
+                <!--th:style="'background-image:url(' + @{/img/user2-160x160.jpg} + ');'"></div>-->
                 <!--</div>-->
             </div>
             <div class="pull-left info">
@@ -68,18 +68,6 @@
                 </ul>
             </li>
             <li class="treeview">
-                <a href="#"><i class="fa fa-link"></i>
-                    <span>Lớp đang giảng dạy</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li th:each="lophoc : ${giaoVien.lstLopHoc}"><a th:href="@{/giangviendaylop/}+${lophoc.maLop}">
-                        <span th:text="${lophoc.maLop}">Lớp</span></a></li>
-                </ul>
-            </li>
-            <li class="treeview">
                 <a href=""><i class="fa fa-link"></i>
                     <span>Diễn đàn</span>
                     <span class="pull-right-container">
@@ -91,18 +79,18 @@
                     <li><a href="#">Sinh viên</a></li>
                 </ul>
             </li>
-            <!--<li class="treeview">-->
-                <!--<a href="#"><i class="fa fa-link"></i>-->
-                    <!--<span>Đăng kí học</span>-->
-                    <!--<span class="pull-right-container">-->
-                        <!--<i class="fa fa-angle-left pull-right"></i>-->
-                    <!--</span>-->
-                <!--</a>-->
-                <!--<ul class="treeview-menu">-->
-                    <!--<li><a th:href="@{/register-class/}">Lớp công nghệ thông tin</a></li>-->
-                    <!--<li><a href="#">Lớp tiếng anh</a></li>-->
-                <!--</ul>-->
-            <!--</li>-->
+            <li class="treeview">
+                <a href="#"><i class="fa fa-link"></i>
+                    <span>Đăng kí học</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a th:href="@{/register-class/}">Lớp công nghệ thông tin</a></li>
+                    <li><a href="#">Lớp tiếng anh</a></li>
+                </ul>
+            </li>
             <li><a th:href="@{/mailbox}"><i class="fa fa-link"></i> <span>Mail</span></a></li>
         </ul>
     </section>

@@ -26,5 +26,7 @@ public interface LopHocDao extends CrudRepository<LopHoc, String>, LopHocDaoCust
     @Query(value = "select * from lop_hoc join lop_sinhvien ls on lop_hoc.ma_lop = ls.ma_lop join mon_hoc h on lop_hoc.ma_mon_hoc = h.ma_mon_hoc where ls.ma_sinh_vien =:msv and  h.ma_mon_hoc=:mmh" ,nativeQuery = true)
     LopHoc getLopHocSvBm(@Param("msv") String msv,@Param("mmh") String mmh);
 
+    @Query(value = "from LopHoc lh where lh.giaoVien.maGiaoVien = :mgv",nativeQuery = false)
+    List<LopHoc> getListLopHoc( @Param("mgv") String maGiaoVien);
 
 }

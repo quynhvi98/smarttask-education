@@ -168,13 +168,14 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li class="inline">
-                                        <a href="#" data-toggle="modal" data-target="#xemnhansu">
+                                        <a class="lh-detail" href="#" th:attr="itemId=${lh.maLop}" data-toggle="modal"
+                                           data-target="#xemnhansu">
                                             <i class="fa fa-search" aria-hidden="true"></i> Xem
                                         </a>
                                     </li>
-                                    <li class="inline">
-                                        <a href="#" class="xoa"><i class="fa fa-trash-o" aria-hidden="true"></i> Xóa</a>
-                                    </li>
+                                    <!--<li class="inline">-->
+                                    <!--<a href="#" class="xoa"><i class="fa fa-trash-o" aria-hidden="true"></i> Xóa</a>-->
+                                    <!--</li>-->
                                 </ul>
                             </div>
                         </td>
@@ -376,7 +377,8 @@
                                         <div class="form-group">
                                             <label for="" class="col-sm-3 control-label">Mã lớp học <span class="red">(*)</span></label>
                                             <div class="col-md-9">
-                                                <input id="maLop" readonly required name="maLop" type="text" class="form-control"
+                                                <input id="maLop" readonly required name="maLop" type="text"
+                                                       class="form-control"
                                                        placeholder="Mã lớp học">
                                             </div>
                                             <p class="col-sm-offset-3 help-block red">Example block-level help text
@@ -386,7 +388,7 @@
                                             <label for="" class="col-sm-3 control-label">Phòng học <span
                                                     class="red">(*)</span></label>
                                             <div class="col-md-9">
-                                                <input required name="phongHoc" type="text" class="form-control"
+                                                <input id="phongHoc" required name="phongHoc" type="text" class="form-control"
                                                        placeholder="Phòng học">
                                             </div>
                                             <p class="col-sm-offset-3 help-block red">Example block-level help text
@@ -402,7 +404,7 @@
                                         <div class="form-group">
                                             <label for="" class="col-sm-3 control-label">Ngày bắt đầu</label>
                                             <div class="col-md-9">
-                                                <input type="date" required name="ngayBatDau" class="form-control"
+                                                <input id="ngayBatDau" type="date" required name="ngayBatDau" class="form-control"
                                                        placeholder="Ngày bắt đầu">
                                             </div>
                                             <p class="col-sm-offset-3 help-block red">Example block-level help text
@@ -435,118 +437,131 @@
             </div>
         </div>
 
-        <!--&lt;!&ndash; Modal xemnhansu &ndash;&gt;-->
-        <!--<div class="modal modal-full fade" id="xemnhansu" role="dialog" aria-labelledby="xemnhansuLabel">-->
-        <!--<div class="modal-dialog" role="document">-->
-        <!--<div class="modal-content">-->
-        <!--<div class="modal-header">-->
-        <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span-->
-        <!--aria-hidden="true">&times;</span></button>-->
-        <!--<h3 class="modal-title" id="xemnhansuLabel">-->
-        <!--Thông tin cá nhân-->
-        <!--</h3>-->
-        <!--</div>-->
-        <!--<div class="modal-body">-->
-        <!--<form class="form-horizontal">-->
-        <!--<div class="row bg-xam">-->
-        <!--<div class="text-center avantar">-->
-        <!--<div class="card col-md-3">-->
-        <!--<div class="thumb" style="background-image: url(WEB-INF/images/img.jpg);"></div>-->
-        <!--<div class="article">-->
-        <!--<h1>Nguyễn Duy Trường</h1>-->
-        <!--<span>-->
-        <!--<span class="xam" data-toggle="tooltip" data-placement="top" title="Ngày sinh">-->
-        <!--<i class="fa fa-birthday-cake" aria-hidden="true"></i>-->
-        <!--</span>-->
-        <!--<span>20/02/1985</span>-->
-        <!--</span>-->
-        <!--<span>-->
-        <!--<span class="xam" data-toggle="tooltip" data-placement="top" title="Giới tính">-->
-        <!--<i class="fa fa-venus-mars" aria-hidden="true"></i>-->
-        <!--</span>-->
-        <!--<span>Nam</span>-->
-        <!--</span>-->
-        <!--<span>-->
-        <!--<span class="xam" data-toggle="tooltip" data-placement="top" title="Số điện thoại">-->
-        <!--<i class="fa fa-phone" aria-hidden="true"></i>-->
-        <!--</span>-->
-        <!--<span>0978198420</span>-->
-        <!--</span>-->
-        <!--<span>-->
-        <!--<span class="xam" data-toggle="tooltip" data-placement="top" title="Thư điện tử">-->
-        <!--<i class="fa fa-envelope-o" aria-hidden="true"></i>-->
-        <!--</span>-->
-        <!--<span>truongnd1380@gmail.com</span>-->
-        <!--</span>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--<div class="col-md-4 p-25">-->
-        <!--<div class="form-group chamcham">-->
-        <!--<label for="">Tên truy cập</label>-->
-        <!--<span>Tên truy cập</span>-->
-        <!--</div>-->
-        <!--<div class="form-group chamcham">-->
-        <!--<label for="">Mã nhân viên</label>-->
-        <!--<span>Mã nhân viên</span>-->
-        <!--</div>-->
-        <!--<div class="form-group chamcham">-->
-        <!--<label for="">Vị trí công tác</label>-->
-        <!--<span>Vị trí công tác</span>-->
-        <!--</div>-->
+        <!-- Modal xemnhansu -->
+        <div class="modal modal-full fade" id="xemnhansu" role="dialog" aria-labelledby="xemnhansuLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h3 class="modal-title" id="xemnhansuLabel">
+                            Thông tin lớp học
+                        </h3>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal">
+                            <div class="row bg-xam">
+                                <div class="text-center avantar">
 
-        <!--<div class="form-group chamcham">-->
-        <!--<label for="">Đơn vị công tác</label>-->
-        <!--<span>Đơn vị công tác</span>-->
-        <!--</div>-->
+                                    <div class="col-md-4 p-25">
+                                        <div class="form-group chamcham">
+                                            <label for="">Mã lớp</label>
+                                            <p id="malopDtl"></p>
+                                        </div>
+                                        <div class="form-group chamcham">
+                                            <label for="">Giảng viên</label>
+                                            <span id="giaoVienDtl"></span>
+                                        </div>
+                                        <div class="form-group chamcham">
+                                            <label for="">Môn học</label>
+                                            <span id="monHocDtl"></span>
+                                        </div>
 
-        <!--<div class="form-group chamcham">-->
-        <!--<label for="">Mã vị trí</label>-->
-        <!--<span>Mã vị trí</span>-->
-        <!--</div>-->
+                                        <div class="form-group chamcham">
+                                            <label for="">Phòng học</label>
+                                            <span id="phongHocDtl"></span>
+                                        </div>
 
-        <!--<div class="form-group chamcham">-->
-        <!--<label for="">Trạng thái</label>-->
-        <!--<span>Trạng thái</span>-->
-        <!--</div>-->
-
-        <!--<div class="form-group chamcham">-->
-        <!--<label for="">Quyền hạn</label>-->
-        <!--<span>Quyền hạn</span>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--<div class="col-md-5 inline-block p-25">-->
-
-        <!--<div class="form-group chamcham">-->
-        <!--<label for="">Trình độ đào tạo</label>-->
-        <!--<span>Trình độ đào tạo Trình độ đào tạo Trình độ đào tạo Trình độ đào tạo Trình độ đào tạo Trình độ đào tạo</span>-->
-        <!--</div>-->
-
-        <!--<div class="form-group chamcham">-->
-        <!--<label for="">Kiến thức</label>-->
-        <!--<span>Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức</span>-->
-        <!--</div>-->
-
-        <!--<div class="form-group chamcham">-->
-        <!--<label for="">Kinh nghiệm</label>-->
-        <!--<span>Kinh nghiệm Kinh nghiệm Kinh nghiệm Kinh nghiệm Kinh nghiệm Kinh nghiệm Kinh nghiệm Kinh nghiệm Kinh nghiệm</span>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-
-        <!--</div>-->
-        <!--</form>-->
-        <!--</div>-->
-        <!--<div class="modal-footer text-center">-->
-        <!--<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-sign-out"-->
-        <!--aria-hidden="true"></i>-->
-        <!--Thoát-->
-        <!--</button>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
+                                        <div class="form-group chamcham">
+                                            <label for="">Số lượng sinh viên</label>
+                                            <span id="totalSvDtl"></span>
+                                        </div>
 
 
+                                    </div>
+                                    <div class="col-md-5 inline-block p-25">
+
+                                        <div class="form-group chamcham">
+                                            <label for="">Mô tả</label>
+                                            <span id="moTaDtl"></span>
+                                        </div>
+
+                                        <div class="form-group chamcham">
+                                            <label for="">Ngày tạo lớp</label>
+                                            <span id="ngayTaoDtl"></span>
+                                        </div>
+
+                                        <div class="form-group chamcham">
+                                            <label for="">Ngày bắt đầu</label>
+                                            <span id="ngayBDDTL"></span>
+                                        </div>
+
+                                        <div class="form-group chamcham">
+                                            <label for="">Ngày kết thúc</label>
+                                            <span id="ngayKTDtl"></span>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row gach-top">
+                                <div class="col-md-8">
+                                    <h4 class="title-sup-modal">
+                <span>
+                    Danh sách sinh viên
+                </span>
+                                    </h4>
+                                    <div class="table">
+                                        <table id="dsSinhVien">
+                                            <thead class="fix-w text-center">
+                                            <tr>
+                                                <th>
+                                                    STT
+                                                </th>
+                                                <th>
+                                                    Mã sinh viên
+                                                </th>
+                                                <th class="uutien">
+                                                    Họ và tên
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <h4 class="title-sup-modal"><span>Lịch học:</span></h4>
+                                    <div class="table tree-dot">
+                                        <table id="lichHoc" class="tree-table">
+                                            <thead>
+
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="modal-footer text-center">
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-sign-out"
+                                                                                              aria-hidden="true"></i>
+                            Thoát
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!--test-->
     </div>
 
@@ -622,6 +637,7 @@
                     dataType: "text",
                     success: function (result) {
                         $('#themnhansu').modal('hide');
+                        sendMessage();
                         notify_sucess("Thêm lớp học", 'Thêm mới');
                     }, error: function (msg) {
                         notify_error("Thêm lớp học", 'Thêm mới');
@@ -689,17 +705,114 @@
 
 
     $('#monHoc').change(function () {
-       getCode();
+        getCode();
     });
 
     function getCode() {
         var maMonHoc = $('#monHoc').val();
-        if(maMonHoc!=null){
-            $('#maLop').val(maMonHoc+"-"+[[${time}]]);
+        if (maMonHoc != null) {
+            $('#maLop').val(maMonHoc + "-" + [[${time}]]);
         }
-     }
+    }
 
+    var checkView = 0;
+
+    $('.lh-detail').click(function () {
+        if (checkView == 0) {
+            var itemId = $(this).attr("itemId");
+            $.ajax({
+                url: base_url + 'lophoc/timkiem/' + itemId,
+                type: "get",
+                data: {id: itemId},
+                dataType: "text",
+                success: function (result) {
+                    var rs = JSON.parse(result);
+                    ;
+                    $('#malopDtl').text(rs.maLop);
+                    $('#giaoVienDtl').text(rs.giaoVien.user.fullName);
+                    $('#monHocDtl').text(rs.monHoc.tenMonHoc);
+                    $('#phongHocDtl').text(rs.phongHoc);
+                    $('#totalSvDtl').text(rs.sinhViens.length);
+                    $('#moTaDtl').text(rs.moTa);
+                    $('#ngayTaoDtl').text(moment(rs.ngayTao).format("MMM Do YY"));
+                    $('#ngayBDDTL').text(moment(rs.ngayBatDau).format("MMM Do YY"));
+                    $('#ngayKTDtl').text(moment(rs.ngayKetThuc).format("MMM Do YY"));
+
+                    $.each(rs.sinhViens, function (i, obj) {
+                        $('#dsSinhVien tr:last')
+                            .after("<tr>" +
+                                "<td>" + (i + 1) + "</td>" +
+                                "<td>" + obj.maSinhVien + "</td>" +
+                                "<td>" + obj.user.fullName + "</td>" +
+                                "</tr>");
+                    });
+
+                    var ngayHoc = rs.ngayHoc.split(',');
+                    var caHoc = rs.caHoc.split(',');
+
+                    for (i = 0; i < ngayHoc.length - 1; i++) {
+                        console.log(ngayHoc[i]);
+                        console.log(caHoc[i]);
+                        $('#lichHoc tr:last')
+                            .after("<tr><td style='width: 70px'>Thứ " + ngayHoc[i] + ":</td>" +
+                                "<td>Ca " + caHoc[i] + "</td>" +
+                                "</tr>");
+                    }
+                    checkView++;
+                }
+            });
+        }
+    });
     var base_url = [[@{/}]];
     //
 </script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+
+<script>
+    var stompClient = null;
+
+    var socket = new SockJS('http://localhost:8080/web/ws');
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, onConnected);
+    function onConnected() {
+        stompClient.subscribe('/topic/public', onMessageReceived);
+        stompClient.send("/app/chat.addUser",
+            {},
+            JSON.stringify({sender: username, type: 'JOIN'})
+        )
+    }
+    function onMessageReceived(payload) {
+        var message = JSON.parse(payload.body);
+    }
+    function sendMessage() {
+        var gv = document.getElementById("giangVien").value;
+        var ml = document.getElementById("maLop").value;
+        var ph = document.getElementById("phongHoc").value;
+        var nbd = document.getElementById("ngayBatDau").value;
+        var currentdate = new Date();
+        var datetime = currentdate.getFullYear() + "-"
+            + (currentdate.getMonth()+1)  + "-"
+            + currentdate.getDate() + " "
+            + currentdate.getHours() + ":"
+            + currentdate.getMinutes() + ":"
+            + currentdate.getSeconds();
+        var chatMessage = {
+            sender: "Admin",
+            title: "Lớp mới",
+            receiver: gv,
+            content: "Bạn có 1 lớp mới: " + ml + " - Tại phòng: " + ph + " - Ngày bắt đầu: " + nbd,
+            time: datetime
+        };
+        stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
+    }
+</script>
+
+
+
+
+
 </html>
