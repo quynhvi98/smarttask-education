@@ -294,6 +294,10 @@
                                 thông
                                 tin cá nhân
                             </button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-sign-out"
+                                                                                                  aria-hidden="true"></i>
+                                Thoát
+                            </button>
                             </a>
                         </div>
                     </div>
@@ -395,8 +399,7 @@
         if (valid.isValid()) {
             var data = $('#form-update').serialize();
             $.ajax({
-                headers: {'X-CSRF-Token': token},
-                url: base_url + 'update',
+                url: base_url + '/info/update?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
                 type: "post",
                 data: data,
                 dataType: "text",
