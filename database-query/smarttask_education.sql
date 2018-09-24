@@ -219,8 +219,11 @@ CREATE TABLE IF NOT EXISTS nop_de_tai(
 
 CREATE TABLE IF NOT EXISTS thong_bao(
   id BIGINT NOT NULL auto_increment,
-  content VARCHAR(255),
+  content text,
   status VARCHAR(255),
+  sender VARCHAR(255),
+  title VARCHAR(255),
+  time datetime,
   ma_giao_vien VARCHAR(255),
   ma_sinh_vien VARCHAR(255),
   ma_lop VARCHAR(255),

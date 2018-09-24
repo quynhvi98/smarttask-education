@@ -388,7 +388,7 @@
                                             <label for="" class="col-sm-3 control-label">Phòng học <span
                                                     class="red">(*)</span></label>
                                             <div class="col-md-9">
-                                                <input required name="phongHoc" type="text" class="form-control"
+                                                <input id="phongHoc" required name="phongHoc" type="text" class="form-control"
                                                        placeholder="Phòng học">
                                             </div>
                                             <p class="col-sm-offset-3 help-block red">Example block-level help text
@@ -404,7 +404,7 @@
                                         <div class="form-group">
                                             <label for="" class="col-sm-3 control-label">Ngày bắt đầu</label>
                                             <div class="col-md-9">
-                                                <input type="date" required name="ngayBatDau" class="form-control"
+                                                <input id="ngayBatDau" type="date" required name="ngayBatDau" class="form-control"
                                                        placeholder="Ngày bắt đầu">
                                             </div>
                                             <p class="col-sm-offset-3 help-block red">Example block-level help text
@@ -637,6 +637,7 @@
                     dataType: "text",
                     success: function (result) {
                         $('#themnhansu').modal('hide');
+                        sendMessage();
                         notify_sucess("Thêm lớp học", 'Thêm mới');
                     }, error: function (msg) {
                         notify_error("Thêm lớp học", 'Thêm mới');
@@ -765,4 +766,53 @@
     var base_url = [[@{/}]];
     //
 </script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+
+<script>
+    var stompClient = null;
+
+    var socket = new SockJS('http://localhost:8080/web/ws');
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, onConnected);
+    function onConnected() {
+        stompClient.subscribe('/topic/public', onMessageReceived);
+        stompClient.send("/app/chat.addUser",
+            {},
+            JSON.stringify({sender: username, type: 'JOIN'})
+        )
+    }
+    function onMessageReceived(payload) {
+        var message = JSON.parse(payload.body);
+    }
+    function sendMessage() {
+        var gv = document.getElementById("giangVien").value;
+        var ml = document.getElementById("maLop").value;
+        var ph = document.getElementById("phongHoc").value;
+        var nbd = document.getElementById("ngayBatDau").value;
+        var currentdate = new Date();
+        var datetime = currentdate.getFullYear() + "-"
+            + (currentdate.getMonth()+1)  + "-"
+            + currentdate.getDate() + " "
+            + currentdate.getHours() + ":"
+            + currentdate.getMinutes() + ":"
+            + currentdate.getSeconds();
+        var chatMessage = {
+            sender: "Admin",
+            title: "Lớp mới",
+            receiver: gv,
+            content: "Bạn có 1 lớp mới: " + ml + " - Tại phòng: " + ph + " - Ngày bắt đầu: " + nbd,
+            time: datetime
+        };
+        stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
+    }
+</script>
+
+
+
+
+
 </html>
