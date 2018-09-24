@@ -15,7 +15,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/AdminLTE.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/skin-blue.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/parsley.css}"/>
+    <!--<link rel="stylesheet" type="text/css" th:href="@{/css/parsley.css}"/>-->
 
     <script type="text/javascript" th:src="@{/js/jquery/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
@@ -290,10 +290,10 @@
                     </div>
                     <div class="col-md-5 inline-block p-25">
                         <div class="form-group">
-                            <p id="btn-update" class="btn btn-success" data-target="#suanhansu">Chỉnh sửa
+                            <button id="btn-update" class="btn btn-success" data-target="#suanhansu">Chỉnh sửa
                                 thông
                                 tin cá nhân
-                            </p>
+                            </button>
                             <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-sign-out"
                                                                                                   aria-hidden="true"></i>
                                 Thoát
@@ -399,7 +399,7 @@
         if (valid.isValid()) {
             var data = $('#form-update').serialize();
             $.ajax({
-                url: base_url + '/info/update?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
+                url: base_url + 'info/update?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
                 type: "post",
                 data: data,
                 dataType: "text",
