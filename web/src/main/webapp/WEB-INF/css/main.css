@@ -1078,7 +1078,7 @@ td[colspan] .dropdown.bacham {
       font-size: 24px; } }
 
 .modal.modal-full {
-  padding-left: 0 !important; }
+  padding: 5% !important; }
   .modal.modal-full .modal-dialog {
     width: 98%; }
   .modal.modal-full .modal-header {
