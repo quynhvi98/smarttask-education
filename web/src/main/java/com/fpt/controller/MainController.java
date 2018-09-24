@@ -1,8 +1,11 @@
 package com.fpt.controller;
 
+import com.fpt.entity.GiaoVien;
 import com.fpt.entity.User;
+import com.fpt.services.giangvien.GiangVienService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -18,13 +21,16 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 public class MainController {
-
+    @Autowired
+    private GiangVienService giangVienService;
     private final Logger logger = LoggerFactory.getLogger(UserInfoController.class);
     @RequestMapping("/")
     public String index(HttpSession session, Model model) {
         User userInfo = (User) session.getAttribute("userInfo");
+        GiaoVien giaoVien = giangVienService.findById(userInfo.getGiaoVien().getMaGiaoVien());
 
         model.addAttribute("user", userInfo);
+        model.addAttribute("giaoVien", giaoVien);
         return "trangchu";
     }
     @GetMapping("/admin")

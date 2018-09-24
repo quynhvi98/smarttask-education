@@ -43,7 +43,7 @@
             <div class="col-xs-12">
                 <h2 class="page-header">
                     <i class="fa fa-globe"></i> Thông tin lớp
-                    <small class="pull-right">Ngày mở lớp: 2/10/2014</small>
+                    <small class="pull-right" th:text="${lopHoc != null ? lopHoc.ngayTao : ''}">Ngày mở lớp: 2/10/2014</small>
                 </h2>
             </div>
             <!-- /.col -->
@@ -53,23 +53,23 @@
             <div class="col-sm-4 invoice-col">
                     <div class="form-group chamcham">
                         <label for="">Tên môn học: </label>
-                        <span id="view-mobile"
+                        <span th:text="${lopHoc != null ? lopHoc.monHoc.tenMonHoc : ''}"
                               > Hệ quản trị cơ sở dữ liệu</span>
                     </div>
                     <div class="form-group chamcham">
                         <label for="">Số lượng tín chỉ:  </label>
-                        <span id="view-ma"
+                        <span th:text="${lopHoc != null ? lopHoc.monHoc.tinChi : ''}"
                              > 3</span>
                     </div>
                     <div class="form-group chamcham">
                         <label for="">Học kì: </label>
-                        <span
+                        <span th:text="${lopHoc != null ? lopHoc.monHoc.kiHoc.kiHoc : ''}"
                                 > 1</span>
                     </div>
 
                     <div class="form-group chamcham">
-                        <label for="">Tên lớp: </label>
-                        <span
+                        <label for="">Mã lớp: </label>
+                        <span th:text="${lopHoc != null ? lopHoc.maLop : ''}"
                                 > Lớp C1608G1</span>
                     </div>
                     <div class="form-group chamcham">
@@ -81,28 +81,27 @@
             <div class="col-sm-4 invoice-col">
                 <div class="form-group chamcham">
                     <label for="">Phòng học: </label>
-                    <span id="view-mobile"
+                    <span th:text="${lopHoc != null ? lopHoc.phongHoc : ''}"
                     > 206</span>
                 </div>
                 <div class="form-group chamcham">
                     <label for="">Ngày bắt đầu: </label>
-                    <span id="view-ma"
+                    <span th:text="${lopHoc != null ? lopHoc.ngayBatDau : ''}"
                     > 20/10/2018</span>
                 </div>
                 <div class="form-group chamcham">
                     <label for=""> Ngày kết thúc: </label>
-                    <span
+                    <span th:text="${lopHoc != null ? lopHoc.ngayKetThuc : ''}"
                     >20/2/2019</span>
                 </div>
 
-                <div class="form-group chamcham">
+                <div id="lichHoc" class="form-group chamcham">
                     <label for="">Các buổi: </label>
-                    <span
-                    > Thứ 2 - Tiết 1</span>
+
                 </div>
                 <div class="form-group chamcham">
                     <label for="">Ghi chú: </label>
-                    <span > FPT</span>
+                    <span th:text="${lopHoc != null ? lopHoc.moTa : ''}" > FPT</span>
                 </div>
             </div>
             <!-- /.col -->
@@ -140,6 +139,50 @@
                                     <th>Mã SV</th>
                                     <th>Tên sinh viên</th>
                                     <th>Email</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <th:block th:if="${sinhvien != null}">
+                                <tr th:each=" sinhvien : ${lopHoc.sinhViens}">
+                                    <td  class="text-right">
+                                        1
+                                    </td>
+                                    <td th:text="${sinhvien.maSinhVien}">SV-00</td>
+                                    <td th:text="${sinhvien.user.userName}">Nguyễn Văn A</td>
+                                    <td th:text="${sinhvien.user.userEmail}">nguyenvana@gmail.com</td>
+                                </tr>
+                                </th:block>
+                                <tbody>
+                            </table>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+
+                    <!-- /.box -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </section>
+        <section class="content-header">
+            <h1>
+                Danh sách các nhóm trong lớp
+            </h1>
+        </section>
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <table id="example3" class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Mã Nhóm</th>
+                                    <th>Tên nhóm</th>
+                                    <th>Nhóm trưởng</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -257,8 +300,8 @@
 </body>
 <script type="text/javascript" th:inline="javascript" >
     $(function () {
-        $('#example1').DataTable()
-        $('#example2').DataTable({
+        $('#example2').DataTable()
+        $('#example3').DataTable({
             'paging'      : true,
             'lengthChange': false,
             'searching'   : false,
@@ -266,6 +309,19 @@
             'info'        : true,
             'autoWidth'   : false
         })
-    })
+
+        var caHoc = [[${caHoc}]];
+        var lichHoc = [[${lichHoc}]];
+        for(i = 0; i< caHoc.length; i++){
+            $('#lichHoc').append("<span>" +
+                "Thứ "+lichHoc[i]+" - Tiết " +caHoc[i]+ ", "+
+                "</span>");
+        }
+
+
+    });
+
+
+
 </script>
 </html>

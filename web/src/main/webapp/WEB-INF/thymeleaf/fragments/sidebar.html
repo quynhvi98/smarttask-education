@@ -75,8 +75,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a th:href="@{/giangviendaylop}" >Lớp </a></li>
-                    <li><a href="#">Lớp CNTT</a></li>
+                    <li th:each="lophoc : ${giaoVien.lstLopHoc}"><a th:href="@{/giangviendaylop/}+${lophoc.maLop}">
+                        <span th:text="${lophoc.maLop}">Lớp</span></a></li>
                 </ul>
             </li>
             <li class="treeview">

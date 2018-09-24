@@ -14,4 +14,6 @@ public interface GiangVienService {
     List<GiaoVien> getLstGiangVienByMaNganh(String maNganh);
 
     Long count();
+
+    void updateGiaoVien(GiaoVien giaoVien);
 }

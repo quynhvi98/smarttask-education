@@ -8,17 +8,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AdminLTE 2 | Starter</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-
+    <meta th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/font-awesome.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/ionicons.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/AdminLTE.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/skin-blue.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/parsley.css}"/>
 
     <script type="text/javascript" th:src="@{/js/jquery/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/adminlte.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/parsley/parsley.js}"></script>
 
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -27,350 +29,387 @@
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
+<input id="token" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 <div class="wrapper">
     <div th:replace="fragments/header :: header">&nbsp;</div>
     <div th:replace="fragments/sidebar :: aside">&nbsp;</div>
-
     <div class="content-wrapper">
         <section layout:fragment="content">
             <div class="well">
                 <strong></strong>
             </div>
             <div class="modal-body">
-                    <div class="row bg-xam">
-                        <div class="text-center avantar">
-                            <div class="card col-md-3">
-                                <div th:if="${giangvien.userAvatar != null}">
-                                    <div class="thumb" alt="User Pic"
-                                         id="view-avatar"
-                                         th:style="'background-image:url('+@{'data:img/jpeg;base64)'"></div>
-                                </div>
-                                <div th:if="${giangvien.userAvatar == null}">
-                                    <div class="thumb" th:if="${giangvien.userAvatar == null}" alt="User Pic"
-                                         id="view-avatar"
-                                         th:style="'background-image:url(' + @{/img/user2-160x160.jpg} + ');'"></div>
-                                </div>
-                                <div class="article" th:with="df=#{date.format}">
-                                    <h1 id="view-fullname" th:text="${giangvien != null ? giangvien.fullName : ''}">
-                                        Nguyễn Duy
-                                        Trường</h1>
-                                    <span>
+                <div class="row bg-xam">
+                    <div class="text-center avantar">
+                        <div class="card col-md-3">
+                            <div th:if="${giangvien.userAvatar != null}">
+                                <div class="thumb" alt="User Pic"
+                                     id="view-avatar"
+                                     th:style="'background-image:url('+@{'data:img/jpeg;base64)'"></div>
+                            </div>
+                            <div th:if="${giangvien.userAvatar == null}">
+                                <div class="thumb" th:if="${giangvien.userAvatar == null}" alt="User Pic"
+                                     id="view-avatar"
+                                     th:style="'background-image:url(' + @{/img/user2-160x160.jpg} + ');'"></div>
+                            </div>
+                            <div class="article" th:with="df=#{date.format}">
+                                <h1 id="view-fullname" th:text="${giangvien != null ? giangvien.fullName : ''}">
+                                    Nguyễn Duy
+                                    Trường</h1>
+                                <span>
                                     <span class="xam" data-toggle="tooltip" data-placement="top" title="Ngày sinh">
                                     <i class="fa fa-birthday-cake" aria-hidden="true"></i></span>
                                     <span id="view-birthday"
                                           th:text="${giangvien != null ? giangvien.userDOB : ''}">20/02/1985</span>
-                                        <!--<span id="view-birthday"   th:text="${#calendars.format(today, 'dd/MM/yyyy hh:mm:ss')}" -->
-                                        <!--th:text="${giangvien != null ? #calendars.format(giangvien.userDOB, 'dd/MM/yyyy hh:mm:ss') : ''}">20/02/1985</span>-->
+                                    <!--<span id="view-birthday"   th:text="${#calendars.format(today, 'dd/MM/yyyy hh:mm:ss')}" -->
+                                    <!--th:text="${giangvien != null ? #calendars.format(giangvien.userDOB, 'dd/MM/yyyy hh:mm:ss') : ''}">20/02/1985</span>-->
                                 </span>
-                                    <span>
+                                <span>
                                     <span class="xam" data-toggle="tooltip" data-placement="top" title="Giới tính">
                                          <i class="fa fa-venus-mars" aria-hidden="true"></i></span>
                                     <span id="view-gender-m"
                                           th:if="${giangvien != null && #strings.equals(giangvien.userGender, 'Nam')}">Nam</span>
 		                        <span id="view-gender-f"
-                                      th:if="${giangvien != null && #strings.equals(giangvien.userGender, 'Nữ')}">Nữ</span>
+                                      th:if="${giangvien != null && #strings.equals(giangvien.userGender, 'Nu')}">Nữ</span>
                                 </span>
-                                    <span>
+                                <span>
                                     <span class="xam" data-toggle="tooltip" data-placement="top" title="Số điện thoại">
                                     <i class="fa fa-phone" aria-hidden="true"></i></span>
                                     <span id="view-mobile"
                                           th:text="${giangvien != null ? giangvien.userPhone : ''}">0978198420</span>
                                 </span>
-                                    <span>
+                                <span>
                                     <span class="xam" data-toggle="tooltip" data-placement="top" title="Thư điện tử">
                                         <i class="fa fa-envelope-o" aria-hidden="true"></i></span>
-                                    <span id="view-mobile"
+                                    <span id="view-email"
                                           th:text="${giangvien != null ? giangvien.userEmail : ''}">truong@gmail.com</span>
                                 </span>
-                                </div>
-                            </div>
-                            <div class="col-md-6 p-25">
-                                <div class="form-group chamcham">
-                                    <label for="">Tên truy cập</label>
-                                    <span id="view-mobile"
-                                          th:text="${giangvien != null ? giangvien.userName : ''}">truong@gmail.com</span>
-                                </div>
-                                <div class="form-group chamcham">
-                                    <label for="">Mã </label>
-                                    <span id="view-ma"
-                                          th:text="${giangvien != null ? giangvien.giaoVien.maGiaoVien : ''}">truong@gmail.com</span>
-                                </div>
-                                <div class="form-group chamcham">
-                                    <label for="">Mã ngành giảng dạy</label>
-                                    <span
-                                            th:text="${giangvien!= null ? giangvien.giaoVien.boMon.maNganh: ''}">truong@gmail.com</span>
-                                </div>
-
-                                <div class="form-group chamcham">
-                                    <label for="">Tên ngành giảng dạy</label>
-                                    <span
-                                            th:text="${giangvien!= null ? giangvien.giaoVien.boMon.tenNganh : ''}">truong@gmail.com</span>
-                                </div>
-                                <div class="form-group chamcham">
-                                    <label for="">Địa chỉ</label>
-                                    <span th:text="${giangvien != null ? giangvien.userAddress : ''}">Hà Nội</span>
-                                </div>
-                                <div class="form-group chamcham">
-                                    <label for="">Học hàm</label>
-                                    <span th:text="${giangvien != null ? giangvien.giaoVien.hocHam : ''}">Hà Nội</span>
-                                </div>
-                                <div class="form-group chamcham">
-                                    <label for="">Mô tả</label>
-                                    <span th:text="${giangvien != null ? giangvien.giaoVien.moTa : ''}">Hà Nội</span>
-                                </div>
-
-                                <div class="form-group chamcham">
-                                    <label for="">Trạng thái</label>
-                                    <span>Trạng thái</span>
-                                </div>
-
-                            </div>
-                            <div class="col-md-5 inline-block p-25">
-                                <div class="form-group">
-                                    <button id="btn-edit" class="btn btn-success" data-target="#suanhansu">Chỉnh sửa thông
-                                    tin cá nhân
-                                    </button>
-
-                                    </a>
-                                </div>
                             </div>
                         </div>
-                    </div>
-                <div class="row gach-top">
-                    <div class="col-md-8">
-                        <h4 class="title-sup-modal">
-                <span>
-                    Danh sách lớp đang giảng dạy
-                </span>
-                        </h4>
-                        <div class="table">
-                            <table>
-                                <thead class="fix-w text-center">
-                                <tr>
-                                    <th>
-                                        STT
-                                    </th>
-                                    <th>
-                                        Mã lớp
-                                    </th>
-                                    <th class="uutien">
-                                        Tên lớp
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <th:block th:if="${giangvien}">
-                                    <tr th:each="itm, k : ${giangvien}">
-                                        <td th:text="${k.count}" class="text-right">
-                                            1
-                                        </td>
-                                        <td th:text="${giangvien}">
-                                            CV-35/3-01.02
-                                        </td>
-                                        <td th:text="${giangvien}">
-                                            Lớp công nghệ thông tin
-                                        </td>
-                                    </tr>
-                                </th:block>
-                                </tbody>
-                            </table>
+                        <div class="col-md-6 p-25">
+                            <div class="form-group chamcham">
+                                <label for="">Tên truy cập</label>
+                                <span id="view-userName"
+                                      th:text="${giangvien != null ? giangvien.userName : ''}">truong@gmail.com</span>
+                            </div>
+                            <div class="form-group chamcham">
+                                <label for="">Mã </label>
+                                <span id="view-maGiaoVien"
+                                      th:text="${giangvien != null ? giangvien.giaoVien.maGiaoVien : ''}">truong@gmail.com</span>
+                            </div>
+                            <div class="form-group chamcham">
+                                <label for="">Mã ngành giảng dạy</label>
+                                <span id ="view-maNganh"
+                                      th:text="${giangvien!= null ? giangvien.giaoVien.boMon.maNganh: ''}">truong@gmail.com</span>
+                            </div>
+
+                            <div class="form-group chamcham">
+                                <label for="">Tên ngành giảng dạy</label>
+                                <span id="view-tenNganh"
+                                      th:text="${giangvien!= null ? giangvien.giaoVien.boMon.tenNganh : ''}">truong@gmail.com</span>
+                            </div>
+                            <div class="form-group chamcham">
+                                <label for="">Địa chỉ</label>
+                                <span id= "view-userAddress" th:text="${giangvien != null ? giangvien.userAddress : ''}">Hà Nội</span>
+                            </div>
+                            <div class="form-group chamcham">
+                                <label for="">Học hàm</label>
+                                <span id="view-hocHam" th:text="${giangvien != null ? giangvien.giaoVien.hocHam : ''}">Hà Nội</span>
+                            </div>
+                            <div class="form-group chamcham">
+                                <label for="">Mô tả</label>
+                                <span id="view-moTa" th:text="${giangvien != null ? giangvien.giaoVien.moTa : ''}">Hà Nội</span>
+                            </div>
                         </div>
+
                     </div>
-                    <div class="col-md-4">
-                        <h4 class="title-sup-modal"><span>Nhóm quyền:</span></h4>
-                        <div class="table tree-dot">
-                            <table class="tree-table">
-                                <thead>
-                                <tr>
-                                    <th>
-                                        <div class="form-group">
-                                            <span/>Giảng viên</text>
-                                        </div>
-                                    </th>
-                                </tr>
-                                </thead>
-                            </table>
+                    <div class="col-md-5 inline-block p-25">
+                        <div class="form-group">
+                            <button id="btn-edit" class="btn btn-success" data-target="#suanhansu">Chỉnh sửa thông
+                                tin cá nhân
+                            </button>
                         </div>
                     </div>
                 </div>
-                </form>
-                <textarea hidden id="size_max"></textarea>
             </div>
-
-            <!-- Modal themnhansu-->
-            <div class="modal modal-full fade" id="suanhansu" role="dialog"
-                 aria-labelledby="themnhansuLabel" data-backdrop="static" data-keyboard="false">
-                <div class="modal-dialog" role="document">
-                    <form class="form-horizontal" id="form-update" ole="form"
-                          method="post" enctype="multipart/form-data">
-                            <div class="text-center avantar">
-                                <div class="card col-md-3">
-                                    <div>
-                                        <div class="thumb" alt="User Pic"
-
-                                        ></div>
+            <div class="row gach-top">
+                <div class="col-md-8">
+                    <h4 class="title-sup-modal">
+                <span>
+                    Danh sách lớp đang giảng dạy
+                </span>
+                    </h4>
+                    <div class="table">
+                        <table>
+                            <thead class="fix-w text-center">
+                            <tr>
+                                <th>
+                                    STT
+                                </th>
+                                <th>
+                                    Mã lớp
+                                </th>
+                                <th class="uutien">
+                                    Tên lớp
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <th:block th:if="${giangvien}">
+                                <tr th:each="itm, k : ${giangvien}">
+                                    <td th:text="${k.count}" class="text-right">
+                                        1
+                                    </td>
+                                    <td th:text="${giangvien}">
+                                        CV-35/3-01.02
+                                    </td>
+                                    <td th:text="${giangvien}">
+                                        Lớp công nghệ thông tin
+                                    </td>
+                                </tr>
+                            </th:block>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h4 class="title-sup-modal"><span>Nhóm quyền:</span></h4>
+                    <div class="table tree-dot">
+                        <table class="tree-table">
+                            <thead>
+                            <tr>
+                                <th>
+                                    <div class="form-group">
+                                        <span/>Giảng viên</text>
                                     </div>
-                                    <div>
-                                        <div class="thumb" alt="User Pic"
-                                            ></div>
-                                    </div>
-                                    <div class="article">
-                                        <h1 >
-                                            Nguyễn Duy
-                                            Trường</h1>
-                                        <span>
+                                </th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            </form>
+            <textarea hidden id="size_max"></textarea>
+    </div>
+
+    <!-- Modal themnhansu-->
+    <div class="modal modal-full fade" id="suanhansu" role="dialog"
+         aria-labelledby="themnhansuLabel" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <form class="form-horizontal" id="form-update" role="form"
+                  method="post" enctype="multipart/form-data">
+                <div class="text-center avantar">
+                    <div class="card col-md-3">
+                        <div th:if="${giangvien.userAvatar != null}">
+                        <div class="thumb" alt="User Pic"
+                        id="view-avatar"
+                        th:style="'background-image:url('+@{'data:image/jpeg;base64,'+*{T(org.springframework.util.Base64Utils).encodeToString(userprofile.avatar)}}+')'"></div>
+                        </div>
+                        <div th:if="${giangvien.userAvatar == null}">
+                        <div class="thumb" th:if="${giangvien.userAvatar == null}" alt="User Pic"
+                        th:style="'background-image:url(' + @{/img/user2-160x160.jpg} + ');'"></div>
+                        </div>
+                        <div class="form-group row">
+                        <input accept="image/jpeg, image/png" type="file" class="form-control" id="avatar"
+                        name="avatarFile"/>
+                        <label class="form-control" for="avatar">
+                        Click để đổi ảnh đại diện
+                        </label>
+                        </div>
+                        <div class="article">
+                            <h1 ><span id="view-fullName-edit"
+                                       th:text="${giangvien != null ? giangvien.fullName : ''}">NGUYỄN DUY TRƯỜNG</span>
+                            </h1>
+                            <span>
                                     <span class="xam" data-toggle="tooltip" data-placement="top" title="Ngày sinh">
                                     <i class="fa fa-birthday-cake" aria-hidden="true"></i></span>
                                     <span
                                     >20/02/1985</span>
-                                            <!--<span id="view-birthday"   th:text="${#calendars.format(today, 'dd/MM/yyyy hh:mm:ss')}" -->
-                                            <!--th:text="${giangvien != null ? #calendars.format(giangvien.userDOB, 'dd/MM/yyyy hh:mm:ss') : ''}">20/02/1985</span>-->
+                                <!--<span id="view-birthday"   th:text="${#calendars.format(today, 'dd/MM/yyyy hh:mm:ss')}" -->
+                                <!--th:text="${giangvien != null ? #calendars.format(giangvien.userDOB, 'dd/MM/yyyy hh:mm:ss') : ''}">20/02/1985</span>-->
                                 </span>
-                                        <span>
+
+                            <span>
+                                   <span>
                                     <span class="xam" data-toggle="tooltip" data-placement="top" title="Giới tính">
                                          <i class="fa fa-venus-mars" aria-hidden="true"></i></span>
-                                    <span
-                                    >Nam</span>
-		                        <span
-                                >Nữ</span>
+                                    <input type="radio" th:name="giangvien.userGender" id="gender-man" value="Nam" />Nam
+                                    <input type="radio" th:name="giangvien.userGender" id="gender-woman" value="Nu" />Nữ
                                 </span>
-                                        <span>
+                                </span>
+
+                            <span>
                                     <span class="xam" data-toggle="tooltip" data-placement="top" title="Số điện thoại">
                                     <i class="fa fa-phone" aria-hidden="true"></i></span>
-                                    <span
-                                    >0978198420</span>
+                                    <input type="text" id="view-mobile-edit" th:name="giangvien.userPhone" style="color: black"/>
                                 </span>
-                                        <span>
+                            <span>
                                     <span class="xam" data-toggle="tooltip" data-placement="top" title="Thư điện tử">
                                         <i class="fa fa-envelope-o" aria-hidden="true"></i></span>
                                     <span
-                                    >truong@gmail.com</span>
+                                    ><input type="text" id="view-email-edit" th:name="giangvien.userEmail" style="color: black"/></span>
                                 </span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 p-25">
-                                    <div class="form-group chamcham">
-                                        <label for="">Tên truy cập</label>
-                                        <span
-                                        >truong@gmail.com</span>
-                                    </div>
-                                    <div class="form-group chamcham">
-                                        <label for="">Mã </label>
-                                        <span
-                                        >truong@gmail.com</span>
-                                    </div>
-                                    <div class="form-group chamcham">
-                                        <label for="">Mã ngành giảng dạy</label>
-                                        <span
-                                        >truong@gmail.com</span>
-                                    </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 p-25">
+                        <div class="form-group chamcham">
+                            <label for="">Tên truy cập</label>
+                            <span
+                            ><input type="text" id="view-userName-edit" th:name="giangvien.userName" readonly/></span>
+                        </div>
+                        <div class="form-group chamcham">
+                            <label for="">Mã </label>
+                            <span
+                            ><input type="text" id="view-maGiaoVien-edit" th:name="giangvien.giaoVien.maGiaoVien" readonly/></span>
+                        </div>
+                        <div class="form-group chamcham">
+                            <label for="">Mã ngành giảng dạy</label>
+                            <span
+                            ><input type="text" id="view-maNganh-edit" th:name="giangvien.giaoVien.boMon.maNganh" readonly/></span>
+                        </div>
 
-                                    <div class="form-group chamcham">
-                                        <label for="">Tên ngành giảng dạy</label>
-                                        <span
-                                        >truong@gmail.com</span>
-                                    </div>
-                                    <div class="form-group chamcham">
-                                        <label for="">Địa chỉ</label>
-                                        <span>Hà Nội</span>
-                                    </div>
-                                    <div class="form-group chamcham">
-                                        <label for="">Học hàm</label>
-                                        <span>Hà Nội</span>
-                                    </div>
-                                    <div class="form-group chamcham">
-                                        <label for="">Mô tả</label>
-                                        <span>Hà Nội</span>
-                                    </div>
+                        <div class="form-group chamcham">
+                            <label for="">Tên ngành giảng dạy</label>
+                            <span
+                            ><input type="text" id="view-tenNganh-edit" th:name="giangvien.giaoVien.boMon.tenNganh" readonly/></span>
+                        </div>
+                        <div class="form-group chamcham">
+                            <label for="">Địa chỉ</label>
+                            <span><input type="text" id="view-userAddress-edit" th:name="giangvien.userAddress"/></span>
+                        </div>
+                        <div class="form-group chamcham">
+                            <label for="">Học hàm</label>
+                            <span><input type="text" id="view-hocHam-edit" th:name="giangvien.giaoVien.hocHam"/></span>
+                        </div>
+                        <div class="form-group chamcham">
+                            <label for="">Mô tả</label>
+                            <span><input type="text" id="view-moTa-edit" th:name="giangvien.giaoVien.moTa"/></span>
+                        </div>
 
-                                    <div class="form-group chamcham">
-                                        <label for="">Trạng thái</label>
-                                        <span>Trạng thái</span>
-                                    </div>
-
-                                </div>
-                                <div class="col-md-5 inline-block p-25">
-                                    <div class="form-group">
-                                        <button id="btn-update" class="btn btn-success" data-target="#suanhansu">Chỉnh sửa
-                                            thông
-                                            tin cá nhân
-                                        </button>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                    </form>
+                    </div>
+                    <div class="col-md-5 inline-block p-25">
+                        <div class="form-group">
+                            <button id="btn-update" class="btn btn-success" data-target="#suanhansu">Chỉnh sửa
+                                thông
+                                tin cá nhân
+                            </button>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </form>
+        </div>
     </div>
+    </section>
+</div>
 
-    <div th:replace="fragments/footer :: footer">&nbsp;</div>
-    <aside class="control-sidebar control-sidebar-dark">
-        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-            <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-            <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active" id="control-sidebar-home-tab">
-                <h3 class="control-sidebar-heading">Recent Activity</h3>
-                <ul class="control-sidebar-menu">
-                    <li>
-                        <a href="javascript:;">
-                            <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+<div th:replace="fragments/footer :: footer">&nbsp;</div>
+<aside class="control-sidebar control-sidebar-dark">
+    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+        <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+        <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="control-sidebar-home-tab">
+            <h3 class="control-sidebar-heading">Recent Activity</h3>
+            <ul class="control-sidebar-menu">
+                <li>
+                    <a href="javascript:;">
+                        <i class="menu-icon fa fa-birthday-cake bg-red"></i>
 
-                            <div class="menu-info">
-                                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+                        <div class="menu-info">
+                            <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
 
-                                <p>Will be 23 on April 24th</p>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-                <h3 class="control-sidebar-heading">Tasks Progress</h3>
-                <ul class="control-sidebar-menu">
-                    <li>
-                        <a href="javascript:;">
-                            <h4 class="control-sidebar-subheading">
-                                Custom Template Design
-                                <span class="pull-right-container">
+                            <p>Will be 23 on April 24th</p>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+            <h3 class="control-sidebar-heading">Tasks Progress</h3>
+            <ul class="control-sidebar-menu">
+                <li>
+                    <a href="javascript:;">
+                        <h4 class="control-sidebar-subheading">
+                            Custom Template Design
+                            <span class="pull-right-container">
                     <span class="label label-danger pull-right">70%</span>
                   </span>
-                            </h4>
+                        </h4>
 
-                            <div class="progress progress-xxs">
-                                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
-            <div class="tab-pane" id="control-sidebar-settings-tab">
-                <form method="post">
-                    <h3 class="control-sidebar-heading">General Settings</h3>
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            Report panel usage
-                            <input type="checkbox" class="pull-right" checked>
-                        </label>
-                        <p>
-                            Some information about this general settings option
-                        </p>
-                    </div>
-                </form>
-            </div>
+                        <div class="progress progress-xxs">
+                            <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
         </div>
-    </aside>
-    <div class="control-sidebar-bg"></div>
+        <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+        <div class="tab-pane" id="control-sidebar-settings-tab">
+            <form method="post">
+                <h3 class="control-sidebar-heading">General Settings</h3>
+                <div class="form-group">
+                    <label class="control-sidebar-subheading">
+                        Report panel usage
+                        <input type="checkbox" class="pull-right" checked>
+                    </label>
+                    <p>
+                        Some information about this general settings option
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+</aside>
+<div class="control-sidebar-bg"></div>
 </div>
 
 </body>
 <script type="text/javascript" th:inline="javascript">
     var base_url = [[@{/}]];
 
-        $('#btn-edit').click(function () {
-            $('#suanhansu').modal('show');
+        $(document).ready(function () {
+            if($("#view-gender-m").val() != undefined){
+                document.getElementById("gender-man").checked = true;
+            } else {
+                document.getElementById("gender-woman").checked = true;
+            }
         });
+    $('#btn-edit').click(function () {
+        $('#suanhansu').modal('show');
+        $('#view-mobile-edit').val($('#view-mobile').text());
+        $('#view-email-edit').val($('#view-email').text());
+        $('#view-userName-edit').val($('#view-userName').text());
+        $('#view-maNganh-edit').val($('#view-maNganh').text());
+        $('#view-tenNganh-edit').val($('#view-tenNganh').text());
+        $('#view-maGiaoVien-edit').val($('#view-maGiaoVien').text());
+        $('#view-userAddress-edit').val($('#view-userAddress').text());
+        $('#view-hocHam-edit').val($('#view-hocHam').text());
+        $('#view-moTa-edit').val($('#view-moTa').text());
+    });
+
+    $('#btn-update').click(function () {
+        var token = document.getElementById('token').value;
+        var valid = $("#form-update").parsley();
+        valid.validate();
+        if (valid.isValid()) {
+            var data = $('#form-update').serialize();
+            $.ajax({
+                headers: {'X-CSRF-Token': token},
+                url: base_url + 'update',
+                type: "post",
+                data: data,
+                dataType: "text",
+                success: function (result) {
+                    $('#view-moTa-edit').modal('hide');
+                    if (result.trim() === "success") {
+                        notify_sucess("Cập nhật thông tin", "Cập nhật");
+                    } else {
+                        notify_error("Cập nhật thông tin", "Cập nhật");
+                    }
+                }
+            });
+        }
+    });
+
 </script>
-</html>

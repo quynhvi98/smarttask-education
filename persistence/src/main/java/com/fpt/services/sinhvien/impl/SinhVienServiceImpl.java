@@ -27,4 +27,9 @@ public class SinhVienServiceImpl implements SinhVienService {
     public SinhVien getSinhVienId(String id) {
         return sinhVienDao.findOne(id);
     }
+
+    @Override
+    public List<SinhVien> getListSinhVienbyLopHocId(String maLop) {
+        return sinhVienDao.getListSinhVienbyLopHocId(maLop);
+    }
 }
