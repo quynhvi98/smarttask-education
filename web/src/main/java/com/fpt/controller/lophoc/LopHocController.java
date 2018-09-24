@@ -45,6 +45,7 @@ public class LopHocController {
         List<SinhVien> sinhViens = sinhVienService.getListSinhVienbyLopHocId(maLop);
         String[] ngayHoc = lopHoc.getNgayHoc().split(",");
         String[] caHoc = lopHoc.getCaHoc().split(",");
+
         model.addAttribute("moiNhat",thongBaoService.thongBaoMoiNhat(userInfo.getGiaoVien().getMaGiaoVien()));
         model.addAttribute("user", userInfo);
         model.addAttribute("giaoVien", giaoVien);
