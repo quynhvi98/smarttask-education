@@ -275,10 +275,7 @@
 <script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/adminlte.min.js}"></script>
 
-</body>
-</html>
-
-<script>
+<script type="text/javascript" th:inline="javascript">
     function dk(id) {
         var token = document.getElementById('token').value;
         var base_url = [[@{
@@ -391,4 +388,7 @@
 
 </style>
 
+
+</body>
+</html>
 
