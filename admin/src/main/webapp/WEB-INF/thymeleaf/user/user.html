@@ -96,16 +96,34 @@
                 <i class="fa fa-plus-circle" aria-hidden="true"></i>
                 Thêm tài khoản
             </a>
-            <a href="#" class="add-use" data-toggle="modal" data-target="#themnhansu">
+            <a href="#" class="add-use" data-toggle="modal" data-target="#themtaikhoansinhvien">
                 <i class="fa fa-plus-circle" aria-hidden="true"></i>
                 Thêm tài khoản sinh viên
 
             </a>
-            <form th:action="@{/user/themsv}" method="post" enctype="multipart/form-data">
-                <input name="excelfile" type="file"/>
-                <button type="submit">OK</button>
-            </form>
+            <!--<form th:action="@{/user/themsv}" method="post" enctype="multipart/form-data">-->
+                <!--<input name="excelfile" type="file"/>-->
+                <!--<button type="submit">OK</button>-->
+            <!--</form>-->
+            <!--<div class="col-sm-4 invoice-col">-->
+            <!--<form role="form" th:action="@{/user/themsv}"-->
+                  <!--method="post" enctype="multipart/form-data">-->
+                <!--<div class="form-group row">-->
+                    <!--<input type="file" class="form-control" id="excelfile"-->
+                           <!--name="excelfile"/>-->
+                    <!--<label class="form-control" for="excelfile">-->
+                        <!--Chọn file excel-->
+                    <!--</label>-->
+                    <!--<div class="form-group">-->
+                        <!--<button id="btn-update" class="btn btn-success" type="submit">Ok</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</form>-->
+            <!--</div>-->
+
+
         </h3>
+
         <div class="table">
             <table class="tree-table">
                 <thead class="fix-w text-center">
@@ -355,6 +373,61 @@
                 </div>
             </div>
         </div>
+<!--Model thêm tài khoản sinh viên-->
+        <div class="modal modal-full fade" id="themtaikhoansinhvien">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h3 class="modal-title" id="suanhansuLabel">
+                            Thêm tài khoản sinh viên
+                        </h3>
+                    </div>
+                    <div class="modal-body">
+                        <form id="edit" method="post" enctype="multipart/form-data" th:action="@{/user/themsv}"
+                              class="form-horizontal">
+                            <div class="row bg-xam">
+                                <div class="text-center avantar">
+                                    <div class="col-md-3 p-25">
+                                    </div>
+                                    <div class="col-md-4 inline-block p-25">
+                                        <input id="id-edit" name="delegateId" type="hidden"/>
+                                        <input id="id-file-edit" name="fileId" type="hidden"/>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">Đính kèm tệp</label>
+                                            <div class="col-sm-9">
+                                                <input type="file" class="form-control" id="content-edit"
+                                                       name="excelfile" onchange="validateFileUpload(this.id)">
+                                                <label class="form-control" for="content-edit" id="labelField-edit">
+
+                                                </label>
+                                                <input type="hidden" name="removeFile" id="removeFile">
+                                                <input type="hidden" class="form-control" name="extUrl" id="extUrlEdit"/>
+                                                <input type="hidden" class="form-control" name="ftype" id="ftypeEdit"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer text-center">
+                                <button class="btn btn-default" id="btn-remove-file"><i
+                                        class="fa fa-remove"></i> Gỡ file đính kèm
+                                </button>
+                                <button  class="btn btn-default" id="btn-edit" type="submit"><i
+                                        class="fa fa-sync"></i>Cập nhật
+                                </button>
+                                <button type="button" class="btn btn-default"
+                                        data-dismiss="modal"><i class="fa fa-sign-out"
+                                                                aria-hidden="true"></i> Thoát
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
 
         <!-- Modal xemnhansu -->
         <div class="modal modal-full fade" id="xemnhansu" role="dialog" aria-labelledby="xemnhansuLabel">
@@ -564,7 +637,11 @@
             }
         });
     });
-
+    $('#btn-remove-file').click(function () {
+        $('#labelField-edit').html("Click để tải file");
+        // document.getElementById("labelField-edit").classList.remove("btn-success");
+        $('#removeFile').val(true);
+    });
 
     function getGVCode(maKhoaVien) {
         var count = [[${totalRecord}]] + 1;
