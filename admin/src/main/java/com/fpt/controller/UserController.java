@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -56,7 +57,7 @@ public class UserController {
     }
 
     @PostMapping("/user/them-moi")
-    public void addUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void addUser(HttpServletRequest request, HttpServletResponse response) throws IOException, ParseException {
         String memberId = request.getParameter("memberId");
         String userName = request.getParameter("userName");
         String userPassWord = request.getParameter("userPassWord");
@@ -64,16 +65,18 @@ public class UserController {
         String userEmail = request.getParameter("userEmail");
         String fullName = request.getParameter("fullName");
         String userGender = request.getParameter("userGender");
-        String userDOB = request.getParameter("userDOB");
+        String userDOBStr = request.getParameter("userDOB");
+
+        Date userDOB = new SimpleDateFormat("yyyy-MM-dd").parse(userDOBStr);
+
         String userAddress = request.getParameter("userAddress");
 
-        String memberType = request.getParameter("memberType");
         String boMon = request.getParameter("boMon");
         String hocHam = request.getParameter("hocHam");
         String kinhNghiem = request.getParameter("kinhNghiem");
 
-        User user = new User(userName, passwordEncoder.encode(userPassWord), fullName, userEmail, userPhone, userAddress, userGender, null);
-        Role role = roleService.findById(memberType);
+        User user = new User(userName, passwordEncoder.encode(userPassWord), fullName, userEmail, userPhone, userAddress, userGender, userDOB);
+        Role role = roleService.findById("gv01");
         Set<Role> roles = new HashSet<>();
         roles.add(role);
         user.setRoles(roles);
