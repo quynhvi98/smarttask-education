@@ -72,7 +72,7 @@ public class UserController {
         String hocHam = request.getParameter("hocHam");
         String kinhNghiem = request.getParameter("kinhNghiem");
 
-        User user = new User(userName, passwordEncoder.encode(userPassWord), fullName, userEmail, userPhone, userAddress, userGender, userDOB);
+        User user = new User(userName, passwordEncoder.encode(userPassWord), fullName, userEmail, userPhone, userAddress, userGender, null);
         Role role = roleService.findById(memberType);
         Set<Role> roles = new HashSet<>();
         roles.add(role);
@@ -143,16 +143,21 @@ public class UserController {
                 XSSFRow row = worksheet.getRow(i);
                 // Sets the Read data to the model class
                 //user.setId((int) row.getCell(0).getNumericCellValue());
-                user.setUserName("sv" + row.getCell(1).getStringCellValue());
+                user.setUserName("SV" + row.getCell(1).getStringCellValue());
                 user.setUserPassWord(passwordEncoder.encode("123456"));
                 user.setFullName(row.getCell(2).getStringCellValue());
-                user.setUserPhone("0"+row.getCell(3).getNumericCellValue());
-                user.setUserEmail(row.getCell(4).getStringCellValue());
-                user.setUserAddress(row.getCell(5).getStringCellValue());
-                user.setUserGender(row.getCell(8).getStringCellValue());
+                user.setUserPhone(row.getCell(5).getStringCellValue());
+                user.setUserEmail(row.getCell(6).getStringCellValue());
+                user.setUserAddress(row.getCell(7).getStringCellValue());
+                user.setUserGender(row.getCell(3).getStringCellValue());
 
-                String nnhStr = row.getCell(7).getStringCellValue();
+                String ngaySinhStr = row.getCell(4).getStringCellValue();
+                Date ngaySinh = new SimpleDateFormat("dd/MM/yyyy").parse(ngaySinhStr);
+
+                String nnhStr = row.getCell(9).getStringCellValue();
                 Date nnh = new SimpleDateFormat("dd/MM/yyyy").parse(nnhStr);
+
+                user.setUserDOB(ngaySinh);
 
                 Role role = roleService.findById("sv01");
                 Set roles = new HashSet();
@@ -161,9 +166,9 @@ public class UserController {
 
                 SinhVien sinhVien = new SinhVien();
                 sinhVien.setMaSinhVien(row.getCell(1).getStringCellValue());
-                sinhVien.setNgayNhapHoc(nnh.toString());
+                sinhVien.setNgayNhapHoc(nnh);
 
-                String khoaVienId = row.getCell(6).getStringCellValue();
+                String khoaVienId = row.getCell(8).getStringCellValue();
 
                 KhoaVien khoaVien = khoaVienService.findById(khoaVienId);
                 sinhVien.setKhoaVien(khoaVien);
@@ -178,6 +183,6 @@ public class UserController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "user/user";
+        return "redirect:/user";
     }
 }

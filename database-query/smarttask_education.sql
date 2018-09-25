@@ -128,6 +128,7 @@ CREATE TABLE IF NOT EXISTS sinh_vien (
   ma_sinh_vien VARCHAR(255),
   user_name varchar(255),
   ma_vien VARCHAR(255),
+  ngay_nhap_hoc date,
   PRIMARY KEY (ma_sinh_vien),
   CONSTRAINT FK_ma_vien_sv FOREIGN KEY (ma_vien) REFERENCES khoa_vien(ma_vien),
   CONSTRAINT FK_user_name_sv FOREIGN KEY (user_name) REFERENCES user(user_name)

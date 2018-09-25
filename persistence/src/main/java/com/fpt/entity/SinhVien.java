@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -23,7 +24,7 @@ public class SinhVien {
     private String maSinhVien;
 
     @Column(name = "ngay_nhap_hoc")
-    private String ngayNhapHoc;
+    private Date ngayNhapHoc;
 
 
     @OneToMany(mappedBy = "sinhVien", fetch = FetchType.EAGER)
@@ -63,11 +64,11 @@ public class SinhVien {
     public SinhVien() {
     }
 
-    public String getNgayNhapHoc() {
+    public Date getNgayNhapHoc() {
         return ngayNhapHoc;
     }
 
-    public void setNgayNhapHoc(String ngayNhapHoc) {
+    public void setNgayNhapHoc(Date ngayNhapHoc) {
         this.ngayNhapHoc = ngayNhapHoc;
     }
 

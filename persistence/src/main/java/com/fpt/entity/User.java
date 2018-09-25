@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 @Entity
@@ -39,7 +40,7 @@ public class User implements Serializable {
     private String userGender;
 
     @Column(name = "user_dob")
-    private String userDOB;
+    private Date userDOB;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private GiaoVien giaoVien;
@@ -58,7 +59,7 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(String userName, String userPassWord, String fullName, String userEmail, String userPhone, String userAddress, String userGender, String userDOB) {
+    public User(String userName, String userPassWord, String fullName, String userEmail, String userPhone, String userAddress, String userGender, Date userDOB) {
         this.userName = userName;
         this.userPassWord = userPassWord;
         this.fullName = fullName;
@@ -133,11 +134,11 @@ public class User implements Serializable {
         this.userGender = userGender;
     }
 
-    public String getUserDOB() {
+    public Date getUserDOB() {
         return userDOB;
     }
 
-    public void setUserDOB(String userDOB) {
+    public void setUserDOB(Date userDOB) {
         this.userDOB = userDOB;
     }
 
