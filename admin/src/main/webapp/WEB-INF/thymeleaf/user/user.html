@@ -302,21 +302,11 @@
                                             <p class="col-sm-offset-3 help-block red">Example block-level help text
                                                 here.</p>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label">Loại tài khoản</label>
-                                            <div class="col-md-9">
-                                                <select id="memberType" name="memberType" class="select2 form-control"
-                                                        title="Loại tài khoản">
-                                                    <option selected value="ad01">Admin</option>
-                                                    <option value="gv01">Giảng viên</option>
-                                                    <option value="sv01">Sinh viên</option>
-                                                </select>
-                                            </div>
-                                        </div>
+
                                         <div class="form-group">
                                             <label for="" class="col-sm-3 control-label">Khoa/Viện</label>
                                             <div class="col-md-9">
-                                                <select disabled  id="khoaVien" name="khoaVien"
+                                                <select id="khoaVien" name="khoaVien"
                                                         class="select2 form-control" title="Khoa/Viện">
                                                     <option value="">-- Chọn khoa viện --</option>
                                                     <th:block th:if="${!#lists.isEmpty(lstKhoaVien)}"
@@ -330,7 +320,7 @@
                                         <div class="form-group">
                                             <label for="" class="col-sm-3 control-label">Bộ môn</label>
                                             <div class="col-md-9">
-                                                <select disabled id="boMon" name="boMon" class="select2 form-control"
+                                                <select id="boMon" name="boMon" class="select2 form-control"
                                                         title="Bộ môn">
                                                     <!--<option selected value=""><&#45;&#45;Chọn&ndash;&gt;</option>-->
                                                 </select>
@@ -339,7 +329,7 @@
                                         <div class="form-group">
                                             <label for="" class="col-sm-3 control-label">Học hàm</label>
                                             <div class="col-md-9">
-                                                <input disabled id="hocHam" name="hocHam" type="text"
+                                                <input id="hocHam" name="hocHam" type="text"
                                                        class="form-control" placeholder="Học hàm">
                                             </div>
                                             <p class="col-sm-offset-3 help-block red">Example block-level help text
@@ -348,7 +338,7 @@
                                         <div class="form-group">
                                             <label for="" class="col-sm-3 control-label">Kinh nghiệm</label>
                                             <div class="col-md-9">
-                                                <textarea disabled id="kinhNghiem" name="kinhNghiem"
+                                                <textarea id="kinhNghiem" name="kinhNghiem"
                                                           class="form-control" placeholder="Kinh nghiệm"
                                                           rows="2"></textarea>
                                             </div>
@@ -548,22 +538,22 @@
 </div>
 </body>
 <script th:inline="javascript">
-    $(function () {
-        $('#memberType').change(function () {
-            var type = $(this).val();
-            if (type == 'gv01') {
-                $("#khoaVien").prop('disabled', false);
-                $("#hocHam").prop('disabled', false);
-                $("#boMon").prop('disabled', false);
-                $("#kinhNghiem").prop('disabled', false);
-            } else {
-                $("#khoaVien").prop('disabled', true);
-                $("#hocHam").prop('disabled', true);
-                $("#boMon").prop('disabled', true);
-                $("#kinhNghiem").prop('disabled', true);
-            }
-        });
-    });
+    // $(function () {
+    //     $('#memberType').change(function () {
+    //         var type = $(this).val();
+    //         if (type == 'gv01') {
+    //             $("#khoaVien").prop('disabled', false);
+    //             $("#hocHam").prop('disabled', false);
+    //             $("#boMon").prop('disabled', false);
+    //             $("#kinhNghiem").prop('disabled', false);
+    //         } else {
+    //             $("#khoaVien").prop('disabled', true);
+    //             $("#hocHam").prop('disabled', true);
+    //             $("#boMon").prop('disabled', true);
+    //             $("#kinhNghiem").prop('disabled', true);
+    //         }
+    //     });
+    // });
 
 
     $('#btn-themmoi').click(function () {

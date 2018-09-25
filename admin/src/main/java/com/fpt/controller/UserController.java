@@ -78,22 +78,13 @@ public class UserController {
         roles.add(role);
         user.setRoles(roles);
         try {
-            if (memberType.equals("sv01")) {
-                SinhVien sinhVien = new SinhVien();
-                sinhVien.setMaSinhVien(memberId);
-                userService.createStudentAccount(user, sinhVien);
-            } else if (memberType.equals("gv01")) {
-                GiaoVien giaoVien = new GiaoVien();
-                giaoVien.setBoMon(boMonService.findById(boMon));
-                giaoVien.setHocHam(hocHam);
-                giaoVien.setMaGiaoVien(memberId);
-                giaoVien.setMoTa(kinhNghiem);
 
-                userService.createTeacherAccount(user, giaoVien);
-            } else if (memberType.equals("ad01")) {
-                userService.createAdminAccount(user);
-            }
-
+            GiaoVien giaoVien = new GiaoVien();
+            giaoVien.setBoMon(boMonService.findById(boMon));
+            giaoVien.setHocHam(hocHam);
+            giaoVien.setMaGiaoVien(memberId);
+            giaoVien.setMoTa(kinhNghiem);
+            userService.createTeacherAccount(user, giaoVien);
             response.getWriter().println("success");
         } catch (Exception e) {
             response.getWriter().println("fail");
