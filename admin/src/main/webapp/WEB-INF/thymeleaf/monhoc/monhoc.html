@@ -232,15 +232,17 @@
                                                 </select>
                                             </div>
                                         </div>
+
                                         <div class="form-group">
-                                            <label for="" class="col-sm-3 control-label">Số tín chỉ <span
-                                                    class="red">(*)</span></label>
+                                            <label for="" class="col-sm-3 control-label">Số tín chỉ</label>
                                             <div class="col-md-9">
-                                                <input required name="tinChi" type="text" class="form-control" id=""
-                                                       placeholder="Số tín chỉ ">
+                                                <select required id="tinChi" name="tinChi" class="select2 form-control"
+                                                        title="Kì học">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                </select>
                                             </div>
-                                            <p class="col-sm-offset-3 help-block red">Example block-level help text
-                                                here.</p>
                                         </div>
                                     </div>
 
@@ -356,7 +358,7 @@
         if (valid.isValid()) {
             var data = $('#form-themmoi').serialize();
             $.ajax({
-                url: base_url + 'monhoc/them-moi?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
+                url: base_url + 'monhoc/them-moi',
                 type: "post",
                 data: data,
                 dataType: "text",
@@ -379,7 +381,7 @@
         if (valid.isValid()) {
             var data = $('#form-sua').serialize();
             $.ajax({
-                url: base_url + 'monhoc/cap-nhat?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
+                url: base_url + 'monhoc/cap-nhat',
                 type: "post",
                 data: data,
                 dataType: "text",

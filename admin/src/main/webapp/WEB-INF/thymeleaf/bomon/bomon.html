@@ -314,7 +314,7 @@
         if (valid.isValid()) {
             var data = $('#form-themmoi').serialize();
             $.ajax({
-                url: base_url + 'bomon/them-moi?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
+                url: base_url + 'bomon/them-moi',
                 type: "post",
                 data: data,
                 dataType: "text",
@@ -337,7 +337,7 @@
         if (valid.isValid()) {
             var data = $('#form-sua').serialize();
             $.ajax({
-                url: base_url + 'bomon/cap-nhat?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
+                url: base_url + 'bomon/cap-nhat',
                 type: "post",
                 data: data,
                 dataType: "text",
@@ -372,7 +372,9 @@
     function getCode(){
         var khoaVien = $('#khoaVien').val();
         var tenNganh = $('#tenNganh').val();
-        var maNganh = khoaVien + "-" + getSuffix(tenNganh);
+        var maNganh;
+        if(tenNganh !== "") maNganh = khoaVien + "-" + getSuffix(tenNganh);
+        else maNganh = khoaVien;
         $('#maNganh').val(maNganh);
     }
 

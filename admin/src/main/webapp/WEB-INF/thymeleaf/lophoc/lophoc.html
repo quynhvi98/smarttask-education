@@ -4,7 +4,7 @@
     <title>Smarttask Education</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+    <!--<meta th:name="${_csrf.parameterName}" th:value="${_csrf.token}">-->
     <!-- style sheet -->
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-3.3.7/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-datepicker3.min.css}"/>
@@ -258,7 +258,7 @@
                                                 <div class="checkbox">
                                                     <label class="col-sm-3">
                                                         Thứ 2
-                                                        <input id="day2" onchange="useSelect(2)" type="checkbox"/>
+                                                        <input  class="cbNgayHoc" id="day2" onchange="useSelect(2)" type="checkbox"/>
                                                         <input id="day2Hid" name="ngayHoc" type="text" hidden/>
                                                     </label>
                                                     <label class="col-sm-3">
@@ -278,7 +278,7 @@
                                                 <div class="checkbox">
                                                     <label class="col-sm-3">
                                                         Thứ 3
-                                                        <input id="day3" onchange="useSelect(3)" type="checkbox"/>
+                                                        <input  class="cbNgayHoc" id="day3" onchange="useSelect(3)" type="checkbox"/>
                                                         <input id="day3Hid" name="ngayHoc" type="text" hidden/>
                                                     </label>
                                                     <label class="col-sm-3">
@@ -298,7 +298,7 @@
                                                 <div class="checkbox">
                                                     <label class="col-sm-3">
                                                         Thứ 4
-                                                        <input id="day4" onchange="useSelect(4)" type="checkbox"/>
+                                                        <input class="cbNgayHoc" id="day4" onchange="useSelect(4)" type="checkbox"/>
                                                         <input name="ngayHoc" id="day4Hid" type="text" hidden/>
                                                     </label>
                                                     <label class="col-sm-3">
@@ -318,7 +318,7 @@
                                                 <div class="checkbox">
                                                     <label class="col-sm-3">
                                                         Thứ 5
-                                                        <input id="day5" onchange="useSelect(5)" type="checkbox"/>
+                                                        <input  class="cbNgayHoc" id="day5" onchange="useSelect(5)" type="checkbox"/>
                                                         <input name="ngayHoc" id="day5Hid" type="text" hidden/>
                                                     </label>
                                                     <la bel class="col-sm-3">
@@ -338,7 +338,7 @@
                                                 <div class="checkbox">
                                                     <label class="col-sm-3">
                                                         Thứ 6
-                                                        <input id="day6" onchange="useSelect(6)" type="checkbox"/>
+                                                        <input  class="cbNgayHoc" id="day6" onchange="useSelect(6)" type="checkbox"/>
                                                         <input name="ngayHoc" id="day6Hid" type="text" hidden/>
                                                     </label>
                                                     <label class="col-sm-3">
@@ -629,7 +629,7 @@
             if (check) {
                 var data = $('#form-themmoi').serialize();
                 $.ajax({
-                    url: base_url + 'lophoc/them-moi?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
+                    url: base_url + 'lophoc/them-moi',
                     type: "post",
                     data: data,
                     dataType: "text",
@@ -759,6 +759,12 @@
                     checkView++;
                 }
             });
+        }
+    });
+
+    $('.cbNgayHoc').on('change', function(evt) {
+        if($(this).siblings(':checked').length > 2) {
+            this.checked = false;
         }
     });
     var base_url = [[@{/}]];

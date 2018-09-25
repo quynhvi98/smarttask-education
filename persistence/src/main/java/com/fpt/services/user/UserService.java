@@ -14,4 +14,6 @@ public interface UserService {
     List<User> findAll();
 
     void update(User user);
+
+    void saveLstSV(List<User> lstUser);
 }

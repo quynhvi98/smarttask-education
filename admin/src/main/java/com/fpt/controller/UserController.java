@@ -7,21 +7,24 @@ import com.fpt.services.khoavien.KhoaVienService;
 import com.fpt.services.role.RoleService;
 import com.fpt.services.sinhvien.SinhVienService;
 import com.fpt.services.user.UserService;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 public class UserController {
@@ -120,5 +123,61 @@ public class UserController {
             bm.setLstGiaoVien(null);
         }
         return lstBoMon;
+    }
+
+    @RequestMapping(value = "/user/themsv", method = RequestMethod.POST)
+    public String themSV(Model model, @RequestParam("excelfile") MultipartFile excelfile) {
+        try {
+            List<SinhVien> lstSinhVien = new ArrayList<>();
+            int i = 0;
+            // Creates a workbook object from the uploaded excelfile
+            XSSFWorkbook workbook = new XSSFWorkbook(excelfile.getInputStream());
+            // Creates a worksheet object representing the first sheet
+            XSSFSheet worksheet = workbook.getSheet("Sheet1");
+            // Reads the data in excel file until last row is encountered
+            while (i < worksheet.getLastRowNum()) {
+                i++;
+                // Creates an object for the UserInfo Model
+                User user = new User();
+                // Creates an object representing a single row in excel
+                XSSFRow row = worksheet.getRow(i);
+                // Sets the Read data to the model class
+                //user.setId((int) row.getCell(0).getNumericCellValue());
+                user.setUserName("sv" + row.getCell(1).getStringCellValue());
+                user.setUserPassWord(passwordEncoder.encode("123456"));
+                user.setFullName(row.getCell(2).getStringCellValue());
+                user.setUserPhone("0"+row.getCell(3).getNumericCellValue());
+                user.setUserEmail(row.getCell(4).getStringCellValue());
+                user.setUserAddress(row.getCell(5).getStringCellValue());
+                user.setUserGender(row.getCell(8).getStringCellValue());
+
+                String nnhStr = row.getCell(7).getStringCellValue();
+                Date nnh = new SimpleDateFormat("dd/MM/yyyy").parse(nnhStr);
+
+                Role role = roleService.findById("sv01");
+                Set roles = new HashSet();
+                roles.add(role);
+                user.setRoles(roles);
+
+                SinhVien sinhVien = new SinhVien();
+                sinhVien.setMaSinhVien(row.getCell(1).getStringCellValue());
+                sinhVien.setNgayNhapHoc(nnh.toString());
+
+                String khoaVienId = row.getCell(6).getStringCellValue();
+
+                KhoaVien khoaVien = khoaVienService.findById(khoaVienId);
+                sinhVien.setKhoaVien(khoaVien);
+
+                sinhVien.setUser(user);
+                // persist data into database in here
+                lstSinhVien.add(sinhVien);
+
+            }
+            workbook.close();
+            sinhVienService.save(lstSinhVien);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "user/user";
     }
 }

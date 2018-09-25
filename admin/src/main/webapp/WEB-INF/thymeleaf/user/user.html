@@ -4,7 +4,7 @@
     <title>Smarttask Education</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+    <!--<meta th:name="${_csrf.parameterName}" th:value="${_csrf.token}">-->
     <!-- style sheet -->
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-3.3.7/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-datepicker3.min.css}"/>
@@ -96,6 +96,15 @@
                 <i class="fa fa-plus-circle" aria-hidden="true"></i>
                 Thêm tài khoản
             </a>
+            <a href="#" class="add-use" data-toggle="modal" data-target="#themnhansu">
+                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                Thêm tài khoản sinh viên
+
+            </a>
+            <form th:action="@{/user/themsv}" method="post" enctype="multipart/form-data">
+                <input name="excelfile" type="file"/>
+                <button type="submit">OK</button>
+            </form>
         </h3>
         <div class="table">
             <table class="tree-table">
@@ -490,7 +499,7 @@
         if (valid.isValid()) {
             var data = $('#form-themmoi').serialize();
             $.ajax({
-                url: base_url + 'user/them-moi?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
+                url: base_url + 'user/them-moi',
                 type: "post",
                 data: data,
                 dataType: "text",
@@ -522,7 +531,7 @@
 
                 console.log(userName);
                 $.ajax({
-                    url: base_url + 'user/reset-password?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
+                    url: base_url + 'user/reset-password',
                     type: "post",
                     data: {userName: userName},
                     dataType: "text",

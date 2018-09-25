@@ -58,4 +58,9 @@ public class UserServiceImpl implements UserService {
     public void update(User user) {
         userDao.save(user);
     }
+
+    @Override
+    public void saveLstSV(List<User> lstUser) {
+        lstUser.forEach(user -> userDao.save(user));
+    }
 }

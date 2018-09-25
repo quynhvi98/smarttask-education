@@ -284,7 +284,7 @@
             if (valid.isValid()) {
                 var data = $('#form-themmoi').serialize();
                 $.ajax({
-                    url: base_url + 'khoavien/them-moi?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
+                    url: base_url + 'khoavien/them-moi',
                     type: "post",
                     data: data,
                     dataType: "text",
@@ -307,7 +307,7 @@
         if (valid.isValid()) {
             var data = $('#form-sua').serialize();
             $.ajax({
-                url: base_url + 'khoavien/cap-nhat?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
+                url: base_url + 'khoavien/cap-nhat',
                 type: "post",
                 data: data,
                 dataType: "text",
@@ -338,7 +338,7 @@
             function (isConfirm) {
                 if (isConfirm) {
                     $.ajax({
-                        url: base_url + 'khoavien/xoa?id=' + idItem + "&" + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
+                        url: base_url + 'khoavien/xoa?id=' + idItem,
                         type: "post",
                         dataType: "text",
                         success: function (result) {

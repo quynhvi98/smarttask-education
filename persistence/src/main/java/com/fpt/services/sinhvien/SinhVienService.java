@@ -9,4 +9,5 @@ public interface SinhVienService {
     List<SinhVien> listSV();
     SinhVien getSinhVienId(String id);
     List<SinhVien> getListSinhVienbyLopHocId(String maLop);
+    void save(List<SinhVien> lstSV);
 }
