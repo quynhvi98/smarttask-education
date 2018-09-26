@@ -7,14 +7,12 @@ import com.fpt.services.giangvien.GiangVienService;
 import com.fpt.services.khoavien.KhoaVienService;
 import com.fpt.services.lophoc.LopHocService;
 import com.fpt.services.monhoc.MonHocService;
+import com.fpt.services.phonghoc.PhongHocService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,6 +33,8 @@ public class LopHocController {
     private KhoaVienService khoaVienService;
     @Autowired
     private BoMonService boMonService;
+    @Autowired
+    private PhongHocService phongHocService;
 
     @GetMapping("/lophoc")
     public String base(Model model) {
@@ -89,11 +89,14 @@ public class LopHocController {
                 e.printStackTrace();
             }
 
+            phongHoc = phongHoc.split("-")[0];
+            PhongHoc phongHocE = phongHocService.findById(phongHoc);
+
             LopHoc lopHoc = new LopHoc();
             lopHoc.setMaLop(maLop);
             lopHoc.setMonHoc(monHoc);
             lopHoc.setGiaoVien(giaoVien);
-            lopHoc.setPhongHoc(phongHoc);
+            lopHoc.setPhongHoc(phongHocE);
             lopHoc.setMoTa(moTa);
             lopHoc.setNgayBatDau(ngayBatDau);
             lopHoc.setNgayKetThuc(ngayKetThuc);
@@ -190,5 +193,13 @@ public class LopHocController {
             sv.getUser().setGiaoVien(null);
         }
         return lopHoc;
+    }
+
+    @GetMapping("/lophoc/getAvailableClass")
+    public @ResponseBody
+    String getAvailableClass(@RequestParam(value="ngayHoc[]") String[] ngayHoc,
+                             @RequestParam(value="caHoc[]") String[] caHoc ){
+        PhongHoc phongHoc = phongHocService.getAvailableClass(ngayHoc, caHoc);
+        return phongHoc != null ? (phongHoc.getId()+"-"+phongHoc.getTenPhong()) : "";
     }
 }
