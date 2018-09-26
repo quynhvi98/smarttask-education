@@ -45,14 +45,18 @@ public class LopHocController {
         List<SinhVien> sinhViens = sinhVienService.getListSinhVienbyLopHocId(maLop);
         String[] ngayHoc = lopHoc.getNgayHoc().split(",");
         String[] caHoc = lopHoc.getCaHoc().split(",");
-
-        model.addAttribute("moiNhat",thongBaoService.thongBaoMoiNhat(userInfo.getGiaoVien().getMaGiaoVien()));
         model.addAttribute("user", userInfo);
         model.addAttribute("giaoVien", giaoVien);
         model.addAttribute("lopHoc", lopHoc);
         model.addAttribute("sinhvien", sinhViens);
         model.addAttribute("ngayHoc", ngayHoc);
         model.addAttribute("caHoc", caHoc);
+        if(userInfo.getSinhVien()!= null) {
+            model.addAttribute("moiNhat", thongBaoService.thongBaoMoiNhatSV(userInfo.getSinhVien().getMaSinhVien()));
+        }
+        if(userInfo.getGiaoVien()!= null) {
+            model.addAttribute("moiNhat", thongBaoService.thongBaoMoiNhatGV(userInfo.getGiaoVien().getMaGiaoVien()));
+        }
         return "giaovien_giangday/lopgiangday";
     }
 }

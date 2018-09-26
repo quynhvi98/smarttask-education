@@ -24,16 +24,25 @@
 
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
 
 </head>
-<input id="username" type="hidden" th:value="${user.getGiaoVien().getMaGiaoVien()}"/>
+<!--<th:block th:if="${user.getGiaoVien()!=null}">-->
+<!--<input id="username" type="hidden" th:value="${user.getGiaoVien().getMaGiaoVien()}"/>-->
+<!--</th:block>-->
+<!--<th:block th:if="${user.getSinhVien()!=null}">-->
+<!--<input id="username" type="hidden" th:value="${user.getSinhVien().getMaSinhVien()}"/>-->
+<!--</th:block>-->
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
   <div th:replace="fragments/header :: header">&nbsp;</div>
-  <div th:replace="fragments/sidebar :: aside">&nbsp;</div>
+  <th:block th:if="${user.getGiaoVien()!=null}">
+    <div th:replace="fragments/sidebar :: aside">&nbsp;</div> </th:block>
+  <th:block th:if="${user.getSinhVien()!=null}">
+    <div th:replace="fragments/sidebarsv :: aside">&nbsp;</div>
+  </th:block>
+
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -467,85 +476,45 @@
     });
 </script>
 <!-- AdminLTE for demo purposes -->
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-
 </body>
 </html>
 
-<script>
-    'use strict';
-    var stompClient = null;
-    var username = document.getElementById('username').value;
-    var socket = new SockJS('http://localhost:8080/web/ws');
-    stompClient = Stomp.over(socket);
-    stompClient.connect({}, onConnected);
 
-    function onConnected() {
-        stompClient.subscribe('/topic/public-'+username, onMessageReceived);
-        stompClient.send("/app/chat.addUser",
-            {},
-            JSON.stringify({sender: username, type: 'JOIN'})
-        )
+<!--<script>-->
+<!--function onMessageReceived(payload) {-->
+<!--playSound();-->
+<!--var message = JSON.parse(payload.body);-->
+<!--var a = '<li> <ul class="menu"> <li> <a style="height: 39px;"  href="/web/mailbox/read-mail?id=' + message.id + '> <i  style="float: left; class="fa fa-users text-aqua"></i>' + '<p style="margin-top: -15px; margin-left: 24px; font-size: 15px;">' + message.title + ' - (' + message.sender + ')' + '</p></a></li></ul></li>';-->
+<!--var node = document.getElementById('chuong');-->
+<!--var txt = parseInt(node.textContent || node.innerText);-->
+<!--document.getElementById('chuong').innerHTML = txt + 1;-->
+<!--var myEle = document.getElementById("table");-->
+<!--if (myEle != null) {-->
+<!--var tb = '<tr >' +-->
+<!--'<td><input style="margin-left: 5px;position: absolute;opacity: 1;" type="checkbox"></td>\n' +-->
+<!--'<td class="mailbox-star"><a href="#"><i class="fa fa-star-o text-yellow"></i></a></td>\n' +-->
+<!--'<td class="mailbox-name"><a href="/mailbox/readmail">' +-->
+<!--message.sender + '</a></td>\n' +-->
+<!--'<td class="mailbox-subject">' +-->
+<!--'<a href="/web/mailbox/read-mail?id=' +-->
+<!--message.id + '" style="float: left">' +-->
+<!--message.title + '</a>\n' +-->
+<!--'<p style="padding-left: 18px; margin-left: 73px;font-weight: 700;width: 339px; overflow: hidden; /* display: inline-block; */ text-overflow: ellipsis; white-space: nowrap;" th:text="${thongBao.content}">' +-->
+<!--message.content +-->
+<!--'</p>\n' +-->
+<!--'</td>\n' +-->
+<!--'<td class="mailbox-attachment"><i class="fa fa-paperclip"></i></td>\n' +-->
+<!--'<td class="mailbox-date">' +-->
+<!--message.time +-->
+<!--'</td>\n' +-->
+<!--'</tr>';-->
+<!--document.getElementById('table').innerHTML = tb + document.getElementById('table').innerHTML;-->
+<!--}-->
+<!--}-->
 
-        function onError() {
-            console.log("error " + error);
-        }
-
-        function onMessageReceived(payload) {
-            playSound();
-            var message = JSON.parse(payload.body);
-            var a = '<li> <ul class="menu"> <li> <a style="height: 39px;"  href="/web/mailbox/read-mail?id='+message.id+'> <i  style="float: left; class="fa fa-users text-aqua"></i>' +'<p style="margin-top: -15px; margin-left: 24px; font-size: 15px;">'+ message.title+' - ('+message.sender+')'+'</p></a></li></ul></li>';
-            var node = document.getElementById('chuong');
-            var txt = parseInt(node.textContent || node.innerText);
-            document.getElementById('chuong').innerHTML = txt + 1;
-            document.getElementById('tb').innerHTML = a + document.getElementById('tb').innerHTML;
-            var tb = '<tr >' +
-                '<td><input style="margin-left: 5px;position: absolute;opacity: 1;" type="checkbox"></td>\n' +
-                '<td class="mailbox-star"><a href="#"><i class="fa fa-star-o text-yellow"></i></a></td>\n' +
-                '<td class="mailbox-name"><a href="/mailbox/readmail">' +
-                message.sender + '</a></td>\n' +
-                '<td class="mailbox-subject">' +
-                '<a href="/web/mailbox/read-mail?id=' +
-                message.id + '" style="float: left">' +
-                message.title + '</a>\n' +
-                '<p style="padding-left: 18px; margin-left: 73px;font-weight: 700;width: 339px; overflow: hidden; /* display: inline-block; */ text-overflow: ellipsis; white-space: nowrap;" th:text="${thongBao.content}">' +
-                message.content +
-                '</p>\n' +
-                '</td>\n' +
-                '<td class="mailbox-attachment"><i class="fa fa-paperclip"></i></td>\n' +
-                '<td class="mailbox-date">' +
-                message.time +
-                '</td>\n' +
-                '</tr>';
-            document.getElementById('table').innerHTML = tb + document.getElementById('table').innerHTML;
-        }
-    }
-</script>
+<!--</script>-->
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/1.1.28/howler.min.js"></script>
-
-<script>
-    window.onload = init;
-    var sound;
-
-    function init() {
-        sound = new Howl({
-            urls: ['https://notificationsounds.com/soundfiles/15de21c670ae7c3f6f3f1f37029303c9/file-sounds-1085-definite.mp3'],
-            onload: function () {
-                console.log("Loaded asset ");
-                button.disabled = false; // enable the play sound button
-            }
-        });
-    }
-
-    function playSound() {
-        sound.play();
-    }
-
-</script>
 
 
 

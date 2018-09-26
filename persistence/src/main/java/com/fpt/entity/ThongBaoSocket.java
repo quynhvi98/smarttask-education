@@ -7,10 +7,26 @@ public class ThongBaoSocket {
     private String time;
     private String title;
     private String id;
-
+    private int ki;
+    private String maLop;
     public ThongBaoSocket() {
     }
 
+    public String getMaLop() {
+        return maLop;
+    }
+
+    public void setMaLop(String maLop) {
+        this.maLop = maLop;
+    }
+
+    public int getKi() {
+        return ki;
+    }
+
+    public void setKi(int ki) {
+        this.ki = ki;
+    }
 
     public String getId() {
         return id;

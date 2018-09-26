@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smarttask Education</title>
+    <title>Đăng ký lớp</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/font-awesome.min.css}">
@@ -83,199 +83,210 @@
     <div class="content-wrapper">
         <section class="content">
 
-            <h3 th:text="${hocky}"></h3>
+            <h3 th:text="${hocKi}"></h3>
 
             <th:block th:if="${!#lists.isEmpty(listMonHoc)}">
 
-            <div class="table">
-                <table class="tree-table">
-                    <thead class="fix-w text-center">
-                    <tr>
-                        <th class="wpx-60">
-                            <div>STT</div>
-                        </th>
-                        <th>
-                            <div>Tên môn học</div>
-                        </th>
-                        <th>
-                            <div>Số lượng tín chỉ</div>
-                        </th>
-                        <th>
-                            <div>Học kỳ</div>
-                        </th>
-                        <th>
-                            <div class="text-center">Đăng ký</div>
-                        </th>
-                    </tr>
-                    </thead>
+                <div class="table">
+                    <table class="tree-table">
+                        <thead class="fix-w text-center">
+                        <tr>
+                            <th class="wpx-60">
+                                <div>STT</div>
+                            </th>
+                            <th>
+                                <div>Tên môn học</div>
+                            </th>
+                            <th>
+                                <div>Số lượng tín chỉ</div>
+                            </th>
+                            <th>
+                                <div>Học kì</div>
+                            </th>
+                            <th>
+                                <div class="text-center">Đăng ký</div>
+                            </th>
+                        </tr>
+                        </thead>
 
-                    <tbody class="text-center">
+                        <tbody class="text-center">
 
                         <tr th:each="monhoc,i : ${listMonHoc}">
-                        <td th:text="${i.index+1}"></td>
-                        <td th:text="${monhoc.tenMonHoc}">
-                        <td th:text="${monhoc.tinChi}">
-                        <td th:text="${monhoc.getKiHoc().getKiHoc()}">
-                        <td class="text-center">
-                            <button class="btndk" data-toggle="modal" data-target="#myModal"
-                                    th:attrappend="data-target=${monhoc.maMonHoc}">Đăng ký
-                            </button>
+                            <td th:text="${i.index+1}"></td>
+                            <td th:text="${monhoc.tenMonHoc}">
+                            <td th:text="${monhoc.tinChi}">
+                            <td th:text="${monhoc.getKiHoc().getKiHoc()}">
+                            <td class="text-center">
+                                <button class="btndk" data-toggle="modal" data-target="#myModal"
+                                        th:attrappend="data-target=${monhoc.maMonHoc}">Đăng ký
+                                </button>
 
-                            <div class="modal modal-full fade" id="myModal" role="dialog"
-                                 th:attrappend="id=${monhoc.maMonHoc}">
-                                <div class="modal-dialog">
-                                    <!-- Modal content-->i
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h3 class="modal-title" id="suanhansuLabel">
-                                                Đăng ký
-                                            </h3>
-                                        </div>
-                                        <div class="modal-body"
-                                             style="padding-bottom: 20px; padding: 0px;padding-bottom: 32px;">
-                                            <th:block th:if="${#lists.isEmpty(monhoc.getLstLopHoc())}">
-                                                <p>Hiện tại chưa có lớp học nào</p>
-                                            </th:block>
-                                            <th:block th:if="${!#lists.isEmpty(monhoc.getLstLopHoc())}">
+                                <div class="modal modal-full fade" id="myModal" role="dialog"
+                                     th:attrappend="id=${monhoc.maMonHoc}">
+                                    <div class="modal-dialog">
+                                        <!-- Modal content-->i
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h3 class="modal-title" id="suanhansuLabel">
+                                                    Đăng ký
+                                                </h3>
+                                            </div>
+                                            <div class="modal-body"
+                                                 style="padding-bottom: 20px; padding: 0px;padding-bottom: 32px;">
+                                                <th:block th:if="${#lists.isEmpty(monhoc.getLstLopHoc())}">
+                                                    <p>Hiện tại chưa có lớp học nào</p>
+                                                </th:block>
+                                                <th:block th:if="${!#lists.isEmpty(monhoc.getLstLopHoc())}">
 
-                                                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-                                                    <thead class="fix-w text-center">
-                                                    <tr>
-                                                        <th class="wpx-60">
-                                                            <div>STT</div>
-                                                        </th>
-                                                        <th>
-                                                            <div>
-                                                                <div>Tên lớp</div>
-                                                            </div>
-                                                        </th>
-                                                        <th>
-                                                            <div>Tên giáo viên</div>
-                                                        </th>
-                                                        <th>
-                                                            <div>Ghi chú</div>
-                                                        </th>
-                                                        <th>
-                                                            <div>Phòng học</div>
-                                                        </th>
-                                                        <th>
-                                                            <div>Ngày bắt đầu</div>
-                                                        </th>
-                                                        <th>
-                                                            <div>Ngày kết thúc</div>
-                                                        </th>
-                                                        <th>
-                                                            <div>Bộ môn</div>
-                                                        </th>
-                                                        <th>
-                                                            <div>Số sinh viên đăn ký</div>
-                                                        </th>
-                                                        <th>
-                                                            <div>Đăng ký</div>
-                                                        </th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr th:each="lophoc,k : ${monhoc.getLstLopHoc()}">
-                                                        <td th:text="${k.index+1}"></td>
-                                                        <td th:text="${lophoc.maLop}"></td>
-                                                        <td th:text="${lophoc.getGiaoVien().getUser().getFullName()}"></td>
-                                                        <td th:text="${lophoc.moTa}">
-                                                        <td th:text="${lophoc.phongHoc}">
-                                                        <td th:text="${#dates.format(lophoc.getNgayBatDau(),'dd-MMM-yyyy')}"></td>
-                                                        <td th:text="${#dates.format(lophoc.getNgayKetThuc(),'dd-MMM-yyyy')}"></td>
-                                                        <td th:text="${lophoc.getMonHoc().getTenMonHoc()}"></td>
-                                                        <td th:text="${lophoc.getSinhViens().size()}">
-                                                        <td>
-                                                            <button class="btndk" th:id="${lophoc.maLop}"
-                                                                    onclick="dk(this.id)">Đăng ký
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </th:block>
-                                            <!--<button th:id="${lophoc.maLop}" onclick="reply_click(this.id)" class="btn btn-info eBtn"  type="button" style="margin-bottom: 20px;margin-top: 14px">Đăng ký</button>-->
+                                                    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                                                        <thead class="fix-w text-center">
+                                                        <tr>
+                                                            <th class="wpx-60">
+                                                                <div>STT</div>
+                                                            </th>
+                                                            <th>
+                                                                <div>
+                                                                    <div>Tên lớp</div>
+                                                                </div>
+                                                            </th>
+                                                            <th>
+                                                                <div>Tên giáo viên</div>
+                                                            </th>
+                                                            <th>
+                                                                <div>Ghi chú</div>
+                                                            </th>
+                                                            <th>
+                                                                <div>Phòng học</div>
+                                                            </th>
+                                                            <th>
+                                                                <div>Ngày học</div>
+                                                            </th>
+                                                            <th>
+                                                                <div>Ca học</div>
+                                                            </th>
+                                                            <th>
+                                                                <div>Ngày bắt đầu</div>
+                                                            </th>
+                                                            <th>
+                                                                <div>Ngày kết thúc</div>
+                                                            </th>
+                                                            <th>
+                                                                <div>Bộ môn</div>
+                                                            </th>
+                                                            <th>
+                                                                <div>Số sinh viên đăng ký</div>
+                                                            </th>
+                                                            <th>
+                                                                <div>Đăng ký</div>
+                                                            </th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr th:each="lophoc,k : ${monhoc.getLstLopHoc()}">
+                                                            <td th:text="${k.index+1}"></td>
+                                                            <td th:text="${lophoc.maLop}"></td>
+                                                            <td th:text="${lophoc.getGiaoVien().getUser().getFullName()}"></td>
+                                                            <td th:text="${lophoc.moTa}">
+                                                            <td th:text="${lophoc.phongHoc}">
+                                                            <td th:text="${lophoc.ngayHoc}">
+                                                            <td th:text="${lophoc.caHoc}">
+                                                            <td th:text="${#dates.format(lophoc.getNgayBatDau(),'dd-MMM-yyyy')}"></td>
+                                                            <td th:text="${#dates.format(lophoc.getNgayKetThuc(),'dd-MMM-yyyy')}"></td>
+                                                            <td th:text="${lophoc.getMonHoc().getTenMonHoc()}"></td>
+                                                            <td th:text="${lophoc.getSinhViens().size()}">
+                                                            <td>
+                                                                <button class="btndk" th:id="${lophoc.maLop}"
+                                                                        onclick="dk(this.id)">Đăng ký
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </th:block>
+                                                <!--<button th:id="${lophoc.maLop}" onclick="reply_click(this.id)" class="btn btn-info eBtn"  type="button" style="margin-bottom: 20px;margin-top: 14px">Đăng ký</button>-->
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
 
-                    </tbody>
+                        </tbody>
 
-                </table>
+                    </table>
             </th:block>
             <th:block th:if="${#lists.isEmpty(listMonHoc)}">
                 <h5>Hiện tại chưa có môn</h5>
             </th:block>
-            </div>
-        </section>
     </div>
-    <div th:replace="fragments/footer :: footer">&nbsp;</div>
-    <aside class="control-sidebar control-sidebar-dark">
-        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-            <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-            <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active" id="control-sidebar-home-tab">
-                <h3 class="control-sidebar-heading">Recent Activity</h3>
-                <ul class="control-sidebar-menu">
-                    <li>
-                        <a href="javascript:;">
-                            <i class="menu-icon fa fa-birthday-cake bg-red"></i>
-                            <div class="menu-info">
-                                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
-                                <p>Will be 23 on April 24th</p>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-                <h3 class="control-sidebar-heading">Tasks Progress</h3>
-                <ul class="control-sidebar-menu">
-                    <li>
-                        <a href="javascript:;">
-                            <h4 class="control-sidebar-subheading">
-                                Custom Template Design
-                                <span class="pull-right-container">
+    </section>
+</div>
+<div th:replace="fragments/footer :: footer">&nbsp;</div>
+<aside class="control-sidebar control-sidebar-dark">
+    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+        <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+        <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="control-sidebar-home-tab">
+            <h3 class="control-sidebar-heading">Recent Activity</h3>
+            <ul class="control-sidebar-menu">
+                <li>
+                    <a href="javascript:;">
+                        <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+                        <div class="menu-info">
+                            <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+                            <p>Will be 23 on April 24th</p>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+            <h3 class="control-sidebar-heading">Tasks Progress</h3>
+            <ul class="control-sidebar-menu">
+                <li>
+                    <a href="javascript:;">
+                        <h4 class="control-sidebar-subheading">
+                            Custom Template Design
+                            <span class="pull-right-container">
                     <span class="label label-danger pull-right">70%</span>
                   </span>
-                            </h4>
+                        </h4>
 
-                            <div class="progress progress-xxs">
-                                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
-            <div class="tab-pane" id="control-sidebar-settings-tab">
-                <form method="post">
-                    <h3 class="control-sidebar-heading">General Settings</h3>
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            Report panel usage
-                            <input type="checkbox" class="pull-right" checked>
-                        </label>
-                        <p>
-                            SoPage Header Optional descriptionme information about this general settings option
-                        </p>
-                    </div>
-                </form>
-            </div>
+                        <div class="progress progress-xxs">
+                            <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
         </div>
-    </aside>
-    <div class="control-sidebar-bg"></div>
+        <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+        <div class="tab-pane" id="control-sidebar-settings-tab">
+            <form method="post">
+                <h3 class="control-sidebar-heading">General Settings</h3>
+                <div class="form-group">
+                    <label class="control-sidebar-subheading">
+                        Report panel usage
+                        <input type="checkbox" class="pull-right" checked>
+                    </label>
+                    <p>
+                        SoPage Header Optional descriptionme information about this general settings option
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+</aside>
+<div class="control-sidebar-bg"></div>
 </div>
 <script type="text/javascript" th:src="@{/js/jquery/jquery.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/adminlte.min.js}"></script>
 
-<script type="text/javascript" th:inline="javascript">
+</body>
+</html>
+
+<script>
     function dk(id) {
         var token = document.getElementById('token').value;
         var base_url = [[@{
@@ -388,7 +399,4 @@
 
 </style>
 
-
-</body>
-</html>
 

@@ -37,11 +37,16 @@ public class TuongLopController {
         User user = (User) session.getAttribute("userInfo");
         if(user.getGiaoVien() != null){
             GiaoVien giaoVien = giangVienService.findById(user.getGiaoVien().getMaGiaoVien());
-            model.addAttribute("moiNhat",thongBaoService.thongBaoMoiNhat(user.getGiaoVien().getMaGiaoVien()));
+            model.addAttribute("soLuongTBChuaXem",thongBaoService.soLuongTbChuaXemGV(user.getGiaoVien().getMaGiaoVien()));
+            model.addAttribute("moiNhat",thongBaoService.thongBaoMoiNhatGV(user.getGiaoVien().getMaGiaoVien()));
             model.addAttribute("giaoVien", giaoVien);
+            model.addAttribute("user", user);
             return "tuonglop/tuonglopgv";
         }
         if(user.getSinhVien()!= null){
+            model.addAttribute("soLuongTBChuaXem",thongBaoService.soLuongTbChuaXemSV(user.getSinhVien().getMaSinhVien()));
+            model.addAttribute("moiNhat",thongBaoService.thongBaoMoiNhatSV(user.getSinhVien().getMaSinhVien()));
+            model.addAttribute("user", user);
             model.addAttribute("listLopHoc", lopHocService.listLopHocSinhVien(user.getSinhVien().getMaSinhVien()));
             return "tuonglop/tuonglop";
         }

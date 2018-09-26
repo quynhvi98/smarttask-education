@@ -797,6 +797,7 @@
         var ml = document.getElementById("maLop").value;
         var ph = document.getElementById("phongHoc").value;
         var nbd = document.getElementById("ngayBatDau").value;
+        var kiHoc = $('#kiHoc').val();
         var currentdate = new Date();
         var datetime = currentdate.getFullYear() + "-"
             + (currentdate.getMonth()+1)  + "-"
@@ -807,6 +808,8 @@
         var chatMessage = {
             sender: "Admin",
             title: "Lớp mới",
+            ki:kiHoc,
+            maLop:ml,
             receiver: gv,
             content: "Bạn có 1 lớp mới: " + ml + " - Tại phòng: " + ph + " - Ngày bắt đầu: " + nbd,
             time: datetime

@@ -12,5 +12,8 @@ public interface SinhVienDao extends CrudRepository<SinhVien, String> {
     List<SinhVien> listSV();
 
     @Query(value = "select * from sinh_vien join lop_sinhvien ls on sinh_vien.ma_sinh_vien = ls.ma_sinh_vien where ls.ma_lop = :mlh",nativeQuery = true)
-    List<SinhVien> getListSinhVienbyLopHocId( @Param("mlh") String maGiaoVien);
+    List<SinhVien> getListSinhVienbyLopHocId( @Param("mlh") String mlh);
+
+    @Query(value = "select * from sinh_vien sv where sv.ngay_nhap_hoc>=:day1 and sv.ngay_nhap_hoc<=:day2",nativeQuery = true)
+    List<SinhVien> listSVki( @Param("day1") String day1,@Param("day2") String day2);
 }
