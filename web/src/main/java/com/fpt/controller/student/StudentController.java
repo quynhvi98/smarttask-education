@@ -6,6 +6,7 @@ import com.fpt.services.lophoc.LopHocService;
 import com.fpt.services.monhoc.MonHocService;
 import com.fpt.services.pheduyetlop.PheDuyetLopService;
 import com.fpt.services.sinhvien.SinhVienService;
+import com.fpt.services.thongbao.ThongBaoService;
 import com.fpt.services.user.UserService;
 import org.joda.time.DateMidnight;
 import org.joda.time.Days;
@@ -38,19 +39,26 @@ public class StudentController {
 
     @Autowired
     private MonHocService monHocService;
+    @Autowired
+    private ThongBaoService thongBaoService;
 
     @GetMapping("/register-class")
     public String registerclass(Model model, HttpSession session) {
         User user = (User) session.getAttribute("userInfo");
-        int hocky = getKyHoc(user.getSinhVien().getNgayNhapHoc());
-        model.addAttribute("listMonHoc", monHocService.listMonHocKy(hocky + ""));
-        model.addAttribute("hocky", "Danh sách các môn học trong kỳ: " + hocky);
-//        model.addAttribute("listPheDuyetSV",pheDuyetLopService.listPheDuyetTheoSV(user.getUserName()));
-        return "student/register_class";
+        int hocki = getKiHoc(user.getSinhVien().getNgayNhapHoc());
+        model.addAttribute("listMonHoc", monHocService.listMonHocKy(String.valueOf(hocki)));
+        model.addAttribute("user", user);
+        model.addAttribute("hocKi", "Danh sách các môn học trong kì: " + hocki);
+        model.addAttribute("moiNhat", thongBaoService.thongBaoMoiNhatSV(user.getSinhVien().getMaSinhVien()));
+        model.addAttribute("soLuongTBChuaXem",thongBaoService.soLuongTbChuaXemSV(user.getSinhVien().getMaSinhVien()));
+       return "student/register_class";
     }
 
     @GetMapping("/register-member")
-    public String registermember() {
+    public String registermember(Model model,HttpSession session) {
+        User user = (User) session.getAttribute("userInfo");
+        model.addAttribute("user", user);
+        model.addAttribute("moiNhat", thongBaoService.thongBaoMoiNhatGV(user.getGiaoVien().getMaGiaoVien()));
         return "student/register-member";
     }
 
@@ -76,7 +84,7 @@ public class StudentController {
         User user = (User) session.getAttribute("userInfo");
         LopHoc lh01 = lopHocService.findById(id);
         //kiểm tra thời hạn lớp
-        int thoihan=checkThoiHan(lh01.getNgayBatDau().toString());
+        int thoihan=checkThoiHan(lh01.getNgayBatDau());
         if (thoihan > -10) {
             response.getWriter().println("quahan");
         } else {
@@ -139,12 +147,17 @@ public class StudentController {
         model.addAttribute("listSinhVien", lsv);
         User user = (User) session.getAttribute("userInfo");
         model.addAttribute("listLopHoc", lopHocService.listLopHocSinhVien(user.getSinhVien().getMaSinhVien()));
+        model.addAttribute("soLuongTBChuaXem",thongBaoService.soLuongTbChuaXemSV(user.getSinhVien().getMaSinhVien()));
+        model.addAttribute("moiNhat",thongBaoService.thongBaoMoiNhatSV(user.getSinhVien().getMaSinhVien()));
+        model.addAttribute("user", user);
+        model.addAttribute("listLopHoc", lopHocService.listLopHocSinhVien(user.getSinhVien().getMaSinhVien()));
+
         session.removeAttribute("listmember");
         return "tuonglop/tuonglop";
     }
 
 
-    private int getKyHoc(String ngaynhaphoc) {
+    private int getKiHoc(Date ngaynhaphoc) {
         DateMidnight start = new DateMidnight(ngaynhaphoc);
         DateMidnight end = new DateMidnight(new Date());
         int months = Months.monthsBetween(start,end).getMonths();
@@ -153,13 +166,8 @@ public class StudentController {
     }
 
 
-    private int checkThoiHan(String ngaybatdau) {
-        Date date = null;
-        try {
-            date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(ngaybatdau);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+    private int checkThoiHan(Date ngaybatdau) {
+        Date date = ngaybatdau;
         String newdate = new SimpleDateFormat("yyyy-MM-dd").format(date);
         DateMidnight start = new DateMidnight(newdate);
         DateMidnight end = new DateMidnight(new Date());

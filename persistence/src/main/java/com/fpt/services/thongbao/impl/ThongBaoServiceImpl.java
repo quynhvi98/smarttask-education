@@ -27,12 +27,32 @@ public class ThongBaoServiceImpl implements ThongBaoService {
     }
 
     @Override
+    public List<ThongBao> listThongBaoSV(String username) {
+        return thongBaoDao.listThongBaoSV(username);
+    }
+
+    @Override
     public ThongBao findById(String id) {
         return thongBaoDao.thongBaoById(id);
     }
 
     @Override
-    public List<ThongBao> thongBaoMoiNhat(String ma_gv) {
-        return thongBaoDao.thongBaoMoiNhat(ma_gv);
+    public List<ThongBao> thongBaoMoiNhatGV(String ma_gv) {
+        return thongBaoDao.thongBaoMoiNhatGV(ma_gv);
+    }
+
+    @Override
+    public List<ThongBao> thongBaoMoiNhatSV(String ma_sv) {
+        return thongBaoDao.thongBaoMoiNhatSV(ma_sv);
+    }
+
+    @Override
+    public int soLuongTbChuaXemGV(String ma_gv) {
+        return thongBaoDao.soLuongTbChuaXemGV(ma_gv).size();
+    }
+
+    @Override
+    public int soLuongTbChuaXemSV(String ma_sv) {
+        return thongBaoDao.soLuongTbChuaXemSV(ma_sv).size();
     }
 }

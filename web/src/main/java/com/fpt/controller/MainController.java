@@ -32,14 +32,16 @@ public class MainController {
         User userInfo = (User) session.getAttribute("userInfo");
         model.addAttribute("user", userInfo);
         if(userInfo.getSinhVien()!= null){
+            model.addAttribute("soLuongTBChuaXem",thongBaoService.soLuongTbChuaXemSV(userInfo.getSinhVien().getMaSinhVien()));
+            model.addAttribute("moiNhat", thongBaoService.thongBaoMoiNhatSV(userInfo.getSinhVien().getMaSinhVien()));
             return "trangchusv";
         }
         if(userInfo.getGiaoVien() != null){
-            model.addAttribute("moiNhat",thongBaoService.thongBaoMoiNhat(userInfo.getGiaoVien().getMaGiaoVien()));
+            model.addAttribute("soLuongTBChuaXem",thongBaoService.soLuongTbChuaXemGV(userInfo.getGiaoVien().getMaGiaoVien()));
+            model.addAttribute("moiNhat", thongBaoService.thongBaoMoiNhatGV(userInfo.getGiaoVien().getMaGiaoVien()));
             GiaoVien giaoVien = giangVienService.findById(userInfo.getGiaoVien().getMaGiaoVien());
             model.addAttribute("giaoVien", giaoVien);
             return "trangchu";
-
         }
         return null;
     }

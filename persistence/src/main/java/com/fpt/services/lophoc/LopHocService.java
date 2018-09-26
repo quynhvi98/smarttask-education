@@ -19,7 +19,8 @@ public interface LopHocService {
     LopHoc getLopHocSvBm(String masv,String mabomon);
     void createlopSV(LopHoc lopHoc);
     List<LopHoc> getListLopHoc(String maGiaoVien);
-
+    String tinhNgayHetHan(int soNgay);
+    List<LopHoc> listLopToiHan(String day1,String day2);
     Boolean checkTimeExits(String maGiaoVien, String kiHoc, String ngayHoc, String caHoc);
 
     Long count();

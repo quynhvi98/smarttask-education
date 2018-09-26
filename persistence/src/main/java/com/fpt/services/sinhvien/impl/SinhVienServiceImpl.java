@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -46,5 +47,16 @@ public class SinhVienServiceImpl implements SinhVienService {
             sv.setUser(user);
             sinhVienDao.save(sv);
         }
+    }
+
+    @Override
+    public List<SinhVien> listSVki(int ki) {
+        return sinhVienDao.listSVki(tinhngaytheoki(ki),tinhngaytheoki(ki-1));
+    }
+
+    public String tinhngaytheoki(int ki){
+        LocalDate mydate = LocalDate.now();
+        mydate = mydate.minusMonths(ki*6);
+        return String.valueOf(mydate);
     }
 }

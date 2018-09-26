@@ -12,8 +12,10 @@ import com.fpt.services.lophoc.LopHocService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.List;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class LopHocServiceImpl implements LopHocService {
@@ -59,6 +61,29 @@ public class LopHocServiceImpl implements LopHocService {
     @Override
     public List<LopHoc> getListLopHoc(String maGiaoVien) {
         return lopHocDao.getListLopHoc(maGiaoVien);
+    }
+
+    @Override
+    public String tinhNgayHetHan(int soNgay) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        String time=dateFormat.format(date);
+
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        try {
+            cal.setTime(sdf.parse(time));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        cal.add(Calendar.DATE,+soNgay);
+        String wantedDate = sdf.format(cal.getTime());
+        return wantedDate;
+    }
+
+    @Override
+    public List<LopHoc> listLopToiHan(String day1, String day2) {
+        return lopHocDao.listLopToiHan(day1,day2);
     }
 
     @Override
