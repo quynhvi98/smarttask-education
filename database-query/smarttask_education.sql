@@ -256,3 +256,7 @@ CREATE TABLE IF NOT EXISTS phong_hoc (
    PRIMARY KEY (id)
 ) engine=InnoDB;
 
+ALTER TABLE lop_hoc
+ADD CONSTRAINT FK_ma_phong_hoc
+FOREIGN KEY (phong_hoc) REFERENCES phong_hoc (id);
+
