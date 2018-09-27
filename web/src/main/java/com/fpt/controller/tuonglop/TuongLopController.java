@@ -6,6 +6,7 @@ import com.fpt.entity.SinhVien;
 import com.fpt.entity.User;
 import com.fpt.services.giangvien.GiangVienService;
 import com.fpt.services.lophoc.LopHocService;
+import com.fpt.services.sinhvien.SinhVienService;
 import com.fpt.services.thongbao.ThongBaoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,8 @@ public class TuongLopController {
     @Autowired
     private GiangVienService giangVienService;
     @Autowired
+    private SinhVienService sinhVienService;
+    @Autowired
     private ThongBaoService thongBaoService;
     private final Logger logger = LoggerFactory.getLogger(TuongLopController.class);
 
@@ -44,6 +47,8 @@ public class TuongLopController {
             return "tuonglop/tuonglopgv";
         }
         if(user.getSinhVien()!= null){
+            SinhVien sinhVien = sinhVienService.findById(user.getSinhVien().getMaSinhVien());
+            model.addAttribute("sinhVien", sinhVien);
             model.addAttribute("soLuongTBChuaXem",thongBaoService.soLuongTbChuaXemSV(user.getSinhVien().getMaSinhVien()));
             model.addAttribute("moiNhat",thongBaoService.thongBaoMoiNhatSV(user.getSinhVien().getMaSinhVien()));
             model.addAttribute("user", user);

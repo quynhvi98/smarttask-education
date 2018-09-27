@@ -53,7 +53,20 @@
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">Menu</li>
-            <li class="active"><a th:href="@{/tuonglop/}"><i class="fa fa-link"></i> <span>Lớp</span></a></li>
+            <li class="active"><a th:href="@{/register-class/}"><i class="fa fa-link"></i> <span>Đăng kí học</span></a></li>
+
+            <li class="treeview">
+                <a href="#"><i class="fa fa-link"></i>
+                    <span>Lớp đang theo học</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li th:each="lophoc : ${sinhVien.lopHocs}"><a th:href="@{/tuonglop}">
+                        <span th:text="${lophoc.maLop}">Lớp</span></a></li>
+                </ul>
+            </li>
             <li><a href="#"><i class="fa fa-link"></i> <span>Nhóm</span></a></li>
             <li class="treeview">
                 <a href="#"><i class="fa fa-link"></i>
@@ -81,13 +94,12 @@
             </li>
             <li class="treeview">
                 <a href="#"><i class="fa fa-link"></i>
-                    <span>Đăng kí học</span>
+                    <span>Quản lí điểm cá nhân </span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a th:href="@{/register-class/}">Lớp công nghệ thông tin</a></li>
                     <li><a href="#">Lớp tiếng anh</a></li>
                 </ul>
             </li>

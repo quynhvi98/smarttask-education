@@ -1,9 +1,11 @@
 package com.fpt.controller;
 
 import com.fpt.entity.GiaoVien;
+import com.fpt.entity.SinhVien;
 import com.fpt.entity.User;
 import com.fpt.repositories.user.UserDao;
 import com.fpt.services.giangvien.GiangVienService;
+import com.fpt.services.sinhvien.SinhVienService;
 import com.fpt.services.user.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +33,8 @@ public class UserInfoController {
     @Autowired
     private GiangVienService giangVienService;
     @Autowired
+    private SinhVienService sinhVienService;
+    @Autowired
     private UserDao userDao;
 
 
@@ -39,6 +43,8 @@ public class UserInfoController {
         User userInfo = (User) session.getAttribute("userInfo");
 
         if(userInfo.getSinhVien()!= null){
+            SinhVien sinhVien = sinhVienService.findById(userInfo.getSinhVien().getMaSinhVien());
+            model.addAttribute("sinhVien", sinhVien);
             model.addAttribute("sinhvien", userInfo);
             model.addAttribute("user", userInfo);
             return "info/sinhvien";
