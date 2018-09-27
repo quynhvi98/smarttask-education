@@ -24,6 +24,7 @@
         <property name="templateEngine" ref="templateEngine"/>
     </bean>
     <mvc:resources mapping="/**" location="WEB-INF/" />
+    <mvc:resources mapping="/baidang/**" location="classpath*:/files/baidang/" />
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
     <property name="maxInMemorySize" value="100000"/>
     </bean>

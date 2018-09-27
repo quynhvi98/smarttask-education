@@ -40,6 +40,12 @@ CREATE TABLE IF NOT EXISTS config (
   PRIMARY KEY (id)
 ) engine=InnoDB;
 
+CREATE TABLE IF NOT EXISTS phong_hoc (
+  id BIGINT NOT NULL auto_increment,
+  ten_phong varchar(255),
+   PRIMARY KEY (id)
+) engine=InnoDB;
+
 CREATE TABLE IF NOT EXISTS khoa_vien (
   ma_vien VARCHAR(255),
   ten_vien VARCHAR(255),
@@ -122,7 +128,7 @@ CREATE TABLE IF NOT EXISTS lop_hoc (
   PRIMARY KEY (ma_lop),
   CONSTRAINT FK_ma_giao_vien FOREIGN KEY (ma_giao_vien) REFERENCES giao_vien(ma_giao_vien),
   CONSTRAINT FK_ma_mon_hoc FOREIGN KEY (ma_mon_hoc) REFERENCES mon_hoc(ma_mon_hoc),
-  CONSTRAINT FK_ma_phong_hoc FOREIGN KEY (phong_hoc) REFERENCES phong_hoc(id),
+  CONSTRAINT FK_ma_phong_hoc FOREIGN KEY (phong_hoc) REFERENCES phong_hoc(id)
 
 ) engine=InnoDB;
 
@@ -250,13 +256,24 @@ CREATE TABLE IF NOT EXISTS phe_duyet (
   CONSTRAINT FK_ma_lop_hoc_phe_duyet FOREIGN KEY (ma_lop) REFERENCES lop_hoc(ma_lop)
 ) engine=InnoDB;
 
-CREATE TABLE IF NOT EXISTS phong_hoc (
-  id BIGINT NOT NULL auto_increment,
-  ten_phong varchar(255),
-   PRIMARY KEY (id)
+
+CREATE TABLE IF NOT EXISTS bai_dang
+(
+    postid bigint PRIMARY KEY AUTO_INCREMENT,
+    content longtext NOT NULL,
+    image varchar(255),
+    user_name varchar(255),
+    time datetime,
+    CONSTRAINT user_name_fk FOREIGN KEY (user_name) REFERENCES user (user_name)
 ) engine=InnoDB;
 
-ALTER TABLE lop_hoc
-ADD CONSTRAINT FK_ma_phong_hoc
-FOREIGN KEY (phong_hoc) REFERENCES phong_hoc (id);
-
+CREATE TABLE IF NOT EXISTS binh_luan
+(
+    commentid bigint PRIMARY KEY AUTO_INCREMENT,
+    content longtext NOT NULL,
+    postid bigint,
+    user_name varchar(255),
+    time datetime,
+    CONSTRAINT binh_luan_postid_fk FOREIGN KEY (postid) REFERENCES bai_dang (postid),
+    CONSTRAINT binh_luan_user_name_fk FOREIGN KEY (user_name) REFERENCES user (user_name)
+) engine=InnoDB;

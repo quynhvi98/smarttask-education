@@ -76,6 +76,9 @@ public class LopHoc {
     )
     Set<SinhVien> sinhViens;
 
+    @OneToMany(mappedBy = "lopHoc", fetch = FetchType.EAGER)
+    private Set<BaiDang> lstBaiDang;
+
     public LopHoc() {
     }
 
@@ -209,5 +212,13 @@ public class LopHoc {
 
     public void setNgayKetThuc(Date ngayKetThuc) {
         this.ngayKetThuc = ngayKetThuc;
+    }
+
+    public Set<BaiDang> getLstBaiDang() {
+        return lstBaiDang;
+    }
+
+    public void setLstBaiDang(Set<BaiDang> lstBaiDang) {
+        this.lstBaiDang = lstBaiDang;
     }
 }

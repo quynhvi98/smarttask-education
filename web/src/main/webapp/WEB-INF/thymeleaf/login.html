@@ -24,7 +24,7 @@
 <div class="materialContainer">
     <div class="box">
         <form th:action="@{/login}" method="POST">
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <!--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
             <div class="title">LOGIN</div>
             <div class="input">
                 <input type="text" name="userName" id="name">
