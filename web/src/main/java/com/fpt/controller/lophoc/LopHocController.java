@@ -1,7 +1,7 @@
 package com.fpt.controller.lophoc;
 
 import com.fpt.controller.UserInfoController;
-import com.fpt.controller.student.ExcelView;
+import com.fpt.controller.lophoc.ExcelView;
 import com.fpt.entity.*;
 import com.fpt.services.diem.DiemService;
 import com.fpt.services.giangvien.GiangVienService;
@@ -77,7 +77,6 @@ public class LopHocController {
     @RequestMapping(method = RequestMethod.POST, value = "/upfile")
     @ResponseBody
     public void themSV(Model model, HttpServletRequest request, HttpSession session, HttpServletResponse response, @RequestParam("file") MultipartFile excelfile) {
-
         String maMonHoc = request.getParameter("maMonHoc");
         String maLopHoc = request.getParameter("maLopHoc");
         System.out.println(maMonHoc);

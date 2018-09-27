@@ -151,7 +151,11 @@
             </h1>
 
 
-            <button class="btn btn-success" data-toggle="modal" data-target="#modalNhapDiem">
+
+
+
+
+            <button  class="btn btn-success"  data-toggle="modal" data-target="#modalNhapDiem">
                 <a style="color: #fefefe"/>Nhập điểm
             </button>
 
@@ -164,13 +168,12 @@
                             <button type="button" class="close" data-dismiss="modal">
                                 &times;
                             </button>
-                            <h3 class="modal-title">
+                            <h3 class="modal-title" >
                                 Nhập điểm
                             </h3>
                         </div>
                         <div class="modal-body" style="text-align: center;">
-                            <h5><a th:href="${'/web/downloadExcel?maLop='+lopHoc.maLop}"
-                                   th:text="${'Download Excel '+ lopHoc.maLop }"> </a></h5>
+                            <h5><a th:href="${'/web/downloadExcel?maLop='+lopHoc.maLop}" th:text="${'Download Excel '+ lopHoc.maLop }"> </a></h5>
                             <!--<input type="file" name="file" id="fileLoader"/>-->
                             <!--<input type="button" id="fileSubmit" value="Upload"/>-->
                             <div id='container'>
@@ -179,34 +182,36 @@
                                         <span class="glyphicon glyphicon-cloud-upload"></span>
                                         <h3>File uploader</h3>
                                         <span id='result'></span><br>
-                                        <button style="width: 70px;" class='btn  btn-primary upload-btn'>File</button>
-                                        <input type='file' name='file' id='upload-file' multiple>
+                                        <button style="width: 70px" class='btn  btn-primary upload-btn'>File</button>
+                                        <input type='file' name ='file' id='upload-file' multiple>
                                         <input class='btn  btn-primary ' type="button" id="fileSubmit" value="Upload"/>
                                     </div>
                                 </div>
                             </div>
 
                             <style>
-                                #upload-file {
-                                    display: none;
+                                #upload-file{
+                                    display:none;
                                 }
-
-                                .glyphicon {
-                                    font-size: 4em
+                                .glyphicon{
+                                    font-size:4em
                                 }
-
-                                #container {
-                                    margin: 8em
+                                #container{
+                                    margin:8em
                                 }
+                                /*body {*/
+                                    /*text-align: center;*/
+                                    /*font-family: 'Raleway', sans-serif;*/
+                                /*}*/
 
                             </style>
-                            <script>$('.upload-btn').on('click', function () {
+                            <script>$('.upload-btn').on('click',function(){
                                 $('#upload-file').click();
                             })
-                            $('#upload-file').on('change', function () {
-                                var files = $(this).get(0).files;
-                                var result = document.createElement('p');
-                                $('#result').html('your file size is: ' + files[0].size / 1000 + ' kbytes(' + files[0].size + ' bytes)');
+                            $('#upload-file').on('change',function(){
+                                var files=$(this).get(0).files;
+                                var result= document.createElement('p');
+                                $('#result').html('your file size is: '+files[0].size/1000+' kbytes('+files[0].size+' bytes)');
                             })</script>
                         </div>
                     </div>
@@ -215,7 +220,7 @@
 
             <input id="maLopHoc" type="hidden" th:value="${lopHoc.maLop}"/>
             <input id="maMonHoc" type="hidden" th:value="${lopHoc.monHoc.maMonHoc }"/>
-            <input id="token" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+             <input id="token" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 
         </section>
 
@@ -254,19 +259,16 @@
                                                 </a>
                                                 <ul class="dropdown-menu dropdown-menu-right">
                                                     <!--<li class="inline">-->
-                                                    <!--<a class="icon-edit"-->
-                                                    <!--data-toggle="modal"-->
-                                                    <!--data-target="#thongTinSV"><i class="fa fa-pencil-square-o" aria-hidden="true" th:attrappend="data-target=${'tt'+sinhvien.maSinhVien}"></i>Thông tin</a>-->
+                                                        <!--<a class="icon-edit"-->
+                                                           <!--data-toggle="modal"-->
+                                                           <!--data-target="#thongTinSV"><i class="fa fa-pencil-square-o" aria-hidden="true" th:attrappend="data-target=${'tt'+sinhvien.maSinhVien}"></i>Thông tin</a>-->
                                                     <!--</li>-->
                                                     <li class="inline">
-                                                        <a class="icon-remove" data-toggle="modal"
-                                                           data-target="#myModal"
-                                                           th:attrappend="data-target=${sinhvien.maSinhVien}"><i
-                                                                class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                                            Thông tin điểm</a>
+                                                        <a class="icon-remove" data-toggle="modal" data-target="#myModal" th:attrappend="data-target=${sinhvien.maSinhVien}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Thông tin điểm</a>
                                                     </li>
                                                 </ul>
                                             </div>
+
 
 
                                             <div class="modal modal-full fade" id="myModal" role="dialog"
@@ -279,7 +281,7 @@
                                                                 &times;
                                                             </button>
                                                             <h3 class="modal-title" id="suanhansuLabel">
-                                                                Thông tin điểm
+                                                               Thông tin điểm
                                                             </h3>
                                                         </div>
                                                         <div class="modal-body"
@@ -293,69 +295,57 @@
                                                                     <tbody>
                                                                     <tr th:each="diem : ${sinhvien.getLstDiem()}">
                                                                         <form id="suadiem" class="form-horizontal">
-                                                                            <input name="maSV" type="hidden"
-                                                                                   th:value="${sinhvien.maSinhVien}"/>
-                                                                            <input name="maMonHoc" type="hidden"
-                                                                                   th:value="${lopHoc.monHoc.maMonHoc}"/>
-                                                                            <input name="maLopHoc" type="hidden"
-                                                                                   th:value="${lopHoc.maLop}"/>
-                                                                            <input name="maDiem" type="hidden"
-                                                                                   th:value="${diem.getId()}"/>
+                                                                            <input name="maSV" type="hidden"  th:value="${sinhvien.maSinhVien}"/>
+                                                                            <input name="maMonHoc" type="hidden"  th:value="${lopHoc.monHoc.maMonHoc}"/>
+                                                                            <input name="maLopHoc" type="hidden"  th:value="${lopHoc.maLop}"/>
+                                                                            <input name="maDiem" type="hidden"  th:value="${diem.getId()}"/>
                                                                             <div style="margin-top: 50px"
-                                                                                 class="form-group">
-                                                                                <label class="col-sm-3 control-label">Điểm
-                                                                                    lý thuyết <span
-                                                                                            class="red">  </span></label>
-                                                                                <div class="col-md-9">
-                                                                                    <input th:value="${diem.getDiemLyThuyet()}"
-                                                                                           id="diemLyThuyet"
-                                                                                           name="diemLyThuyet"
-                                                                                           type="text"
-                                                                                           class="form-control"
-                                                                                           placeholder="Tên môn học ">
-                                                                                </div>
+                                                                             class="form-group">
+                                                                            <label class="col-sm-3 control-label">Điểm
+                                                                                lý thuyết <span
+                                                                                        class="red">  </span></label>
+                                                                            <div class="col-md-9">
+                                                                                <input th:value="${diem.getDiemLyThuyet()}"
+                                                                                       id="diemLyThuyet"
+                                                                                       name="diemLyThuyet" type="text"
+                                                                                       class="form-control"
+                                                                                       placeholder="Tên môn học ">
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <br/>
+                                                                        <div style="margin-top: 50px"
+                                                                             class="form-group">
+                                                                            <label class="col-sm-3 control-label">Điểm
+                                                                                thực hành <span
+                                                                                        class="red">  </span></label>
+                                                                            <div class="col-md-9">
+                                                                                <input th:value="${diem.getDiemThucHanh()}"
+                                                                                       name="diemThucHanh" type="text"
+                                                                                       class="form-control"
+                                                                                       placeholder="Tên môn học ">
                                                                             </div>
 
-                                                                            <br/>
-                                                                            <div style="margin-top: 50px"
-                                                                                 class="form-group">
-                                                                                <label class="col-sm-3 control-label">Điểm
-                                                                                    thực hành <span
-                                                                                            class="red">  </span></label>
-                                                                                <div class="col-md-9">
-                                                                                    <input th:value="${diem.getDiemThucHanh()}"
-                                                                                           name="diemThucHanh"
-                                                                                           type="text"
-                                                                                           class="form-control"
-                                                                                           placeholder="Tên môn học ">
-                                                                                </div>
-
+                                                                        </div>
+                                                                        <br/>
+                                                                        <div style="margin-top: 50px"
+                                                                             class="form-group">
+                                                                            <label class="col-sm-3 control-label">Điểm
+                                                                                cuối kì <span
+                                                                                        class="red">  </span></label>
+                                                                            <div class="col-md-9">
+                                                                                <input th:value="${diem.getDiemCuoiKi()}"
+                                                                                       name="diemCuoiKi" type="text"
+                                                                                       class="form-control"
+                                                                                       placeholder="Tên môn học ">
                                                                             </div>
-                                                                            <br/>
-                                                                            <div style="margin-top: 50px"
-                                                                                 class="form-group">
-                                                                                <label class="col-sm-3 control-label">Điểm
-                                                                                    cuối kì <span
-                                                                                            class="red">  </span></label>
-                                                                                <div class="col-md-9">
-                                                                                    <input th:value="${diem.getDiemCuoiKi()}"
-                                                                                           name="diemCuoiKi" type="text"
-                                                                                           class="form-control"
-                                                                                           placeholder="Tên môn học ">
-                                                                                </div>
-                                                                            </div>
+                                                                        </div>
                                                                         </form>
                                                                         <br/>
                                                                         <!--<button name="edit" onclick="toggle_inputs()">Sửa điểm</button>-->
-                                                                        <button onclick="ff()"
-                                                                                style="    margin-top: 20px;margin-bottom: -26px;"
-                                                                                type="button" class="btn btn-primary"><i
-                                                                                class="fa fa-plus-circle"
-                                                                                aria-hidden="true"></i> Cập nhật
+                                                                        <button onclick="ff()" style="    margin-top: 20px;margin-bottom: -26px;" type="button" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i> Cập nhật
                                                                         </button>
-                                                                        <input id="token1" type="hidden"
-                                                                               th:name="${_csrf.parameterName}"
-                                                                               th:value="${_csrf.token}"/>
+                                                                        <input id="token1" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                                                                     </tr>
                                                                     </tbody>
                                                                 </table>
@@ -552,7 +542,7 @@
         if (valid.isValid()) {
             var data = $('#suadiem').serialize();
             $.ajax({
-                url: '/web//giangviendaylop/suadiem',
+                url:  '/web/giangviendaylop/suadiem',
                 type: "post",
                 headers: {'X-CSRF-Token': token},
                 data: data,
@@ -610,7 +600,7 @@
     $(document)
         .on(
             "change",
-            "#fileLoader",
+            "#upload-file",
             function (event) {
                 files = event.target.files;
             })
@@ -652,6 +642,17 @@
                 },
                 error: function (result) {
                     location.reload(true);
+                    // swal({
+                    //     title: 'Đăng ký thành công!',
+                    //     text: '',
+                    //     type: 'success',
+                    //     confirmButtonText: 'Ok',
+                    // }).then(function () {
+                    //     if (isConfirm) {
+                    //         location.reload(true);
+                    //     }
+                    //     form.submit();
+                    // });
                 }
 
             });
