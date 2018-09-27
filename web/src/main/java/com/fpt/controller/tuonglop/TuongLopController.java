@@ -122,7 +122,7 @@ public class TuongLopController {
         String path = null;
         if (!file.isEmpty()) {
             byte[] bytes = file.getBytes();
-            path = ResourceUtils.getFile("classpath:files/baidang").getPath();
+            path = ResourceUtils.getFile("classpath:files").getPath();
             BufferedOutputStream bout = new BufferedOutputStream(
                     new FileOutputStream(path + "/" + fileName));
             bout.write(bytes);

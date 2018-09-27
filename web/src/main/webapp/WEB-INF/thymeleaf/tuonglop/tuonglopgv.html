@@ -95,7 +95,7 @@
                             <div class="attachment-block clearfix">
                                 <th:block th:if="${bd.image != null}">
                                     <th:block th:if="${bd.imageSuffix == 'jpg' || bd.imageSuffix == 'jpeg' || bd.imageSuffix == 'png'}">
-                                        <img class="attachment-img" th:src="@{/baidang/}+${bd.image}" alt="Attachment Image">
+                                        <img class="attachment-img" th:src="@{/files/}+${bd.image}" alt="Attachment Image">
                                     </th:block>
                                 </th:block>
                             </div>
