@@ -75,6 +75,18 @@ public class LopHoc {
     )
     Set<SinhVien> sinhViens;
 
+    @OneToMany(mappedBy = "lopHoc", fetch = FetchType.EAGER)
+    private Set<Diem> lstDiem;
+
+
+    public Set<Diem> getLstDiem() {
+        return lstDiem;
+    }
+
+    public void setLstDiem(Set<Diem> lstDiem) {
+        this.lstDiem = lstDiem;
+    }
+
     public LopHoc() {
     }
 

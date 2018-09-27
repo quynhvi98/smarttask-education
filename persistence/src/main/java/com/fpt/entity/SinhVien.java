@@ -61,7 +61,19 @@ public class SinhVien {
     @JsonIgnore
     private Set<ThongBao> lstThongBao;
 
+    @OneToMany(mappedBy = "sinhVien", fetch = FetchType.EAGER)
+    private Set<Diem> lstDiem;
+
+
     public SinhVien() {
+    }
+
+    public Set<Diem> getLstDiem() {
+        return lstDiem;
+    }
+
+    public void setLstDiem(Set<Diem> lstDiem) {
+        this.lstDiem = lstDiem;
     }
 
     public Date getNgayNhapHoc() {
