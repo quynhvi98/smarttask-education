@@ -28,8 +28,8 @@ public class BaiDangServiceImpl implements BaiDangService {
         List<BaiDang> lstBaiDang = baiDangDao.findByMaLop(maLop);
         for (BaiDang bd : lstBaiDang) {
             String suffix = null;
-            if(bd.getImage() != null){
-                suffix = bd.getImage().split("\\.")[1];
+            if(bd.getFile() != null){
+                suffix = bd.getFile().split("\\.")[1];
                 bd.setImageSuffix(suffix);
             }
         }

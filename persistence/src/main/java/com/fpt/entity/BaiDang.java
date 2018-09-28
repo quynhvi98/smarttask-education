@@ -18,7 +18,9 @@ public class BaiDang implements Serializable {
 
     private String content;
 
-    private String image;
+    private String file;
+
+    private Integer status;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -34,6 +36,9 @@ public class BaiDang implements Serializable {
     @ManyToOne
     @JoinColumn(name = "lop_hoc")
     private LopHoc lopHoc;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "baiDang")
+    private Set<Like> lstLike;
 
     @Transient
     private String imageSuffix;
@@ -57,12 +62,12 @@ public class BaiDang implements Serializable {
         this.content = content;
     }
 
-    public String getImage() {
-        return image;
+    public String getFile() {
+        return file;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setFile(String file) {
+        this.file = file;
     }
 
     public Set<BinhLuan> getLstComment() {
@@ -103,5 +108,21 @@ public class BaiDang implements Serializable {
 
     public void setImageSuffix(String imageSuffix) {
         this.imageSuffix = imageSuffix;
+    }
+
+    public Set<Like> getLstLike() {
+        return lstLike;
+    }
+
+    public void setLstLike(Set<Like> lstLike) {
+        this.lstLike = lstLike;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

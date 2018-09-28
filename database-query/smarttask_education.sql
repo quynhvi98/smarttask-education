@@ -261,8 +261,9 @@ CREATE TABLE IF NOT EXISTS bai_dang
 (
     postid bigint PRIMARY KEY AUTO_INCREMENT,
     content longtext NOT NULL,
-    image varchar(255),
+    file varchar(255),
     user_name varchar(255),
+    status int DEFAULT 1 NOT NULL;
     time datetime,
     CONSTRAINT user_name_fk FOREIGN KEY (user_name) REFERENCES user (user_name)
 ) engine=InnoDB;
@@ -278,7 +279,14 @@ CREATE TABLE IF NOT EXISTS binh_luan
     CONSTRAINT binh_luan_user_name_fk FOREIGN KEY (user_name) REFERENCES user (user_name)
 ) engine=InnoDB;
 
-
+CREATE TABLE IF NOT EXISTS likes
+(
+    likeid bigint PRIMARY KEY AUTO_INCREMENT,
+    postid bigint,
+    user_name varchar(255),
+    CONSTRAINT like_bai_dang_postid_fk FOREIGN KEY (postid) REFERENCES bai_dang (postid),
+    CONSTRAINT like_user_user_name_fk FOREIGN KEY (user_name) REFERENCES user (user_name);
+) engine=InnoDB;
 
 CREATE TABLE IF NOT EXISTS diem_sinhvien (
   id BIGINT NOT NULL auto_increment,
@@ -295,3 +303,4 @@ CREATE TABLE IF NOT EXISTS diem_sinhvien (
   CONSTRAINT FK_mon_hoc FOREIGN KEY (ma_mon_hoc) REFERENCES mon_hoc(ma_mon_hoc),
   CONSTRAINT FK_lop_hoc FOREIGN KEY (ma_lop) REFERENCES lop_hoc(ma_lop)
 ) engine=InnoDB;
+

@@ -12,11 +12,12 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/ionicons.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/AdminLTE.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/skin-blue.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/imageresource.css}">
 
     <script type="text/javascript" th:src="@{/js/jquery/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/adminlte.min.js}"></script>
-    <script type="text/javascript" th:src="@{js/demo.js}"></script>
+    <script type="text/javascript" th:src="@{/js/demo.js}"></script>
     <script type="text/javascript" th:src="@{/js/jquery/jquery.slimscroll.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/fastclick.js}"></script>
 
@@ -42,14 +43,14 @@
                             <span class="description">Shared publicly - 7:30 PM Today</span>
                         </div>
                         <div class="box-tools">
-                            <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Mark as read">
+                            <button class="btn btn-box-tool" data-toggle="tooltip" title="Mark as read">
                                 <i class="fa fa-circle-o"></i></button>
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                            <button class="btn btn-box-tool" data-widget="collapse"><i
                                     class="fa fa-minus"></i>
                             </button>
                         </div>
                     </div>
-                    <form th:action="@{/tuonglop/addpost}" method="post"  enctype="multipart/form-data">
+                    <form th:action="@{/tuonglop/addpost}" method="post" enctype="multipart/form-data">
                         <!--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
                         <div class="box-body">
                             <div class="box">
@@ -93,18 +94,33 @@
 
                             </div>
                             <div class="attachment-block clearfix">
-                                <th:block th:if="${bd.image != null}">
-                                    <th:block th:if="${bd.imageSuffix == 'jpg' || bd.imageSuffix == 'jpeg' || bd.imageSuffix == 'png'}">
-                                        <img class="attachment-img" th:src="@{/files/}+${bd.image}" alt="Attachment Image">
+                                <th:block th:if="${bd.file != null}">
+                                    <th:block
+                                            th:if="${bd.imageSuffix == 'jpg' || bd.imageSuffix == 'jpeg' || bd.imageSuffix == 'png'}">
+                                        <img class="attachment-img myImg" th:src="@{/files/}+${bd.file}"
+                                             th:alt="${bd.content}">
+                                    </th:block>
+                                    <th:block
+                                            th:if="${bd.imageSuffix != 'jpg' && bd.imageSuffix != 'jpeg' && bd.imageSuffix != 'png'}">
+                                        <a th:href="@{/tuonglop/download-file/}+${bd.file}+'/'"
+                                           th:text="${bd.file}"></a>
                                     </th:block>
                                 </th:block>
                             </div>
                             <!--<button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share-->
                             <!--</button>-->
-                            <button type="button" class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like
+                            <button class="btn btn-default btn-xs btnLike" th:attr="postId=${bd.postId}">
+                                <input type="hidden" class="totalLike" th:value="${#lists.size(bd.lstLike)}"/>
+                                <input type="hidden" class="totalComment" th:value="${#lists.size(bd.lstComment)}"/>
+                                <i th:if="${!#lists.contains(lstPostId, bd.postId)}" class="fa fa-thumbs-o-up">
+                                </i>
+                                <i th:if="${#lists.contains(lstPostId, bd.postId)}" class="fa fa-thumbs-up" style="color: #94B8FF;">
+                                </i>
+                                Like
                             </button>
                             <span class="pull-right text-muted"
-                                  th:text="'0 likes - '+${#lists.size(bd.lstComment)}+' comments'">0 likes - 2 comments</span>
+                                  th:text="${#lists.size(bd.lstLike)}+' likes - '+${#lists.size(bd.lstComment)}+' comments'">0 likes - 2 comments</span>
+
                         </div>
                         <th:block th:each="cm : ${bd.lstComment}">
                             <div class="box-footer box-comments">
@@ -147,6 +163,7 @@
             </div>
         </div>
     </div>
+
     <div th:replace="fragments/footer :: footer">&nbsp;</div>
     <aside class="control-sidebar control-sidebar-dark">
         <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
@@ -204,11 +221,60 @@
                 </form>
             </div>
         </div>
+        <div id="myModal" class="modal">
+            <span class="close">&times;</span>
+            <img class="modal-content" id="img01">
+            <div id="caption"></div>
+        </div>
     </aside>
     <div class="control-sidebar-bg"></div>
+
 </div>
+<!-- The Modal -->
 
 <!--<input id="token" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
+<script th:inline="javascript">
+
+
+    // Get the modal
+    var modal = document.getElementById('myModal');
+    var modalImg = document.getElementById("img01");
+    var captionText = document.getElementById("caption");
+    $('.myImg').click(function () {
+        modal.style.display = "block";
+        modalImg.src = this.src;
+        captionText.innerHTML = this.alt;
+    });
+
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    $('.btnLike').click(function () {
+        var postId = $(this).attr("postId");
+        $.ajax({
+            url: base_url + 'tuonglop/like/'+postId,
+            type: "get",
+            dataType: "text",
+            success: (json) => {
+                if(json.trim() == "like"){
+                    $(this).find($(".fa")).removeClass("fa-thumbs-o-up" ).addClass("fa-thumbs-up").css("color","#94B8FF");
+                }else if(json.trim() == "unlike"){
+                    var a = $(this).find("i");
+                    $(this).find($(".fa")).removeClass("fa-thumbs-up" ).addClass("fa-thumbs-o-up").css("color", "");
+                }
+            }, error: function (msg) {
+                alert("500 server error");
+            }
+        });
+    });
+    var base_url = [[@{/}]];
+</script>
 </body>
 </html>
 

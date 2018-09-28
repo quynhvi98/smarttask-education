@@ -4,9 +4,11 @@ import com.fpt.entity.*;
 import com.fpt.services.baidang.BaiDangService;
 import com.fpt.services.binhluan.BinhLuanService;
 import com.fpt.services.giangvien.GiangVienService;
+import com.fpt.services.like.LikeService;
 import com.fpt.services.lophoc.LopHocService;
 import com.fpt.services.sinhvien.SinhVienService;
 import com.fpt.services.thongbao.ThongBaoService;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +22,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.BufferedOutputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.math.BigDecimal;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Posted from Sep 13, 2018, 3:53 PM
@@ -45,6 +54,8 @@ public class TuongLopController {
     private BaiDangService baiDangService;
     @Autowired
     private BinhLuanService binhLuanService;
+    @Autowired
+    private LikeService likeService;
 
     private final Logger logger = LoggerFactory.getLogger(TuongLopController.class);
 
@@ -55,6 +66,12 @@ public class TuongLopController {
         this.maLop = maLop;
         User user = (User) session.getAttribute("userInfo");
         List<BaiDang> lstBaiDang = baiDangService.findByMaLop(maLop);
+        List<Integer> lstPostId = new ArrayList<>();
+        List<Like> lstLike = likeService.getLikeByUser(user.getUserName());
+        for (Like like : lstLike) {
+            lstPostId.add(like.getBaiDang().getPostId());
+        }
+        model.addAttribute("lstPostId", lstPostId);
         model.addAttribute("lstBaiDang", lstBaiDang);
         model.addAttribute("user", user);
 
@@ -96,7 +113,7 @@ public class TuongLopController {
             suffix = file.getOriginalFilename().split("\\.")[1];
             String fileName = System.currentTimeMillis() + "." + suffix;
             upFile(file, fileName);
-            baiDang.setImage(fileName);
+            baiDang.setFile(fileName);
         }
         baiDangService.save(baiDang);
         return "redirect:/tuonglop/" + maLop;
@@ -133,4 +150,47 @@ public class TuongLopController {
             System.out.println("File is empty!");
         }
     }
+
+    @RequestMapping("/tuonglop/download-file/{filename}/")
+    public void downloadFile(HttpServletResponse response, @PathVariable("filename") String fileName) throws IOException {
+        File file  = ResourceUtils.getFile("classpath:files/"+fileName).getAbsoluteFile();
+        byte[] fileContent = Files.readAllBytes(file.toPath());
+        Path newFile = null;
+        try {
+            Path newPath = Paths.get("./../" + fileName);
+            if (!Files.exists(newPath)) {
+                newFile = Files.createFile(newPath);
+            } else {
+                newFile = newPath;
+            }
+            if (!Files.exists(newFile)) {
+                String errorMessage = "Sorry. The file you are looking for does not exist";
+                System.out.println(errorMessage);
+                OutputStream outputStream = response.getOutputStream();
+                outputStream.write(errorMessage.getBytes(Charset.forName("UTF-8")));
+                outputStream.close();
+                return;
+            }
+            Files.write(newFile, fileContent, StandardOpenOption.APPEND);
+            InputStream inputStream = Files.newInputStream(newFile);
+            response.setHeader("Content-Disposition", "attachment; filename=\"" + newFile.getFileName() + "\"");
+            IOUtils.copy(inputStream, response.getOutputStream());
+            response.flushBuffer();
+        } catch (IOException e) {
+            String errorMessage = "Error!";
+            System.out.println(errorMessage);
+            OutputStream outputStream = response.getOutputStream();
+            outputStream.write(errorMessage.getBytes(Charset.forName("UTF-8")));
+            outputStream.close();
+            return;
+        }
+    }
+
+    @RequestMapping("/tuonglop/like/{postid}")
+    public void doLike(@PathVariable("postid") Integer postId, HttpSession session, HttpServletResponse response) throws IOException {
+        User user = (User) session.getAttribute("userInfo");
+        String result = likeService.doLike(user.getUserName(), postId);
+        response.getWriter().println(result);
+    }
+
 }

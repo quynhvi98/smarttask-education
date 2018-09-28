@@ -62,6 +62,9 @@ public class User implements Serializable {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private Set<BinhLuan> lstBinhLuan;
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    private Set<Like> lstLike;
+
     public User() {
     }
 
@@ -190,5 +193,13 @@ public class User implements Serializable {
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
+    }
+
+    public Set<Like> getLstLike() {
+        return lstLike;
+    }
+
+    public void setLstLike(Set<Like> lstLike) {
+        this.lstLike = lstLike;
     }
 }
