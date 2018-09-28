@@ -1,24 +1,31 @@
 package com.fpt.controller.lophoc;
 
 import com.fpt.controller.UserInfoController;
-import com.fpt.entity.GiaoVien;
-import com.fpt.entity.LopHoc;
-import com.fpt.entity.SinhVien;
-import com.fpt.entity.User;
+import com.fpt.controller.lophoc.ExcelView;
+import com.fpt.entity.*;
+import com.fpt.services.diem.DiemService;
 import com.fpt.services.giangvien.GiangVienService;
 import com.fpt.services.lophoc.LopHocService;
+import com.fpt.services.monhoc.MonHocService;
 import com.fpt.services.sinhvien.SinhVienService;
 import com.fpt.services.thongbao.ThongBaoService;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,6 +44,11 @@ public class LopHocController {
     private SinhVienService sinhVienService;
     @Autowired
     private ThongBaoService thongBaoService;
+    @Autowired
+    private DiemService diemService;
+    @Autowired
+    private MonHocService monHocService;
+
     @RequestMapping("/giangviendaylop/{maLop}")
     public String userProfile(HttpSession session, @PathVariable("maLop") String maLop, HttpServletRequest request, Model model) {
         User userInfo = (User) session.getAttribute("userInfo");
@@ -59,4 +71,91 @@ public class LopHocController {
         }
         return "giaovien_giangday/lopgiangday";
     }
+
+
+    @RequestMapping(value = "/downloadExcel", method = RequestMethod.GET)
+    public ModelAndView downloadExcel(Model model, HttpServletRequest request, HttpServletResponse responsel) {
+        List<SinhVien> sinhViens=sinhVienService.listSV();
+        String maLop = request.getParameter("maLop");
+        model.addAttribute("maLop",maLop);
+        model.addAttribute("sinhViens",sinhViens);
+        return new ModelAndView(new ExcelView());
+    }
+
+
+    @RequestMapping(method = RequestMethod.POST, value = "/upfile")
+    @ResponseBody
+    public void taoDiem(Model model, HttpServletRequest request, HttpSession session, HttpServletResponse response, @RequestParam("file") MultipartFile excelfile) {
+        String maMonHoc = request.getParameter("maMonHoc");
+        String maLopHoc = request.getParameter("maLopHoc");
+        System.out.println(maMonHoc);
+        User user = (User) session.getAttribute("userInfo");
+        if(lopHocService.findById(maLopHoc).getLstDiem().size()==0) {
+            try {
+                List<Diem> diems = new ArrayList<>();
+                int i = 0;
+                XSSFWorkbook workbook = new XSSFWorkbook(excelfile.getInputStream());
+                XSSFSheet worksheet = workbook.getSheetAt(0);
+                while (i < worksheet.getLastRowNum()) {
+                    i++;
+                    Diem diem = new Diem();
+                    XSSFRow row = worksheet.getRow(i);
+                    diem.setDiemLyThuyet((row.getCell(5).getNumericCellValue()));
+                    diem.setDiemThucHanh((row.getCell(4).getNumericCellValue()));
+                    diem.setDiemCuoiKi((row.getCell(6).getNumericCellValue()));
+                    String msv = row.getCell(1).getStringCellValue();
+                    diem.setSinhVien(sinhVienService.getSinhVienId(msv));
+                    diem.setGiaoVien(user.getGiaoVien());
+                    diem.setMonHoc(monHocService.findById(maMonHoc));
+                    diem.setLopHoc(lopHocService.findById(maLopHoc));
+                    diems.add(diem);
+                }
+                workbook.close();
+                diemService.careate(diems);
+                SinhVien sinhVien = sinhVienService.getSinhVienId("D001");
+                for (Diem diem : sinhVien.getLstDiem()) {
+                    System.out.println("diem: " + diem.getDiemLyThuyet());
+                }
+                response.getWriter().println("success");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @PostMapping("/giangviendaylop/suadiem")
+    public void suaDiem(HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model) {
+        try {
+            String maSV = request.getParameter("maSV");
+            String diemLyThuyet = request.getParameter("diemLyThuyet");
+            String maDiem = request.getParameter("maDiem");
+            String diemThucHanh = request.getParameter("diemThucHanh");
+            String diemCuoiKi = request.getParameter("diemCuoiKi");
+            String maMonHoc = request.getParameter("maMonHoc");
+            String maLopHoc = request.getParameter("maLopHoc");
+            System.out.println(maMonHoc + " " + diemLyThuyet + " " + diemThucHanh + " " + diemCuoiKi);
+            User user = (User) session.getAttribute("userInfo");
+            Diem diem = new Diem();
+            diem.setId(maDiem);
+            diem.setDiemThucHanh(Double.valueOf(diemThucHanh));
+            diem.setDiemLyThuyet(Double.valueOf(diemLyThuyet));
+            diem.setDiemCuoiKi(Double.valueOf(diemCuoiKi));
+            diem.setSinhVien(sinhVienService.getSinhVienId(maSV));
+            diem.setMonHoc(monHocService.findById(maMonHoc));
+            diem.setLopHoc(lopHocService.findById(maLopHoc));
+            diem.setGiaoVien(giangVienService.findById(user.getGiaoVien().getMaGiaoVien()));
+
+            diemService.save(diem);
+            response.getWriter().println("success");
+        }catch (Exception e){
+            try {
+                response.getWriter().println("error");
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        }
+    }
+
+
+
 }
