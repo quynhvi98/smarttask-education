@@ -270,6 +270,8 @@ CREATE TABLE IF NOT EXISTS bai_dang
     user_name varchar(255),
     status int DEFAULT 1 NOT NULL,
     time datetime,
+    lop_hoc varchar(255),
+    CONSTRAINT ma_lop_fk FOREIGN KEY (lop_hoc) REFERENCES lop_hoc (ma_lop),
     CONSTRAINT user_name_fk FOREIGN KEY (user_name) REFERENCES user (user_name)
 ) engine=InnoDB;
 
