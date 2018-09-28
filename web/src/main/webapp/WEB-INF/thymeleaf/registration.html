@@ -29,7 +29,7 @@
     <div class="content-wrapper">
         <h3>Register your account</h3>
         <form th:action="@{/sign-in}" method="POST">
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <!--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
             <input type="text" name="userName" placeholder="Your userName" /><br />
             <input type="password" name="userPassWord" placeholder="Your userPassWord" /><br />
             <button type="submit">Sign in</button> <br />

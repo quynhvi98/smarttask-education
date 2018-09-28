@@ -86,7 +86,9 @@
 
                 </div>
 
-
+                <td>
+                    <button   type="button" class="btn btn-block btn-default btn-lg" data-toggle="modal" data-target="#myModal">Thông tin lớp</button>
+                </td>
                 <td>
                     <button onclick="dk()"  type="button" class="btn btn-block btn-default btn-lg" data-toggle="modal" data-target="#myModal">Đăng kÝ</button>
                 </td>
@@ -113,6 +115,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
             <div class="col-md-9">
                 <div class="box box-widget">
@@ -261,7 +264,7 @@
     <div class="control-sidebar-bg"></div>
 </div>
 
-<input id="token" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+<!--<input id="token" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
 </body>
 </html>
 

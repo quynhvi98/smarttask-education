@@ -8,10 +8,10 @@
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
     <link type="text/css" th:href="@{/css/student/register_member.css}" rel="stylesheet"/>
-    <meta th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+    <!--<meta th:name="${_csrf.parameterName}" th:value="${_csrf.token}">-->
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
-<input id="token" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+<!--<input id="token" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
 <div class="wrapper" style="background-color: #f8f8f8;">
     <section class="content">
         <div id="myList" style="width: 40%;float: left;margin-top: 30px;margin-right: 30px;margin-left: 20px;">
@@ -83,7 +83,7 @@
         } else {
             document.getElementById(clicked_id).style.backgroundColor = 'white';
         }
-        var token = document.getElementById('token').value;
+        // var token = document.getElementById('token').value;
         // console.log(token);
         var $dism = $('.inbox-widget');
         $dism.find('a').remove();
@@ -97,7 +97,7 @@
         var base_url = [[@{
             /}]];
             $.ajax({
-                headers: {'X-CSRF-Token': token},
+                // headers: {'X-CSRF-Token': token},
                 type: "POST",
                 data: {search: inputVal},
                 url: base_url + "api/member",

@@ -54,7 +54,7 @@
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">Menu</li>
             <li class="active"><a th:href="@{/register-class/}"><i class="fa fa-link"></i> <span>Đăng kí học</span></a></li>
-
+            <li><a href="#"><i class="fa fa-link"></i> <span>Tin tức chung</span></a></li>
             <li class="treeview">
                 <a href="#"><i class="fa fa-link"></i>
                     <span>Lớp đang theo học</span>
@@ -63,7 +63,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li th:each="lophoc : ${sinhVien.lopHocs}"><a th:href="@{/tuonglop}">
+                    <li th:each="lophoc : ${sinhVien.lopHocs}">
+                        <a th:href="@{/tuonglop/}+${lophoc.maLop}">
                         <span th:text="${lophoc.maLop}">Lớp</span></a></li>
                 </ul>
             </li>
@@ -92,17 +93,7 @@
                     <li><a href="#">Sinh viên</a></li>
                 </ul>
             </li>
-            <li class="treeview">
-                <a href="#"><i class="fa fa-link"></i>
-                    <span>Quản lí điểm cá nhân </span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="#">Lớp tiếng anh</a></li>
-                </ul>
-            </li>
+            <li><a th:href="@{/thongtindiemvakihoc}"><i class="fa fa-link"></i> <span>Quản lí điểm cá nhân</span></a></li>
             <li><a th:href="@{/mailbox}"><i class="fa fa-link"></i> <span>Mail</span></a></li>
         </ul>
     </section>

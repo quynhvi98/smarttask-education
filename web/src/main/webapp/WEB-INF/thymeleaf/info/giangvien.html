@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smarttask Education</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <meta th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+    <!--<meta th:name="${_csrf.parameterName}" th:value="${_csrf.token}">-->
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/font-awesome.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/ionicons.min.css}">
@@ -29,7 +29,7 @@
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
-<input id="token" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+<!--<input id="token" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
 <div class="wrapper">
     <div th:replace="fragments/header :: header">&nbsp;</div>
     <div th:replace="fragments/sidebar :: aside">&nbsp;</div>
@@ -399,7 +399,7 @@
         if (valid.isValid()) {
             var data = $('#form-update').serialize();
             $.ajax({
-                url: base_url + 'info/update?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
+                url: base_url + 'info/update',
                 type: "post",
                 data: data,
                 dataType: "text",

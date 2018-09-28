@@ -72,6 +72,8 @@ public class MailController {
         model.addAttribute("user",user);
         model.addAttribute("mail",thongBaoService.findById(id));
         if(user.getSinhVien()!= null) {
+            SinhVien sinhVien = sinhVienService.getSinhVienId(user.getSinhVien().getMaSinhVien());
+            model.addAttribute("sinhVien", sinhVien);
             model.addAttribute("soLuongTBChuaXem",thongBaoService.soLuongTbChuaXemSV(user.getSinhVien().getMaSinhVien()));
             model.addAttribute("moiNhat", thongBaoService.thongBaoMoiNhatSV(user.getSinhVien().getMaSinhVien()));
         }

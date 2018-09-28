@@ -76,7 +76,7 @@
 </style>
 <body class="hold-transition skin-blue sidebar-mini" style="padding-right: 0px;">
 
-<input id="token" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+<!--<input id="token" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
 <div class="wrapper">
     <div th:replace="fragments/header :: header">&nbsp;</div>
     <div th:replace="fragments/sidebarsv :: aside">&nbsp;</div>
@@ -288,7 +288,7 @@
 
 <script>
     function dk(id) {
-        var token = document.getElementById('token').value;
+        // var token = document.getElementById('token').value;
         var base_url = [[@{
             /}]];
             swal({
@@ -307,7 +307,7 @@
                         showConfirmButton: false,
                     });
                     $.ajax({
-                        headers: {'X-CSRF-Token': token},
+                        // headers: {'X-CSRF-Token': token},
                         type: "POST",
                         data: {id: id},
                         url: base_url + "api/dangkylop",
