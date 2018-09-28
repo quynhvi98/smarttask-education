@@ -73,10 +73,19 @@ public class LopHocController {
     }
 
 
+    @RequestMapping(value = "/downloadExcel", method = RequestMethod.GET)
+    public ModelAndView downloadExcel(Model model, HttpServletRequest request, HttpServletResponse responsel) {
+        List<SinhVien> sinhViens=sinhVienService.listSV();
+        String maLop = request.getParameter("maLop");
+        model.addAttribute("maLop",maLop);
+        model.addAttribute("sinhViens",sinhViens);
+        return new ModelAndView(new ExcelView());
+    }
+
 
     @RequestMapping(method = RequestMethod.POST, value = "/upfile")
     @ResponseBody
-    public void themSV(Model model, HttpServletRequest request, HttpSession session, HttpServletResponse response, @RequestParam("file") MultipartFile excelfile) {
+    public void taoDiem(Model model, HttpServletRequest request, HttpSession session, HttpServletResponse response, @RequestParam("file") MultipartFile excelfile) {
         String maMonHoc = request.getParameter("maMonHoc");
         String maLopHoc = request.getParameter("maLopHoc");
         System.out.println(maMonHoc);
@@ -115,7 +124,7 @@ public class LopHocController {
     }
 
     @PostMapping("/giangviendaylop/suadiem")
-    public void test(HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model) {
+    public void suaDiem(HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model) {
         try {
             String maSV = request.getParameter("maSV");
             String diemLyThuyet = request.getParameter("diemLyThuyet");
@@ -148,12 +157,5 @@ public class LopHocController {
     }
 
 
-    @RequestMapping(value = "/downloadExcel", method = RequestMethod.GET)
-    public ModelAndView downloadExcel(Model model, HttpServletRequest request, HttpServletResponse responsel) {
-        List<SinhVien> sinhViens=sinhVienService.listSV();
-        String maLop = request.getParameter("maLop");
-        model.addAttribute("maLop",maLop);
-        model.addAttribute("sinhViens",sinhViens);
-        return new ModelAndView(new ExcelView());
-    }
+
 }
