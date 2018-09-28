@@ -1,5 +1,6 @@
 package com.fpt.services.sinhvien.impl;
 
+import com.fpt.entity.GiaoVien;
 import com.fpt.entity.SinhVien;
 import com.fpt.entity.User;
 import com.fpt.repositories.sinhvien.SinhVienDao;
@@ -58,5 +59,9 @@ public class SinhVienServiceImpl implements SinhVienService {
         LocalDate mydate = LocalDate.now();
         mydate = mydate.minusMonths(ki*6);
         return String.valueOf(mydate);
+    }
+    @Override
+    public SinhVien findById(String sinhVienId) {
+        return sinhVienDao.findOne(sinhVienId);
     }
 }

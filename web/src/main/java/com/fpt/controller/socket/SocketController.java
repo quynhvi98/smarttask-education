@@ -1,9 +1,6 @@
 package com.fpt.controller.socket;
 
-import com.fpt.entity.LopHoc;
-import com.fpt.entity.SinhVien;
-import com.fpt.entity.ThongBao;
-import com.fpt.entity.ThongBaoSocket;
+import com.fpt.entity.*;
 import com.fpt.services.lophoc.LopHocService;
 import com.fpt.services.sinhvien.SinhVienService;
 import com.fpt.services.thongbao.ThongBaoService;
@@ -87,7 +84,7 @@ public class SocketController {
                 String name=lopHoc.getMaLop();
                 String time=lopHoc.getNgayHoc();
                 String mon=lopHoc.getMonHoc().getTenMonHoc();
-                String phong=lopHoc.getPhongHoc();
+                PhongHoc phong = lopHoc.getPhongHoc();
                 String gv=lopHoc.getGiaoVien().getUser().getFullName();
                 String content="Lớp của bạn đã đủ điều kiện khai giảng: "+name+" - môn: "+mon+" - thời gian: "+time+" - giảng viên: "+gv+" - tại phòng học: "+phong;
                 ThongBaoSocket message=new ThongBaoSocket();
@@ -112,7 +109,7 @@ public class SocketController {
                 String name=lopHoc.getMaLop();
                 String time=lopHoc.getNgayHoc();
                 String mon=lopHoc.getMonHoc().getTenMonHoc();
-                String phong=lopHoc.getPhongHoc();
+                PhongHoc phong=lopHoc.getPhongHoc();
                 String gv=lopHoc.getGiaoVien().getUser().getFullName();
                 String content="Lóp: "+name+" đã bị hủy do số lượng sinh viên đăng kí không đạt yêu cầu";
                 ThongBaoSocket message=new ThongBaoSocket();

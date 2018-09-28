@@ -1,8 +1,10 @@
 package com.fpt.controller;
 
 import com.fpt.entity.GiaoVien;
+import com.fpt.entity.SinhVien;
 import com.fpt.entity.User;
 import com.fpt.services.giangvien.GiangVienService;
+import com.fpt.services.sinhvien.SinhVienService;
 import com.fpt.services.thongbao.ThongBaoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +25,8 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class MainController {
     @Autowired
+    private SinhVienService sinhVienService;
+    @Autowired
     private GiangVienService giangVienService;
     @Autowired
     private ThongBaoService thongBaoService;
@@ -34,6 +38,8 @@ public class MainController {
         if(userInfo.getSinhVien()!= null){
             model.addAttribute("soLuongTBChuaXem",thongBaoService.soLuongTbChuaXemSV(userInfo.getSinhVien().getMaSinhVien()));
             model.addAttribute("moiNhat", thongBaoService.thongBaoMoiNhatSV(userInfo.getSinhVien().getMaSinhVien()));
+            SinhVien sinhVien = sinhVienService.findById(userInfo.getSinhVien().getMaSinhVien());
+            model.addAttribute("sinhVien", sinhVien);
             return "trangchusv";
         }
         if(userInfo.getGiaoVien() != null){

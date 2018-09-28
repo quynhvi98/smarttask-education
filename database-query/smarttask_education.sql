@@ -40,6 +40,12 @@ CREATE TABLE IF NOT EXISTS config (
   PRIMARY KEY (id)
 ) engine=InnoDB;
 
+CREATE TABLE IF NOT EXISTS phong_hoc (
+  id BIGINT NOT NULL auto_increment,
+  ten_phong varchar(255),
+   PRIMARY KEY (id)
+) engine=InnoDB;
+
 CREATE TABLE IF NOT EXISTS khoa_vien (
   ma_vien VARCHAR(255),
   ten_vien VARCHAR(255),
@@ -111,7 +117,7 @@ CREATE TABLE IF NOT EXISTS lop_hoc (
   ma_lop VARCHAR(255),
   mo_ta VARCHAR(255),
   ngay_tao datetime,
-  phong_hoc varchar (255),
+  phong_hoc BIGINT,
   ngay_bat_dau datetime,
   ngay_ket_thuc datetime,
   ngay_hoc varchar(255), -- Ngày học để dạng json có thứ(thứ hai, thứ ba,..và tiết học< tiết 1(7h->8h), ...)
@@ -121,7 +127,9 @@ CREATE TABLE IF NOT EXISTS lop_hoc (
   ma_mon_hoc VARCHAR(255),
   PRIMARY KEY (ma_lop),
   CONSTRAINT FK_ma_giao_vien FOREIGN KEY (ma_giao_vien) REFERENCES giao_vien(ma_giao_vien),
-  CONSTRAINT FK_ma_mon_hoc FOREIGN KEY (ma_mon_hoc) REFERENCES mon_hoc(ma_mon_hoc)
+  CONSTRAINT FK_ma_mon_hoc FOREIGN KEY (ma_mon_hoc) REFERENCES mon_hoc(ma_mon_hoc),
+  CONSTRAINT FK_ma_phong_hoc FOREIGN KEY (phong_hoc) REFERENCES phong_hoc(id)
+
 ) engine=InnoDB;
 
 CREATE TABLE IF NOT EXISTS sinh_vien (
@@ -249,3 +257,23 @@ CREATE TABLE IF NOT EXISTS phe_duyet (
 ) engine=InnoDB;
 
 
+CREATE TABLE IF NOT EXISTS bai_dang
+(
+    postid bigint PRIMARY KEY AUTO_INCREMENT,
+    content longtext NOT NULL,
+    image varchar(255),
+    user_name varchar(255),
+    time datetime,
+    CONSTRAINT user_name_fk FOREIGN KEY (user_name) REFERENCES user (user_name)
+) engine=InnoDB;
+
+CREATE TABLE IF NOT EXISTS binh_luan
+(
+    commentid bigint PRIMARY KEY AUTO_INCREMENT,
+    content longtext NOT NULL,
+    postid bigint,
+    user_name varchar(255),
+    time datetime,
+    CONSTRAINT binh_luan_postid_fk FOREIGN KEY (postid) REFERENCES bai_dang (postid),
+    CONSTRAINT binh_luan_user_name_fk FOREIGN KEY (user_name) REFERENCES user (user_name)
+) engine=InnoDB;

@@ -56,6 +56,7 @@
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
@@ -258,12 +259,12 @@
                                                 <div class="checkbox">
                                                     <label class="col-sm-3">
                                                         Thứ 2
-                                                        <input  class="cbNgayHoc" id="day2" onchange="useSelect(2)" type="checkbox"/>
+                                                        <input  class="cbNgayHoc" id="day2" thu="2" onchange="useSelect(2)" type="checkbox"/>
                                                         <input id="day2Hid" name="ngayHoc" type="text" hidden/>
                                                     </label>
                                                     <label class="col-sm-3">
                                                         Ca
-                                                        <select onchange="selectCa(2)" style="background-color: #DCDCDC"
+                                                        <select class="caHoc" onchange="selectCa(2)" style="background-color: #DCDCDC"
                                                                 disabled id="ca2" name="caHoc">
                                                             <option>1</option>
                                                             <option>2</option>
@@ -278,12 +279,12 @@
                                                 <div class="checkbox">
                                                     <label class="col-sm-3">
                                                         Thứ 3
-                                                        <input  class="cbNgayHoc" id="day3" onchange="useSelect(3)" type="checkbox"/>
+                                                        <input  class="cbNgayHoc" id="day3" thu="3" onchange="useSelect(3)" type="checkbox"/>
                                                         <input id="day3Hid" name="ngayHoc" type="text" hidden/>
                                                     </label>
                                                     <label class="col-sm-3">
                                                         Ca
-                                                        <select onchange="selectCa(3)" style="background-color: #DCDCDC"
+                                                        <select class="caHoc" onchange="selectCa(3)" style="background-color: #DCDCDC"
                                                                 disabled id="ca3" name="caHoc">
                                                             <option>1</option>
                                                             <option>2</option>
@@ -298,12 +299,12 @@
                                                 <div class="checkbox">
                                                     <label class="col-sm-3">
                                                         Thứ 4
-                                                        <input class="cbNgayHoc" id="day4" onchange="useSelect(4)" type="checkbox"/>
+                                                        <input class="cbNgayHoc" id="day4" thu="4" onchange="useSelect(4)" type="checkbox"/>
                                                         <input name="ngayHoc" id="day4Hid" type="text" hidden/>
                                                     </label>
                                                     <label class="col-sm-3">
                                                         Ca
-                                                        <select onchange="selectCa(4)" style="background-color: #DCDCDC"
+                                                        <select class="caHoc" onchange="selectCa(4)" style="background-color: #DCDCDC"
                                                                 disabled id="ca4" name="caHoc">
                                                             <option>1</option>
                                                             <option>2</option>
@@ -318,12 +319,12 @@
                                                 <div class="checkbox">
                                                     <label class="col-sm-3">
                                                         Thứ 5
-                                                        <input  class="cbNgayHoc" id="day5" onchange="useSelect(5)" type="checkbox"/>
+                                                        <input  class="cbNgayHoc" id="day5" thu="5" onchange="useSelect(5)" type="checkbox"/>
                                                         <input name="ngayHoc" id="day5Hid" type="text" hidden/>
                                                     </label>
-                                                    <la bel class="col-sm-3">
+                                                    <label class="col-sm-3">
                                                         Ca
-                                                        <select onchange="selectCa(5)" style="background-color: #DCDCDC"
+                                                        <select class="caHoc" onchange="selectCa(5)" style="background-color: #DCDCDC"
                                                                 disabled id="ca5" name="caHoc">
                                                             <option>1</option>
                                                             <option>2</option>
@@ -338,12 +339,12 @@
                                                 <div class="checkbox">
                                                     <label class="col-sm-3">
                                                         Thứ 6
-                                                        <input  class="cbNgayHoc" id="day6" onchange="useSelect(6)" type="checkbox"/>
+                                                        <input  class="cbNgayHoc" id="day6" thu="6" onchange="useSelect(6)" type="checkbox"/>
                                                         <input name="ngayHoc" id="day6Hid" type="text" hidden/>
                                                     </label>
                                                     <label class="col-sm-3">
                                                         Ca
-                                                        <select onchange="selectCa(6)" style="background-color: #DCDCDC"
+                                                        <select class="caHoc" onchange="selectCa(6)" style="background-color: #DCDCDC"
                                                                 disabled id="ca6" name="caHoc">
                                                             <option>1</option>
                                                             <option>2</option>
@@ -386,7 +387,7 @@
                                             <label for="" class="col-sm-3 control-label">Phòng học <span
                                                     class="red">(*)</span></label>
                                             <div class="col-md-9">
-                                                <input id="phongHoc" required name="phongHoc" type="text" class="form-control"
+                                                <input id="phongHoc" readonly required name="phongHoc" type="text" class="form-control"
                                                        placeholder="Phòng học">
                                             </div>
                                             <p class="col-sm-offset-3 help-block red">Example block-level help text
@@ -567,7 +568,21 @@
 </div>
 </body>
 <script th:inline="javascript">
+    // $('input:checkbox').on('change', function() {
+    //     var numberOfChecked = $('input:checkbox:checked').length;
+    //     if(numberOfChecked > parseInt(tinChi)){
+    //         $(this). prop('checked', false);
+    //
+    //     }
+    //     // alert(numberOfChecked);
+    // });
 
+    // var theCheckboxes = $('input:checkbox');
+    // theCheckboxes.click(function()
+    // {
+    //     if (theCheckboxes.filter(":checked").length > 2)
+    //         $(this).removeAttr("checked");
+    // });
 
     $('#khoaVien').change(function () {
         var maKhoaVien = $(this).val();
@@ -589,9 +604,9 @@
         });
     });
 
-    $('#boMon').change(function () {
+    $('#boMon, #kiHoc').change(function () {
         var kiHoc = $('#kiHoc').val();
-        var maBoMon = $(this).val();
+        var maBoMon = $('#boMon').val();
         getValueForMonHocAndGiangVien(kiHoc, maBoMon);
     });
 
@@ -602,16 +617,18 @@
             data: {kiHoc: kiHoc, boMon: maBoMon},
             dataType: "text",
             success: function (result) {
-                $('#monHoc, #giangVien').empty();
+                $('#monHoc').empty();
+                $('#giangVien').empty();
                 var rs = JSON.parse(result);
                 console.log(rs);
                 $.each(rs[0], function (i, obj) {
-                    $('#monHoc').append("<option value='" + obj.maMonHoc + "'>" + obj.tenMonHoc + "</option>");
+                    $('#monHoc').append("<option value='" + obj.maMonHoc + "' tinchi='"+obj.tinChi+"'>" + obj.tenMonHoc + "</option>");
                 });
                 $.each(rs[1], function (i, obj) {
                     $('#giangVien').append("<option value='" + obj.maGiaoVien + "'>" + obj.user.fullName + "</option>");
                 });
                 getCode();
+
             }
         });
     }
@@ -699,8 +716,32 @@
                 alert("lỗi server");
             }
         });
+        getAvailableClass();
     }
 
+    function getAvailableClass(){
+        var caHoc = [];
+        var ngayHoc = [];
+        $('input:checkbox:checked').each(function(idx, el){
+            ngayHoc.push($(this).attr('thu'));
+        });
+        $.each($(".caHoc:enabled"), function(idx, el){
+            caHoc.push($(this).val());
+        });
+
+        $.ajax({
+            url: base_url + 'lophoc/getAvailableClass',
+            type: "get",
+            data: {ngayHoc: ngayHoc, caHoc: caHoc},
+            // dataType: "text",
+            success: function (result) {
+               $('#phongHoc').val(result);
+            },
+            error: function () {
+                alert("500 error");
+            }
+        });
+    }
 
     $('#monHoc').change(function () {
         getCode();
@@ -708,12 +749,13 @@
 
     function getCode() {
         var maMonHoc = $('#monHoc').val();
+        tinChi = $('option:selected', '#monHoc').attr('tinchi');
+        // alert(tinChi);
         if (maMonHoc != null) {
             $('#maLop').val(maMonHoc + "-" + [[${time}]]);
         }
     }
 
-    var checkView = 0;
 
     $('.lh-detail').click(function () {
         if (checkView == 0) {
@@ -762,11 +804,8 @@
         }
     });
 
-    $('.cbNgayHoc').on('change', function(evt) {
-        if($(this).siblings(':checked').length > 2) {
-            this.checked = false;
-        }
-    });
+    var checkView = 0;
+    var tinChi = 0;
     var base_url = [[@{/}]];
     //
 </script>

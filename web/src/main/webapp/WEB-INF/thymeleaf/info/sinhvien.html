@@ -255,7 +255,7 @@
             if (valid.isValid()) {
                 var data = $('#form-themmoi').serialize();
                 $.ajax({
-                    url: base_url + 'khoavien/them-moi?' + [[${_csrf.parameterName}]] + '=' + [[${_csrf.token}]],
+                    url: base_url + 'khoavien/them-moi' ,
                     type: "post",
                     data: data,
                     dataType: "text",

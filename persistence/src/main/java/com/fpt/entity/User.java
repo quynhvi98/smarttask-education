@@ -56,6 +56,12 @@ public class User implements Serializable {
     )
     Set<Role> roles;
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    private Set<BaiDang> lstBaiDang;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    private Set<BinhLuan> lstBinhLuan;
+
     public User() {
     }
 
@@ -164,6 +170,22 @@ public class User implements Serializable {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Set<BaiDang> getLstBaiDang() {
+        return lstBaiDang;
+    }
+
+    public void setLstBaiDang(Set<BaiDang> lstBaiDang) {
+        this.lstBaiDang = lstBaiDang;
+    }
+
+    public Set<BinhLuan> getLstBinhLuan() {
+        return lstBinhLuan;
+    }
+
+    public void setLstBinhLuan(Set<BinhLuan> lstBinhLuan) {
+        this.lstBinhLuan = lstBinhLuan;
     }
 
     public static long getSerialVersionUID() {

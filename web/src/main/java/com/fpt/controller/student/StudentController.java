@@ -46,6 +46,8 @@ public class StudentController {
     public String registerclass(Model model, HttpSession session) {
         User user = (User) session.getAttribute("userInfo");
         int hocki = getKiHoc(user.getSinhVien().getNgayNhapHoc());
+        SinhVien sinhVien = sinhVienService.findById(user.getSinhVien().getMaSinhVien());
+        model.addAttribute("sinhVien", sinhVien);
         model.addAttribute("listMonHoc", monHocService.listMonHocKy(String.valueOf(hocki)));
         model.addAttribute("user", user);
         model.addAttribute("hocKi", "Danh sách các môn học trong kì: " + hocki);

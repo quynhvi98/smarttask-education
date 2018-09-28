@@ -3,66 +3,50 @@ package com.fpt.controller;
 import com.fpt.entity.GiaoVien;
 import com.fpt.entity.SinhVien;
 import com.fpt.entity.User;
-import com.fpt.repositories.user.UserDao;
 import com.fpt.services.giangvien.GiangVienService;
 import com.fpt.services.sinhvien.SinhVienService;
-import com.fpt.services.user.UserService;
+import com.fpt.services.thongbao.ThongBaoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Posted from Sep 12, 2018, 10:21 PM
+ * Posted from Sep 28, 2018, 10:32 AM
  *
  * @author Vi Quynh (vi.quynh.31598@gmail.com)
  */
 @Controller
-public class UserInfoController {
+public class DoiMatKhauController {
     private final Logger logger = LoggerFactory.getLogger(UserInfoController.class);
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private GiangVienService giangVienService;
     @Autowired
     private SinhVienService sinhVienService;
     @Autowired
-    private UserDao userDao;
+    private GiangVienService giangVienService;
+    @Autowired
+    private ThongBaoService thongBaoService;
 
-
-    @RequestMapping("/info")
-    public String userProfile(HttpSession session, HttpServletRequest request, Model model) {
+    @RequestMapping("/doimatkhau")
+    public String index(HttpSession session, Model model) {
         User userInfo = (User) session.getAttribute("userInfo");
-
+        model.addAttribute("user", userInfo);
         if(userInfo.getSinhVien()!= null){
+            model.addAttribute("soLuongTBChuaXem",thongBaoService.soLuongTbChuaXemSV(userInfo.getSinhVien().getMaSinhVien()));
+            model.addAttribute("moiNhat", thongBaoService.thongBaoMoiNhatSV(userInfo.getSinhVien().getMaSinhVien()));
             SinhVien sinhVien = sinhVienService.findById(userInfo.getSinhVien().getMaSinhVien());
             model.addAttribute("sinhVien", sinhVien);
-            model.addAttribute("sinhvien", userInfo);
-            model.addAttribute("user", userInfo);
-            return "info/sinhvien";
         }
         if(userInfo.getGiaoVien() != null){
+            model.addAttribute("soLuongTBChuaXem",thongBaoService.soLuongTbChuaXemGV(userInfo.getGiaoVien().getMaGiaoVien()));
+            model.addAttribute("moiNhat", thongBaoService.thongBaoMoiNhatGV(userInfo.getGiaoVien().getMaGiaoVien()));
             GiaoVien giaoVien = giangVienService.findById(userInfo.getGiaoVien().getMaGiaoVien());
-            model.addAttribute("giangvien",userInfo);
-            model.addAttribute("user", userInfo);
             model.addAttribute("giaoVien", giaoVien);
-            return "info/giangvien";
+
         }
-        return null;
+        return "info/doimatkhau";
     }
-
-    @PostMapping("/info/update")
-    public void userUpdateImage(GiaoVien giaoVien, HttpServletResponse response, Model model){
-        giangVienService.updateGiaoVien(giaoVien);
-    };
-
-
 }
