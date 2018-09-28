@@ -218,7 +218,7 @@
 
             <input id="maLopHoc" type="hidden" th:value="${lopHoc.maLop}"/>
             <input id="maMonHoc" type="hidden" th:value="${lopHoc.monHoc.maMonHoc }"/>
-             <input id="token" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+             <!--<input id="token" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
 
         </section>
 
@@ -342,7 +342,7 @@
                                                                         <!--<button name="edit" onclick="toggle_inputs()">Sửa điểm</button>-->
                                                                         <button onclick="ff()" style="    margin-top: 20px;margin-bottom: -26px;" type="button" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i> Cập nhật
                                                                         </button>
-                                                                        <input id="token1" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                                                                        <!--<input id="token1" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
                                                                     </tr>
                                                                     </tbody>
                                                                 </table>
@@ -533,7 +533,7 @@
             imageHeight: 200,
             showConfirmButton: false,
         });
-        var token = document.getElementById('token1').value;
+        // var token = document.getElementById('token1').value;
         var valid = $("#suadiem").parsley();
         valid.validate();
         if (valid.isValid()) {
@@ -541,7 +541,7 @@
             $.ajax({
                 url:  '/web/giangviendaylop/suadiem',
                 type: "post",
-                headers: {'X-CSRF-Token': token},
+                // headers: {'X-CSRF-Token': token},
                 data: data,
                 dataType: "text",
                 success: function (result) {
@@ -618,7 +618,7 @@
         });
         var maLopHoc = document.getElementById('maLopHoc').value;
         var mmh = document.getElementById('maMonHoc').value;
-        var token = document.getElementById('token').value;
+        // var token = document.getElementById('token').value;
         var oMyForm = new FormData();
         oMyForm.append("file", files[0]);
         oMyForm.append("maMonHoc", mmh);
@@ -628,7 +628,7 @@
                 dataType: 'json',
                 url: "/web/upfile",
                 data: oMyForm,
-                headers: {'X-CSRF-Token': token},
+                // headers: {'X-CSRF-Token': token},
                 type: "POST",
                 enctype: 'multipart/form-data',
                 processData: false,

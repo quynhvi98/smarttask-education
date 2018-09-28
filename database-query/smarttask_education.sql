@@ -277,3 +277,21 @@ CREATE TABLE IF NOT EXISTS binh_luan
     CONSTRAINT binh_luan_postid_fk FOREIGN KEY (postid) REFERENCES bai_dang (postid),
     CONSTRAINT binh_luan_user_name_fk FOREIGN KEY (user_name) REFERENCES user (user_name)
 ) engine=InnoDB;
+
+
+
+CREATE TABLE IF NOT EXISTS diem_sinhvien (
+  id BIGINT NOT NULL auto_increment,
+  diem_ly_thuyet double ,
+  diem_thuc_hanh double,
+  diem_cuoi_ki double,
+  ma_sinh_vien VARCHAR(255),
+  ma_giao_vien VARCHAR(255),
+  ma_mon_hoc VARCHAR(255),
+  ma_lop VARCHAR(255),
+  PRIMARY KEY (id),
+  CONSTRAINT FK_sinh_vien FOREIGN KEY (ma_sinh_vien) REFERENCES sinh_vien(ma_sinh_vien),
+  CONSTRAINT FK_giao_vien FOREIGN KEY (ma_giao_vien) REFERENCES giao_vien(ma_giao_vien),
+  CONSTRAINT FK_mon_hoc FOREIGN KEY (ma_mon_hoc) REFERENCES mon_hoc(ma_mon_hoc),
+  CONSTRAINT FK_lop_hoc FOREIGN KEY (ma_lop) REFERENCES lop_hoc(ma_lop)
+) engine=InnoDB;

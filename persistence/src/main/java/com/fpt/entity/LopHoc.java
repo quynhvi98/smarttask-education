@@ -27,8 +27,9 @@ public class LopHoc {
     @Column(name = "trang_thai")
     private String trangThai;
 
-    @Column(name = "phong_hoc")
-    private String phongHoc;
+    @ManyToOne
+    @JoinColumn(name = "phong_hoc")
+    private PhongHoc phongHoc;
 
     @Column(name = "ngay_hoc")
     private String ngayHoc;
