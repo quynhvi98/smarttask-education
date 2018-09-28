@@ -15,7 +15,7 @@ public class ExcelView extends AbstractXlsView {
     public void buildExcelDocument(Map<String, Object> model, Workbook workbook, HttpServletRequest request,
                                    HttpServletResponse response) throws Exception {
         // TODO Auto-generated method stub
-
+//
         String maLop = (String) model.get("maLop");
         String value="attachment; filename=\""+maLop+".xlsx"+"\"";
         // change the file name

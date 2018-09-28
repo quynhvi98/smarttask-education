@@ -63,8 +63,7 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li th:each="lophoc : ${sinhVien.lopHocs}">
-                        <a th:href="@{/tuonglop/}+${lophoc.maLop}">
+                    <li th:each="lophoc : ${sinhVien.lopHocs}"><a th:href="@{/tuonglop/}+${lophoc.maLop}">
                         <span th:text="${lophoc.maLop}">Lớp</span></a></li>
                 </ul>
             </li>

@@ -75,8 +75,8 @@ public class LopHocController {
 
     @RequestMapping(value = "/downloadExcel", method = RequestMethod.GET)
     public ModelAndView downloadExcel(Model model, HttpServletRequest request, HttpServletResponse responsel) {
-        List<SinhVien> sinhViens=sinhVienService.listSV();
         String maLop = request.getParameter("maLop");
+        List<SinhVien> sinhViens=sinhVienService.getListSinhVienbyLopHocId(maLop);
         model.addAttribute("maLop",maLop);
         model.addAttribute("sinhViens",sinhViens);
         return new ModelAndView(new ExcelView());
@@ -108,6 +108,7 @@ public class LopHocController {
                     diem.setGiaoVien(user.getGiaoVien());
                     diem.setMonHoc(monHocService.findById(maMonHoc));
                     diem.setLopHoc(lopHocService.findById(maLopHoc));
+                    System.out.println("mamh:"+maLopHoc);
                     diems.add(diem);
                 }
                 workbook.close();
