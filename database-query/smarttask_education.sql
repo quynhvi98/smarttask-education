@@ -5,8 +5,10 @@ USE smarttask_education;
 
 DROP TABLE IF EXISTS role;
 DROP TABLE IF EXISTS config;
+DROP TABLE IF EXISTS phong_hoc;
 DROP TABLE IF EXISTS khoa_vien;
 DROP TABLE IF EXISTS bo_mon;
+DROP TABLE IF EXISTS ki_hoc;
 DROP TABLE IF EXISTS mon_hoc;
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS phan_quyen;
@@ -24,7 +26,10 @@ DROP TABLE IF EXISTS chi_tiet_nhom_de_tai;
 DROP TABLE IF EXISTS nop_de_tai;
 DROP TABLE IF EXISTS thong_bao;
 DROP TABLE IF EXISTS phe_duyet;
-DROP TABLE IF EXISTS ki_hoc;
+DROP TABLE IF EXISTS bai_dang;
+DROP TABLE IF EXISTS binh_luan;
+DROP TABLE IF EXISTS likes;
+DROP TABLE IF EXISTS diem_sinhvien;
 
 
 CREATE TABLE IF NOT EXISTS role (
@@ -263,7 +268,7 @@ CREATE TABLE IF NOT EXISTS bai_dang
     content longtext NOT NULL,
     file varchar(255),
     user_name varchar(255),
-    status int DEFAULT 1 NOT NULL;
+    status int DEFAULT 1 NOT NULL,
     time datetime,
     CONSTRAINT user_name_fk FOREIGN KEY (user_name) REFERENCES user (user_name)
 ) engine=InnoDB;
@@ -285,7 +290,7 @@ CREATE TABLE IF NOT EXISTS likes
     postid bigint,
     user_name varchar(255),
     CONSTRAINT like_bai_dang_postid_fk FOREIGN KEY (postid) REFERENCES bai_dang (postid),
-    CONSTRAINT like_user_user_name_fk FOREIGN KEY (user_name) REFERENCES user (user_name);
+    CONSTRAINT like_user_user_name_fk FOREIGN KEY (user_name) REFERENCES user (user_name)
 ) engine=InnoDB;
 
 CREATE TABLE IF NOT EXISTS diem_sinhvien (

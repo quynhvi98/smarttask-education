@@ -33,80 +33,50 @@
     <div th:replace="fragments/sidebarsv :: aside">&nbsp;</div>
 
     <div class="content-wrapper">
-        <!--code vào đây :D-->
+        <div name="ki 1">
+        <!--kì 1-->
         <section class="invoice">
             <div class="row">
                 <div class="col-xs-12">
                     <h2 class="page-header">
-                        <i class="fa fa-globe"></i> Thông tin điểm và kì học
+                        <i class="fa fa-globe"></i> Thông tin lượng tín chỉ và điểm trong kì I
                         <small class="pull-right" >Ngày bắt đầu kì: 2/10/2014</small>
                     </h2>
                 </div>
-                <!-- /.col -->
             </div>
-            <!-- info row -->
             <div class="row invoice-info">
                 <div class="col-sm-4 invoice-col">
                     <div class="form-group chamcham">
-                        <label for="">Tên khoa viện: </label>
-                        <span
-                        > Khoa CNTT</span>
+                        <label for="">Tổng số môn học: </label>
+                        <span> 5</span>
                     </div>
                     <div class="form-group chamcham">
-                        <label for="">Tên ngành:  </label>
-                        <span An toàn thông tin
-                        > 3</span>
-                    </div>
-                    <div class="form-group chamcham">
-                        <label for="">Học kì: </label>
-                        <span
-                        > 1</span>
+                        <label for="">Số tín chỉ đã học: </label>
+                        <span> 15</span>
                     </div>
                 </div>
-                <!-- /.col -->
                 <div class="col-sm-4 invoice-col">
                     <div class="form-group chamcham">
-                        <label for="">Ngày bắt đầu: </label>
-                        <span
-                        > 20/10/2018</span>
-                    </div>
-                    <div class="form-group chamcham">
-                        <label for=""> Ngày kết thúc: </label>
-                        <span
-                        >20/2/2019</span>
+                        <label for=""> Điểm trung bình trên thang 10: </label>
+                        <span>7.5/10</span>
                     </div>
 
                     <div class="form-group chamcham">
-                        <label for="">Ghi chú: </label>
-                        <span > FPT</span>
+                        <label for="">Điểm GPA: </label>
+                        <span > 2.5/3</span>
                     </div>
                 </div>
-                <!-- /.col -->
                 <div class="col-md-4">
                     <div class="form-group chamcham">
-                        <label for="">Ca học: </label>
-                    </div>
-                    <div class="table tree-dot">
-                        <table id="lichHoc" class="tree-table">
-                            <thead>
-
-                            </thead>
-                            <tbody>
-                            <tr>
-
-                            </tr>
-                            </tbody>
-                        </table>
+                        <label for="">Ghi chú </label>
+                        <span ></span>
                     </div>
                 </div>
             </div>
         </section>
 
         <section class="content-header">
-            <h1>
-                Danh sách các môn đang theo học và quản lí điểm kì 1
-            </h1>
-
+            <h1>Danh sách điểm các môn kì I</h1>
         </section>
 
         <!-- Main content -->
@@ -114,15 +84,18 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="box">
-                        <!-- /.box-header -->
                         <div class="box-body">
                             <table id="example2" class="table table-bordered table-hover">
                                 <thead>
                                 <tr>
                                     <th>STT</th>
-                                    <th>Mã SV</th>
-                                    <th>Tên sinh viên</th>
-                                    <th>Email</th>
+                                    <th>Môn học</th>
+                                    <th>Số tín chỉ</th>
+                                    <th>Điểm lí thuyết</th>
+                                    <th>Điểm thực hành</th>
+                                    <th>Điểm bài tập lớn</th>
+                                    <th>Điểm trung bình</th>
+                                    <th>GPA</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -131,23 +104,193 @@
                                         <td  class="text-right">
                                             1
                                         </td>
-                                        <td >SV-00</td>
-                                        <td >Nguyễn Văn A</td>
-                                        <td >nguyenvana@gmail.com</td>
+                                        <td >Hệ quản trị cơ sở dữ liệu</td>
+                                        <td >3</td>
+                                        <td >7</td>
+                                        <td >8</td>
+                                        <td >9</td>
+                                        <td >7.0</td>
+                                        <td >2.5</td>
                                     </tr>
                                 <!--</th:block>-->
                                 <tbody>
                             </table>
                         </div>
-                        <!-- /.box-body -->
                     </div>
-                    <!-- /.box -->
-
-                    <!-- /.box -->
                 </div>
-                <!-- /.col -->
             </div>
-            <!-- /.row -->
+        </section>
+        <!--kì 2-->
+        <section class="invoice">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2 class="page-header">
+                        <i class="fa fa-globe"></i> Thông tin lượng tín chỉ và điểm trong kì II
+                        <small class="pull-right" >Ngày bắt đầu kì: 2/10/2014</small>
+                    </h2>
+                </div>
+            </div>
+            <div class="row invoice-info">
+                <div class="col-sm-4 invoice-col">
+                    <div class="form-group chamcham">
+                        <label for="">Tổng số môn học: </label>
+                        <span> 5</span>
+                    </div>
+                    <div class="form-group chamcham">
+                        <label for="">Số tín chỉ đã học: </label>
+                        <span> 15</span>
+                    </div>
+                </div>
+                <div class="col-sm-4 invoice-col">
+                    <div class="form-group chamcham">
+                        <label for=""> Điểm trung bình trên thang 10: </label>
+                        <span>7.5/10</span>
+                    </div>
+
+                    <div class="form-group chamcham">
+                        <label for="">Điểm GPA: </label>
+                        <span > 2.5/3</span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group chamcham">
+                        <label for="">Ghi chú </label>
+                        <span ></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        </div>
+        <section class="content-header">
+            <h1>Danh sách điểm các môn kì II</h1>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-body">
+                            <table id="example2" class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Môn học</th>
+                                    <th>Số tín chỉ</th>
+                                    <th>Điểm lí thuyết</th>
+                                    <th>Điểm thực hành</th>
+                                    <th>Điểm bài tập lớn</th>
+                                    <th>Điểm trung bình</th>
+                                    <th>GPA</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!--<th:block th:if="${sinhvien != null}">-->
+                                <tr >
+                                    <td  class="text-right">
+                                        1
+                                    </td>
+                                    <td >Hệ quản trị cơ sở dữ liệu</td>
+                                    <td >3</td>
+                                    <td >7</td>
+                                    <td >8</td>
+                                    <td >9</td>
+                                    <td >7.0</td>
+                                    <td >2.5</td>
+                                </tr>
+                                <!--</th:block>-->
+                                <tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--ki 3-->
+        <section class="invoice">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2 class="page-header">
+                        <i class="fa fa-globe"></i> Thông tin lượng tín chỉ và điểm trong kì III
+                        <small class="pull-right" >Ngày bắt đầu kì: 2/10/2014</small>
+                    </h2>
+                </div>
+            </div>
+            <div class="row invoice-info">
+                <div class="col-sm-4 invoice-col">
+                    <div class="form-group chamcham">
+                        <label for="">Tổng số môn học: </label>
+                        <span> 5</span>
+                    </div>
+                    <div class="form-group chamcham">
+                        <label for="">Số tín chỉ đã học: </label>
+                        <span> 15</span>
+                    </div>
+                </div>
+                <div class="col-sm-4 invoice-col">
+                    <div class="form-group chamcham">
+                        <label for=""> Điểm trung bình trên thang 10: </label>
+                        <span>7.5/10</span>
+                    </div>
+
+                    <div class="form-group chamcham">
+                        <label for="">Điểm GPA: </label>
+                        <span > 2.5/3</span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group chamcham">
+                        <label for="">Ghi chú </label>
+                        <span ></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-header">
+            <h1>Danh sách điểm các môn kì III</h1>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-body">
+                            <table id="example2" class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Môn học</th>
+                                    <th>Số tín chỉ</th>
+                                    <th>Điểm lí thuyết</th>
+                                    <th>Điểm thực hành</th>
+                                    <th>Điểm bài tập lớn</th>
+                                    <th>Điểm trung bình</th>
+                                    <th>GPA</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!--<th:block th:if="${sinhvien != null}">-->
+                                <tr >
+                                    <td  class="text-right">
+                                        1
+                                    </td>
+                                    <td >Hệ quản trị cơ sở dữ liệu</td>
+                                    <td >3</td>
+                                    <td >7</td>
+                                    <td >8</td>
+                                    <td >9</td>
+                                    <td >7.0</td>
+                                    <td >2.5</td>
+                                </tr>
+                                <!--</th:block>-->
+                                <tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
 
