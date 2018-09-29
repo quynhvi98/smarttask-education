@@ -15,7 +15,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/AdminLTE.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/skin-blue.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
-    <!--<link rel="stylesheet" type="text/css" th:href="@{/css/parsley.css}"/>-->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-datepicker3.min.css}">
 
     <script type="text/javascript" th:src="@{/js/jquery/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
@@ -26,6 +26,11 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+    <!--Date Picker plugin-->
+    <script type="text/javascript" th:src="@{/js/bootstrap-datepicker.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/plugins/daterangepicker/moment.js}"></script>
+    <script type="text/javascript" th:src="@{/js/plugins/daterangepicker/daterangepicker.js}"></script>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -45,7 +50,7 @@
                             <div th:if="${giangvien.userAvatar != null}">
                                 <div class="thumb" alt="User Pic"
                                      id="view-avatar"
-                                     th:style="'background-image:url('+@{'data:img/jpeg;base64)'"></div>
+                                     th:style="'background-image:url('+${giangvien.userAvatar} + ');'"></div>
                             </div>
                             <div th:if="${giangvien.userAvatar == null}">
                                 <div class="thumb" th:if="${giangvien.userAvatar == null}" alt="User Pic"
@@ -60,9 +65,7 @@
                                     <span class="xam" data-toggle="tooltip" data-placement="top" title="Ngày sinh">
                                     <i class="fa fa-birthday-cake" aria-hidden="true"></i></span>
                                     <span id="view-birthday"
-                                          th:text="${giangvien != null ? giangvien.userDOB : ''}">20/02/1985</span>
-                                    <!--<span id="view-birthday"   th:text="${#calendars.format(today, 'dd/MM/yyyy hh:mm:ss')}" -->
-                                    <!--th:text="${giangvien != null ? #calendars.format(giangvien.userDOB, 'dd/MM/yyyy hh:mm:ss') : ''}">20/02/1985</span>-->
+                                          th:text="${giangvien != null ? #dates.format(giangvien.userDOB, 'dd/MM/yyyy') : ''}">20/02/1985</span>
                                 </span>
                                 <span>
                                     <span class="xam" data-toggle="tooltip" data-placement="top" title="Giới tính">
@@ -197,111 +200,112 @@
     <div class="modal modal-full fade" id="suanhansu" role="dialog"
          aria-labelledby="themnhansuLabel" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog" role="document">
-            <form class="form-horizontal" id="form-update" role="form"
-                  method="post" enctype="multipart/form-data">
-                <div class="text-center avantar">
-                    <div class="card col-md-3">
+            <div class="text-center avantar">
+                <div class="card col-md-3">
+                    <form class="form-horizontal" id="form-update-avatar" role="form"
+                          method="post" enctype="multipart/form-data">
                         <div th:if="${giangvien.userAvatar != null}">
-                        <div class="thumb" alt="User Pic"
-                        id="view-avatar"
-                        th:style="'background-image:url('+@{'data:image/jpeg;base64,'+*{T(org.springframework.util.Base64Utils).encodeToString(userprofile.avatar)}}+')'"></div>
+                            <div class="thumb" alt="User Pic"
+                                 id="view-avatar-edit"
+                                 th:style="'background-image:url('+ ${giangvien.userAvatar} + ')'"></div>
                         </div>
                         <div th:if="${giangvien.userAvatar == null}">
-                        <div class="thumb" th:if="${giangvien.userAvatar == null}" alt="User Pic"
-                        th:style="'background-image:url(' + @{/img/user2-160x160.jpg} + ');'"></div>
+                            <div class="thumb" alt="User Pic" id="view-avatar-edit"
+                                 th:style="'background-image:url(' + @{/img/user2-160x160.jpg} + ');'"></div>
                         </div>
                         <div class="form-group row">
-                        <input accept="image/jpeg, image/png" type="file" class="form-control" id="avatar"
-                        name="avatarFile"/>
-                        <label class="form-control" for="avatar">
-                        Click để đổi ảnh đại diện
-                        </label>
+                            <input accept="image/jpeg, image/png" type="file" class="form-control" id="avatar"
+                                   name="avatarFile"/>
+                            <label class="form-control" for="avatar">
+                                Click để đổi ảnh đại diện
+                            </label>
                         </div>
+                    </form>
+                    <form class="form-horizontal" id="form-update" role="form" method="post" enctype="multipart/form-data">
                         <div class="article">
-                            <h1 ><span id="view-fullName-edit"
-                                       th:text="${giangvien != null ? giangvien.fullName : ''}">NGUYỄN DUY TRƯỜNG</span>
+                            <h1 ><input id="view-fullname-edit" th:name="fullName" style="color: black; text-align: center"/>
                             </h1>
                             <span>
-                                    <span class="xam" data-toggle="tooltip" data-placement="top" title="Ngày sinh">
-                                    <i class="fa fa-birthday-cake" aria-hidden="true"></i></span>
-                                    <span
-                                    >20/02/1985</span>
-                                <!--<span id="view-birthday"   th:text="${#calendars.format(today, 'dd/MM/yyyy hh:mm:ss')}" -->
-                                <!--th:text="${giangvien != null ? #calendars.format(giangvien.userDOB, 'dd/MM/yyyy hh:mm:ss') : ''}">20/02/1985</span>-->
-                                </span>
+                                <span>
+                            <span class="xam" data-toggle="tooltip" data-placement="top" title="Ngày sinh">
+                                <i class="fa fa-birthday-cake" aria-hidden="true"></i></span>
+                                <input type="text" th:name="userDOB"
+                                       id="view-dob-edit" maxlength="10" required style="color: black">
+                            </span>
+                            </span>
 
                             <span>
                                    <span>
                                     <span class="xam" data-toggle="tooltip" data-placement="top" title="Giới tính">
                                          <i class="fa fa-venus-mars" aria-hidden="true"></i></span>
-                                    <input type="radio" th:name="giangvien.userGender" id="gender-man" value="Nam" />Nam
-                                    <input type="radio" th:name="giangvien.userGender" id="gender-woman" value="Nu" />Nữ
+                                    <input type="radio" th:name="userGender" id="gender-man" value="Nam" />Nam
+                                    <input type="radio" th:name="userGender" id="gender-woman" value="Nữ" />Nữ
                                 </span>
                                 </span>
 
                             <span>
                                     <span class="xam" data-toggle="tooltip" data-placement="top" title="Số điện thoại">
                                     <i class="fa fa-phone" aria-hidden="true"></i></span>
-                                    <input type="text" id="view-mobile-edit" th:name="giangvien.userPhone" style="color: black"/>
+                                    <input type="text" id="view-mobile-edit" th:name="userPhone" style="color: black"/>
                                 </span>
                             <span>
                                     <span class="xam" data-toggle="tooltip" data-placement="top" title="Thư điện tử">
                                         <i class="fa fa-envelope-o" aria-hidden="true"></i></span>
                                     <span
-                                    ><input type="text" id="view-email-edit" th:name="giangvien.userEmail" style="color: black"/></span>
+                                    ><input type="text" id="view-email-edit" th:name="userEmail" style="color: black"/></span>
                                 </span>
                         </div>
+                </div>
+                <div class="col-md-6 p-25">
+                    <div class="form-group chamcham">
+                        <label for="">Tên truy cập</label>
+                        <span
+                        ><input type="text" id="view-userName-edit" th:name="userName" readonly/></span>
                     </div>
-                    <div class="col-md-6 p-25">
-                        <div class="form-group chamcham">
-                            <label for="">Tên truy cập</label>
-                            <span
-                            ><input type="text" id="view-userName-edit" th:name="giangvien.userName" readonly/></span>
-                        </div>
-                        <div class="form-group chamcham">
-                            <label for="">Mã </label>
-                            <span
-                            ><input type="text" id="view-maGiaoVien-edit" th:name="giangvien.giaoVien.maGiaoVien" readonly/></span>
-                        </div>
-                        <div class="form-group chamcham">
-                            <label for="">Mã ngành giảng dạy</label>
-                            <span
-                            ><input type="text" id="view-maNganh-edit" th:name="giangvien.giaoVien.boMon.maNganh" readonly/></span>
-                        </div>
-
-                        <div class="form-group chamcham">
-                            <label for="">Tên ngành giảng dạy</label>
-                            <span
-                            ><input type="text" id="view-tenNganh-edit" th:name="giangvien.giaoVien.boMon.tenNganh" readonly/></span>
-                        </div>
-                        <div class="form-group chamcham">
-                            <label for="">Địa chỉ</label>
-                            <span><input type="text" id="view-userAddress-edit" th:name="giangvien.userAddress"/></span>
-                        </div>
-                        <div class="form-group chamcham">
-                            <label for="">Học hàm</label>
-                            <span><input type="text" id="view-hocHam-edit" th:name="giangvien.giaoVien.hocHam"/></span>
-                        </div>
-                        <div class="form-group chamcham">
-                            <label for="">Mô tả</label>
-                            <span><input type="text" id="view-moTa-edit" th:name="giangvien.giaoVien.moTa"/></span>
-                        </div>
-
+                    <div class="form-group chamcham">
+                        <label for="">Mã </label>
+                        <span
+                        ><input type="text" id="view-maGiaoVien-edit" th:name="giaoVien.maGiaoVien" readonly/></span>
                     </div>
-                    <div class="col-md-5 inline-block p-25">
-                        <div class="form-group">
-                            <button id="btn-update" class="btn btn-success" data-target="#suanhansu">Chỉnh sửa
-                                thông
-                                tin cá nhân
-                            </button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-sign-out"
-                                                                                                  aria-hidden="true"></i>
-                                Thoát
-                            </button>
-                            </a>
-                        </div>
+                    <div class="form-group chamcham">
+                        <label for="">Mã ngành giảng dạy</label>
+                        <span
+                        ><input type="text" id="view-maNganh-edit" th:name="boMon.maNganh" readonly/></span>
+                    </div>
+
+                    <div class="form-group chamcham">
+                        <label for="">Tên ngành giảng dạy</label>
+                        <span
+                        ><input type="text" id="view-tenNganh-edit" th:name="giaoVien.boMon.tenNganh" readonly/></span>
+                    </div>
+                    <div class="form-group chamcham">
+                        <label for="">Địa chỉ</label>
+                        <span><input type="text" id="view-userAddress-edit" th:name="userAddress"/></span>
+                    </div>
+                    <div class="form-group chamcham">
+                        <label for="">Học hàm</label>
+                        <span><input type="text" id="view-hocHam-edit" th:name="giaoVien.hocHam"/></span>
+                    </div>
+                    <div class="form-group chamcham">
+                        <label for="">Mô tả</label>
+                        <span><input type="text" id="view-moTa-edit" th:name="giaoVien.moTa"/></span>
+                    </div>
+
+                </div>
+                <div class="col-md-5 inline-block p-25">
+                    <div class="form-group">
+                        <button id="btn-update" class="btn btn-success" data-target="#suanhansu">Chỉnh sửa
+                            thông
+                            tin cá nhân
+                        </button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-sign-out"
+                                                                                              aria-hidden="true"></i>
+                            Thoát
+                        </button>
+                        </a>
                     </div>
                 </div>
+            </div>
             </form>
         </div>
     </div>
@@ -367,52 +371,98 @@
 </aside>
 <div class="control-sidebar-bg"></div>
 </div>
-
 </body>
 <script type="text/javascript" th:inline="javascript">
     var base_url = [[@{/}]];
-
+        var sizeFile = 10;
         $(document).ready(function () {
             if($("#view-gender-m").val() != undefined){
                 document.getElementById("gender-man").checked = true;
             } else {
                 document.getElementById("gender-woman").checked = true;
             }
+            $("#view-dob-edit").datepicker({
+                "autoclose": true,
+                "setDate" : new Date()
+            });
         });
-    $('#btn-edit').click(function () {
-        $('#suanhansu').modal('show');
-        $('#view-mobile-edit').val($('#view-mobile').text());
-        $('#view-email-edit').val($('#view-email').text());
-        $('#view-userName-edit').val($('#view-userName').text());
-        $('#view-maNganh-edit').val($('#view-maNganh').text());
-        $('#view-tenNganh-edit').val($('#view-tenNganh').text());
-        $('#view-maGiaoVien-edit').val($('#view-maGiaoVien').text());
-        $('#view-userAddress-edit').val($('#view-userAddress').text());
-        $('#view-hocHam-edit').val($('#view-hocHam').text());
-        $('#view-moTa-edit').val($('#view-moTa').text());
-    });
+        $(function () {
+            $('#avatar').on('click', function () {
+                $('#avatar').click();
+            });
+        });
+        $('#view-dob-edit').keypress(function (e) {
+            e.preventDefault();
 
-    $('#btn-update').click(function () {
-        var token = document.getElementById('token').value;
-        var valid = $("#form-update").parsley();
-        valid.validate();
-        if (valid.isValid()) {
-            var data = $('#form-update').serialize();
+        });
+        $("#avatar").change(function () {
+            if(this.files[0].size / (1024*1024) > sizeFile){
+                var msg1 = "File tải lên không quá " + sizeFile + " MB";
+                alert(msg1);
+                return;
+            }
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#view-avatar , #view-avatar-edit').css("background-image", "url(" + e.target.result + ")");
+                };
+                reader.readAsDataURL(this.files[0]);
+            }
+            var form = new FormData();
+            form.append("avatarFile", $("#avatar")[0].files[0]);
+
             $.ajax({
-                url: base_url + 'info/update',
-                type: "post",
-                data: data,
-                dataType: "text",
-                success: function (result) {
-                    $('#view-moTa-edit').modal('hide');
-                    if (result.trim() === "success") {
-                        notify_sucess("Cập nhật thông tin", "Cập nhật");
-                    } else {
-                        notify_error("Cập nhật thông tin", "Cập nhật");
-                    }
+                url: base_url + 'info/userUpdateImage',
+                data: form,
+                dataType: 'text',
+                processData: false,
+                contentType: false,
+                type: 'POST',
+                success: function(data){
+                    $('#result').html(data);
                 }
             });
-        }
-    });
+        });
+
+        $('#btn-edit').click(function () {
+            $('#suanhansu').modal('show');
+            $('#view-mobile-edit').val($('#view-mobile').text());
+            $('#view-email-edit').val($('#view-email').text());
+            $('#view-userName-edit').val($('#view-userName').text());
+            $('#view-maNganh-edit').val($('#view-maNganh').text());
+            $('#view-tenNganh-edit').val($('#view-tenNganh').text());
+            $('#view-maGiaoVien-edit').val($('#view-maGiaoVien').text());
+            $('#view-userAddress-edit').val($('#view-userAddress').text());
+            $('#view-hocHam-edit').val($('#view-hocHam').text());
+            $('#view-moTa-edit').val($('#view-moTa').text());
+            $('#view-fullname-edit').val($('#view-fullname').text());
+            $('#view-dob-edit').val($('#view-birthday').text());
+        });
+
+        $('#btn-update').click(function () {
+            var valid = $("#form-update").parsley();
+            valid.validate();
+            if (valid.isValid()) {
+                var data = $('#form-update').serialize();
+                $.ajax({
+                    url: base_url + 'info/update',
+                    type: "post",
+                    data: data,
+                    dataType: "text",
+                    success: function (result) {
+                        if (result.trim() === "success") {
+                            $('#suanhansu').modal('hide');
+                            location.reload();
+//                            if (result.trim() === "success") {
+//                                notify_sucess('Sửa thông tin thành công', 'Cập nhật');
+//                                setTimeout("location.reload(true);", 2000);
+//                            } else {
+//                                notify_error('Sửa thất bại', 'Cập nhật');
+//                            }
+                        }
+                    }
+                });
+            }
+        });
 
 </script>
