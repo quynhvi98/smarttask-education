@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
@@ -48,99 +49,99 @@
     <div th:replace="fragments/sidebar :: aside">&nbsp;</div>
 
     <div class="content-wrapper">
-        <!--code vào đây :D-->
+        <!--code vào dây :D-->
         <section class="invoice">
-        <div class="row">
-            <div class="col-xs-12">
-                <h2 class="page-header">
-                    <i class="fa fa-globe"></i> Thông tin lớp
-                    <small class="pull-right" th:text="${lopHoc != null ? lopHoc.ngayTao : ''}">Ngày mở lớp: 2/10/2014</small>
-                </h2>
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2 class="page-header">
+                        <i class="fa fa-globe"></i> Thông tin lớp
+                        <small class="pull-right" th:text="${lopHoc != null ? lopHoc.ngayTao : ''}">Ngày m? l?p: 2/10/2014</small>
+                    </h2>
+                </div>
+                <!-- /.col -->
             </div>
-            <!-- /.col -->
-        </div>
-        <!-- info row -->
-        <div class="row invoice-info">
-            <div class="col-sm-4 invoice-col">
+            <!-- info row -->
+            <div class="row invoice-info">
+                <div class="col-sm-4 invoice-col">
                     <div class="form-group chamcham">
                         <label for="">Tên môn học: </label>
                         <span th:text="${lopHoc != null ? lopHoc.monHoc.tenMonHoc : ''}"
-                              > Hệ quản trị cơ sở dữ liệu</span>
+                        > H? qu?n tr? co s? d? li?u</span>
                     </div>
                     <div class="form-group chamcham">
                         <label for="">Số lượng tín chỉ:  </label>
                         <span th:text="${lopHoc != null ? lopHoc.monHoc.tinChi : ''}"
-                             > 3</span>
+                        > 3</span>
                     </div>
                     <div class="form-group chamcham">
                         <label for="">Học kì: </label>
                         <span th:text="${lopHoc != null ? lopHoc.monHoc.kiHoc.kiHoc : ''}"
-                                > 1</span>
+                        > 1</span>
                     </div>
 
                     <div class="form-group chamcham">
                         <label for="">Mã lớp: </label>
                         <span th:text="${lopHoc != null ? lopHoc.maLop : ''}"
-                                > Lớp C1608G1</span>
+                        > L?p C1608G1</span>
                     </div>
                     <div class="form-group chamcham">
                         <label for="">Tên giảng viên: </label>
-                        <span >Trần giảng viên</span>
-                    </div>
-            </div>
-            <!-- /.col -->
-            <div class="col-sm-4 invoice-col">
-                <div class="form-group chamcham">
-                    <label for="">Phòng học: </label>
-                    <span th:text="${lopHoc != null ? lopHoc.phongHoc.tenPhong : ''}"
-                    > 206</span>
-                </div>
-                <div class="form-group chamcham">
-                    <label for="">Ngày bắt đầu: </label>
-                    <span th:text="${lopHoc != null ? lopHoc.ngayBatDau : ''}"
-                    > 20/10/2018</span>
-                </div>
-                <div class="form-group chamcham">
-                    <label for=""> Ngày kết thúc: </label>
-                    <span th:text="${lopHoc != null ? lopHoc.ngayKetThuc : ''}"
-                    >20/2/2019</span>
-                </div>
-
-                <div class="form-group chamcham">
-                    <label for="">Ghi chú: </label>
-                    <span th:text="${lopHoc != null ? lopHoc.moTa : ''}" > FPT</span>
-                </div>
-            </div>
-            <!-- /.col -->
-            <div class="col-md-4">
-                <div class="form-group chamcham">
-                    <label for="">Ca học: </label>
-                </div>
-                <div class="table tree-dot">
-                    <table id="lichHoc" class="tree-table">
-                        <thead>
-
-                        </thead>
-                        <tbody>
-                        <tr>
-
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="col-sm-4 invoice-col">
-                <div class="col-md-5 inline-block p-25">
-                    <div class="form-group">
-                        <button id="btn-edit" class="btn btn-success" >
-                            <a style="color: #fefefe" th:href="@{/tuonglop/}+${lopHoc.maLop}"/>Diễn đàn lớp
-                        </button>
-                        </a>
+                        <span >Tr?n gi?ng viên</span>
                     </div>
                 </div>
+                <!-- /.col -->
+                <div class="col-sm-4 invoice-col">
+                    <div class="form-group chamcham">
+                        <label for="">Phòng học: </label>
+                        <span th:text="${lopHoc != null ? lopHoc.phongHoc.tenPhong : ''}"
+                        > 206</span>
+                    </div>
+                    <div class="form-group chamcham">
+                        <label for="">Ngày bắt đầu: </label>
+                        <span th:text="${lopHoc != null ? lopHoc.ngayBatDau : ''}"
+                        > 20/10/2018</span>
+                    </div>
+                    <div class="form-group chamcham">
+                        <label for=""> Ngày kết thúc: </label>
+                        <span th:text="${lopHoc != null ? lopHoc.ngayKetThuc : ''}"
+                        >20/2/2019</span>
+                    </div>
+
+                    <div class="form-group chamcham">
+                        <label for="">Ghi chú: </label>
+                        <span th:text="${lopHoc != null ? lopHoc.moTa : ''}" > FPT</span>
+                    </div>
+                </div>
+                <!-- /.col -->
+                <div class="col-md-4">
+                    <div class="form-group chamcham">
+                        <label for="">Ca học: </label>
+                    </div>
+                    <div class="table tree-dot">
+                        <table id="lichHoc" class="tree-table">
+                            <thead>
+
+                            </thead>
+                            <tbody>
+                            <tr>
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-4 invoice-col">
+                    <div class="col-md-5 inline-block p-25">
+                        <div class="form-group">
+                            <button id="btn-edit" class="btn btn-success" >
+                                <a style="color: #fefefe" th:href="@{/tuonglop/}+${lopHoc.maLop}"/>Diễn đàn lớp
+                            </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col -->
             </div>
-            <!-- /.col -->
-        </div>
         </section>
 
         <section class="content-header">
@@ -170,11 +171,11 @@
                                 Nhập điểm
                             </h3>
                         </div>
-                        <div class="modal-body" style="text-align: center;">
+                        <div class="modal-body" style="height: 382px;text-align: center;">
                             <h5><a th:href="${'/web/downloadExcel?maLop='+lopHoc.maLop}" th:text="${'Download Excel '+ lopHoc.maLop }"> </a></h5>
                             <!--<input type="file" name="file" id="fileLoader"/>-->
                             <!--<input type="button" id="fileSubmit" value="Upload"/>-->
-                            <div id='container'>
+                            <div id='container' style="margin-top: 70px;">
                                 <div class='panel panel-primary'>
                                     <div class='panel-body'>
                                         <span class="glyphicon glyphicon-cloud-upload"></span>
@@ -198,8 +199,8 @@
                                     margin:8em
                                 }
                                 /*body {*/
-                                    /*text-align: center;*/
-                                    /*font-family: 'Raleway', sans-serif;*/
+                                /*text-align: center;*/
+                                /*font-family: 'Raleway', sans-serif;*/
                                 /*}*/
 
                             </style>
@@ -218,7 +219,7 @@
 
             <input id="maLopHoc" type="hidden" th:value="${lopHoc.maLop}"/>
             <input id="maMonHoc" type="hidden" th:value="${lopHoc.monHoc.maMonHoc }"/>
-             <!--<input id="token" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
+            <!--<input id="token" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
 
         </section>
 
@@ -236,18 +237,35 @@
                                     <th>Mã SV</th>
                                     <th>Tên sinh viên</th>
                                     <th>Email</th>
+                                    <th>Ðiểm lý thuyết</th>
+                                    <th>Ðiểmth thực hành</th>
+                                    <th>Ðiểm cuối kì</th>
+                                    <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <th:block th:if="${sinhvien != null}">
-                                    <tr th:each=" sinhvien,k : ${lopHoc.sinhViens}">
+                                <th:block th:if="${SV != null}">
+                                    <tr th:each=" sinhvien,k : ${SV}">
                                         <td class="text-right">
                                             1
                                         </td>
                                         <td th:text="${sinhvien.maSinhVien}">SV-00</td>
-                                        <td th:text="${sinhvien.user.userName}">Nguyễn Văn A</td>
+                                        <td th:text="${sinhvien.user.fullName}">Nguy?n Van A</td>
                                         <td th:text="${sinhvien.user.userEmail}">nguyenvana@gmail.com</td>
-
+                                        <th:block th:if="${#lists.isEmpty(sinhvien.getLstDiem())}">
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                        </th:block>
+                                        <th:block th:if="${!#lists.isEmpty(sinhvien.getLstDiem())}">
+                                            <th:block th:each="diem : ${sinhvien.getLstDiem()}">
+                                                <th:block th:if="${diem.getLopHoc().getMaLop()==lopHoc.maLop}">
+                                                    <td th:text="${diem.getDiemLyThuyet()}">123</td>
+                                                    <td th:text="${diem.getDiemThucHanh()}">123</td>
+                                                    <td th:text="${diem.getDiemCuoiKi()}">123</td>
+                                                </th:block>
+                                            </th:block>
+                                        </th:block>
                                         <td class="text-center">
                                             <div class="dropdown bacham">
                                                 <a href="#" data-toggle="dropdown" aria-haspopup="true"
@@ -256,20 +274,18 @@
                                                 </a>
                                                 <ul class="dropdown-menu dropdown-menu-right">
                                                     <!--<li class="inline">-->
-                                                        <!--<a class="icon-edit"-->
-                                                           <!--data-toggle="modal"-->
-                                                           <!--data-target="#thongTinSV"><i class="fa fa-pencil-square-o" aria-hidden="true" th:attrappend="data-target=${'tt'+sinhvien.maSinhVien}"></i>Thông tin</a>-->
+                                                    <!--<a class="icon-edit"-->
+                                                    <!--data-toggle="modal"-->
+                                                    <!--data-target="#thongTinSV"><i class="fa fa-pencil-square-o" aria-hidden="true" th:attrappend="data-target=${'tt'+sinhvien.maSinhVien}"></i>Thông tin</a>-->
                                                     <!--</li>-->
                                                     <li class="inline">
-                                                        <a class="icon-remove" data-toggle="modal" data-target="#myModal" th:attrappend="data-target=${sinhvien.maSinhVien}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Thông tin điểm</a>
+                                                        <a class="icon-remove" data-toggle="modal" data-target="#myModal" th:attrappend="data-target=${'popup'+sinhvien.maSinhVien}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Thông tin di?m</a>
                                                     </li>
                                                 </ul>
                                             </div>
 
-
-
                                             <div class="modal modal-full fade" id="myModal" role="dialog"
-                                                 th:attrappend="id=${sinhvien.maSinhVien}">
+                                                 th:attrappend="id=${'popup'+sinhvien.maSinhVien}">
                                                 <div class="modal-dialog">
                                                     <!-- Modal content-->i
                                                     <div class="modal-content">
@@ -278,82 +294,84 @@
                                                                 &times;
                                                             </button>
                                                             <h3 class="modal-title" id="suanhansuLabel">
-                                                               Thông tin điểm
+                                                                Thông tin điểm
                                                             </h3>
                                                         </div>
                                                         <div class="modal-body"
                                                              style="padding-bottom: 20px; padding: 0px;padding-bottom: 32px;">
                                                             <th:block th:if="${#lists.isEmpty(sinhvien.getLstDiem())}">
-                                                                <p>Hiện tại sinh viên này chưa có điểm</p>
+                                                                <p>Hiện tại sv chưa có điểm</p>
                                                             </th:block>
                                                             <th:block th:if="${!#lists.isEmpty(sinhvien.getLstDiem())}">
 
                                                                 <table class="table table-bordered table-hover">
                                                                     <tbody>
                                                                     <tr th:each="diem : ${sinhvien.getLstDiem()}">
-                                                                        <form id="suadiem" class="form-horizontal">
-                                                                            <input name="maSV" type="hidden"  th:value="${sinhvien.maSinhVien}"/>
-                                                                            <input name="maMonHoc" type="hidden"  th:value="${lopHoc.monHoc.maMonHoc}"/>
-                                                                            <input name="maLopHoc" type="hidden"  th:value="${lopHoc.maLop}"/>
-                                                                            <input name="maDiem" type="hidden"  th:value="${diem.getId()}"/>
-                                                                            <div style="margin-top: 50px"
-                                                                             class="form-group">
-                                                                            <label class="col-sm-3 control-label">Điểm
-                                                                                lý thuyết <span
-                                                                                        class="red">  </span></label>
-                                                                            <div class="col-md-9">
-                                                                                <input th:value="${diem.getDiemLyThuyet()}"
-                                                                                       id="diemLyThuyet"
-                                                                                       name="diemLyThuyet" type="text"
-                                                                                       class="form-control"
-                                                                                       placeholder="Tên môn học ">
-                                                                            </div>
-                                                                        </div>
+                                                                        <th:block th:if="${diem.getLopHoc().getMaLop()==lopHoc.maLop}">
 
-                                                                        <br/>
-                                                                        <div style="margin-top: 50px"
-                                                                             class="form-group">
-                                                                            <label class="col-sm-3 control-label">Điểm
-                                                                                thực hành <span
-                                                                                        class="red">  </span></label>
-                                                                            <div class="col-md-9">
-                                                                                <input th:value="${diem.getDiemThucHanh()}"
-                                                                                       name="diemThucHanh" type="text"
-                                                                                       class="form-control"
-                                                                                       placeholder="Tên môn học ">
-                                                                            </div>
 
-                                                                        </div>
-                                                                        <br/>
-                                                                        <div style="margin-top: 50px"
-                                                                             class="form-group">
-                                                                            <label class="col-sm-3 control-label">Điểm
-                                                                                cuối kì <span
-                                                                                        class="red">  </span></label>
-                                                                            <div class="col-md-9">
-                                                                                <input th:value="${diem.getDiemCuoiKi()}"
-                                                                                       name="diemCuoiKi" type="text"
-                                                                                       class="form-control"
-                                                                                       placeholder="Tên môn học ">
-                                                                            </div>
-                                                                        </div>
-                                                                        </form>
-                                                                        <br/>
-                                                                        <!--<button name="edit" onclick="toggle_inputs()">Sửa điểm</button>-->
-                                                                        <button onclick="ff()" style="    margin-top: 20px;margin-bottom: -26px;" type="button" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i> Cập nhật
-                                                                        </button>
+                                                                            <form th:id="${'suadiem'+sinhvien.maSinhVien}" class="form-horizontal">
+                                                                                <input name="maSV" type="hidden"  th:value="${sinhvien.maSinhVien}"/>
+                                                                                <input name="maMonHoc" type="hidden"  th:value="${lopHoc.monHoc.maMonHoc}"/>
+                                                                                <input name="maLopHoc" type="hidden"  th:value="${lopHoc.maLop}"/>
+                                                                                <input name="maDiem" type="hidden"  th:value="${diem.getId()}"/>
+                                                                                <div style="margin-top: 50px"
+                                                                                     class="form-group">
+                                                                                    <label class="col-sm-3 control-label">Điểm lý thuyết <span
+                                                                                                class="red">  </span></label>
+                                                                                    <div class="col-md-9">
+                                                                                        <input th:value="${diem.getDiemLyThuyet()}"
+                                                                                               id="diemLyThuyet"
+                                                                                               name="diemLyThuyet" type="text"
+                                                                                               class="form-control"
+                                                                                               placeholder="Tên môn h?c ">
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <br/>
+                                                                                <div style="margin-top: 50px"
+                                                                                     class="form-group">
+                                                                                    <label class="col-sm-3 control-label">Điểm thực hành <span
+                                                                                                class="red">  </span></label>
+                                                                                    <div class="col-md-9">
+                                                                                        <input th:value="${diem.getDiemThucHanh()}"
+                                                                                               name="diemThucHanh" type="text"
+                                                                                               class="form-control"
+                                                                                               placeholder="Tên môn h?c ">
+                                                                                    </div>
+
+                                                                                </div>
+                                                                                <br/>
+                                                                                <div style="margin-top: 50px"
+                                                                                     class="form-group">
+                                                                                    <label class="col-sm-3 control-label">Điểm cuối kì <span
+                                                                                                class="red">  </span></label>
+                                                                                    <div class="col-md-9">
+                                                                                        <input th:value="${diem.getDiemCuoiKi()}"
+                                                                                               name="diemCuoiKi" type="text"
+                                                                                               class="form-control"
+                                                                                               placeholder="Tên môn h?c ">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </form>
+                                                                            <br/>
+                                                                            <!--<button name="edit" onclick="toggle_inputs()">S?a di?m</button>-->
+                                                                            <button th:id="${sinhvien.maSinhVien}" onclick="ff(this.id)" style="    margin-top: 20px;margin-bottom: -26px;" type="button" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i> C?p nh?t
+                                                                            </button>
+
+                                                                        </th:block>
                                                                         <!--<input id="token1" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
                                                                     </tr>
                                                                     </tbody>
                                                                 </table>
                                                             </th:block>
-                                                            <!--<button th:id="${lophoc.maLop}" onclick="reply_click(this.id)" class="btn btn-info eBtn"  type="button" style="margin-bottom: 20px;margin-top: 14px">Đăng ký</button>-->
+                                                            <!--<button th:id="${lophoc.maLop}" onclick="reply_click(this.id)" class="btn btn-info eBtn"  type="button" style="margin-bottom: 20px;margin-top: 14px">Ðang ký</button>-->
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </td>
-                                    </tr>
+                                </th:block>
                                 </th:block>
                                 <tbody>
                             </table>
@@ -392,37 +410,37 @@
                                 <tr>
                                     <td>1</td>
                                     <td>SV-00</td>
-                                    <td>Nguyễn Văn A</td>
+                                    <td>Nguy?n Van A</td>
                                     <td>nguyenvana@gmail.com</td>
                                 </tr>
                                 <tr>
                                     <td>2</td>
                                     <td>SV-00</td>
-                                    <td>Nguyễn Văn A</td>
+                                    <td>Nguy?n Van A</td>
                                     <td>nguyenvana@gmail.com</td>
                                 </tr>
                                 <tr>
                                     <td>3</td>
                                     <td>SV-00</td>
-                                    <td>Nguyễn Văn A</td>
+                                    <td>Nguy?n Van A</td>
                                     <td>nguyenvana@gmail.com</td>
                                 </tr>
                                 <tr>
                                     <td>4</td>
                                     <td>SV-00</td>
-                                    <td>Nguyễn Văn A</td>
+                                    <td>Nguy?n Van A</td>
                                     <td>nguyenvana@gmail.com</td>
                                 </tr>
                                 <tr>
                                     <td>5</td>
                                     <td>SV-00</td>
-                                    <td>Nguyễn Văn A</td>
+                                    <td>Nguy?n Van A</td>
                                     <td>nguyenvana@gmail.com</td>
                                 </tr>
                                 <tr>
                                     <td>6</td>
                                     <td>SV-00</td>
-                                    <td>Nguyễn Văn A</td>
+                                    <td>Nguy?n Van A</td>
                                     <td>nguyenvana@gmail.com</td>
                                 </tr>
                                 <tbody>
@@ -517,7 +535,7 @@
         var caHoc = [[${caHoc}]];
         for (i = 0; i < ngayHoc.length; i++) {
             $('#lichHoc tr:last')
-                .after("<tr><td style='width: 70px'>Thứ " + ngayHoc[i] + ":</td>" +
+                .after("<tr><td style='width: 70px'>Th? " + ngayHoc[i] + ":</td>" +
                     "<td>Ca " + caHoc[i] + "</td>" +
                     "</tr>");
         }
@@ -527,17 +545,17 @@
 </script>
 
 <script>
-    function ff() {
+    function ff(id) {
         swal({
             imageUrl: 'https://cdn.dribbble.com/users/563824/screenshots/4268258/untitled_180_3.gif',
             imageHeight: 200,
             showConfirmButton: false,
         });
         // var token = document.getElementById('token1').value;
-        var valid = $("#suadiem").parsley();
+        var valid = $("#suadiem"+id).parsley();
         valid.validate();
         if (valid.isValid()) {
-            var data = $('#suadiem').serialize();
+            var data = $('#suadiem'+id).serialize();
             $.ajax({
                 url:  '/web/giangviendaylop/suadiem',
                 type: "post",
@@ -546,20 +564,42 @@
                 dataType: "text",
                 success: function (result) {
 
+                    if (result.trim() === "saidiem") {
+
+                        swal({
+                            title: 'C?p nh?t không thành công',
+                            text: 'B?n dã nh?p sai di?m',
+                            type: 'warning',
+                            confirmButtonText: 'Ok',
+                        }).then(function () {
+
+
+                        });
+                    }
+
                     if (result.trim() === "success") {
                         $('.close').click();
                         swal({
-                            title: 'Cập nhật thành công',
+                            title: 'C?p nh?t thành công',
                             text: '',
                             type: 'success',
+                            confirmButtonText: 'Ok',
+                        }).then(function () {
+                            location.reload(true);
+
+                        });
+                    } if (result.trim() === "error") {
+                        $('.close').click();
+                        swal({
+                            title: 'C?p nh?t th?t b?i',
+                            text: '',
+                            type: 'error',
                             confirmButtonText: 'Ok',
                         }).then(function () {
                             if (isConfirm) {
                             }
                             form.submit();
                         });
-                    } else {
-                        notify_error("Cập nhật môn học", "Cập nhật");
                     }
                 }
             });
@@ -640,7 +680,7 @@
                 error: function (result) {
                     location.reload(true);
                     // swal({
-                    //     title: 'Đăng ký thành công!',
+                    //     title: 'Ðang ký thành công!',
                     //     text: '',
                     //     type: 'success',
                     //     confirmButtonText: 'Ok',

@@ -9,25 +9,37 @@
 
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/font-awesome-animation.min.css}"/>
+
     <link rel="stylesheet" type="text/css" th:href="@{/css/ionicons.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/AdminLTE.min.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/skin-blue.min.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/blue.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/_all-skins.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/dataTables.bootstrap.min.css}">
 
     <script type="text/javascript" th:src="@{/js/jquery/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/adminlte.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/jquery/jquery.slimscroll.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/fastclick.js}"></script>
-    <script type="text/javascript" th:src="@{js/icheck.min.js}"></script>
-    <script type="text/javascript" th:src="@{js/demo.js}"></script>
+    <script type="text/javascript" th:src="@{/js/demo.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap/dataTables.bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery/jquery.dataTables.min.js}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
 
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/sweetalert2/latest/sweetalert2.min.css"/>
+    <script src="https://cdn.jsdelivr.net/sweetalert2/latest/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/sweetalert2/latest/sweetalert2.min.css"/>
+    <script src="https://cdn.jsdelivr.net/sweetalert2/latest/sweetalert2.min.js"></script>
 
+    <!--<link rel="stylesheet" type="text/css" th:href="@{/css/parsley.css}"/>-->
+
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+
+    <script type="text/javascript" th:src="@{/js/parsley/parsley.js}"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -45,25 +57,29 @@
                 <strong>Đổi mật khẩu</strong>
             </div>
 
-            <form class="form-horizontal" id="formChangePassword" method="post">
+            <form class="form-horizontal" id="formChangePassword">
                 <div class="form-group">
                     <div class="col-sm-2 control-label" > Mật khẩu cũ (*)</div>
-                    <div class="col-sm-6">
-                        <input type="password" class="form-control" id="password" required name="password" />
+                    <div class="col-sm-6" style="width: 82%;">
+                        <input style="float: left;   width: 529px;" type="password" class="form-control" id="password"  name="password" />
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-sm-2 control-label" > Mật khẩu mới (*)</div>
-                    <div class="col-sm-6">
-                        <input type="password" class="form-control" id="passwordNew" required name="passwordNew" />
+                    <div class="col-sm-6" style="width: 82%;">
+                        <input style="float: left;   width: 529px;" type="password" class="form-control" id="NewPassword"  name="newPassword" />
+                        <div style="margin-top: 8px; margin-left: 10px; float: left;" id="Length" class="glyphicon glyphicon-remove"></div>
+
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-sm-2 control-label" > Nhập lại mật khẩu (*)</div>
-                    <div class="col-sm-6">
-                        <input type="password" class="form-control" id="passwordRepeat" required name="passwordRepeat" />
+                    <div class="col-sm-6" style="width: 82%;">
+                        <input style="float: left;   width: 529px;" type="password" class="form-control" id="passwordRepeat"  name="passwordRepeat" />
+                        <div style="margin-top: 8px; margin-left: 10px; float: left;" id="Length1" class="glyphicon glyphicon-remove"></div>
+
                     </div>
                 </div>
                 <div>
@@ -76,8 +92,7 @@
 
                 <div class="form-group">
                     <div class="col-sm-offset-4 col-sm-8">
-                        <button type="button" class="btn btn-success" id="btnUpdate">Cập nhật</button>
-
+                        <button onclick="ff()" type="button" class="btn btn-success" id="btnUpdate">Cập nhật</button>
                     </div>
                 </div>
             </form>
@@ -277,3 +292,181 @@
 
 </body>
 </html>
+
+
+
+
+
+<script>
+
+
+
+var ps='';
+
+var checkpasswordRepeat=false;
+var checknewPassword=false;
+
+    function passwordRepeat() {
+        var password = $(this).val();
+        if(ps==password){
+            document.getElementById("Length1").style.color = 'green';
+            document.getElementById("Length1").innerHTML="";
+            $("#Length1").removeClass(password.length > 0 ? "glyphicon-remove" : "glyphicon-ok");
+            $("#Length1").addClass(password.length > 0 ? "glyphicon-ok" : "glyphicon-remove");
+            checkpasswordRepeat=true;
+        }else {
+            document.getElementById("Length1").style.color = 'red';
+            document.getElementById("Length1").innerHTML="Mât khẩu không khớp";
+            checkpasswordRepeat=false;
+
+        }
+
+    }
+
+    function ValidatePassword() {
+        var rules = [{
+            Pattern: "[A-Z]",
+            Target: "UpperCase"
+            },
+            {
+                Pattern: "[a-z]",
+                Target: "LowerCase"
+            },
+            {
+                Pattern: "[0-9]",
+                Target: "Numbers"
+            },
+            {
+                Pattern: "[!@@#$%^&*]",
+                Target: "Symbols"
+            }
+        ];
+        ps=$(this).val();
+        var password = $(this).val();
+        var check=true;
+        if(password.length < 7){
+            document.getElementById("Length").style.color = 'red';
+            document.getElementById("Length").innerHTML="Mât khẩu phải có độ dài ít nhất 7 kí tự";
+            check=false;
+            checknewPassword=false;
+        }
+        if (!new RegExp(rules[0].Pattern).test(password)) {
+            document.getElementById("Length").style.color = 'red';
+            document.getElementById("Length").innerHTML="Mât khẩu có ít nhất một chữ hoa";
+            check=false;
+            checknewPassword=false;
+        }
+        else {
+            if (!new RegExp(rules[1].Pattern).test(password)) {
+                document.getElementById("Length").style.color = 'red';
+                document.getElementById("Length").innerHTML="Mât khẩu có ít nhất một chữ thường";
+                check=false;
+                checknewPassword=false;
+            }else {
+                if (!new RegExp(rules[2].Pattern).test(password)) {
+                    document.getElementById("Length").style.color = 'red';
+                    document.getElementById("Length").innerHTML="Mât khẩu có ít nhất một chữ số";
+                    check=false;
+                    checknewPassword=false;
+                }else {
+                    if (!new RegExp(rules[3].Pattern).test(password)) {
+                        document.getElementById("Length").style.color = 'red';
+                        document.getElementById("Length").innerHTML="Mât khẩu có ít nhất một kí tự đặc biệt";
+                        check=false;
+                        checknewPassword=false;
+                    };
+                }
+            }
+        }
+if(check){
+    document.getElementById("Length").innerHTML="";
+    $("#Length").removeClass(password.length > 0 ? "glyphicon-remove" : "glyphicon-ok");
+    $("#Length").addClass(password.length > 0 ? "glyphicon-ok" : "glyphicon-remove");
+    document.getElementById("Length").style.color = 'green';
+    checknewPassword=true;
+}
+    }
+    $(document).ready(function() {
+        $("#NewPassword").on('keyup', ValidatePassword)
+    });
+
+
+    $(document).ready(function() {
+        $("#passwordRepeat").on('keyup', passwordRepeat)
+    });
+</script>
+
+<style>
+
+    .glyphicon-remove {
+        color: red;
+    }
+
+    .glyphicon-ok {
+        color: green;
+    }
+</style>
+
+
+
+<script>
+
+    function ff() {
+        if (checkpasswordRepeat&&checknewPassword) {
+            var valid = $("#formChangePassword").parsley();
+            valid.validate();
+            if (valid.isValid()) {
+                var data = $('#formChangePassword').serialize();
+                swal({
+                    imageUrl: 'https://cdn.dribbble.com/users/563824/screenshots/4268258/untitled_180_3.gif',
+                    imageHeight: 200,
+                    showConfirmButton: false,
+                });
+                $.ajax({
+                    url: '/web/api/doimatkhau',
+                    type: "post",
+                    data: data,
+                    dataType: "text",
+                    success: function (result) {
+                        if (result.trim() === "success") {
+                            swal({
+                                title: 'Đổi mật khẩu thành công',
+                                text: '',
+                                type: 'success',
+                                confirmButtonText: 'Ok',
+                            }).then(function () {
+                                if (isConfirm) {
+                                }
+                                form.submit();
+                            });
+                        } else {
+                            swal({
+                                title: 'Đổi mật khẩu thất bại',
+                                text: 'Mật khẩu cũ không chính xác',
+                                type: 'error',
+                                confirmButtonText: 'Ok',
+                            }).then(function () {
+                                if (isConfirm) {
+                                }
+                                form.submit();
+                            });
+                        }
+                    }
+                });
+            }
+        }else {
+            swal({
+                title: 'Vui lòng nhập thông tin hợp lệ',
+                text: '',
+                type: 'warning',
+                confirmButtonText: 'Ok',
+            }).then(function () {
+                if (isConfirm) {
+                }
+                form.submit();
+            });
+        }
+        ;
+
+    }
+</script>
