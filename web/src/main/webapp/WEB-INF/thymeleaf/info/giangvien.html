@@ -21,6 +21,10 @@
     <script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/adminlte.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/parsley/parsley.js}"></script>
+    <script type="text/javascript" th:src="@{/js/trongtran.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lobibox.min.css}"/>
+    <script type="text/javascript" th:src="@{/js/lobibox.js}"></script>
+    <script type="text/javascript" th:src="@{/js/lobibox.min.js}"></script>
 
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -124,15 +128,15 @@
                                 <span id="view-moTa" th:text="${giangvien != null ? giangvien.giaoVien.moTa : ''}">Hà Nội</span>
                             </div>
                         </div>
-
-                    </div>
-                    <div class="col-md-5 inline-block p-25">
-                        <div class="form-group">
-                            <button id="btn-edit" class="btn btn-success" data-target="#suanhansu">Chỉnh sửa thông
-                                tin cá nhân
-                            </button>
+                        <div class="col-md-5 inline-block p-25">
+                            <div class="form-group">
+                                <button id="btn-edit" class="btn btn-success" data-target="#suanhansu">Chỉnh sửa thông
+                                    tin cá nhân
+                                </button>
+                            </div>
                         </div>
                     </div>
+
                 </div>
             </div>
             <div class="row gach-top">
@@ -439,7 +443,8 @@
             $('#view-dob-edit').val($('#view-birthday').text());
         });
 
-        $('#btn-update').click(function () {
+        $('#btn-update').click(function (e) {
+            e.preventDefault();
             var valid = $("#form-update").parsley();
             valid.validate();
             if (valid.isValid()) {
@@ -450,16 +455,10 @@
                     data: data,
                     dataType: "text",
                     success: function (result) {
-                        if (result.trim() === "success") {
-                            $('#suanhansu').modal('hide');
-                            location.reload();
-//                            if (result.trim() === "success") {
-//                                notify_sucess('Sửa thông tin thành công', 'Cập nhật');
-//                                setTimeout("location.reload(true);", 2000);
-//                            } else {
-//                                notify_error('Sửa thất bại', 'Cập nhật');
-//                            }
-                        }
+                        $('#suanhansu').modal('hide');
+                        notify_sucess('Sửa thông tin thành công', 'Cập nhật');
+                    },error: function (msg) {
+                        notify_error('Sửa thất bại', 'Cập nhật');
                     }
                 });
             }
