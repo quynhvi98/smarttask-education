@@ -25,4 +25,14 @@ public class DiemServiceImpl implements DiemService {
     public Diem save(Diem diem) {
         return diemDao.save(diem);
     }
+
+    @Override
+    public Diem findById(String id) {
+        return diemDao.findOne(id);
+    }
+
+    @Override
+    public List<Diem> listDiemKi(String msv, String ki) {
+        return diemDao.listDiemKi(msv,ki);
+    }
 }
