@@ -163,8 +163,8 @@ public class StudentController {
         DateMidnight start = new DateMidnight(ngaynhaphoc);
         DateMidnight end = new DateMidnight(new Date());
         int months = Months.monthsBetween(start,end).getMonths();
-        int sothang = months / 6;
-        return sothang+1;
+        int thangDu = months % 6;
+        return (thangDu > 0) ? (months / 6 +1) : (months/6);
     }
 
 
