@@ -12,4 +12,6 @@ public interface BaiDangService {
     List<BaiDang> findByMaLop(String maLop);
 
     BaiDang findById(Integer postId);
+
+    void delete(Integer postId);
 }

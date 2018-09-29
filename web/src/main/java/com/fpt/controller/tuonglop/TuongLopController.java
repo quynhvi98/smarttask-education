@@ -15,10 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -115,6 +112,7 @@ public class TuongLopController {
             upFile(file, fileName);
             baiDang.setFile(fileName);
         }
+        baiDang.setStatus(1);
         baiDangService.save(baiDang);
         return "redirect:/tuonglop/" + maLop;
     }
@@ -191,6 +189,12 @@ public class TuongLopController {
         User user = (User) session.getAttribute("userInfo");
         String result = likeService.doLike(user.getUserName(), postId);
         response.getWriter().println(result);
+    }
+
+    @GetMapping("/tuonglop/deletepost/{postid}")
+    public String deletePost(@PathVariable("postid") Integer postId){
+        baiDangService.delete(postId);
+        return "redirect:/tuonglop/"+ maLop;
     }
 
 }
