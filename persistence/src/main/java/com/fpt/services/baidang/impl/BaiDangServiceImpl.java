@@ -20,7 +20,7 @@ public class BaiDangServiceImpl implements BaiDangService {
 
     @Override
     public List<BaiDang> findAll() {
-        return (List<BaiDang>) baiDangDao.findAll();
+        return (List<BaiDang>) baiDangDao.findAllAvailable();
     }
 
     @Override
@@ -39,5 +39,12 @@ public class BaiDangServiceImpl implements BaiDangService {
     @Override
     public BaiDang findById(Integer postId) {
         return baiDangDao.findOne(postId);
+    }
+
+    @Override
+    public void delete(Integer postId) {
+        BaiDang baiDang = baiDangDao.findOne(postId);
+        baiDang.setStatus(0);
+        baiDangDao.save(baiDang);
     }
 }

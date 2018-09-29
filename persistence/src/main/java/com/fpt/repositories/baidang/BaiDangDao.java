@@ -10,4 +10,7 @@ import java.util.List;
 public interface BaiDangDao extends CrudRepository<BaiDang, Integer> {
     @Query("from BaiDang bd where bd.lopHoc.maLop = :maLop")
     List<BaiDang> findByMaLop(@Param("maLop") String maLop);
+
+    @Query("from BaiDang bd where bd.status <> 0 order by bd.time asc ")
+    List<BaiDang> findAllAvailable();
 }
