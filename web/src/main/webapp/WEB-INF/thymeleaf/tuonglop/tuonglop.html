@@ -32,174 +32,141 @@
     <div th:replace="fragments/sidebarsv :: aside">&nbsp;</div>
 
     <div class="content-wrapper">
-        <div class="row">
+        <div class="row p-40">
             <div class="col-md-9">
                 <div class="box box-widget">
                     <div class="box-header with-border">
                         <div class="user-block">
                             <img class="img-circle" th:src="@{/img/user2-160x160.jpg}" alt="User Image">
                             <span class="username"><a href="#">Jonathan Burke Jr.</a></span>
-                            <span class="description">Shared publicly - 7:30 PM Today</span>
+                            <span class="description"
+                                  th:text="'Shared publicly - '+${#dates.format(#dates.createNow(), 'dd-MM-yyyy HH:mm a')}">Shared publicly - 7:30 PM Today</span>
                         </div>
                         <div class="box-tools">
-                            <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Mark as read">
-                                <i class="fa fa-circle-o"></i></button>
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+
+                            <button class="btn btn-box-tool" data-widget="collapse"><i
                                     class="fa fa-minus"></i>
                             </button>
+                            <button class="btn btn-box-tool" data-toggle="tooltip" title="Mark as read">
+                                <i class="fa fa-remove"></i></button>
                         </div>
                     </div>
-                    <div class="box-body">
-                        <div class="box">
-                            <div class="box-body pad">
-                                <form>
-                                    <textarea class="textarea" placeholder="Place some text here" style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="form-group" style="width: 20%;">
-                            <select class="form-control select2">
-                                <option selected="selected" >Thảo luận</option>
-                                <option>Nộp bài tập</option>
-                            </select>
-                        </div>
-
-                    </div>
-                    <div class="box-footer">
-                        <form action="#" method="post">
-                            <img class="img-responsive img-circle img-sm" th:src="@{/img/user2-160x160.jpg}"
-                                 alt="Alt Text">
-                            <div class="img-push">
-                                <input type="text" class="form-control input-sm"
-                                       placeholder="Press enter to post comment">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group" style=" width: 98%;margin-top: 20px;">
-                    <select id="run"  onchange="run()"  class="form-control select2" name="chonlop">
-                        <option value="">Chọn lớp</option>
-                        <option  th:each="lh : ${listLopHoc}"  th:value="${lh.maLop}" th:text="${lh.maLop}"></option>
-                    </select>
-
-                </div>
-
-                <td>
-                    <button   type="button" class="btn btn-block btn-default btn-lg" data-toggle="modal" data-target="#myModal">Thông tin lớp</button>
-                </td>
-                <td>
-                    <button onclick="dk()"  type="button" class="btn btn-block btn-default btn-lg" data-toggle="modal" data-target="#myModal">Đăng kÝ</button>
-                </td>
-                <script>
-                    function dk() {
-                        document.documentElement.style.overflow = 'hidden';
-                    }
-                    function cl() {
-                        document.documentElement.style.overflow = 'auto';
-
-                    }
-                </script>
-                <div class="modal fade" id="myModal" role="dialog">
-                    <div class="modal-dialog" style="margin-left: 7%;width: 88%;">
-                        <!-- Modal content-->i
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <legend class="modal-title" style="float:  left;width: auto;">Đăng ký nhóm</legend>
-                                <button onclick="cl()" type="button" class="close" data-dismiss="modal">&times;</button>
-                            </div>
-                            <div class="modal-body" style="background-color: #f8f8f8;">`
-                                <div th:replace="student/register-member"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-md-9">
-                <div class="box box-widget">
-                    <div class="box-header with-border">
-                        <div class="user-block">
-                            <img class="img-circle" th:src="@{/img/user2-160x160.jpg}" alt="User Image">
-                            <span class="username"><a href="#">Jonathan Burke Jr.</a></span>
-                            <span class="description">Shared publicly - 7:30 PM Today</span>
-                        </div>
-                        <div class="box-tools">
-                            <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Mark as read">
-                                <i class="fa fa-circle-o"></i></button>
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
-                                    class="fa fa-minus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="box-body">
-                        <p>Far far away, behind the word mountains, far from the
-                            countries Vokalia and Consonantia, there live the blind
-                            texts. Separated they live in Bookmarksgrove right at</p>
-
-                        <p>the coast of the Semantics, a large language ocean.
-                            A small river named Duden flows by their place and supplies
-                            it with the necessary regelialia. It is a paradisematic
-                            country, in which roasted parts of sentences fly into
-                            your mouth.</p>
-                        <div class="attachment-block clearfix">
-                            <img class="attachment-img" th:src="@{/img/user2-160x160.jpg}" alt="Attachment Image">
-
-                            <div class="attachment-pushed">
-                                <h4 class="attachment-heading"><a href="http://www.lipsum.com/">Lorem ipsum text
-                                    generator</a></h4>
-
-                                <div class="attachment-text">
-                                    Description about the attachment can be placed here.
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry... <a
-                                        href="#">more</a>
+                    <form th:action="@{/tuonglop/addpost}" method="post" enctype="multipart/form-data">
+                        <!--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
+                        <div class="box-body">
+                            <div class="box">
+                                <div class="box-body pad">
+                                    <textarea name="postContent" class="textarea" placeholder="What's on your mine .-."
+                                              style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                                 </div>
                             </div>
-                        </div>
-                        <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
-                        <button type="button" class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like
-                        </button>
-                        <span class="pull-right text-muted">45 likes - 2 comments</span>
-                    </div>
-                    <div class="box-footer box-comments">
-                        <div class="box-comment">
-                            <img class="img-circle img-sm" th:src="@{/img/user2-160x160.jpg}" alt="User Image">
+                            <div class="pull-right">
+                                <button type="submit" class="btn btn-primary btn-sm btn-flat">Đăng bài</button>
+                            </div>
+                            <div class="pull-right">
+                                <input type="file" name="upFile"/>
+                            </div>
 
-                            <div class="comment-text">
-                      <span class="username">
-                        Maria Gonzales
-                        <span class="text-muted pull-right">8:03 PM Today</span>
-                      </span>
-                                It is a long established fact that a reader will be distracted
-                                by the readable content of a page when looking at its layout.
-                            </div>
                         </div>
-                        <div class="box-comment">
-                            <img class="img-circle img-sm" th:src="@{/img/user2-160x160.jpg}" alt="User Image">
+                    </form>
 
-                            <div class="comment-text">
-                      <span class="username">
-                        Nora Havisham
-                        <span class="text-muted pull-right">8:03 PM Today</span>
-                      </span>
-                                The point of using Lorem Ipsum is that it has a more-or-less
-                                normal distribution of letters, as opposed to using
-                                'Content here, content here', making it look like readable English.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box-footer">
-                        <form action="#" method="post">
-                            <img class="img-responsive img-circle img-sm" th:src="@{/img/user2-160x160.jpg}"
-                                 alt="Alt Text">
-                            <div class="img-push">
-                                <input type="text" class="form-control input-sm"
-                                       placeholder="Press enter to post comment">
-                            </div>
-                        </form>
-                    </div>
                 </div>
+            </div>
+            <div class="col-md-9">
+                <th:block th:each="bd : ${lstBaiDang}">
+                    <div class="box box-widget">
+                        <div class="box-header with-border">
+                            <div class="user-block">
+                                <img class="img-circle" th:src="@{/img/user2-160x160.jpg}" alt="User Image">
+                                <span class="username"><a href="#" th:text="${bd.user.fullName}">Jonathan Burke Jr.</a></span>
+                                <span class="description"
+                                      th:text="'Shared publicly - '+${#dates.format(bd.time, 'dd-MM-yyyy HH:mm a')}">Shared publicly - 7:30 PM Today</span>
+                            </div>
+                            <div class="box-tools">
+
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                        class="fa fa-minus"></i>
+                                </button>
+
+                                <button th:if="${user.userName eq bd.user.userName}" th:attr="postId=${bd.postId}" type="button" class="btn btn-box-tool" data-toggle="tooltip"
+                                        title="Delete post">
+                                    <a th:attr="postId=${bd.postId}" class=" deletePost"> <i class="fa fa-remove"></i></a>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div th:text="${bd.content}">
+
+                            </div>
+                            <div class="attachment-block clearfix">
+                                <th:block th:if="${bd.file != null}">
+                                    <th:block
+                                            th:if="${bd.imageSuffix == 'jpg' || bd.imageSuffix == 'jpeg' || bd.imageSuffix == 'png'}">
+                                        <img class="attachment-img myImg" th:src="@{/files/}+${bd.file}"
+                                             th:alt="${bd.content}">
+                                    </th:block>
+                                    <th:block
+                                            th:if="${bd.imageSuffix != 'jpg' && bd.imageSuffix != 'jpeg' && bd.imageSuffix != 'png'}">
+                                        <a th:href="@{/tuonglop/download-file/}+${bd.file}+'/'"
+                                           th:text="${bd.file}"></a>
+                                    </th:block>
+                                </th:block>
+                            </div>
+                            <!--<button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share-->
+                            <!--</button>-->
+                            <button class="btn btn-default btn-xs btnLike" th:attr="postId=${bd.postId}">
+                                <input type="hidden" class="totalLike" th:value="${#lists.size(bd.lstLike)}"/>
+                                <input type="hidden" class="totalComment" th:value="${#lists.size(bd.lstComment)}"/>
+                                <i th:if="${!#lists.contains(lstPostId, bd.postId)}" class="fa fa-thumbs-o-up">
+                                </i>
+                                <i th:if="${#lists.contains(lstPostId, bd.postId)}" class="fa fa-thumbs-up"
+                                   style="color: #94B8FF;">
+                                </i>
+                                Like
+                            </button>
+                            <span class="pull-right text-muted"
+                                  th:text="${#lists.size(bd.lstLike)}+' likes - '+${#lists.size(bd.lstComment)}+' comments'">0 likes - 2 comments</span>
+
+                        </div>
+                        <th:block th:each="cm : ${bd.lstComment}">
+                            <div class="box-footer box-comments">
+                                <div class="box-comment">
+                                    <img class="img-circle img-sm" th:src="@{/img/user2-160x160.jpg}" alt="User Image">
+
+                                    <div class="comment-text">
+
+                                        <span class="text-muted pull-right"
+                                              th:text="${#dates.format(cm.time, 'dd-MM-yyyy HH:mm a')}">8:03 PM Today</span>
+
+                                        <span class="username" th:text="${cm.user.fullName}">
+                        Maria Gonzales
+                      </span>
+                                        <div th:text="${cm.content}">
+                                            It is a long established fact that a reader will be distracted
+                                            by the readable content of a page when looking at its layout.
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </th:block>
+                        <div class="box-footer">
+                            <form th:action="@{/tuonglop/addcomment}" method="post">
+                                <input type="hidden" th:value="${bd.postId}" name="postId"/>
+                                <!--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
+                                <img class="img-responsive img-circle img-sm" th:src="@{/img/user2-160x160.jpg}"
+                                     alt="Alt Text">
+                                <div class="img-push">
+                                    <input name="content" type="text" class="form-control input-sm"
+                                           placeholder="Press enter to post comment">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </th:block>
+
             </div>
         </div>
     </div>
@@ -260,11 +227,75 @@
                 </form>
             </div>
         </div>
+        <div id="myModal" class="modal">
+            <span class="close">&times;</span>
+            <img class="modal-content" id="img01">
+            <div id="caption"></div>
+        </div>
     </aside>
     <div class="control-sidebar-bg"></div>
 </div>
 
 <!--<input id="token" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
+<script th:inline="javascript">
+
+
+    // Get the modal
+    var modal = document.getElementById('myModal');
+    var modalImg = document.getElementById("img01");
+    var captionText = document.getElementById("caption");
+    $('.myImg').click(function () {
+        modal.style.display = "block";
+        modalImg.src = this.src;
+        captionText.innerHTML = this.alt;
+    });
+
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    $('.deletePost').click(function (e) {
+        var postId = $(this).attr("postId");
+        swal({
+            title: "Cảnh báo",
+            text: "Bạn có chắc muốn xóa bài đăng này!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Đồng ý",
+            cancelButtonText: "Thoát!",
+            // closeOnConfirm: false
+            // closeOnCancel: false
+        },function (isConfirm) {
+            location.href = base_url+"tuonglop/deletepost/"+postId;
+        });
+    });
+
+    $('.btnLike').click(function () {
+        var postId = $(this).attr("postId");
+        $.ajax({
+            url: base_url + 'tuonglop/like/' + postId,
+            type: "get",
+            dataType: "text",
+            success: (json) => {
+                if (json.trim() == "like") {
+                    $(this).find($(".fa")).removeClass("fa-thumbs-o-up").addClass("fa-thumbs-up").css("color", "#94B8FF");
+                } else if (json.trim() == "unlike") {
+                    var a = $(this).find("i");
+                    $(this).find($(".fa")).removeClass("fa-thumbs-up").addClass("fa-thumbs-o-up").css("color", "");
+                }
+            }, error: function (msg) {
+                alert("500 server error");
+            }
+        });
+    });
+    var base_url = [[@{/}]];
+</script>
 </body>
 </html>
 
