@@ -32,7 +32,7 @@ public class DiemServiceImpl implements DiemService {
     }
 
     @Override
-    public List<Diem> listDiemKi(String msv, String ki) {
+    public List<Diem> listDiemKi(String msv, int ki) {
         return diemDao.listDiemKi(msv,ki);
     }
 }

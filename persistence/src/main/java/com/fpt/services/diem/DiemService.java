@@ -9,5 +9,5 @@ public interface DiemService {
   void careate(List<Diem> diem);
 Diem save(Diem diem);
   Diem  findById(String id);
-  List<Diem> listDiemKi(String msv,String ki);
+  List<Diem> listDiemKi(String msv,int ki);
 }

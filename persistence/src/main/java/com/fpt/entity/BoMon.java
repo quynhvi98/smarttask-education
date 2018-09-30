@@ -29,6 +29,9 @@ public class BoMon implements Serializable {
     private Set<MonHoc> lstMonHoc;
 
     @OneToMany(mappedBy = "boMon", fetch = FetchType.EAGER)
+    private Set<SinhVien> lstSinhVien;
+
+    @OneToMany(mappedBy = "boMon", fetch = FetchType.EAGER)
     private Set<GiaoVien> lstGiaoVien;
 
     public Set<GiaoVien> getLstGiaoVien() {

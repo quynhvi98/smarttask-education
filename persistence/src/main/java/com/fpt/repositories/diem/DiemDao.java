@@ -10,5 +10,5 @@ import java.util.List;
 public interface DiemDao  extends CrudRepository<Diem, String> {
     @Query(value = "select * from diem_sinhvien d join mon_hoc h on d.ma_mon_hoc = h.ma_mon_hoc join sinh_vien v on d.ma_sinh_vien = v.ma_sinh_vien\n" +
             "where d.ma_sinh_vien=:msv and h.ma_ki=:ki",nativeQuery = true)
-    List<Diem> listDiemKi(@Param("msv") String msv,@Param("ki") String ki);
+    List<Diem> listDiemKi(@Param("msv") String msv,@Param("ki") int ki);
 }

@@ -53,6 +53,10 @@ public class SinhVien {
     @JsonIgnore
     private KhoaVien khoaVien;
 
+    @ManyToOne
+    @JoinColumn(name = "ma_nganh")
+    private  BoMon boMon;
+
     @OneToOne
     @JoinColumn(name="user_name")
     private User user;
@@ -74,6 +78,14 @@ public class SinhVien {
 
     public void setLstDiem(Set<Diem> lstDiem) {
         this.lstDiem = lstDiem;
+    }
+
+    public BoMon getBoMon() {
+        return boMon;
+    }
+
+    public void setBoMon(BoMon boMon) {
+        this.boMon = boMon;
     }
 
     public Date getNgayNhapHoc() {

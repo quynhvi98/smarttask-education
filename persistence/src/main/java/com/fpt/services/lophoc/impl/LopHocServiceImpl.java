@@ -126,6 +126,15 @@ public class LopHocServiceImpl implements LopHocService {
     }
 
     @Override
+    public int getTongTinSvKi(String masv, int ki) {
+        int tongTin=0;
+        for (LopHoc lopHoc: lopHocDao.getLopHocSvKi(masv,ki)){
+          tongTin=tongTin+ lopHoc.getMonHoc().getTinChi();
+        }
+        return tongTin;
+    }
+
+    @Override
     public LopHoc getLopHocSvBm(String masv, String mabomon) {
         return lopHocDao.getLopHocSvBm(masv, mabomon);
     }

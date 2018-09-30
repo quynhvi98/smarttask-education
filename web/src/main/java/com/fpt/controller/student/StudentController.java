@@ -48,7 +48,7 @@ public class StudentController {
         int hocki = getKiHoc(user.getSinhVien().getNgayNhapHoc());
         SinhVien sinhVien = sinhVienService.findById(user.getSinhVien().getMaSinhVien());
         model.addAttribute("sinhVien", sinhVien);
-        model.addAttribute("listMonHoc", monHocService.listMonHocKy(String.valueOf(hocki)));
+        model.addAttribute("listMonHoc", monHocService.listMonHocKy(hocki,user.getSinhVien().getKhoaVien().getMaVien()));
         model.addAttribute("user", user);
         model.addAttribute("hocKi", "Danh sách các môn học trong kì: " + hocki);
         model.addAttribute("moiNhat", thongBaoService.thongBaoMoiNhatSV(user.getSinhVien().getMaSinhVien()));
