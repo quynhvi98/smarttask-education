@@ -35,16 +35,35 @@
     <div th:replace="fragments/sidebarsv :: aside">&nbsp;</div>
 
     <div class="content-wrapper">
-        <select id="Ultra" onchange="run()">
-        <option value="">Chọn kì</option>
-            <option  th:each="k : ${ki}"  th:value="${k}" th:text="${'Kì: '+k}"></option>
-        </select>
+
+
+
+
+
+        <div class="well" style="height: 79px;">
+            <div>
+                <div class="form-group">
+                    <label style="margin-top: -4px;" for="" class="col-sm-3 control-label">Chọn kì học: </label>
+                    <div class="col-md-9">
+            <select style="margin-left: -170px; margin-top: -11px; width: 101px;" class="select form-control" id="Ultra" onchange="run()">
+                <option th:text="${'Kì: '+kiHienTai}"  th:value="${kiHienTai}">Chọn kì</option>
+                <option  th:each="k : ${ki}"  th:value="${k}" th:text="${'Kì: '+k}">
+
+                </option>
+            </select>
+            </div>
+                </div>
+            </div>
+        </div>
+
+
+
         <div name="ki 1">
         <!--kì 1-->
         <section class="invoice">
             <div class="row">
                 <div class="col-xs-12">
-                    <h2 class="page-header">
+                    <h2 class="page-header" th:text="${'Thông tin lượng tín chỉ và điểm trong kì: '+kiHienTai}">
                         <i class="fa fa-globe"></i> Thông tin lượng tín chỉ và điểm trong kì I
                         <small class="pull-right" >Ngày bắt đầu kì: 2/10/2014</small>
                     </h2>
@@ -54,22 +73,30 @@
                 <div class="col-sm-4 invoice-col">
                     <div class="form-group chamcham">
                         <label for="">Tổng số môn học: </label>
-                        <span> 5</span>
+                        <span th:text="${tongMonHoc}"></span>
                     </div>
                     <div class="form-group chamcham">
                         <label for="">Số tín chỉ đã học: </label>
-                        <span> 15</span>
+                        <span th:text="${tongTin}"></span>
+                        <th:block th:if="${tongTin<15}">
+                            <br/>
+                            <span style="color: red" th:text="${' Bạn chưa học đủ số tín chỉ trong môn này ('+tongTin+'/15)'}"></span>
+                        </th:block>
+                        <th:block th:if="${tongTin>=15}">
+                            <span style="color: #00acd6" th:text="${' Bạn đã học đủ số tín chỉ trong kì này ('+tongTin+'/15)'}"></span>
+
+                        </th:block>
                     </div>
                 </div>
                 <div class="col-sm-4 invoice-col">
                     <div class="form-group chamcham">
-                        <label for=""> Điểm trung bình trên thang 10: </label>
-                        <span>7.5/10</span>
+                        <label for="" > Điểm trung bình trên thang 10 : </label>
+                        <span th:text="${DTB}"></span>
                     </div>
 
                     <div class="form-group chamcham">
                         <label for="">Điểm GPA: </label>
-                        <span > 2.5/3</span>
+                        <span th:text="${GPA}"></span>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -82,7 +109,7 @@
         </section>
 
         <section class="content-header">
-            <h1>Danh sách điểm các môn kì I</h1>
+            <h1  th:text="${'Danh sách điểm các môn kì: '+kiHienTai}">Danh sách điểm các môn kì I</h1>
         </section>
 
         <!-- Main content -->
@@ -91,6 +118,8 @@
                 <div class="col-xs-12">
                     <div class="box">
                         <div class="box-body">
+                            <th:block th:if="${!#lists.isEmpty(diem)}">
+
                             <table id="example2" class="table table-bordered table-hover">
                                 <thead>
                                 <tr>
@@ -101,7 +130,8 @@
                                     <th>Điểm thực hành</th>
                                     <th>Điểm bài tập lớn</th>
                                     <th>Điểm trung bình</th>
-                                    <th>GPA</th>
+
+
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -116,192 +146,22 @@
                                     <th:block th:with="result=${(diem.getDiemLyThuyet() + diem.getDiemThucHanh()+diem.getDiemCuoiKi())/3}">
                                         <td th:text="${#numbers.formatDecimal(result == null ? 0 : result, 0, 2)}" >7.0</td>
                                     </th:block>
-                                    <th:block th:with="GPA=${(((diem.getDiemLyThuyet() + diem.getDiemThucHanh()+diem.getDiemCuoiKi())/3)/10)*4}">
-                                        <td th:text="${#numbers.formatDecimal(GPA == null ? 0 : GPA, 1, 2)}" >7.0</td>
-                                    </th:block>
+
                                     </tr>
-                                <!--</th:block>-->
+
                                 <tbody>
                             </table>
+                            </th:block>
+                            <th:block th:if="${#lists.isEmpty(diem)}">
+                                <p>Hiện tại chưa có điểm cho môn học nào</p>
+                            </th:block>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <!--kì 2-->
-        <!--<section class="invoice">-->
-            <!--<div class="row">-->
-                <!--<div class="col-xs-12">-->
-                    <!--<h2 class="page-header">-->
-                        <!--<i class="fa fa-globe"></i> Thông tin lượng tín chỉ và điểm trong kì II-->
-                        <!--<small class="pull-right" >Ngày bắt đầu kì: 2/10/2014</small>-->
-                    <!--</h2>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="row invoice-info">-->
-                <!--<div class="col-sm-4 invoice-col">-->
-                    <!--<div class="form-group chamcham">-->
-                        <!--<label for="">Tổng số môn học: </label>-->
-                        <!--<span> 5</span>-->
-                    <!--</div>-->
-                    <!--<div class="form-group chamcham">-->
-                        <!--<label for="">Số tín chỉ đã học: </label>-->
-                        <!--<span> 15</span>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="col-sm-4 invoice-col">-->
-                    <!--<div class="form-group chamcham">-->
-                        <!--<label for=""> Điểm trung bình trên thang 10: </label>-->
-                        <!--<span>7.5/10</span>-->
-                    <!--</div>-->
 
-                    <!--<div class="form-group chamcham">-->
-                        <!--<label for="">Điểm GPA: </label>-->
-                        <!--<span > 2.5/3</span>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="col-md-4">-->
-                    <!--<div class="form-group chamcham">-->
-                        <!--<label for="">Ghi chú </label>-->
-                        <!--<span ></span>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</section>-->
-        <!--</div>-->
-        <!--<section class="content-header">-->
-            <!--<h1>Danh sách điểm các môn kì II</h1>-->
-        <!--</section>-->
-
-        <!--&lt;!&ndash; Main content &ndash;&gt;-->
-        <!--<section class="content">-->
-            <!--<div class="row">-->
-                <!--<div class="col-xs-12">-->
-                    <!--<div class="box">-->
-                        <!--<div class="box-body">-->
-                            <!--<table id="example2" class="table table-bordered table-hover">-->
-                                <!--<thead>-->
-                                <!--<tr>-->
-                                    <!--<th>STT</th>-->
-                                    <!--<th>Môn học</th>-->
-                                    <!--<th>Số tín chỉ</th>-->
-                                    <!--<th>Điểm lí thuyết</th>-->
-                                    <!--<th>Điểm thực hành</th>-->
-                                    <!--<th>Điểm bài tập lớn</th>-->
-                                    <!--<th>Điểm trung bình</th>-->
-                                    <!--<th>GPA</th>-->
-                                <!--</tr>-->
-                                <!--</thead>-->
-                                <!--<tbody>-->
-                                <!--&lt;!&ndash;<th:block th:if="${sinhvien != null}">&ndash;&gt;-->
-                                <!--<tr >-->
-                                    <!--<td  class="text-right">-->
-                                        <!--1-->
-                                    <!--</td>-->
-                                    <!--<td >Hệ quản trị cơ sở dữ liệu</td>-->
-                                    <!--<td >3</td>-->
-                                    <!--<td >7</td>-->
-                                    <!--<td >8</td>-->
-                                    <!--<td >9</td>-->
-                                    <!--<td >7.0</td>-->
-                                    <!--<td >2.5</td>-->
-                                <!--</tr>-->
-                                <!--&lt;!&ndash;</th:block>&ndash;&gt;-->
-                                <!--<tbody>-->
-                            <!--</table>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</section>-->
-        <!--&lt;!&ndash;ki 3&ndash;&gt;-->
-        <!--<section class="invoice">-->
-            <!--<div class="row">-->
-                <!--<div class="col-xs-12">-->
-                    <!--<h2 class="page-header">-->
-                        <!--<i class="fa fa-globe"></i> Thông tin lượng tín chỉ và điểm trong kì III-->
-                        <!--<small class="pull-right" >Ngày bắt đầu kì: 2/10/2014</small>-->
-                    <!--</h2>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="row invoice-info">-->
-                <!--<div class="col-sm-4 invoice-col">-->
-                    <!--<div class="form-group chamcham">-->
-                        <!--<label for="">Tổng số môn học: </label>-->
-                        <!--<span> 5</span>-->
-                    <!--</div>-->
-                    <!--<div class="form-group chamcham">-->
-                        <!--<label for="">Số tín chỉ đã học: </label>-->
-                        <!--<span> 15</span>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="col-sm-4 invoice-col">-->
-                    <!--<div class="form-group chamcham">-->
-                        <!--<label for=""> Điểm trung bình trên thang 10: </label>-->
-                        <!--<span>7.5/10</span>-->
-                    <!--</div>-->
-
-                    <!--<div class="form-group chamcham">-->
-                        <!--<label for="">Điểm GPA: </label>-->
-                        <!--<span > 2.5/3</span>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="col-md-4">-->
-                    <!--<div class="form-group chamcham">-->
-                        <!--<label for="">Ghi chú </label>-->
-                        <!--<span ></span>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</section>-->
-
-        <!--<section class="content-header">-->
-            <!--<h1>Danh sách điểm các môn kì III</h1>-->
-        <!--</section>-->
-
-        <!--&lt;!&ndash; Main content &ndash;&gt;-->
-        <!--<section class="content">-->
-            <!--<div class="row">-->
-                <!--<div class="col-xs-12">-->
-                    <!--<div class="box">-->
-                        <!--<div class="box-body">-->
-                            <!--<table id="example2" class="table table-bordered table-hover">-->
-                                <!--<thead>-->
-                                <!--<tr>-->
-                                    <!--<th>STT</th>-->
-                                    <!--<th>Môn học</th>-->
-                                    <!--<th>Số tín chỉ</th>-->
-                                    <!--<th>Điểm lí thuyết</th>-->
-                                    <!--<th>Điểm thực hành</th>-->
-                                    <!--<th>Điểm bài tập lớn</th>-->
-                                    <!--<th>Điểm trung bình</th>-->
-                                    <!--<th>GPA</th>-->
-                                <!--</tr>-->
-                                <!--</thead>-->
-                                <!--<tbody>-->
-                                <!--&lt;!&ndash;<th:block th:if="${sinhvien != null}">&ndash;&gt;-->
-                                <!--<tr >-->
-                                    <!--<td  class="text-right">-->
-                                        <!--1-->
-                                    <!--</td>-->
-                                    <!--<td >Hệ quản trị cơ sở dữ liệu</td>-->
-                                    <!--<td >3</td>-->
-                                    <!--<td >7</td>-->
-                                    <!--<td >8</td>-->
-                                    <!--<td >9</td>-->
-                                    <!--<td >7.0</td>-->
-                                    <!--<td >2.5</td>-->
-                                <!--</tr>-->
-                                <!--&lt;!&ndash;</th:block>&ndash;&gt;-->
-                                <!--<tbody>-->
-                            <!--</table>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</section>-->
-
-
+        </div>
     </div>
     <div th:replace="fragments/footer :: footer">&nbsp;</div>
     <aside class="control-sidebar control-sidebar-dark">
@@ -379,6 +239,11 @@
     //     })
     //
     // });
+
+    function run() {
+        var id= (document.getElementById("Ultra").value);
+            window.location.replace("/web/thongtinki?ki="+id);
+    }
 
     function run() {
         var id= (document.getElementById("Ultra").value);

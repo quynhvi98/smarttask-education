@@ -13,9 +13,12 @@ public interface MonHocService {
 
     void update(MonHoc persist);
     List<MonHoc> listMonHoc();
-    List<MonHoc> listMonHocKy(String hocky);
+    List<MonHoc> listMonHocKy(int hocki,String mv);
 
     List<MonHoc> getLstMonHocByHocKiAndBoMon(String boMon, Integer kiHoc);
 
     Long count();
+
+
+    int tongMonHocKiVaBoMon(String boMon, Integer kiHoc);
 }

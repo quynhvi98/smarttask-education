@@ -22,9 +22,15 @@
     <script type="text/javascript" th:src="@{/js/demo.js}"></script>
     <script type="text/javascript" th:src="@{/js/bootstrap/dataTables.bootstrap.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/jquery/jquery.dataTables.min.js}"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/sweetalert2/latest/sweetalert2.min.css"/>
+    <script src="https://cdn.jsdelivr.net/sweetalert2/latest/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/sweetalert2/latest/sweetalert2.min.css"/>
+    <script src="https://cdn.jsdelivr.net/sweetalert2/latest/sweetalert2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/parsley/parsley.js}"></script>
 
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -223,17 +229,35 @@
                                     <th>Mã SV</th>
                                     <th>Tên sinh viên</th>
                                     <th>Email</th>
+                                    <th>Ðiểm lý thuyết</th>
+                                    <th>Ðiểm thực hành</th>
+                                    <th>Ðiểm cuối kì</th>
                                     <th>Chức năng</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <th:block th:if="${sinhvien != null}">
-                                    <tr th:each=" sinhvien,k : ${lopHoc.sinhViens}">
-                                        <td class="text-right">1</td>
+                                <th:block th:if="${SV != null}">
+                                    <tr th:each=" sinhvien,k : ${SV}">
+                                        <td class="text-right">
+                                            1
+                                        </td>
                                         <td th:text="${sinhvien.maSinhVien}">SV-00</td>
-                                        <td th:text="${sinhvien.user.userName}">Nguyễn Văn A</td>
+                                        <td th:text="${sinhvien.user.fullName}">Nguy?n Van A</td>
                                         <td th:text="${sinhvien.user.userEmail}">nguyenvana@gmail.com</td>
-
+                                        <th:block th:if="${#lists.isEmpty(sinhvien.getLstDiem())}">
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                        </th:block>
+                                        <th:block th:if="${!#lists.isEmpty(sinhvien.getLstDiem())}">
+                                            <th:block th:each="diem : ${sinhvien.getLstDiem()}">
+                                                <th:block th:if="${diem.getLopHoc().getMaLop()==lopHoc.maLop}">
+                                                    <td th:text="${diem.getDiemLyThuyet()}">123</td>
+                                                    <td th:text="${diem.getDiemThucHanh()}">123</td>
+                                                    <td th:text="${diem.getDiemCuoiKi()}">123</td>
+                                                </th:block>
+                                            </th:block>
+                                        </th:block>
                                         <td class="text-center">
                                             <div class="dropdown bacham">
                                                 <a href="#" data-toggle="dropdown" aria-haspopup="true"
@@ -247,19 +271,13 @@
                                                     <!--data-target="#thongTinSV"><i class="fa fa-pencil-square-o" aria-hidden="true" th:attrappend="data-target=${'tt'+sinhvien.maSinhVien}"></i>Thông tin</a>-->
                                                     <!--</li>-->
                                                     <li class="inline">
-                                                        <a class="icon-remove" data-toggle="modal"
-                                                           data-target="#myModal"
-                                                           th:attrappend="data-target=${sinhvien.maSinhVien}"><i
-                                                                class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                                            Thông tin điểm</a>
+                                                        <a class="icon-remove" data-toggle="modal" data-target="#myModal" th:attrappend="data-target=${'popup'+sinhvien.maSinhVien}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Thông tin điểm</a>
                                                     </li>
                                                 </ul>
                                             </div>
 
-
-
                                             <div class="modal modal-full fade" id="myModal" role="dialog"
-                                                 th:attrappend="id=${sinhvien.maSinhVien}">
+                                                 th:attrappend="id=${'popup'+sinhvien.maSinhVien}">
                                                 <div class="modal-dialog">
                                                     <!-- Modal content-->i
                                                     <div class="modal-content">
@@ -274,74 +292,66 @@
                                                         <div class="modal-body"
                                                              style="padding-bottom: 20px; padding: 0px;padding-bottom: 32px;">
                                                             <th:block th:if="${#lists.isEmpty(sinhvien.getLstDiem())}">
-                                                                <p>Hiện tại sinh viên này chưa có điểm</p>
+                                                                <p>Hiện tại sv chưa có điểm</p>
                                                             </th:block>
                                                             <th:block th:if="${!#lists.isEmpty(sinhvien.getLstDiem())}">
 
                                                                 <table class="table table-bordered table-hover">
                                                                     <tbody>
                                                                     <tr th:each="diem : ${sinhvien.getLstDiem()}">
-                                                                        <form id="suadiem" class="form-horizontal">
-                                                                            <input name="maSV" type="hidden"
-                                                                                   th:value="${sinhvien.maSinhVien}"/>
-                                                                            <input name="maMonHoc" type="hidden"
-                                                                                   th:value="${lopHoc.monHoc.maMonHoc}"/>
-                                                                            <input name="maLopHoc" type="hidden"
-                                                                                   th:value="${lopHoc.maLop}"/>
-                                                                            <input name="maDiem" type="hidden"
-                                                                                   th:value="${diem.getId()}"/>
-                                                                            <div style="margin-top: 50px"
-                                                                                 class="form-group">
-                                                                                <label class="col-sm-3 control-label">Điểm
-                                                                                    lý thuyết <span
-                                                                                            class="red">  </span></label>
-                                                                                <div class="col-md-9">
-                                                                                    <input th:value="${diem.getDiemLyThuyet()}"
-                                                                                           id="diemLyThuyet"
-                                                                                           name="diemLyThuyet"
-                                                                                           type="text"
-                                                                                           class="form-control"
-                                                                                           placeholder="Tên môn học ">
-                                                                                </div>
-                                                                            </div>
+                                                                        <th:block th:if="${diem.getLopHoc().getMaLop()==lopHoc.maLop}">
 
-                                                                            <br/>
-                                                                            <div style="margin-top: 50px"
-                                                                                 class="form-group">
-                                                                                <label class="col-sm-3 control-label">Điểm
-                                                                                    thực hành <span
+
+                                                                            <form th:id="${'suadiem'+sinhvien.maSinhVien}" class="form-horizontal">
+                                                                                <input name="maSV" type="hidden"  th:value="${sinhvien.maSinhVien}"/>
+                                                                                <input name="maMonHoc" type="hidden"  th:value="${lopHoc.monHoc.maMonHoc}"/>
+                                                                                <input name="maLopHoc" type="hidden"  th:value="${lopHoc.maLop}"/>
+                                                                                <input name="maDiem" type="hidden"  th:value="${diem.getId()}"/>
+                                                                                <div style="margin-top: 50px"
+                                                                                     class="form-group">
+                                                                                    <label class="col-sm-3 control-label">Điểm lý thuyết <span
                                                                                             class="red">  </span></label>
-                                                                                <div class="col-md-9">
-                                                                                    <input th:value="${diem.getDiemThucHanh()}"
-                                                                                           name="diemThucHanh"
-                                                                                           type="text"
-                                                                                           class="form-control"
-                                                                                           placeholder="Tên môn học ">
+                                                                                    <div class="col-md-9">
+                                                                                        <input th:value="${diem.getDiemLyThuyet()}"
+                                                                                               id="diemLyThuyet"
+                                                                                               name="diemLyThuyet" type="text"
+                                                                                               class="form-control"
+                                                                                               placeholder="Tên môn h?c ">
+                                                                                    </div>
                                                                                 </div>
 
-                                                                            </div>
-                                                                            <br/>
-                                                                            <div style="margin-top: 50px"
-                                                                                 class="form-group">
-                                                                                <label class="col-sm-3 control-label">Điểm
-                                                                                    cuối kì <span
+                                                                                <br/>
+                                                                                <div style="margin-top: 50px"
+                                                                                     class="form-group">
+                                                                                    <label class="col-sm-3 control-label">Điểm thực hành <span
                                                                                             class="red">  </span></label>
-                                                                                <div class="col-md-9">
-                                                                                    <input th:value="${diem.getDiemCuoiKi()}"
-                                                                                           name="diemCuoiKi" type="text"
-                                                                                           class="form-control"
-                                                                                           placeholder="Tên môn học ">
+                                                                                    <div class="col-md-9">
+                                                                                        <input th:value="${diem.getDiemThucHanh()}"
+                                                                                               name="diemThucHanh" type="text"
+                                                                                               class="form-control"
+                                                                                               placeholder="Tên môn h?c ">
+                                                                                    </div>
+
                                                                                 </div>
-                                                                            </div>
-                                                                        </form>
-                                                                        <br/>
-                                                                        <!--<button name="edit" onclick="toggle_inputs()">Sửa điểm</button>-->
-                                                                        <button onclick="ff()"
-                                                                                style="    margin-top: 20px;margin-bottom: -26px;"
-                                                                                type="button" class="btn btn-primary"><i
-                                                                                class="fa fa-plus-circle"
-                                                                                aria-hidden="true"></i> Cập nhật
-                                                                        </button>
+                                                                                <br/>
+                                                                                <div style="margin-top: 50px"
+                                                                                     class="form-group">
+                                                                                    <label class="col-sm-3 control-label">Điểm cuối kì <span
+                                                                                            class="red">  </span></label>
+                                                                                    <div class="col-md-9">
+                                                                                        <input th:value="${diem.getDiemCuoiKi()}"
+                                                                                               name="diemCuoiKi" type="text"
+                                                                                               class="form-control"
+                                                                                               placeholder="Tên môn h?c ">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </form>
+                                                                            <br/>
+                                                                            <!--<button name="edit" onclick="toggle_inputs()">S?a di?m</button>-->
+                                                                            <button th:id="${sinhvien.maSinhVien}" onclick="ff(this.id)" style="    margin-top: 20px;margin-bottom: -26px;" type="button" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i>Cập nhật
+                                                                            </button>
+
+                                                                        </th:block>
                                                                         <!--<input id="token1" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
                                                                     </tr>
                                                                     </tbody>
@@ -431,16 +441,16 @@
 </div>
 
 </body>
-<script type="text/javascript" th:inline="javascript">
+<script type="text/javascript" th:inline="javascript" >
     $(function () {
         $('#example2').DataTable()
         $('#example3').DataTable({
-            'paging': true,
+            'paging'      : true,
             'lengthChange': false,
-            'searching': false,
-            'ordering': true,
-            'info': true,
-            'autoWidth': false
+            'searching'   : false,
+            'ordering'    : true,
+            'info'        : true,
+            'autoWidth'   : false
         })
 
         var ngayHoc = [[${ngayHoc}]];
@@ -452,6 +462,66 @@
                     "</tr>");
         }
     });
+    function ff(id) {
+        swal({
+            imageUrl: 'https://cdn.dribbble.com/users/563824/screenshots/4268258/untitled_180_3.gif',
+            imageHeight: 200,
+            showConfirmButton: false,
+        });
+        // var token = document.getElementById('token1').value;
+        var valid = $("#suadiem"+id).parsley();
+        valid.validate();
+        if (valid.isValid()) {
+            var data = $('#suadiem'+id).serialize();
+            $.ajax({
+                url:  '/web/giangviendaylop/suadiem',
+                type: "post",
+                // headers: {'X-CSRF-Token': token},
+                data: data,
+                dataType: "text",
+                success: function (result) {
+
+                    if (result.trim() === "saidiem") {
+
+                        swal({
+                            title: 'Cập nhật không thành công',
+                            text: 'Bạn đã nhập sai điểm',
+                            type: 'warning',
+                            confirmButtonText: 'Ok',
+                        }).then(function () {
+
+
+                        });
+                    }
+
+                    if (result.trim() === "success") {
+                        $('.close').click();
+                        swal({
+                            title: 'Cập nhật thành công',
+                            text: '',
+                            type: 'success',
+                            confirmButtonText: 'Ok',
+                        }).then(function () {
+                            location.reload(true);
+
+                        });
+                    } if (result.trim() === "error") {
+                        $('.close').click();
+                        swal({
+                            title: 'Cập nhật thất bại',
+                            text: '',
+                            type: 'error',
+                            confirmButtonText: 'Ok',
+                        }).then(function () {
+                            if (isConfirm) {
+                            }
+                            form.submit();
+                        });
+                    }
+                }
+            });
+        }
+    };
     var files = [];
     $(document)
         .on(
@@ -459,7 +529,7 @@
             "#upload-file",
             function (event) {
                 files = event.target.files;
-            });
+            })
 
     $(document)
         .on(
@@ -467,7 +537,7 @@
             "#fileSubmit",
             function () {
                 processUpload();
-            });
+            })
 
     function processUpload() {
         swal({
@@ -499,7 +569,7 @@
                 error: function (result) {
                     location.reload(true);
                     // swal({
-                    //     title: 'Đăng ký thành công!',
+                    //     title: 'Ðang ký thành công!',
                     //     text: '',
                     //     type: 'success',
                     //     confirmButtonText: 'Ok',
@@ -512,47 +582,8 @@
                 }
 
             });
-    };
-
-    function ff() {
-        swal({
-            imageUrl: 'https://cdn.dribbble.com/users/563824/screenshots/4268258/untitled_180_3.gif',
-            imageHeight: 200,
-            showConfirmButton: false,
-        });
-        // var token = document.getElementById('token1').value;
-        var valid = $("#suadiem").parsley();
-        valid.validate();
-        if (valid.isValid()) {
-            var data = $('#suadiem').serialize();
-            $.ajax({
-                url: '/web/giangviendaylop/suadiem',
-                type: "post",
-                // headers: {'X-CSRF-Token': token},
-                data: data,
-                dataType: "text",
-                success: function (result) {
-
-                    if (result.trim() === "success") {
-                        $('.close').click();
-                        swal({
-                            title: 'Cập nhật thành công',
-                            text: '',
-                            type: 'success',
-                            confirmButtonText: 'Ok',
-                        }).then(function () {
-                            if (isConfirm) {
-                            }
-                            form.submit();
-                        });
-                    } else {
-                        notify_error("Cập nhật môn học", "Cập nhật");
-                    }
-                }
-            });
-        }
-    };
-
+    }
 
 </script>
+
 </html>

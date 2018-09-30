@@ -24,8 +24,8 @@ public class MonHocServiceImpl implements MonHocService {
     }
 
     @Override
-    public List<MonHoc> listMonHocKy(String hocky) {
-        return monHocDao.listMonHocKy(hocky);
+    public List<MonHoc> listMonHocKy(int hocki,String mv) {
+        return monHocDao.listMonHocKy(hocki,mv);
     }
 
     @Override
@@ -37,6 +37,12 @@ public class MonHocServiceImpl implements MonHocService {
     public Long count() {
         return monHocDao.count();
     }
+
+    @Override
+    public int tongMonHocKiVaBoMon(String boMon, Integer kiHoc) {
+        return monHocDao.getLstMonHocByHocKiAndBoMon(boMon,kiHoc).size();
+    }
+
 
     @Override
     public List<MonHoc> findAll() {

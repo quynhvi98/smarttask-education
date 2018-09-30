@@ -185,7 +185,7 @@
                                                         <tbody>
                                                         <tr th:each="lophoc,k : ${monhoc.getLstLopHoc()}">
                                                             <td th:text="${k.index+1}"></td>
-                                                            <td th:text="${lophoc.maLop}"></td>
+                                                            <td style="width: 7%;" th:text="${lophoc.maLop}"></td>
                                                             <td th:text="${lophoc.getGiaoVien().getUser().getFullName()}"></td>
                                                             <td th:text="${lophoc.moTa}">
                                                             <td th:text="${lophoc.phongHoc}">

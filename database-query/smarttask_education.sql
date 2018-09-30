@@ -144,7 +144,7 @@ CREATE TABLE IF NOT EXISTS sinh_vien (
   ngay_nhap_hoc date,
   PRIMARY KEY (ma_sinh_vien),
   CONSTRAINT FK_ma_vien_sv FOREIGN KEY (ma_vien) REFERENCES khoa_vien(ma_vien),
-  CONSTRAINT FK_user_name_sv FOREIGN KEY (user_name) REFERENCES user(user_name)
+  CONSTRAINT FK_ma_nganh_sv FOREIGN KEY (ma_nganh) REFERENCES bo_mon(ma_nganh),
 ) engine=InnoDB;
 
 CREATE TABLE IF NOT EXISTS lop_sinhvien (
