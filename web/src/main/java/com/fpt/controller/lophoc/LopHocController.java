@@ -60,7 +60,7 @@ public class LopHocController {
         model.addAttribute("user", userInfo);
         model.addAttribute("giaoVien", giaoVien);
         model.addAttribute("lopHoc", lopHoc);
-        model.addAttribute("sinhvien", sinhViens);
+        model.addAttribute("SV", sinhViens);
         model.addAttribute("ngayHoc", ngayHoc);
         model.addAttribute("caHoc", caHoc);
         if(userInfo.getSinhVien()!= null) {
@@ -108,7 +108,6 @@ public class LopHocController {
                     diem.setGiaoVien(user.getGiaoVien());
                     diem.setMonHoc(monHocService.findById(maMonHoc));
                     diem.setLopHoc(lopHocService.findById(maLopHoc));
-                    System.out.println("mamh:"+maLopHoc);
                     diems.add(diem);
                 }
                 workbook.close();
@@ -128,26 +127,25 @@ public class LopHocController {
     public void suaDiem(HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model) {
         try {
             String maSV = request.getParameter("maSV");
-            String diemLyThuyet = request.getParameter("diemLyThuyet");
+            Double diemLyThuyet = Double.valueOf(request.getParameter("diemLyThuyet"));
             String maDiem = request.getParameter("maDiem");
-            String diemThucHanh = request.getParameter("diemThucHanh");
-            String diemCuoiKi = request.getParameter("diemCuoiKi");
+            System.out.println();
+            Double diemThucHanh = Double.valueOf(request.getParameter("diemThucHanh"));
+            Double diemCuoiKi = Double.valueOf((request.getParameter("diemCuoiKi")));
             String maMonHoc = request.getParameter("maMonHoc");
             String maLopHoc = request.getParameter("maLopHoc");
-            System.out.println(maMonHoc + " " + diemLyThuyet + " " + diemThucHanh + " " + diemCuoiKi);
-            User user = (User) session.getAttribute("userInfo");
-            Diem diem = new Diem();
-            diem.setId(maDiem);
-            diem.setDiemThucHanh(Double.valueOf(diemThucHanh));
-            diem.setDiemLyThuyet(Double.valueOf(diemLyThuyet));
-            diem.setDiemCuoiKi(Double.valueOf(diemCuoiKi));
-            diem.setSinhVien(sinhVienService.getSinhVienId(maSV));
-            diem.setMonHoc(monHocService.findById(maMonHoc));
-            diem.setLopHoc(lopHocService.findById(maLopHoc));
-            diem.setGiaoVien(giangVienService.findById(user.getGiaoVien().getMaGiaoVien()));
-
-            diemService.save(diem);
-            response.getWriter().println("success");
+            if((diemCuoiKi <=10&& diemCuoiKi>=0)&&(diemLyThuyet <=10&& diemLyThuyet>=0)&&(diemThucHanh <=10&& diemThucHanh>=0)) {
+                System.out.println(maMonHoc + " " + diemLyThuyet + " " + diemThucHanh + " " + diemCuoiKi);
+                User user = (User) session.getAttribute("userInfo");
+                Diem diem = diemService.findById(maDiem);
+                diem.setDiemThucHanh(diemThucHanh);
+                diem.setDiemLyThuyet(diemLyThuyet);
+                diem.setDiemCuoiKi(diemCuoiKi);
+                diemService.save(diem);
+                response.getWriter().println("success");
+            }else {
+                response.getWriter().println("saidiem");
+            }
         }catch (Exception e){
             try {
                 response.getWriter().println("error");
