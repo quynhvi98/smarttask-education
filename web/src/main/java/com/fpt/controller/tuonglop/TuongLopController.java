@@ -7,6 +7,7 @@ import com.fpt.services.giangvien.GiangVienService;
 import com.fpt.services.like.LikeService;
 import com.fpt.services.lophoc.LopHocService;
 import com.fpt.services.sinhvien.SinhVienService;
+import com.fpt.services.tailieu.TaiLieuService;
 import com.fpt.services.thongbao.ThongBaoService;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -53,6 +54,8 @@ public class TuongLopController {
     private BinhLuanService binhLuanService;
     @Autowired
     private LikeService likeService;
+    @Autowired
+    private TaiLieuService taiLieuService;
 
     private final Logger logger = LoggerFactory.getLogger(TuongLopController.class);
 
@@ -68,9 +71,12 @@ public class TuongLopController {
         for (Like like : lstLike) {
             lstPostId.add(like.getBaiDang().getPostId());
         }
+        List<TaiLieu> lstTaiLieu = taiLieuService.findAllByMaLop(maLop);
+
         model.addAttribute("lstPostId", lstPostId);
         model.addAttribute("lstBaiDang", lstBaiDang);
         model.addAttribute("user", user);
+        model.addAttribute("lstTaiLieu", lstTaiLieu);
 
         if (user.getGiaoVien() != null) {
             GiaoVien giaoVien = giangVienService.findById(user.getGiaoVien().getMaGiaoVien());
@@ -109,8 +115,9 @@ public class TuongLopController {
         if (file != null) {
             suffix = file.getOriginalFilename().split("\\.")[1];
             String fileName = System.currentTimeMillis() + "." + suffix;
-            upFile(file, fileName);
-            baiDang.setFile(fileName);
+            upFile(file, fileName, "post");
+            baiDang.setFileName(file.getOriginalFilename());
+            baiDang.setFileRealName(fileName);
         }
         baiDang.setStatus(1);
         baiDangService.save(baiDang);
@@ -133,11 +140,56 @@ public class TuongLopController {
         return "redirect:/tuonglop/" + maLop;
     }
 
-    public void upFile(MultipartFile file, String fileName) throws IOException {
+    @PostMapping("/tuonglop/add-document")
+    public String addDoc(@RequestParam("docFile") MultipartFile file) throws IOException {
+        String suffix = null;
+        if (file != null) {
+            suffix = file.getOriginalFilename().split("\\.")[1];
+            String fileName = System.currentTimeMillis() + "." + suffix;
+            upFile(file, fileName, "doc");
+            TaiLieu taiLieu = new TaiLieu();
+            taiLieu.setFileName(file.getOriginalFilename());
+            taiLieu.setFileRealName(fileName);
+//            taiLieu.setDescription();
+            LopHoc lopHoc = lopHocService.findById(maLop);
+            taiLieu.setLopHoc(lopHoc);
+            taiLieu.setStatus(1);
+            taiLieuService.save(taiLieu);
+        }
+        return "redirect:/tuonglop/" + maLop;
+    }
+
+
+    @RequestMapping("/tuonglop/download-post-file/{postId}")
+    public void downloadPostFile(HttpServletResponse response, @PathVariable("postId") Integer postId) throws IOException {
+        BaiDang baiDang = baiDangService.findById(postId);
+        downloadFile(response, baiDang.getFileName(), baiDang.getFileRealName(), "post");
+    }
+
+    @RequestMapping("/tuonglop/download-doc-file/{docId}")
+    public void downloadDocFile(HttpServletResponse response, @PathVariable("docId") Integer docId) throws IOException {
+        TaiLieu taiLieu = taiLieuService.findById(docId);
+        downloadFile(response, taiLieu.getFileName(), taiLieu.getFileRealName(), "doc");
+    }
+
+    @RequestMapping("/tuonglop/like/{postid}")
+    public void doLike(@PathVariable("postid") Integer postId, HttpSession session, HttpServletResponse response) throws IOException {
+        User user = (User) session.getAttribute("userInfo");
+        String result = likeService.doLike(user.getUserName(), postId);
+        response.getWriter().println(result);
+    }
+
+    @GetMapping("/tuonglop/deletepost/{postid}")
+    public String deletePost(@PathVariable("postid") Integer postId) {
+        baiDangService.delete(postId);
+        return "redirect:/tuonglop/" + maLop;
+    }
+
+    public void upFile(MultipartFile file, String fileName, String location) throws IOException {
         String path = null;
         if (!file.isEmpty()) {
             byte[] bytes = file.getBytes();
-            path = ResourceUtils.getFile("classpath:files").getPath();
+            path = ResourceUtils.getFile("classpath:" + location).getPath();
             BufferedOutputStream bout = new BufferedOutputStream(
                     new FileOutputStream(path + "/" + fileName));
             bout.write(bytes);
@@ -149,9 +201,8 @@ public class TuongLopController {
         }
     }
 
-    @RequestMapping("/tuonglop/download-file/{filename}/")
-    public void downloadFile(HttpServletResponse response, @PathVariable("filename") String fileName) throws IOException {
-        File file  = ResourceUtils.getFile("classpath:files/"+fileName).getAbsoluteFile();
+    public void downloadFile(HttpServletResponse response, String fileName, String fileRealName, String location) throws IOException {
+        File file = ResourceUtils.getFile("classpath:" + location + "/" + fileRealName).getAbsoluteFile();
         byte[] fileContent = Files.readAllBytes(file.toPath());
         Path newFile = null;
         try {
@@ -183,18 +234,4 @@ public class TuongLopController {
             return;
         }
     }
-
-    @RequestMapping("/tuonglop/like/{postid}")
-    public void doLike(@PathVariable("postid") Integer postId, HttpSession session, HttpServletResponse response) throws IOException {
-        User user = (User) session.getAttribute("userInfo");
-        String result = likeService.doLike(user.getUserName(), postId);
-        response.getWriter().println(result);
-    }
-
-    @GetMapping("/tuonglop/deletepost/{postid}")
-    public String deletePost(@PathVariable("postid") Integer postId){
-        baiDangService.delete(postId);
-        return "redirect:/tuonglop/"+ maLop;
-    }
-
 }

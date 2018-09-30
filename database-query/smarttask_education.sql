@@ -30,7 +30,7 @@ DROP TABLE IF EXISTS bai_dang;
 DROP TABLE IF EXISTS binh_luan;
 DROP TABLE IF EXISTS likes;
 DROP TABLE IF EXISTS diem_sinhvien;
-
+DROP TABLE IF EXISTS tai_lieu;
 
 CREATE TABLE IF NOT EXISTS role (
   ma_quyen VARCHAR(255),
@@ -266,7 +266,8 @@ CREATE TABLE IF NOT EXISTS bai_dang
 (
     postid bigint PRIMARY KEY AUTO_INCREMENT,
     content longtext NOT NULL,
-    file varchar(255),
+    file_name varchar(255),
+    file_real_name varchar(255),
     user_name varchar(255),
     status int DEFAULT 1 NOT NULL,
     time datetime,
@@ -310,4 +311,15 @@ CREATE TABLE IF NOT EXISTS diem_sinhvien (
   CONSTRAINT FK_mon_hoc FOREIGN KEY (ma_mon_hoc) REFERENCES mon_hoc(ma_mon_hoc),
   CONSTRAINT FK_lop_hoc FOREIGN KEY (ma_lop) REFERENCES lop_hoc(ma_lop)
 ) engine=InnoDB;
+
+CREATE TABLE IF NOT EXISTS tai_lieu
+(
+    ma_tai_lieu bigint PRIMARY KEY AUTO_INCREMENT,
+    mo_ta varchar(255),
+    ma_lop varchar(255),
+    file_name varchar(255),
+    file_real_name varchar(255),
+     time datetime,
+    CONSTRAINT tai_lieu_lop_hoc_ma_lop_fk FOREIGN KEY (ma_lop) REFERENCES lop_hoc (ma_lop)
+);
 

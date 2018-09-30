@@ -18,7 +18,11 @@ public class BaiDang implements Serializable {
 
     private String content;
 
-    private String file;
+    @Column(name = "file_name")
+    private String fileName;
+
+    @Column(name = "file_real_name")
+    private String fileRealName;
 
     private Integer status;
 
@@ -62,13 +66,6 @@ public class BaiDang implements Serializable {
         this.content = content;
     }
 
-    public String getFile() {
-        return file;
-    }
-
-    public void setFile(String file) {
-        this.file = file;
-    }
 
     public Set<BinhLuan> getLstComment() {
         return lstComment;
@@ -124,5 +121,21 @@ public class BaiDang implements Serializable {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getFileRealName() {
+        return fileRealName;
+    }
+
+    public void setFileRealName(String fileRealName) {
+        this.fileRealName = fileRealName;
     }
 }
