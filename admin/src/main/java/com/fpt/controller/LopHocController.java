@@ -139,6 +139,9 @@ public class LopHocController {
             gv.getUser().setRoles(null);
             gv.getUser().setSinhVien(null);
             gv.getUser().setGiaoVien(null);
+            gv.getUser().setLstBaiDang(null);
+            gv.getUser().setLstBinhLuan(null);
+            gv.getUser().setLstLike(null);
             gv.setLstLopHoc(null);
             gv.setLstPheDuyet(null);
             gv.setLstThongBao(null);

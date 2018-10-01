@@ -48,7 +48,7 @@
     <script type="text/javascript" th:src="@{/js/lobibox.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/datatables.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/datatables.config.js}"></script>
-    <script type="text/javascript" th:src="@{/js/cuttom.js}"></script>
+    <!--<script type="text/javascript" th:src="@{/js/cuttom.js}"></script>-->
     <script type="text/javascript" th:src="@{/js/trongtran.js}"></script>
 
 
@@ -82,11 +82,11 @@
 
             <div class="input">
                 <div class="label">Tên lớp học</div>
-                <input type="text"  value="">
+                <input type="text" value="">
             </div>
             <div class="input">
                 <div class="label">Mã lớp học</div>
-                <input type="text"  value="">
+                <input type="text" value="">
             </div>
 
             <a href="#" class="submit">Tìm kiếm</a>
@@ -259,12 +259,15 @@
                                                 <div class="checkbox">
                                                     <label class="col-sm-3">
                                                         Thứ 2
-                                                        <input  class="cbNgayHoc" id="day2" thu="2" onchange="useSelect(2)" type="checkbox"/>
-                                                        <input id="day2Hid" name="ngayHoc" type="text" hidden/>
+                                                        <input class="cbNgayHoc" value="2"
+                                                               type="checkbox"/>
+                                                        <input class="ngayHocHid" name="ngayHoc"
+                                                               type="text" hidden/>
                                                     </label>
                                                     <label class="col-sm-3">
                                                         Ca
-                                                        <select class="caHoc" onchange="selectCa(2)" style="background-color: #DCDCDC"
+                                                        <select class="caHoc"
+                                                                style="background-color: #DCDCDC"
                                                                 disabled id="ca2" name="caHoc">
                                                             <option>1</option>
                                                             <option>2</option>
@@ -274,18 +277,21 @@
                                                             <option>6</option>
                                                         </select>
                                                     </label>
-                                                    <span id="error2" hidden>Thời gian này đã bị trùng</span>
+                                                    <span class="errorSub" hidden>Thời gian này đã bị trùng</span>
                                                 </div>
                                                 <div class="checkbox">
                                                     <label class="col-sm-3">
                                                         Thứ 3
-                                                        <input  class="cbNgayHoc" id="day3" thu="3" onchange="useSelect(3)" type="checkbox"/>
-                                                        <input id="day3Hid" name="ngayHoc" type="text" hidden/>
+                                                        <input class="cbNgayHoc" value="3"
+                                                               type="checkbox"/>
+                                                        <input class="ngayHocHid" name="ngayHoc"
+                                                               type="text" hidden/>
                                                     </label>
                                                     <label class="col-sm-3">
                                                         Ca
-                                                        <select class="caHoc" onchange="selectCa(3)" style="background-color: #DCDCDC"
-                                                                disabled id="ca3" name="caHoc">
+                                                        <select class="caHoc"
+                                                                style="background-color: #DCDCDC"
+                                                                disabled name="caHoc">
                                                             <option>1</option>
                                                             <option>2</option>
                                                             <option>3</option>
@@ -294,18 +300,21 @@
                                                             <option>6</option>
                                                         </select>
                                                     </label>
-                                                    <span id="error3" hidden>Thời gian này đã bị trùng</span>
+                                                    <span class="errorSub" hidden>Thời gian này đã bị trùng</span>
                                                 </div>
                                                 <div class="checkbox">
                                                     <label class="col-sm-3">
                                                         Thứ 4
-                                                        <input class="cbNgayHoc" id="day4" thu="4" onchange="useSelect(4)" type="checkbox"/>
-                                                        <input name="ngayHoc" id="day4Hid" type="text" hidden/>
+                                                        <input class="cbNgayHoc" value="4"
+                                                               type="checkbox"/>
+                                                        <input name="ngayHoc" class="ngayHocHid"
+                                                               type="text" hidden/>
                                                     </label>
                                                     <label class="col-sm-3">
                                                         Ca
-                                                        <select class="caHoc" onchange="selectCa(4)" style="background-color: #DCDCDC"
-                                                                disabled id="ca4" name="caHoc">
+                                                        <select class="caHoc"
+                                                                style="background-color: #DCDCDC"
+                                                                disabled name="caHoc">
                                                             <option>1</option>
                                                             <option>2</option>
                                                             <option>3</option>
@@ -314,18 +323,21 @@
                                                             <option>6</option>
                                                         </select>
                                                     </label>
-                                                    <span id="error4" hidden>Thời gian này đã bị trùng</span>
+                                                    <span class="errorSub" hidden>Thời gian này đã bị trùng</span>
                                                 </div>
                                                 <div class="checkbox">
                                                     <label class="col-sm-3">
                                                         Thứ 5
-                                                        <input  class="cbNgayHoc" id="day5" thu="5" onchange="useSelect(5)" type="checkbox"/>
-                                                        <input name="ngayHoc" id="day5Hid" type="text" hidden/>
+                                                        <input class="cbNgayHoc" value="5"
+                                                               type="checkbox"/>
+                                                        <input name="ngayHoc" class="ngayHocHid"
+                                                               type="text" hidden/>
                                                     </label>
                                                     <label class="col-sm-3">
                                                         Ca
-                                                        <select class="caHoc" onchange="selectCa(5)" style="background-color: #DCDCDC"
-                                                                disabled id="ca5" name="caHoc">
+                                                        <select class="caHoc"
+                                                                style="background-color: #DCDCDC"
+                                                                disabled name="caHoc">
                                                             <option>1</option>
                                                             <option>2</option>
                                                             <option>3</option>
@@ -334,18 +346,21 @@
                                                             <option>6</option>
                                                         </select>
                                                     </label>
-                                                    <span id="error5" hidden>Thời gian này đã bị trùng</span>
+                                                    <span class="errorSub" hidden>Thời gian này đã bị trùng</span>
                                                 </div>
                                                 <div class="checkbox">
                                                     <label class="col-sm-3">
                                                         Thứ 6
-                                                        <input  class="cbNgayHoc" id="day6" thu="6" onchange="useSelect(6)" type="checkbox"/>
-                                                        <input name="ngayHoc" id="day6Hid" type="text" hidden/>
+                                                        <input class="cbNgayHoc" value="6"
+                                                               type="checkbox"/>
+                                                        <input name="ngayHoc" class="ngayHocHid"
+                                                               type="text" hidden/>
                                                     </label>
                                                     <label class="col-sm-3">
                                                         Ca
-                                                        <select class="caHoc" onchange="selectCa(6)" style="background-color: #DCDCDC"
-                                                                disabled id="ca6" name="caHoc">
+                                                        <select class="caHoc"
+                                                                style="background-color: #DCDCDC"
+                                                                disabled  name="caHoc">
                                                             <option>1</option>
                                                             <option>2</option>
                                                             <option>3</option>
@@ -354,19 +369,18 @@
                                                             <option>6</option>
                                                         </select>
                                                     </label>
-                                                    <span id="error6" hidden>Thời gian này đã bị trùng</span>
+                                                    <span class="errorSub" hidden>Thời gian này đã bị trùng</span>
                                                 </div>
                                                 <label class="col-sm-344">
-                                                   Ca 1: 7h45 - 8h30 |
+                                                    Ca 1: 7h45 - 8h30 |
                                                     Ca 2: 8h30 - 9h15 |
-                                                    Ca 3: 9h30 - 10h15  <br/>
+                                                    Ca 3: 9h30 - 10h15 <br/>
                                                     Ca 4: 13h30 - 14h15 |
                                                     Ca 5: 14h15 - 15h00 |
                                                     Ca 6: 15h00 - 15h45 |
 
                                                 </label>
                                             </div>
-
 
 
                                         </div>
@@ -387,7 +401,8 @@
                                             <label for="" class="col-sm-3 control-label">Phòng học <span
                                                     class="red">(*)</span></label>
                                             <div class="col-md-9">
-                                                <input id="phongHoc" readonly required name="phongHoc" type="text" class="form-control"
+                                                <input id="phongHoc" readonly required name="phongHoc" type="text"
+                                                       class="form-control"
                                                        placeholder="Phòng học">
                                             </div>
                                             <p class="col-sm-offset-3 help-block red">Example block-level help text
@@ -403,7 +418,8 @@
                                         <div class="form-group">
                                             <label for="" class="col-sm-3 control-label">Ngày bắt đầu</label>
                                             <div class="col-md-9">
-                                                <input id="ngayBatDau" type="date" required name="ngayBatDau" class="form-control"
+                                                <input id="ngayBatDau" type="date" required name="ngayBatDau"
+                                                       class="form-control"
                                                        placeholder="Ngày bắt đầu">
                                             </div>
                                             <p class="col-sm-offset-3 help-block red">Example block-level help text
@@ -568,21 +584,36 @@
 </div>
 </body>
 <script th:inline="javascript">
-    // $('input:checkbox').on('change', function() {
-    //     var numberOfChecked = $('input:checkbox:checked').length;
-    //     if(numberOfChecked > parseInt(tinChi)){
-    //         $(this). prop('checked', false);
-    //
-    //     }
-    //     // alert(numberOfChecked);
-    // });
+    $('input:checkbox').on('change', function () {
+        var numberOfChecked = $('input:checkbox:checked').length;
+        if (numberOfChecked > parseInt(tinChi)) {
+            this.checked = false;
+        } else {
+            var cbNgayHoc = $('.cbNgayHoc');
+            var caHoc = $('.caHoc');
+            var dayHid = $('.ngayHocHid');
+            var ngayHoc = $(cbNgayHoc[cbNgayHoc.index(this)]).val();
+            var stt = $(cbNgayHoc).index(this);
 
-    // var theCheckboxes = $('input:checkbox');
-    // theCheckboxes.click(function()
-    // {
-    //     if (theCheckboxes.filter(":checked").length > 2)
-    //         $(this).removeAttr("checked");
-    // });
+            if ($(this).is(":checked")) {
+                $(caHoc[cbNgayHoc.index(this)]).prop('disabled', false);
+                $(caHoc[cbNgayHoc.index(this)]).css("background-color", "");
+                $(dayHid[cbNgayHoc.index(this)]).val(ngayHoc);
+                var caHoc = $(caHoc[cbNgayHoc.index(this)]).val();
+                var maGiaoVien = $('#giangVien').val();
+                var kiHoc = $('#kiHoc').val();
+                checkTimeExits(ngayHoc, caHoc, maGiaoVien, kiHoc, stt);
+
+            } else {
+                $(caHoc[cbNgayHoc.index(this)]).prop('disabled', 'disabled');
+                $(caHoc[cbNgayHoc.index(this)]).css("background-color", "#DCDCDC");
+                $(dayHid).val('');
+                checkTimeExits(0, 0, maGiaoVien, 0, stt);
+            }
+        }
+
+    });
+
 
     $('#khoaVien').change(function () {
         var maKhoaVien = $(this).val();
@@ -622,7 +653,7 @@
                 var rs = JSON.parse(result);
                 console.log(rs);
                 $.each(rs[0], function (i, obj) {
-                    $('#monHoc').append("<option value='" + obj.maMonHoc + "' tinchi='"+obj.tinChi+"'>" + obj.tenMonHoc + "</option>");
+                    $('#monHoc').append("<option value='" + obj.maMonHoc + "' tinchi='" + obj.tinChi + "'>" + obj.tenMonHoc + "</option>");
                 });
                 $.each(rs[1], function (i, obj) {
                     $('#giangVien').append("<option value='" + obj.maGiaoVien + "'>" + obj.user.fullName + "</option>");
@@ -664,43 +695,24 @@
 
     var allowSubmit = [true, true, true, true, true];
 
-    function useSelect(value) {
-        var day = '#day' + value;
-        var ca = '#ca' + value;
-        var dayHid = '#day' + value + 'Hid';
 
-        if ($(day).is(":checked")) {
-            $(ca).prop('disabled', false);
-            $(ca).css("background-color", "");
-            $(dayHid).val(value);
-
-            var ngayHoc = value;
-            var caHoc = $(ca).val();
-            var maGiaoVien = $('#giangVien').val();
-            var kiHoc = $('#kiHoc').val();
-            checkTimeExits(ngayHoc, caHoc, maGiaoVien, kiHoc, value);
-
-        } else {
-            $(ca).prop('disabled', 'disabled');
-            $(ca).css("background-color", "#DCDCDC");
-            $(dayHid).val('');
-            checkTimeExits(0, 0, maGiaoVien, 0, value);
-        }
-    }
-
-    function selectCa(value) {
-        var day = '#day' + value;
-        var ca = '#ca' + value;
+    $('.caHoc').on("change", function () {
+        // var day = '#day' + value;
+        // var ca = '#ca' + value;
         // var dayHid = '#day'+value+'Hid';
+        var day = $('.cbNgayHoc');
+        var ca = $('.caHoc');
 
-        var ngayHoc = value;
-        var caHoc = $(ca).val();
+        var ngayHoc = $(day[ca.index(this)]).val();
+        var stt = $(ca).index(this);
+        var caHoc = $(ca[ca.index(this)]).val();
         var maGiaoVien = $('#giangVien').val();
         var kiHoc = $('#kiHoc').val();
-        checkTimeExits(ngayHoc, caHoc, maGiaoVien, kiHoc, value);
-    }
+        checkTimeExits(ngayHoc, caHoc, maGiaoVien, kiHoc, stt);
+    });
 
     function checkTimeExits(ngayHoc, caHoc, maGiaoVien, kiHoc, value) {
+        var error = $('.errorSub');
         $.ajax({
             url: base_url + 'lophoc/checkTimeExits',
             type: "get",
@@ -708,9 +720,11 @@
             dataType: "text",
             success: function (result) {
                 var rs = JSON.parse(result);
-                allowSubmit[value - 2] = !rs;
-                if (rs == 1) $('#error' + value).show();
-                else $('#error' + value).hide();
+                alert(rs);
+                allowSubmit[value] = !rs;
+                alert(allowSubmit);
+                if (rs == 1) $(error[value]).show();
+                else $(error[value]).hide();
             },
             error: function () {
                 alert("lỗi server");
@@ -719,13 +733,13 @@
         getAvailableClass();
     }
 
-    function getAvailableClass(){
+    function getAvailableClass() {
         var caHoc = [];
         var ngayHoc = [];
-        $('input:checkbox:checked').each(function(idx, el){
-            ngayHoc.push($(this).attr('thu'));
+        $('input:checkbox:checked').each(function (idx, el) {
+            ngayHoc.push($(this).val());
         });
-        $.each($(".caHoc:enabled"), function(idx, el){
+        $.each($(".caHoc:enabled"), function (idx, el) {
             caHoc.push($(this).val());
         });
 
@@ -735,7 +749,7 @@
             data: {ngayHoc: ngayHoc, caHoc: caHoc},
             // dataType: "text",
             success: function (result) {
-               $('#phongHoc').val(result);
+                $('#phongHoc').val(result);
             },
             error: function () {
                 alert("500 error");
@@ -821,6 +835,7 @@
     var socket = new SockJS('http://localhost:8080/web/ws');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, onConnected);
+
     function onConnected() {
         stompClient.subscribe('/topic/public', onMessageReceived);
         stompClient.send("/app/chat.addUser",
@@ -828,9 +843,11 @@
             JSON.stringify({sender: username, type: 'JOIN'})
         )
     }
+
     function onMessageReceived(payload) {
         var message = JSON.parse(payload.body);
     }
+
     function sendMessage() {
         var gv = document.getElementById("giangVien").value;
         var ml = document.getElementById("maLop").value;
@@ -839,7 +856,7 @@
         var kiHoc = $('#kiHoc').val();
         var currentdate = new Date();
         var datetime = currentdate.getFullYear() + "-"
-            + (currentdate.getMonth()+1)  + "-"
+            + (currentdate.getMonth() + 1) + "-"
             + currentdate.getDate() + " "
             + currentdate.getHours() + ":"
             + currentdate.getMinutes() + ":"
@@ -847,8 +864,8 @@
         var chatMessage = {
             sender: "Admin",
             title: "Lớp mới",
-            ki:kiHoc,
-            maLop:ml,
+            ki: kiHoc,
+            maLop: ml,
             receiver: gv,
             content: "Bạn có 1 lớp mới: " + ml + " - Tại phòng: " + ph + " - Ngày bắt đầu: " + nbd,
             time: datetime
@@ -856,9 +873,6 @@
         stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
     }
 </script>
-
-
-
 
 
 </html>
