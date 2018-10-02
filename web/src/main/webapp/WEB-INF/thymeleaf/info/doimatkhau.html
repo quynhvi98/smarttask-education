@@ -290,22 +290,11 @@
     <div class="control-sidebar-bg"></div>
 </div>
 
-</body>
-</html>
 
-
-
-
-
-<script>
-
-
-
+<script type="text/javascript" th:inline="javascript" >
     var ps='';
-
     var checkpasswordRepeat=false;
     var checknewPassword=false;
-
     function passwordRepeat() {
         var password = $(this).val();
         if(ps==password){
@@ -318,16 +307,14 @@
             document.getElementById("Length1").style.color = 'red';
             document.getElementById("Length1").innerHTML="Mât khẩu không khớp";
             checkpasswordRepeat=false;
-
         }
-
     }
 
     function ValidatePassword() {
         var rules = [{
             Pattern: "[A-Z]",
             Target: "UpperCase"
-        },
+            },
             {
                 Pattern: "[a-z]",
                 Target: "LowerCase"
@@ -394,22 +381,7 @@
     $(document).ready(function() {
         $("#passwordRepeat").on('keyup', passwordRepeat)
     });
-</script>
 
-<style>
-
-    .glyphicon-remove {
-        color: red;
-    }
-
-    .glyphicon-ok {
-        color: green;
-    }
-</style>
-
-
-
-<script>
 
     function ff() {
         if (checkpasswordRepeat&&checknewPassword) {
@@ -470,3 +442,20 @@
 
     }
 </script>
+
+<style>
+
+    .glyphicon-remove {
+        color: red;
+    }
+
+    .glyphicon-ok {
+        color: green;
+    }
+</style>
+
+
+
+</body>
+</html>
+

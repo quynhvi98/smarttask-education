@@ -77,12 +77,12 @@
                 <div class="col-sm-4 invoice-col">
                     <div class="form-group chamcham">
                         <label for="" > Điểm trung bình trên thang 10 : </label>
-                        <span th:text="${DTB}"></span>
+                        <span th:text="${#numbers.formatDecimal(DTB == null ? 0 : DTB, 0, 2)}"></span>
                     </div>
 
                     <div class="form-group chamcham">
                         <label for="">Điểm GPA: </label>
-                        <span th:text="${GPA}"></span>
+                        <span th:text="${#numbers.formatDecimal(GPA == null ? 0 : GPA, 0, 2)}"></span>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -241,10 +241,6 @@
             window.location.replace("/web/thongtinki?ki="+id);
     }
 
-    function run() {
-        var id= (document.getElementById("Ultra").value);
-            window.location.replace("/web/thongtinki?ki="+id);
-    }
 
 </script>
 </body>
