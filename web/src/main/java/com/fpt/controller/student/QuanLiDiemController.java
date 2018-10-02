@@ -101,7 +101,7 @@ public class QuanLiDiemController {
         model.addAttribute("DTB",dtb/count);
         Diem diem=new Diem();
         List<String> ki=new LinkedList<>();
-        for (int i=1;i<=kihoc;i++){
+        for (int i=1;i<=getKiHoc(userInfo.getSinhVien().getNgayNhapHoc());i++){
             ki.add(String.valueOf(i));
         }
         model.addAttribute("ki", ki);

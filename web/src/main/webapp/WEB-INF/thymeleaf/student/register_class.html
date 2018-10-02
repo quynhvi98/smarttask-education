@@ -25,7 +25,7 @@
 
 </head>
 <style>
-    .skin-blue sidebar-mini {
+    .skin-blue sidebar-mini modal-open{
         padding-right: 0px;
     }
 
@@ -160,10 +160,7 @@
                                                                 <div>Phòng học</div>
                                                             </th>
                                                             <th>
-                                                                <div>Ngày học</div>
-                                                            </th>
-                                                            <th>
-                                                                <div>Ca học</div>
+                                                                <div>Lịch học</div>
                                                             </th>
                                                             <th>
                                                                 <div>Ngày bắt đầu</div>
@@ -188,9 +185,26 @@
                                                             <td style="width: 7%;" th:text="${lophoc.maLop}"></td>
                                                             <td th:text="${lophoc.getGiaoVien().getUser().getFullName()}"></td>
                                                             <td th:text="${lophoc.moTa}">
-                                                            <td th:text="${lophoc.phongHoc}">
-                                                            <td th:text="${lophoc.ngayHoc}">
-                                                            <td th:text="${lophoc.caHoc}">
+                                                            <td th:text="${lophoc.getPhongHoc().getTenPhong()}">
+                                                            <td>
+                                                            <div id="content">
+                                                                <div class="help-tip">
+                                                                    <p th:id="${i.index+1+''+k.index+1}"></p>
+                                                                </div>
+                                                            </div>
+                                                                <script>
+                                                                    var ngayHoc ='[[${lophoc.ngayHoc}+0]]';
+                                                                    var caHoc = '[[${lophoc.caHoc}+0]]';
+                                                                    var html='';
+                                                                    var array = JSON.parse("[" + ngayHoc.toString() + "]");
+                                                                    var array1 = JSON.parse("[" + caHoc.toString() + "]");
+                                                                    console.log(array);
+                                                                    for (i = 0; i < array.length-1; i++) {
+                                                                        html=html+ 'Thứ: '+array[i] +' - Ca: '+array1[i]+' <br/> '
+                                                                    }
+                                                                    document.getElementById([[${i.index+1+''+k.index+1}]]).innerHTML =html;
+                                                                </script>
+                                                            </td>
                                                             <td th:text="${#dates.format(lophoc.getNgayBatDau(),'dd-MMM-yyyy')}"></td>
                                                             <td th:text="${#dates.format(lophoc.getNgayKetThuc(),'dd-MMM-yyyy')}"></td>
                                                             <td th:text="${lophoc.getMonHoc().getTenMonHoc()}"></td>
