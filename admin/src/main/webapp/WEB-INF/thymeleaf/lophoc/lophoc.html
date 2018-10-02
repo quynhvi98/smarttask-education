@@ -777,7 +777,6 @@
                 dataType: "text",
                 success: function (result) {
                     var rs = JSON.parse(result);
-                    ;
                     $('#malopDtl').text(rs.maLop);
                     $('#giaoVienDtl').text(rs.giaoVien.user.fullName);
                     $('#monHocDtl').text(rs.monHoc.tenMonHoc);

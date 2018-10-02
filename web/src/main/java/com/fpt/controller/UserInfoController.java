@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,7 +22,9 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.UUID;
 
@@ -74,32 +77,21 @@ public class UserInfoController {
         User user = userService.findUserByUserName(userInfo.getUserName());
         //TODO: fix root path by environment
         try {
-            String fileName = UUID.randomUUID().toString().substring(0, 8) + avatarFile.getOriginalFilename();
-            File newFile = new File("C:\\temp\\" + fileName);
-            if (newFile.createNewFile()) {
-                FileCopyUtils.copy(avatarFile.getBytes(), newFile);
+            if (avatarFile != null) {
+                String suffix = avatarFile.getOriginalFilename().split("\\.")[1];
+                String fileName = System.currentTimeMillis() + "." + suffix;
+                upFile(avatarFile, fileName, "avatar");
+                user.setUserAvatar(fileName);
             }
-            String avatar = "http://127.0.0.1:8887/" + fileName;
-            user.setUserAvatar(avatar);
             userService.update(user);
-//            String webappRoot = servletContext.getRealPath("/");
-//            try {
-//                if (!avatarFile.isEmpty()) {
-//                    BufferedImage src = ImageIO.read(new ByteArrayInputStream(avatarFile.getBytes()));
-//                    File destination = new File(webappRoot + "/resources/webapp/img/" + avatarFile.getOriginalFilename()); // something like C:/Users/tom/Documents/nameBasedOnSomeId.png
-//                    ImageIO.write(src, "jpg", destination);
-//                    String avatar = "/img/" + avatarFile.getOriginalFilename();
-//                    ;
-//                    user.setUserAvatar(avatar);
-//                    userService.update(user);
-//                }
+            session.setAttribute("userInfo", user);
         } catch (Exception e) {
             System.out.println("Exception occured" + e.getMessage());
         }
     }
 
     @PostMapping("/info/update")
-    public void userUpdateInfo(User user, HttpServletResponse response, HttpServletRequest request) throws IOException {
+    public void userUpdateInfo(User user, HttpServletResponse response, HttpServletRequest request, HttpSession session) throws IOException {
         if (user.getUserName() != null) {
             User userUpdate = userService.findUserByUserName(user.getUserName());
             if (user.getFullName() != null) {
@@ -131,6 +123,24 @@ public class UserInfoController {
             //Update for Sinh Vien
             //Tam thoi chua co thong tin rieng
             userService.update(userUpdate);
+            session.setAttribute("userInfo", userUpdate);
+        }
+    }
+
+
+    public void upFile(MultipartFile file, String fileName, String location) throws IOException {
+        String path = null;
+        if (!file.isEmpty()) {
+            byte[] bytes = file.getBytes();
+            path = ResourceUtils.getFile("classpath:" + location).getPath();
+            BufferedOutputStream bout = new BufferedOutputStream(
+                    new FileOutputStream(path + "/" + fileName));
+            bout.write(bytes);
+            bout.flush();
+            bout.close();
+
+        } else {
+            System.out.println("File is empty!");
         }
     }
 }
