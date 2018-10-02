@@ -31,6 +31,7 @@ DROP TABLE IF EXISTS binh_luan;
 DROP TABLE IF EXISTS likes;
 DROP TABLE IF EXISTS diem_sinhvien;
 DROP TABLE IF EXISTS tai_lieu;
+DROP TABLE IF EXISTS tin_tuc;
 
 CREATE TABLE IF NOT EXISTS role (
   ma_quyen VARCHAR(255),
@@ -142,6 +143,7 @@ CREATE TABLE IF NOT EXISTS sinh_vien (
   user_name varchar(255),
   ma_vien VARCHAR(255),
   ngay_nhap_hoc date,
+  ma_nganh varchar (255),
   PRIMARY KEY (ma_sinh_vien),
   CONSTRAINT FK_ma_vien_sv FOREIGN KEY (ma_vien) REFERENCES khoa_vien(ma_vien),
   CONSTRAINT FK_ma_nganh_sv FOREIGN KEY (ma_nganh) REFERENCES bo_mon(ma_nganh),
@@ -323,3 +325,12 @@ CREATE TABLE IF NOT EXISTS tai_lieu
     CONSTRAINT tai_lieu_lop_hoc_ma_lop_fk FOREIGN KEY (ma_lop) REFERENCES lop_hoc (ma_lop)
 );
 
+CREATE TABLE IF NOT EXISTS tin_tuc
+(
+    id bigint PRIMARY KEY AUTO_INCREMENT,
+    title text,
+    content text,
+    time datetime,
+    status int,
+
+);
