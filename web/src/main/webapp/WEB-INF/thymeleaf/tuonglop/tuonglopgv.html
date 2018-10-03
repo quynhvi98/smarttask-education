@@ -124,8 +124,8 @@
                             <!--<button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share-->
                             <!--</button>-->
                             <button class="btn btn-default btn-xs btnLike" th:attr="postId=${bd.postId}">
-                                <input type="hidden" class="totalLike" th:value="${#lists.size(bd.lstLike)}"/>
-                                <input type="hidden" class="totalComment" th:value="${#lists.size(bd.lstComment)}"/>
+                                <!--<input type="hidden" class="totalLike" th:value="${#lists.size(bd.lstLike)}"/>-->
+                                <!--<input type="hidden" class="totalComment" th:value="${#lists.size(bd.lstComment)}"/>-->
                                 <i th:if="${!#lists.contains(lstPostId, bd.postId)}" class="fa fa-thumbs-o-up">
                                 </i>
                                 <i th:if="${#lists.contains(lstPostId, bd.postId)}" class="fa fa-thumbs-up"
@@ -133,8 +133,11 @@
                                 </i>
                                 Like
                             </button>
-                            <span class="pull-right text-muted"
-                                  th:text="${#lists.size(bd.lstLike)}+' likes - '+${#lists.size(bd.lstComment)}+' comments'">0 likes - 2 comments</span>
+                            <div  class="pull-right text-muted">
+                                <span id="totalLike" th:text="${#lists.size(bd.lstLike)}">0 likes - 2 comments</span>
+                                <span th:text="' likes - '+${#lists.size(bd.lstComment)}+' comments'"></span>
+                            </div>
+
 
                         </div>
                         <th:block th:each="cm : ${bd.lstComment}">
