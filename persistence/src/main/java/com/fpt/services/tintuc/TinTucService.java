@@ -8,4 +8,6 @@ public interface TinTucService {
     void save(TinTuc tinTuc);
     List<TinTuc> findAllAvailable();
     TinTuc findById(Integer id);
+
+    void delete(Integer id);
 }

@@ -112,7 +112,7 @@ public class TuongLopController {
 
         String suffix = null;
 
-        if (file != null) {
+        if (!file.isEmpty()) {
             suffix = file.getOriginalFilename().split("\\.")[1];
             String fileName = System.currentTimeMillis() + "." + suffix;
             upFile(file, fileName, "post");
@@ -143,7 +143,7 @@ public class TuongLopController {
     @PostMapping("/tuonglop/add-document")
     public String addDoc(@RequestParam("docFile") MultipartFile file) throws IOException {
         String suffix = null;
-        if (file != null) {
+        if (!file.isEmpty()) {
             suffix = file.getOriginalFilename().split("\\.")[1];
             String fileName = System.currentTimeMillis() + "." + suffix;
             upFile(file, fileName, "doc");

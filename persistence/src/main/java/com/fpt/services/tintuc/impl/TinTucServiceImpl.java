@@ -27,4 +27,13 @@ public class TinTucServiceImpl implements TinTucService {
     public TinTuc findById(Integer id) {
         return tinTucDao.findOne(id);
     }
+
+    @Override
+    public void delete(Integer id) {
+        TinTuc tinTuc = tinTucDao.findOne(id);
+        tinTuc.setStatus(0);
+        this.save(tinTuc);
+    }
+
+
 }
