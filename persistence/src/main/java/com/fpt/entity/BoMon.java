@@ -84,4 +84,12 @@ public class BoMon implements Serializable {
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
+
+    public Set<SinhVien> getLstSinhVien() {
+        return lstSinhVien;
+    }
+
+    public void setLstSinhVien(Set<SinhVien> lstSinhVien) {
+        this.lstSinhVien = lstSinhVien;
+    }
 }

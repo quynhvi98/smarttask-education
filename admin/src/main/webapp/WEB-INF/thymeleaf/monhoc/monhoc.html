@@ -118,6 +118,9 @@
                     <th>
                         <div>Số tín chỉ</div>
                     </th>
+                    <th>
+                        <div>Kì học</div>
+                    </th>
                     <th class="wpx-40">
                         <!-- <div>Chức năng</div> -->
                     </th>
@@ -135,6 +138,7 @@
                             <td th:text="${mh.tenMonHoc}"></td>
                             <td th:text="${mh.boMon.tenNganh}"></td>
                             <td th:text="${mh.tinChi}"></td>
+                            <td th:text="${mh.kiHoc.kiHoc}"></td>
                             <td class="text-center">
                                 <div class="dropdown bacham">
                                     <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -320,9 +324,33 @@
                                             <label for="" class="col-sm-3 control-label">Số tín chỉ <span
                                                     class="red">(*)</span></label>
                                             <div class="col-md-9">
-                                                <input id="tinChiEdit" required name="tinChi" type="text"
-                                                       class="form-control"
-                                                       placeholder="Số tín chỉ ">
+                                                <select required id="tinChiEdit" name="tinChi" class="select2 form-control"
+                                                        title="Kì học">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                </select>
+                                            </div>
+                                            <p class="col-sm-offset-3 help-block red">Example block-level help text
+                                                here.</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-3 control-label">Kì học <span
+                                                    class="red">(*)</span></label>
+                                            <div class="col-md-9">
+                                                <select required id="kiHocEdit" name="kiHoc" class="select2 form-control"
+                                                        title="Kì học">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10</option>
+                                                </select>
                                             </div>
                                             <p class="col-sm-offset-3 help-block red">Example block-level help text
                                                 here.</p>
@@ -377,6 +405,7 @@
     //
     $('#btn-edit').click(function () {
         var valid = $("#form-sua").parsley();
+        $('#suanhansu').modal('hide');
         valid.validate();
         if (valid.isValid()) {
             var data = $('#form-sua').serialize();
@@ -386,7 +415,6 @@
                 data: data,
                 dataType: "text",
                 success: function (result) {
-                    $('#suanhansu').modal('hide');
                     if (result.trim() === "success") {
                         notify_sucess("Cập nhật môn học", "Cập nhật");
                     } else {
@@ -408,7 +436,8 @@
                 $('#maMonHocEdit').val(rs.maMonHoc);
                 $('#tenMonHocEdit').val(rs.tenMonHoc);
                 $('#boMonEdit').val(rs.boMon['maNganh']).change();
-                $('#tinChiEdit').val(rs.tinChi);
+                $('#tinChiEdit').val(rs.tinChi).change()
+                $('#kiHocEdit').val(rs.kiHoc.kiHoc).change();
             }
         });
     });
