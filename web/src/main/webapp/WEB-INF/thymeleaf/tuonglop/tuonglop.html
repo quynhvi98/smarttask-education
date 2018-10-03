@@ -134,9 +134,10 @@
                                 </i>
                                 Like
                             </button>
-                            <span class="pull-right text-muted"
-                                  th:text="${#lists.size(bd.lstLike)}+' likes - '+${#lists.size(bd.lstComment)}+' comments'">0 likes - 2 comments</span>
-
+                            <div  class="pull-right text-muted">
+                                <span class="setLike" th:text="${#lists.size(bd.lstLike)}">0 likes - 2 comments</span>
+                                <span th:text="' likes - '+${#lists.size(bd.lstComment)}+' comments'"></span>
+                            </div>
                         </div>
                         <th:block th:each="cm : ${bd.lstComment}">
                             <div class="box-footer box-comments">
@@ -267,9 +268,12 @@
             dataType: "text",
             success: (json) => {
                 if (json.trim() == "like") {
+                    var totalLike = $(this).closest('.box-body').find($(".setLike")).text();
+                    $(this).closest('.box-body').find('.setLike').text(+totalLike+1);
                     $(this).find($(".fa")).removeClass("fa-thumbs-o-up").addClass("fa-thumbs-up").css("color", "#94B8FF");
                 } else if (json.trim() == "unlike") {
-                    var a = $(this).find("i");
+                    var totalLike = $(this).closest('.box-body').find($(".setLike")).text();
+                    $(this).closest('.box-body').find('.setLike').text(+totalLike-1);
                     $(this).find($(".fa")).removeClass("fa-thumbs-up").addClass("fa-thumbs-o-up").css("color", "");
                 }
             }, error: function (msg) {
