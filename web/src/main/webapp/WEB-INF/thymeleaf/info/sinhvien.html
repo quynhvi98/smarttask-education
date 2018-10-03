@@ -50,15 +50,10 @@
                 <div class="row bg-xam">
                     <div class="text-center avantar">
                         <div class="card col-md-3">
-                            <div th:if="${user.userAvatar != null}">
+                            <div>
                                 <div class="thumb" alt="User Pic"
                                      id="view-avatar"
-                                     th:style="'background-image:url('+${user.userAvatar} + ');'"></div>
-                            </div>
-                            <div th:if="${user.userAvatar == null}">
-                                <div class="thumb" th:if="${user.userAvatar == null}" alt="User Pic"
-                                     id="view-avatar"
-                                     th:style="'background-image:url(' + @{/img/user2-160x160.jpg} + ');'"></div>
+                                     th:style="'background-image:url('+@{/avatar/}+${giangvien.userAvatar != null ? giangvien.userAvatar : 'default.png'} + ');'"></div>
                             </div>
                             <div class="article" th:with="df=#{date.format}">
                                 <h1 id="view-fullname" th:text="${user != null ? user.fullName : ''}">
@@ -198,14 +193,10 @@
                         <div class="card col-md-3">
                             <form class="form-horizontal" id="form-update-avatar" role="form"
                                   method="post" enctype="multipart/form-data">
-                                <div th:if="${user.userAvatar != null}">
-                                    <div class="thumb" alt="User Pic"
-                                         id="view-avatar-edit"
-                                         th:style="'background-image:url('+ ${user.userAvatar} + ')'"></div>
-                                </div>
-                                <div th:if="${user.userAvatar == null}">
+
+                                <div>
                                     <div class="thumb" alt="User Pic" id="view-avatar-edit"
-                                         th:style="'background-image:url(' + @{/img/user2-160x160.jpg} + ');'"></div>
+                                         th:style="'background-image:url('+@{/avatar/}+${giangvien.userAvatar != null ? giangvien.userAvatar : 'default.png'} + ');'"></div>
                                 </div>
                                 <div class="form-group row">
                                     <input accept="image/jpeg, image/png" type="file" class="form-control" id="avatar"

@@ -70,14 +70,14 @@
         <!--<div layout:fragment="content">&nbsp;</div>-->
         <section class="content-header">
             <h1>
-                Quản lý bài viết
+                Quản lý bộ môn
             </h1>
             <ol class="breadcrumb">
                 <li>
                     <a href="#">Trang chủ</a>
                 </li>
                 <li class="active">
-                    Quản lý bài viết
+                    Quản lý bộ môn
                 </li>
             </ol>
         </section>
@@ -95,108 +95,38 @@
             <a href="#" class="submit">Tìm kiếm</a>
             <!-- <div class="submit"></div> -->
         </div>
-        <h3 class="title">
-            Danh sách tin tức
-        </h3>
-        <div class="table">
-            <table class="tree-table">
-                <thead class="fix-w text-center">
-                <tr>
-                    <th class="wpx-60">
-                        <div>STT</div>
-                    </th>
-                    <th>
-                        <div>
-                            <div>Thời gian</div>
-                        </div>
-                    </th>
-                    <th>
-                        <div>Tiêu đề</div>
-                    </th>
-
-
-                    <th class="wpx-40">
-                        <!-- <div>Chức năng</div> -->
-                    </th>
-                </tr>
-                </thead>
-                <tbody class="text-center">
-                <th:block th:if="${#lists.isEmpty(lstTinTuc)}">
-                    <p>Không có dữ liệu</p>
-                </th:block>
-                <th:block th:if="${!#lists.isEmpty(lstTinTuc)}">
-                    <th:block th:each="tt, i : ${lstTinTuc}">
-                        <tr>
-                            <td th:text="${i.index+1}">1</td>
-                            <td th:text="${#dates.format(tt.time, 'dd/MM/yyyy HH:mm a')}"></td>
-                            <td th:text="${tt.title}"></td>
-                            <td class="text-center">
-                                <div class="dropdown bacham">
-                                    <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                        <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-right">
-                                        <li class="inline">
-                                            <a th:href="@{/tintuc/find/}+${tt.id}+'/view'">
-                                                <i class="fa fa-search" aria-hidden="true" data-toggle="tooltip"
-                                                   data-placement="bottom" title="" data-original-title=" Xem"></i> Xem
-                                            </a>
-                                        </li>
-                                        <li class="inline">
-                                            <a th:href="@{/tintuc/find/}+${tt.id}+'/edit'">
-                                                <i class="fa fa-pencil-square-o"
-                                                                           aria-hidden="true"></i> Sửa</a></li>
-                                        <li class="inline">
-                                            <a href="#" class="icon-remove" th:attr="idItem=${tt.id}"><i
-                                                    class="fa fa-trash-o" aria-hidden="true"></i> Xóa</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-
-                    </th:block>
-                </th:block>
-
-                </tbody>
-            </table>
-
-        </div>
         </section>
-        <div class="box box-info">
-            <div class="box-header">
-                <i class="fa fa-envelope"></i>
-
-                <h3 class="box-title">Tạo mới tin tức</h3>
-                <!-- tools box -->
-                <div class="pull-right box-tools">
-                    <button type="button" class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip"
-                            title="Remove">
-                        <i class="fa fa-times"></i></button>
-                </div>
-                <!-- /. tools -->
+        <th:block th:if="${type == 'view'}">
+            <div th:utext="${tinTuc.title}">
             </div>
-            <form th:action="@{/tintuc/add-news}" method="post">
+            <div th:utext="'Ngày đăng: '+${#dates.format(tinTuc.time, 'dd/MM/yyyy')}">
+            </div>
+            <div style="text-align: left;" th:utext="${tinTuc.content}">
 
+            </div>
+        </th:block>
+        <th:block th:if="${type=='edit'}">
+            <form th:action="@{/tintuc/update-news}" method="post">
+                <input type="hidden" name="id" th:value="${tinTuc.id}"/>
                 <div class="box-body">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="title" placeholder="Chủ đề">
+                        <input th:value="${tinTuc.title}" type="text" class="form-control" name="title" placeholder="Chủ đề">
                     </div>
                     <div>
-                  <textarea name="content" id="editor1" class="textarea" placeholder="Nhập nội dung tin tức..."
-                            style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+            <textarea th:field="*{tinTuc.content}" name="content" id="editor1" class="textarea" placeholder="Nhập nội dung tin tức..."
+                      style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                     </div>
                 </div>
                 <div class="box-footer clearfix">
-                    <button type="submit" class="pull-right btn btn-default" id="sendEmail">Đăng bài
+                    <button type="submit" class="pull-right btn btn-default" id="sendEmail">Cập nhật
                         <i class="fa fa-arrow-circle-right"></i></button>
                 </div>
             </form>
-
-        </div>
-
-        <div th:replace="fragments/footer :: footer">&nbsp;</div>
+        </th:block>
     </div>
+
+    <div th:replace="fragments/footer :: footer">&nbsp;</div>
+</div>
 </div>
 <!--test-->
 </body>

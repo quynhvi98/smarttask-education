@@ -651,7 +651,6 @@
                 $('#monHoc').empty();
                 $('#giangVien').empty();
                 var rs = JSON.parse(result);
-                console.log(rs);
                 $.each(rs[0], function (i, obj) {
                     $('#monHoc').append("<option value='" + obj.maMonHoc + "' tinchi='" + obj.tinChi + "'>" + obj.tenMonHoc + "</option>");
                 });
@@ -720,9 +719,7 @@
             dataType: "text",
             success: function (result) {
                 var rs = JSON.parse(result);
-                alert(rs);
                 allowSubmit[value] = !rs;
-                alert(allowSubmit);
                 if (rs == 1) $(error[value]).show();
                 else $(error[value]).hide();
             },
@@ -764,7 +761,6 @@
     function getCode() {
         var maMonHoc = $('#monHoc').val();
         tinChi = $('option:selected', '#monHoc').attr('tinchi');
-        // alert(tinChi);
         if (maMonHoc != null) {
             $('#maLop').val(maMonHoc + "-" + [[${time}]]);
         }
@@ -781,7 +777,6 @@
                 dataType: "text",
                 success: function (result) {
                     var rs = JSON.parse(result);
-                    ;
                     $('#malopDtl').text(rs.maLop);
                     $('#giaoVienDtl').text(rs.giaoVien.user.fullName);
                     $('#monHocDtl').text(rs.monHoc.tenMonHoc);
@@ -805,8 +800,6 @@
                     var caHoc = rs.caHoc.split(',');
 
                     for (i = 0; i < ngayHoc.length - 1; i++) {
-                        console.log(ngayHoc[i]);
-                        console.log(caHoc[i]);
                         $('#lichHoc tr:last')
                             .after("<tr><td style='width: 70px'>Thứ " + ngayHoc[i] + ":</td>" +
                                 "<td>Ca " + caHoc[i] + "</td>" +

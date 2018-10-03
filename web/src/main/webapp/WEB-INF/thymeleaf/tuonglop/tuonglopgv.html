@@ -44,7 +44,7 @@
                 <div class="box box-widget">
                     <div class="box-header with-border">
                         <div class="user-block">
-                            <img class="img-circle" th:src="@{/img/user2-160x160.jpg}" alt="User Image">
+                            <img class="img-circle" th:src="@{/avatar/}+${user.userAvatar != null ? user.userAvatar : 'default.png'}" alt="User Image">
                             <span class="username"><a href="#" th:text="${user.fullName}">Jonathan Burke Jr.</a></span>
                             <span class="description"
                                   th:text="'Shared publicly - '+${#dates.format(#dates.createNow(), 'dd-MM-yyyy HH:mm a')}">Shared publicly - 7:30 PM Today</span>
@@ -84,7 +84,7 @@
                     <div class="box box-widget">
                         <div class="box-header with-border">
                             <div class="user-block">
-                                <img class="img-circle" th:src="@{/img/user2-160x160.jpg}" alt="User Image">
+                                <img class="img-circle" th:src="@{/avatar/}+${user.userAvatar != null ? user.userAvatar : 'default.png'}" alt="User Image">
                                 <span class="username"><a href="#" th:text="${bd.user.fullName}">Jonathan Burke Jr.</a></span>
                                 <span class="description"
                                       th:text="'Shared publicly - '+${#dates.format(bd.time, 'dd-MM-yyyy HH:mm a')}">Shared publicly - 7:30 PM Today</span>
@@ -140,7 +140,7 @@
                         <th:block th:each="cm : ${bd.lstComment}">
                             <div class="box-footer box-comments">
                                 <div class="box-comment">
-                                    <img class="img-circle img-sm" th:src="@{/img/user2-160x160.jpg}" alt="User Image">
+                                    <img class="img-circle img-sm" th:src="@{/avatar/}+${user.userAvatar != null ? user.userAvatar : 'default.png'}" alt="User Image">
 
                                     <div class="comment-text">
 
@@ -165,7 +165,7 @@
                             <form th:action="@{/tuonglop/addcomment}" method="post">
                                 <input type="hidden" th:value="${bd.postId}" name="postId"/>
                                 <!--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
-                                <img class="img-responsive img-circle img-sm" th:src="@{/img/user2-160x160.jpg}"
+                                <img class="img-responsive img-circle img-sm" th:src="@{/avatar/}+${user.userAvatar != null ? user.userAvatar : 'default.png'}"
                                      alt="Alt Text">
                                 <div class="img-push">
                                     <input name="content" type="text" class="form-control input-sm"
