@@ -124,8 +124,8 @@
                             <!--<button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share-->
                             <!--</button>-->
                             <button class="btn btn-default btn-xs btnLike" th:attr="postId=${bd.postId}">
-                                <!--<input type="hidden" class="totalLike" th:value="${#lists.size(bd.lstLike)}"/>-->
-                                <!--<input type="hidden" class="totalComment" th:value="${#lists.size(bd.lstComment)}"/>-->
+                                <input type="hidden" class="totalLike" th:value="${#lists.size(bd.lstLike)}"/>
+                                <input type="hidden" class="totalComment" th:value="${#lists.size(bd.lstComment)}"/>
                                 <i th:if="${!#lists.contains(lstPostId, bd.postId)}" class="fa fa-thumbs-o-up">
                                 </i>
                                 <i th:if="${#lists.contains(lstPostId, bd.postId)}" class="fa fa-thumbs-up"
@@ -134,7 +134,7 @@
                                 Like
                             </button>
                             <div  class="pull-right text-muted">
-                                <span id="totalLike" th:text="${#lists.size(bd.lstLike)}">0 likes - 2 comments</span>
+                                <span class="setLike" th:text="${#lists.size(bd.lstLike)}">0 likes - 2 comments</span>
                                 <span th:text="' likes - '+${#lists.size(bd.lstComment)}+' comments'"></span>
                             </div>
 
@@ -281,9 +281,12 @@
             dataType: "text",
             success: (json) => {
                 if (json.trim() == "like") {
+                    var totalLike = $(this).closest('.box-body').find($(".setLike")).text();
+                    $(this).closest('.box-body').find('.setLike').text(+totalLike+1);
                     $(this).find($(".fa")).removeClass("fa-thumbs-o-up").addClass("fa-thumbs-up").css("color", "#94B8FF");
                 } else if (json.trim() == "unlike") {
-                    var a = $(this).find("i");
+                    var totalLike = $(this).closest('.box-body').find($(".setLike")).text();
+                    $(this).closest('.box-body').find('.setLike').text(+totalLike-1);
                     $(this).find($(".fa")).removeClass("fa-thumbs-up").addClass("fa-thumbs-o-up").css("color", "");
                 }
             }, error: function (msg) {
