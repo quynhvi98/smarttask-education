@@ -118,6 +118,7 @@ public class LopHocController {
             bm.setKhoaVien(null);
             bm.setLstMonHoc(null);
             bm.setLstGiaoVien(null);
+            bm.setLstSinhVien(null);
         }
         return lstBoMon;
     }

@@ -409,6 +409,16 @@
                                                 here.</p>
                                         </div>
                                         <div class="form-group">
+                                            <label for="" class="col-sm-3 control-label">Tín chỉ <span
+                                                    class="red">(*)</span></label>
+                                            <div class="col-md-9">
+                                                <input id="tinChi" readonly required name="tinChi" type="text"
+                                                       class="form-control">
+                                            </div>
+                                            <p class="col-sm-offset-3 help-block red">Example block-level help text
+                                                here.</p>
+                                        </div>
+                                        <div class="form-group">
                                             <label for="" class="col-sm-3 control-label">Mô tả</label>
                                             <div class="col-md-9">
                                                 <textarea required name="moTa" class="form-control" placeholder="Mô tả"
@@ -761,6 +771,7 @@
     function getCode() {
         var maMonHoc = $('#monHoc').val();
         tinChi = $('option:selected', '#monHoc').attr('tinchi');
+        $('#tinChi').val(tinChi);
         if (maMonHoc != null) {
             $('#maLop').val(maMonHoc + "-" + [[${time}]]);
         }
