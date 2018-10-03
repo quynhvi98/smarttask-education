@@ -72,12 +72,17 @@ public class TuongLopController {
             lstPostId.add(like.getBaiDang().getPostId());
         }
         List<TaiLieu> lstTaiLieu = taiLieuService.findAllByMaLop(maLop);
+        LopHoc lopHoc = lopHocService.findById(maLop);
+        String[] ngayHoc = lopHoc.getNgayHoc().split(",");
+        String[] caHoc = lopHoc.getCaHoc().split(",");
 
         model.addAttribute("lstPostId", lstPostId);
         model.addAttribute("lstBaiDang", lstBaiDang);
         model.addAttribute("user", user);
         model.addAttribute("lstTaiLieu", lstTaiLieu);
-
+        model.addAttribute("lopHoc", lopHoc);
+        model.addAttribute("ngayHoc", ngayHoc);
+        model.addAttribute("caHoc", caHoc);
         if (user.getGiaoVien() != null) {
             GiaoVien giaoVien = giangVienService.findById(user.getGiaoVien().getMaGiaoVien());
             model.addAttribute("soLuongTBChuaXem", thongBaoService.soLuongTbChuaXemGV(user.getGiaoVien().getMaGiaoVien()));
