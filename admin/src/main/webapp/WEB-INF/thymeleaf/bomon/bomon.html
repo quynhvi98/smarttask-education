@@ -70,18 +70,24 @@
             </ol>
         </section>
         <div class="khung" data-width="5">
+            <form action="/admin/bomon/timkiem" method="post">
             <div class="input">
                 <div class="label">Tên bộ môn</div>
-                <input type="text"  value="">
+                <input type="text" name="tenBoMon" th:value="${tenBoMon}"/>
+                <br>
             </div>
             <div class="input">
                 <div class="label">Mã bộ môn</div>
-                <input type="text"  value="">
+                <input type="text" name="maBoMon" th:value="${maBoMon}"/><br>
             </div>
 
 
-            <a href="#" class="submit">Tìm kiếm</a>
-            <!-- <div class="submit"></div> -->
+            <!--<a type="submit" href="#" class="submit">Tìm kiếm</a>-->
+            <!--<form action="/admin/bomon/timkiem" method="post">-->
+                <!--First name: <input type="text" name="tenBoMon"><br>-->
+                <!--Last name: <input type="text" name="maBoMon"><br>-->
+                <input type="submit"  class="submit" value="Tìm kiếm">
+            </form>
         </div>
         <h3 class="title">
             Danh sách bộ môn

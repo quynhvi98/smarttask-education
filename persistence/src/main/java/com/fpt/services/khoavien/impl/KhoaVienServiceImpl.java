@@ -38,4 +38,9 @@ public class KhoaVienServiceImpl implements KhoaVienService {
     public List<KhoaVien> findAll() {
         return (List<KhoaVien>) khoaVienDao.findAll();
     }
+
+    @Override
+    public List<KhoaVien> search(String tenKhoa, String maKhoa) {
+        return khoaVienDao.search(tenKhoa,maKhoa);
+    }
 }

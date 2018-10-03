@@ -77,18 +77,24 @@
         </section>
         <div class="khung" data-width="5">
 
-            <div class="input">
-                <div class="label">Họ tên/Tên truy cập</div>
-                <input type="text"  value="">
-            </div>
 
-            <div class="input">
-                <div class="label">Mã người dùng</div>
-                <input type="text"  value="">
-            </div>
+            <form action="/admin/user/tim-kiem" method="post">
+                <div class="input">
+                    <div class="label">Tên truy cập</div>
+                    <input type="text" name="userName" th:value="${userName}"/>
+                    <br>
+                </div>
+                <div class="input">
+                    <div class="label">Mã người dùng</div>
+                    <input type="text" name="maNguoiDung" th:value="${maNguoiDung}"/><br>
+                </div>
 
-            <a href="#" class="submit">Tìm kiếm</a>
-            <!-- <div class="submit"></div> -->
+                <div class="input">
+                    <div class="label">Tên người dùng</div>
+                    <input type="text" name="fullName" th:value="${fullName}"/><br>
+                </div>
+                <input type="submit"  class="submit" value="Tìm kiếm">
+            </form>
         </div>
         <h3 class="title">
             Danh sách tài khoản

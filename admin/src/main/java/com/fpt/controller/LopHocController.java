@@ -217,4 +217,24 @@ public class LopHocController {
         PhongHoc phongHoc = phongHocService.getAvailableClass(ngayHoc, caHoc);
         return phongHoc != null ? (phongHoc.getId()+"-"+phongHoc.getTenPhong()) : "";
     }
+
+
+
+
+
+
+    @PostMapping("/lophoc/tim-kiem")
+    public String searchLopHoc(HttpServletRequest request, Model model) throws IOException, ParseException {
+        String maLop = request.getParameter("maLop");
+        String phongHoc = request.getParameter("phongHoc");
+        model.addAttribute("maLop", maLop);
+        model.addAttribute("phongHoc", phongHoc);
+        List<KhoaVien> lstKhoaVien = khoaVienService.findAll();
+        List<LopHoc> lstLopHoc = lopHocService.search(maLop,phongHoc);
+        Long time = System.currentTimeMillis();
+        model.addAttribute("lstKhoaVien", lstKhoaVien);
+        model.addAttribute("lstLopHoc", lstLopHoc);
+        model.addAttribute("time", time);
+        return "lophoc/lophoc";
+    }
 }

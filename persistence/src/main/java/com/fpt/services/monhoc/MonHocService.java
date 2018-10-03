@@ -18,7 +18,7 @@ public interface MonHocService {
     List<MonHoc> getLstMonHocByHocKiAndBoMon(String boMon, Integer kiHoc);
 
     Long count();
-
+List<MonHoc> searchMonHoc(String tenMonHoc,String maMonHoc);
 
     int tongMonHocKiVaBoMon(String boMon, Integer kiHoc);
 }

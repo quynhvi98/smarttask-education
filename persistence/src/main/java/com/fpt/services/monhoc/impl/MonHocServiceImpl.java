@@ -39,6 +39,11 @@ public class MonHocServiceImpl implements MonHocService {
     }
 
     @Override
+    public List<MonHoc> searchMonHoc(String tenMonHoc, String maMonHoc) {
+        return monHocDao.search(tenMonHoc,maMonHoc);
+    }
+
+    @Override
     public int tongMonHocKiVaBoMon(String boMon, Integer kiHoc) {
         return monHocDao.getLstMonHocByHocKiAndBoMon(boMon,kiHoc).size();
     }

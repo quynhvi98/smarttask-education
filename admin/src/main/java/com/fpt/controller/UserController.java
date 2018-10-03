@@ -179,4 +179,21 @@ public class UserController {
         }
         return "redirect:/user";
     }
+
+    @PostMapping("/user/tim-kiem")
+    public String searchUser(HttpServletRequest request, Model model) throws IOException, ParseException {
+        String userName = request.getParameter("userName");
+        String maNguoiDung = request.getParameter("maNguoiDung");
+        String fullName = request.getParameter("fullName");
+        model.addAttribute("maNguoiDung", maNguoiDung);
+        model.addAttribute("userName", userName);
+        model.addAttribute("fullName", fullName);
+        List<KhoaVien> lstKhoaVien = khoaVienService.findAll();
+        List<User> lstUser = userService.search(userName,maNguoiDung,fullName);
+        Long totalRecord = giangVienService.count();
+        model.addAttribute("lstKhoaVien", lstKhoaVien);
+        model.addAttribute("lstUser", lstUser);
+        model.addAttribute("totalRecord", totalRecord);
+        return "/user/user";
+    }
 }

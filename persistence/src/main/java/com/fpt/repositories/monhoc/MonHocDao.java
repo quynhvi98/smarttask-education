@@ -13,4 +13,7 @@ public interface MonHocDao extends CrudRepository<MonHoc, String> {
 
     @Query(value = "from MonHoc mh where mh.boMon.maNganh = :maNganh and mh.kiHoc.id = :maKi", nativeQuery = false)
     List<MonHoc> getLstMonHocByHocKiAndBoMon(@Param("maNganh") String boMon, @Param("maKi") Integer kiHoc);
+
+    @Query(value = "select * from mon_hoc mh where mh.ten_mon_hoc like concat('%',:tenMonHoc,'%') and mh.ma_mon_hoc like concat('%',:maMonHoc,'%')", nativeQuery = true)
+    List<MonHoc> search(@Param("tenMonHoc") String tenMonHoc,@Param("maMonHoc") String maMonHoc);
 }

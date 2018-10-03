@@ -111,6 +111,11 @@ public class LopHocServiceImpl implements LopHocService {
     }
 
     @Override
+    public List<LopHoc> search(String maLop, String phongHoc) {
+        return lopHocDao.search(maLop,phongHoc);
+    }
+
+    @Override
     public Long count() {
         return lopHocDao.count();
     }

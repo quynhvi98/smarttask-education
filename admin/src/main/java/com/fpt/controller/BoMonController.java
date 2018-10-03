@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 
 @Controller
@@ -61,6 +62,20 @@ public class BoMonController {
         boMon.getKhoaVien().setLstBoMon(null);
         boMon.getKhoaVien().setLstSinhVien(null);
         return boMon;
+    }
+
+    @PostMapping("/bomon/timkiem")
+    public String searchBoMon(HttpServletRequest request, Model model) throws IOException, ParseException {
+        String tenBoMon = request.getParameter("tenBoMon");
+        String maBoMon = request.getParameter("maBoMon");
+        System.out.println(tenBoMon+"  "+maBoMon);
+        List<BoMon> lstBoMon = boMonService.searchBoMon(tenBoMon,maBoMon);
+        List<KhoaVien> lstKhoaVien = khoaVienService.findAll();
+        model.addAttribute("lstBoMon", lstBoMon);
+        model.addAttribute("tenBoMon", tenBoMon);
+        model.addAttribute("maBoMon", maBoMon);
+        model.addAttribute("lstKhoaVien",lstKhoaVien);
+        return "bomon/bomon";
     }
 
     @PostMapping("/bomon/cap-nhat")

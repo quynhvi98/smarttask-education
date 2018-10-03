@@ -11,4 +11,5 @@ public interface KhoaVienService {
     void delete(String id);
     KhoaVien findById(String id);
     List<KhoaVien> findAll();
+    List<KhoaVien> search(String tenKhoa,String maKhoa);
 }

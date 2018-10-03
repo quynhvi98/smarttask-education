@@ -63,4 +63,9 @@ public class UserServiceImpl implements UserService {
     public void saveLstSV(List<User> lstUser) {
         lstUser.forEach(user -> userDao.save(user));
     }
+
+    @Override
+    public List<User> search(String userName, String maThanhVien,String fullName) {
+        return userDao.search(userName,maThanhVien,fullName);
+    }
 }

@@ -77,18 +77,18 @@
             </ol>
         </section>
         <div class="khung" data-width="5">
-            <div class="input">
-                <div class="label">Tên môn học</div>
-                <input type="text"  value="">
-            </div>
-
-            <div class="input">
-                <div class="label">Mã môn học</div>
-                <input type="text"  value="">
-            </div>
-
-            <a href="#" class="submit">Tìm kiếm</a>
-            <!-- <div class="submit"></div> -->
+            <form action="/admin/monhoc/tim-kiem" method="post">
+                <div class="input">
+                    <div class="label">Tên môn học</div>
+                    <input type="text" name="tenMonHoc" th:value="${tenMonHoc}"/>
+                    <br>
+                </div>
+                <div class="input">
+                    <div class="label">Mã bộ môn</div>
+                    <input type="text" name="maMonHoc" th:value="${maMonHoc}"/><br>
+                </div>
+                <input type="submit"  class="submit" value="Tìm kiếm">
+            </form>
         </div>
         <h3 class="title">
             Danh sách bộ môn

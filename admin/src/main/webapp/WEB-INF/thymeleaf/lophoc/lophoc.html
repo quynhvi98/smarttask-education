@@ -80,17 +80,18 @@
         </section>
         <div class="khung" data-width="5">
 
-            <div class="input">
-                <div class="label">Tên lớp học</div>
-                <input type="text" value="">
-            </div>
-            <div class="input">
-                <div class="label">Mã lớp học</div>
-                <input type="text" value="">
-            </div>
-
-            <a href="#" class="submit">Tìm kiếm</a>
-            <!-- <div class="submit"></div> -->
+            <form action="/admin/lophoc/tim-kiem" method="post">
+                <div class="input">
+                    <div class="label">Mã lớp</div>
+                    <input type="text" name="maLop" th:value="${maLop}"/>
+                    <br>
+                </div>
+                <div class="input">
+                    <div class="label">Phòng học</div>
+                    <input type="text" name="phongHoc" th:value="${phongHoc}"/><br>
+                </div>
+                <input type="submit"  class="submit" value="Tìm kiếm">
+            </form>
         </div>
         <h3 class="title">
             Danh sách lớp học

@@ -71,4 +71,18 @@ public class KhoaVienController {
         KhoaVien khoaVien = khoaVienService.findById(id);
         return khoaVien;
     }
+
+
+
+
+    @PostMapping("/khoavien/tim-kiem")
+    public String searchKhoaVien(HttpServletRequest request, Model model) throws IOException {
+        String tenKhoaVien = request.getParameter("tenKhoaVien");
+        String maKhoaVien = request.getParameter("maKhoaVien");
+        model.addAttribute("maKhoaVien", maKhoaVien);
+        model.addAttribute("tenKhoaVien", tenKhoaVien);
+        List<KhoaVien> lstKhoaVien = khoaVienService.search(tenKhoaVien,maKhoaVien);
+        model.addAttribute("lstKhoaVien", lstKhoaVien);
+        return "khoavien/khoavien";
+    }
 }

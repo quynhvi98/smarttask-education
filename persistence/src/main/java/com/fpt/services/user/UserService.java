@@ -16,4 +16,7 @@ public interface UserService {
     void update(User user);
 
     void saveLstSV(List<User> lstUser);
+
+    List<User> search(String userName,String maThanhVien,String fullName);
+
 }

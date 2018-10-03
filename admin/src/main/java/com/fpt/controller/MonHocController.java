@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 
 @Controller
@@ -97,5 +98,21 @@ public class MonHocController {
         } catch (Exception e) {
             response.getWriter().println("failed");
         }
+    }
+
+
+    @PostMapping("/monhoc/tim-kiem")
+    public String searchMonHoc(HttpServletRequest request, Model model) throws IOException, ParseException {
+        String tenMonHoc = request.getParameter("tenMonHoc");
+        String maMonHoc = request.getParameter("maMonHoc");
+        model.addAttribute("tenMonHoc", tenMonHoc);
+        model.addAttribute("maMonHoc", maMonHoc);
+        List<BoMon> lstBoMon = boMonService.findAll();
+        List<MonHoc> lstMonHoc = monHocService.searchMonHoc(tenMonHoc,maMonHoc);
+        Long totalRecord = monHocService.count();
+        model.addAttribute("lstBoMon", lstBoMon);
+        model.addAttribute("lstMonHoc", lstMonHoc);
+        model.addAttribute("totalRecord", totalRecord);
+        return "monhoc/monhoc";
     }
 }

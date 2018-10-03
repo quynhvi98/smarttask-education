@@ -29,6 +29,11 @@ public class BoMonServiceImpl implements BoMonService {
     }
 
     @Override
+    public List<BoMon> searchBoMon(String tenBoMon, String maBoMon) {
+        return boMonDao.search(tenBoMon,maBoMon);
+    }
+
+    @Override
     public void update(BoMon persist) {
         boMonDao.save(persist);
     }
