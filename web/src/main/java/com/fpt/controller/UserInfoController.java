@@ -77,7 +77,7 @@ public class UserInfoController {
         User user = userService.findUserByUserName(userInfo.getUserName());
         //TODO: fix root path by environment
         try {
-            if (avatarFile != null) {
+            if (!avatarFile.isEmpty()) {
                 String suffix = avatarFile.getOriginalFilename().split("\\.")[1];
                 String fileName = System.currentTimeMillis() + "." + suffix;
                 upFile(avatarFile, fileName, "avatar");

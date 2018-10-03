@@ -12,13 +12,21 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/ionicons.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/AdminLTE.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/skin-blue.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/imageresource.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lobibox.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/sweetalert.css}"/>
 
     <script type="text/javascript" th:src="@{/js/jquery/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/adminlte.min.js}"></script>
-    <script type="text/javascript" th:src="@{js/demo.js}"></script>
+    <!--<script type="text/javascript" th:src="@{/js/demo.js}"></script>-->
     <script type="text/javascript" th:src="@{/js/jquery/jquery.slimscroll.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/fastclick.js}"></script>
+    <script type="text/javascript" th:src="@{/js/trongtran.js}"></script>
+    <script type="text/javascript" th:src="@{/js/sweetalert.js}"></script>
+    <script type="text/javascript" th:src="@{/js/lobibox.js}"></script>
+    <script type="text/javascript" th:src="@{/js/lobibox.min.js}"></script>
+
 
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -77,7 +85,7 @@
                     <div class="box box-widget">
                         <div class="box-header with-border">
                             <div class="user-block">
-                                <img class="img-circle" th:src="@{/img/user2-160x160.jpg}" alt="User Image">
+                                <img class="img-circle" th:src="@{/avatar/}+${bd.user.userAvatar != null ? bd.user.userAvatar : 'default.png'}" alt="User Image">
                                 <span class="username"><a href="#" th:text="${bd.user.fullName}">Jonathan Burke Jr.</a></span>
                                 <span class="description"
                                       th:text="'Shared publicly - '+${#dates.format(bd.time, 'dd-MM-yyyy HH:mm a')}">Shared publicly - 7:30 PM Today</span>
@@ -88,9 +96,11 @@
                                         class="fa fa-minus"></i>
                                 </button>
 
-                                <button th:if="${user.userName eq bd.user.userName}" th:attr="postId=${bd.postId}" type="button" class="btn btn-box-tool" data-toggle="tooltip"
+                                <button th:if="${user.userName eq bd.user.userName}" th:attr="postId=${bd.postId}"
+                                        type="button" class="btn btn-box-tool" data-toggle="tooltip"
                                         title="Delete post">
-                                    <a th:attr="postId=${bd.postId}" class=" deletePost"> <i class="fa fa-remove"></i></a>
+                                    <a th:attr="postId=${bd.postId}" class=" deletePost"> <i
+                                            class="fa fa-remove"></i></a>
                                 </button>
                             </div>
                         </div>
@@ -131,7 +141,7 @@
                         <th:block th:each="cm : ${bd.lstComment}">
                             <div class="box-footer box-comments">
                                 <div class="box-comment">
-                                    <img class="img-circle img-sm" th:src="@{/img/user2-160x160.jpg}" alt="User Image">
+                                    <img class="img-circle img-sm" th:src="@{/avatar/}+${cm.user.userAvatar != null ? user.userAvatar : 'default.png'}" alt="User Image">
 
                                     <div class="comment-text">
 
@@ -156,7 +166,7 @@
                             <form th:action="@{/tuonglop/addcomment}" method="post">
                                 <input type="hidden" th:value="${bd.postId}" name="postId"/>
                                 <!--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
-                                <img class="img-responsive img-circle img-sm" th:src="@{/img/user2-160x160.jpg}"
+                                <img class="img-responsive img-circle img-sm" th:src="@{/avatar/}+${user.userAvatar != null ? user.userAvatar : 'default.png'}"
                                      alt="Alt Text">
                                 <div class="img-push">
                                     <input name="content" type="text" class="form-control input-sm"
@@ -168,6 +178,10 @@
                 </th:block>
 
             </div>
+            <!--<div class="col-sm-3" style="float: right;" >-->
+
+            <!--</div>-->
+
         </div>
     </div>
     <div th:replace="fragments/footer :: footer">&nbsp;</div>
