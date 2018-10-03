@@ -41,7 +41,7 @@
                                 <li>
                                     <a href="#">
                                         <div class="pull-left">
-                                            <img th:src="@{/img/user2-160x160.jpg}" class="img-circle" alt="User Image">
+                                            <img class="img-circle" th:src="@{/avatar/}+${user.userAvatar != null ? user.userAvatar : 'default.png'}" alt="User Image">
                                         </div>
                                         <h4>
                                             Support Team
@@ -119,33 +119,14 @@
                 </li>
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img th:src="@{/img/user2-160x160.jpg}" class="user-image" alt="User Image">
-                        <!--<div th:if="${user.userAvatar != null}">-->
-                        <!--<div class="thumb" alt="User Pic"-->
-                        <!--id="view-avatar"-->
-                        <!--th:style="'background-image:url('+@{'data:img/jpeg;base64)'"></div>-->
-                        <!--</div>-->
-                        <!--<div th:if="${user.userAvatar == null}">-->
-                        <!--<div class="thumb" th:if="${user.userAvatar == null}" alt="User Pic"-->
-                        <!--id="view-avatar"-->
-                        <!--th:style="'background-image:url(' + @{/img/user2-160x160.jpg} + ');'"></div>-->
-                        <!--</div>-->
+                        <img class="user-image" th:src="@{/avatar/}+${user.userAvatar != null ? user.userAvatar : 'default.png'}" alt="User Image">
                         <span class="hidden-xs" th:text="${user != null ? user.fullName : ''}">Trần Văn Admin</span>
 
                     </a>
                     <ul class="dropdown-menu">
                         <li class="user-header">
                             <img th:src="@{/img/user2-160x160.jpg}" class="img-circle" alt="User Image">
-                            <!--<div th:if="${user.userAvatar != null}">-->
-                            <!--<div class="thumb" alt="User Image"-->
-                            <!--id="view-avatar"-->
-                            <!--th:style="'background-image:url('+@{'data:img/jpeg;base64)'"></div>-->
-                            <!--</div>-->
-                            <!--<div th:if="${user.userAvatar == null}">-->
-                            <!--<div class="thumb" th:if="${user.userAvatar == null}" class="img-circle" alt="User Image"-->
-                            <!--id="view-avatar"-->
-                            <!--th:style="'background-image:url(' + @{/img/user2-160x160.jpg} + ');'"></div>-->
-                            <!--</div>-->
+                            <!--<img class="img-circle" th:srcimg-circle="@{/avatar/}+${user.userAvatar != null ? user.userAvatar : 'default.png'}" alt="User Image">-->
                             <p th:text="${user != null ? user.fullName : ''}">
                                 Trần Văn Admin - Student
                             <p th:text="${user != null ? user.userEmail : ''}" style="font-size: 13px">Member since Nov. 2012</p>
