@@ -53,7 +53,7 @@
                             <div>
                                 <div class="thumb" alt="User Pic"
                                      id="view-avatar"
-                                     th:style="'background-image:url('+@{/avatar/}+${giangvien.userAvatar != null ? giangvien.userAvatar : 'default.png'} + ');'"></div>
+                                     th:style="'background-image:url('+@{/avatar/}+${user.userAvatar != null ? user.userAvatar : 'default.png'} + ');'"></div>
                             </div>
                             <div class="article" th:with="df=#{date.format}">
                                 <h1 id="view-fullname" th:text="${user != null ? user.fullName : ''}">
@@ -196,7 +196,7 @@
 
                                 <div>
                                     <div class="thumb" alt="User Pic" id="view-avatar-edit"
-                                         th:style="'background-image:url('+@{/avatar/}+${giangvien.userAvatar != null ? giangvien.userAvatar : 'default.png'} + ');'"></div>
+                                         th:style="'background-image:url('+@{/avatar/}+${user.userAvatar != null ? user.userAvatar : 'default.png'} + ');'"></div>
                                 </div>
                                 <div class="form-group row">
                                     <input accept="image/jpeg, image/png" type="file" class="form-control" id="avatar"

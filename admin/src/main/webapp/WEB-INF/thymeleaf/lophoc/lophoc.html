@@ -141,7 +141,7 @@
                         <td th:text="${i.index+1}">1</td>
                         <td th:text="${lh.maLop}"></td>
                         <td th:text="${lh.monHoc.tenMonHoc}"></td>
-                        <td th:text="${lh.phongHoc}"></td>
+                        <td th:text="${lh.phongHoc.tenPhong}"></td>
                         <td th:text="${lh.giaoVien.user.fullName}"></td>
                         <td th:text="${lh.moTa}"></td>
                         <td th:text="${lh.ngayBatDau}"></td>
@@ -404,6 +404,16 @@
                                                 <input id="phongHoc" readonly required name="phongHoc" type="text"
                                                        class="form-control"
                                                        placeholder="Phòng học">
+                                            </div>
+                                            <p class="col-sm-offset-3 help-block red">Example block-level help text
+                                                here.</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-3 control-label">Tín chỉ <span
+                                                    class="red">(*)</span></label>
+                                            <div class="col-md-9">
+                                                <input id="tinChi" readonly required name="tinChi" type="text"
+                                                       class="form-control">
                                             </div>
                                             <p class="col-sm-offset-3 help-block red">Example block-level help text
                                                 here.</p>
@@ -761,6 +771,7 @@
     function getCode() {
         var maMonHoc = $('#monHoc').val();
         tinChi = $('option:selected', '#monHoc').attr('tinchi');
+        $('#tinChi').val(tinChi);
         if (maMonHoc != null) {
             $('#maLop').val(maMonHoc + "-" + [[${time}]]);
         }
@@ -780,7 +791,7 @@
                     $('#malopDtl').text(rs.maLop);
                     $('#giaoVienDtl').text(rs.giaoVien.user.fullName);
                     $('#monHocDtl').text(rs.monHoc.tenMonHoc);
-                    $('#phongHocDtl').text(rs.phongHoc);
+                    $('#phongHocDtl').text(rs.phongHoc.tenPhong);
                     $('#totalSvDtl').text(rs.sinhViens.length);
                     $('#moTaDtl').text(rs.moTa);
                     $('#ngayTaoDtl').text(moment(rs.ngayTao).format("MMM Do YY"));

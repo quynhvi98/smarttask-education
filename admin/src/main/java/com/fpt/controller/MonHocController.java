@@ -74,17 +74,22 @@ public class MonHocController {
         monHoc.getBoMon().setLstGiaoVien(null);
         monHoc.getBoMon().setLstMonHoc(null);
         monHoc.getBoMon().setKhoaVien(null);
+        monHoc.getKiHoc().setLstMonHoc(null);
+        monHoc.getBoMon().setLstSinhVien(null);
         return monHoc;
-    }
+}
 
     @PostMapping("/monhoc/cap-nhat")
     public void edit(HttpServletRequest request, HttpServletResponse response) throws IOException {
         MonHoc persist = null;
         BoMon boMon = null;
+        KiHoc kiHoc = null;
         try {
             persist = monHocService.findById(request.getParameter("maMonHoc"));
             boMon = boMonService.findById(request.getParameter("boMon"));
+            kiHoc = kiHocService.findById(Integer.parseInt(request.getParameter("kiHoc")));
             persist.setBoMon(boMon);
+            persist.setKiHoc(kiHoc);
             persist.setTenMonHoc(request.getParameter("tenMonHoc"));
             persist.setTinChi(Integer.parseInt(request.getParameter("tinChi")));
             monHocService.update(persist);
