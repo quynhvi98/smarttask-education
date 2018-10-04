@@ -191,6 +191,7 @@ public class LopHocController {
         lopHoc.setLstBaiDang(null);
         lopHoc.getPhongHoc().setLopHocs(null);
 
+
         Set<SinhVien> lstSinhVien = lopHoc.getSinhViens();
         for (SinhVien sv : lstSinhVien){
             sv.setLopHocs(null);
@@ -200,6 +201,7 @@ public class LopHocController {
             sv.setLstThongBao(null);
             sv.setNhoms(null);
             sv.setLstDiem(null);
+            sv.setBoMon(null);
             sv.getUser().setRoles(null);
             sv.getUser().setSinhVien(null);
             sv.getUser().setGiaoVien(null);
