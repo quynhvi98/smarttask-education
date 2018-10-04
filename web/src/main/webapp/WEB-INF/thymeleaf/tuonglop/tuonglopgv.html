@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AdminLTE 2 | Starter</title>
+    <title>Smarttask Education</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
@@ -72,6 +72,7 @@
                             </div>
                             <div class="pull-right">
                                 <input type="file" name="upFile"/>
+                                <label for="file">Choose a file</label>
                             </div>
 
                         </div>
@@ -181,12 +182,13 @@
 
             <form th:action="@{/tuonglop/add-document}" method="post" enctype="multipart/form-data">
                 <input type="file" accept="application/msword, application/vnd.ms-excel,
-                 application/vnd.ms-powerpoint, text/plain, application/pdf" name="docFile"/>
-                <button type="submit" class="add-use">
-                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                    Thêm tài liệu
+                 application/vnd.ms-powerpoint, text/plain, application/pdf" id="file" class="inputfile" name="docFile"/>
+                <label for="file">Choose a file</label>
+                <!--<button type="submit" class="add-use">-->
+                    <!--<i class="fa fa-plus-circle" aria-hidden="true"></i>-->
+                    <!--Thêm tài liệu-->
 
-                </button>
+                <!--</button>-->
             </form>
 
             <!--</div>-->
