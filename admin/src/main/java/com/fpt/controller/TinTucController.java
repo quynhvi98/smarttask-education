@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -24,17 +25,25 @@ public class TinTucController {
     }
 
     @PostMapping("/tintuc/add-news")
-    public String addNews(TinTuc tinTuc){
+    public String addNews(HttpServletRequest request){
+        String title = request.getParameter("title");
+        String content = request.getParameter("content");
+        TinTuc tinTuc = new TinTuc();
+        tinTuc.setTitle(title);
+        tinTuc.setContent(content);
         tinTuc.setStatus(1);
         tinTucService.save(tinTuc);
         return "redirect:/tintuc";
     }
 
     @PostMapping("/tintuc/update-news")
-    public String updateNews(TinTuc tinTuc){
-        TinTuc tinTucUpdate = tinTucService.findById(tinTuc.getId());
-        tinTucUpdate.setTitle(tinTuc.getTitle());
-        tinTucUpdate.setContent(tinTuc.getContent());
+    public String editNews(HttpServletRequest request){
+        String id = request.getParameter("id");
+        String title = request.getParameter("title");
+        String content = request.getParameter("content");
+        TinTuc tinTucUpdate = tinTucService.findById(Integer.parseInt(id));
+        tinTucUpdate.setTitle(title);
+        tinTucUpdate.setContent(content);
         tinTucService.save(tinTucUpdate);
         return "redirect:/tintuc";
     }

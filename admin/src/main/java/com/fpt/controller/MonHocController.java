@@ -42,7 +42,7 @@ public class MonHocController {
     }
 
     @PostMapping("/monhoc/them-moi")
-    public void add(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void addMonHoc(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
             String maMonHoc = request.getParameter("maMonHoc");
             String tenMonHoc = request.getParameter("tenMonHoc");
@@ -81,7 +81,7 @@ public class MonHocController {
 }
 
     @PostMapping("/monhoc/cap-nhat")
-    public void edit(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void editMonHoc(HttpServletRequest request, HttpServletResponse response) throws IOException {
         MonHoc persist = null;
         BoMon boMon = null;
         KiHoc kiHoc = null;

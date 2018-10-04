@@ -48,7 +48,7 @@ public class LopHocController {
     }
 
     @PostMapping("/lophoc/them-moi")
-    public void add(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void addLopHoc(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         String maLop = request.getParameter("maLop");
         String monHocId = request.getParameter("monHoc");
