@@ -196,4 +196,14 @@ public class UserController {
         model.addAttribute("totalRecord", totalRecord);
         return "/user/user";
     }
+    @GetMapping(value = "/user/timkiem/{id}")
+    public @ResponseBody
+    User search(@PathVariable("id") String id) {
+        User user = userService.findUserByUserName(id);
+        user.setLstBinhLuan(null);
+        user.setLstLike(null);
+        user.setLstBaiDang(null);
+        user.setRoles(null);
+        return user;
+    }
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Smarttask Education</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -93,7 +93,7 @@
                     <div class="label">Tên người dùng</div>
                     <input type="text" name="fullName" th:value="${fullName}"/><br>
                 </div>
-                <input type="submit"  class="submit" value="Tìm kiếm">
+                <input type="submit" class="submit" value="Tìm kiếm">
             </form>
         </div>
         <h3 class="title">
@@ -161,7 +161,8 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li class="inline">
-                                        <a href="#" th:attr="userName=${u.userName}" data-toggle="modal"
+                                        <a class="user-detail" href="#" th:attr="itemId=${u.userName}"
+                                           data-toggle="modal"
                                            data-target="#xemnhansu">
                                             <i class="fa fa-search" aria-hidden="true"></i> Xem
                                         </a>
@@ -203,7 +204,8 @@
                                             <label for="" class="col-sm-3 control-label">Mã thành viên <span
                                                     class="red">(*)</span></label>
                                             <div class="col-md-9">
-                                                <input readonly required name="memberId" id="memberId" type="text" class="form-control"
+                                                <input readonly required name="memberId" id="memberId" type="text"
+                                                       class="form-control"
                                                        placeholder="Mã nhân viên">
                                             </div>
                                             <p class="col-sm-offset-3 help-block red">Example block-level help text
@@ -349,7 +351,7 @@
                 </div>
             </div>
         </div>
-<!--Model thêm tài khoản sinh viên-->
+        <!--Model thêm tài khoản sinh viên-->
         <div class="modal modal-full fade" id="themtaikhoansinhvien">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -379,7 +381,8 @@
 
                                                 </label>
                                                 <input type="hidden" name="removeFile" id="removeFile">
-                                                <input type="hidden" class="form-control" name="extUrl" id="extUrlEdit"/>
+                                                <input type="hidden" class="form-control" name="extUrl"
+                                                       id="extUrlEdit"/>
                                                 <input type="hidden" class="form-control" name="ftype" id="ftypeEdit"/>
                                             </div>
                                         </div>
@@ -390,7 +393,7 @@
                                 <button class="btn btn-default" id="btn-remove-file"><i
                                         class="fa fa-remove"></i> Gỡ file đính kèm
                                 </button>
-                                <button  class="btn btn-default" id="btn-edit" type="submit"><i
+                                <button class="btn btn-default" id="btn-edit" type="submit"><i
                                         class="fa fa-sync"></i>Cập nhật
                                 </button>
                                 <button type="button" class="btn btn-default"
@@ -421,14 +424,21 @@
                             <div class="row bg-xam">
                                 <div class="text-center avantar">
                                     <div class="card col-md-3">
-                                        <div class="thumb" style="background-image: url(WEB-INF/images/img.jpg);"></div>
+                                        <div>
+                                            <div class="thumb" alt="User Pic"
+                                                 id="view-avatar">
+                                                <!--th:style="'background-image:url('+@{/avatar/}+${user.userAvatar != null ? user.userAvatar : 'default.png'} + ');'"-->
+                                            </div>
+                                        </div>
                                         <div class="article">
-                                            <h1>Nguyễn Duy Trường</h1>
+                                            <h1 id="viewfullname" name="fullName" readonly th:text="${user != null ? user.fullName : ''}">
+                                                Nguyễn Duy
+                                                Trường</h1>
                                             <span>
-                      <span class="xam" data-toggle="tooltip" data-placement="top" title="Ngày sinh">
-                        <i class="fa fa-birthday-cake" aria-hidden="true"></i>
-                      </span>
-                    <span>20/02/1985</span>
+                                                <span class="xam" data-toggle="tooltip" data-placement="top" title="Ngày sinh">
+                                                    <i class="fa fa-birthday-cake" aria-hidden="true"></i>
+                                                </span>
+                                            <span>20/02/1985</span>
                     </span>
                                             <span>
                       <span class="xam" data-toggle="tooltip" data-placement="top" title="Giới tính">
@@ -621,9 +631,37 @@
 
     function getGVCode(maKhoaVien) {
         var count = [[${totalRecord}]] + 1;
-        $('#memberId').val("GV"+maKhoaVien+"-"+count);
+        $('#memberId').val("GV" + maKhoaVien + "-" + count);
     }
-    var base_url = [[@{/}]];
+
+    $('.user-detail').click(function () {
+        if (checkView == 0) {
+            var itemId = $(this).attr("itemId");
+            $.ajax({
+                url: base_url + 'user/timkiem/' + itemId,
+                type: "get",
+                data: {id: itemId},
+                dataType: "text",
+                success: function (result) {
+                    var rs = JSON.parse(result);
+                    $('#viewfullname').text(rs.fullName);
+                    $('#giaoVienDtl').text(rs.giaoVien.user.fullName);
+                    $('#monHocDtl').text(rs.monHoc.tenMonHoc);
+                    $('#phongHocDtl').text(rs.phongHoc.tenPhong);
+                    $('#totalSvDtl').text(rs.sinhViens.length);
+                    $('#moTaDtl').text(rs.moTa);
+                    $('#ngayTaoDtl').text(moment(rs.ngayTao).format("MMM Do YY"));
+                    $('#ngayBDDTL').text(moment(rs.ngayBatDau).format("MMM Do YY"));
+                    $('#ngayKTDtl').text(moment(rs.ngayKetThuc).format("MMM Do YY"));
+                    checkView++;
+                }
+            });
+        }
+    });
+    var checkView = 0;
+
+    var base_url = [[@{
+        /}]];
 
     //
 </script>
