@@ -69,6 +69,8 @@ public class KhoaVienController {
     public @ResponseBody
     KhoaVien search(@PathVariable("id") String id) {
         KhoaVien khoaVien = khoaVienService.findById(id);
+        khoaVien.setLstBoMon(null);
+        khoaVien.setLstSinhVien(null);
         return khoaVien;
     }
 
