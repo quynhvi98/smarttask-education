@@ -1,30 +1,31 @@
+
 package com.fpt.controller.student;
 
-import com.fpt.entity.*;
-import com.fpt.services.bomon.BoMonService;
-import com.fpt.services.lophoc.LopHocService;
-import com.fpt.services.monhoc.MonHocService;
-import com.fpt.services.pheduyetlop.PheDuyetLopService;
-import com.fpt.services.sinhvien.SinhVienService;
-import com.fpt.services.thongbao.ThongBaoService;
-import com.fpt.services.user.UserService;
-import org.joda.time.DateMidnight;
-import org.joda.time.Days;
-import org.joda.time.Months;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+        import com.fpt.entity.*;
+        import com.fpt.services.bomon.BoMonService;
+        import com.fpt.services.lophoc.LopHocService;
+        import com.fpt.services.monhoc.MonHocService;
+        import com.fpt.services.pheduyetlop.PheDuyetLopService;
+        import com.fpt.services.sinhvien.SinhVienService;
+        import com.fpt.services.thongbao.ThongBaoService;
+        import com.fpt.services.user.UserService;
+        import org.joda.time.DateMidnight;
+        import org.joda.time.Days;
+        import org.joda.time.Months;
+        import org.springframework.beans.factory.annotation.Autowired;
+        import org.springframework.http.ResponseEntity;
+        import org.springframework.stereotype.Controller;
+        import org.springframework.ui.Model;
+        import org.springframework.web.bind.annotation.GetMapping;
+        import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+        import javax.servlet.http.HttpServletRequest;
+        import javax.servlet.http.HttpServletResponse;
+        import javax.servlet.http.HttpSession;
+        import java.io.IOException;
+        import java.text.ParseException;
+        import java.text.SimpleDateFormat;
+        import java.util.*;
 
 @Controller
 public class StudentController {
@@ -50,10 +51,19 @@ public class StudentController {
         model.addAttribute("sinhVien", sinhVien);
         model.addAttribute("listMonHoc", monHocService.listMonHocKy(hocki,user.getSinhVien().getKhoaVien().getMaVien()));
         model.addAttribute("user", user);
-        model.addAttribute("hocKi", "Danh sách các môn học trong kì: " + hocki);
+        List<LopHoc> lopHocs= lopHocService.listLopHocSinhVien(user.getSinhVien().getMaSinhVien());
+        String[] lopHocSV=new String[lopHocs.size()];
+        int i=0;
+        for (LopHoc lopHoc:lopHocs) {
+            lopHocSV[i]=lopHoc.getMaLop();
+            i++;
+        }
+        model.addAttribute("lopHocSV", lopHocSV);
+
+        model.addAttribute("hocKi", "Danh sách các môn h?c trong kì: " + hocki);
         model.addAttribute("moiNhat", thongBaoService.thongBaoMoiNhatSV(user.getSinhVien().getMaSinhVien()));
         model.addAttribute("soLuongTBChuaXem",thongBaoService.soLuongTbChuaXemSV(user.getSinhVien().getMaSinhVien()));
-       return "student/register_class";
+        return "student/register_class";
     }
 
     @GetMapping("/register-member")
@@ -85,22 +95,22 @@ public class StudentController {
         LopHoc hoc = lopHocService.findById(id);
         User user = (User) session.getAttribute("userInfo");
         LopHoc lh01 = lopHocService.findById(id);
-        //kiểm tra thời hạn lớp
+        //ki?m tra th?i h?n l?p
         int thoihan=checkThoiHan(lh01.getNgayBatDau());
         if (thoihan > -10) {
             response.getWriter().println("quahan");
         } else {
-            //Kiểm tra sv đã đăng ký lớp khác cùng môn chưa
+            //Ki?m tra sv dã dang ký l?p khác cùng môn chua
             String bomon = lh01.getMonHoc().getMaMonHoc();
             LopHoc lopHoc = lopHocService.getLopHocSvBm(user.getSinhVien().getMaSinhVien(), bomon);
             if (lopHoc != null) {
                 response.getWriter().println("trungmon");
             } else {
-                //kiểm tra lớp đã đủ sv chưa
+                //ki?m tra l?p dã d? sv chua
                 if(lh01.getSinhViens().size()>=50){
                     response.getWriter().println("maxsv");
                 }else {
-                    //Kiểm tra sv đã tồn tại trong lớp học chưa
+                    //Ki?m tra sv dã t?n t?i trong l?p h?c chua
                     LopHoc lopHoc01 = lopHocService.getLopHocSV(id, user.getSinhVien().getMaSinhVien());
                     if (lopHoc01 == null) {
                         LopHoc hoc1 = lopHocService.findById(id);
@@ -174,9 +184,10 @@ public class StudentController {
         DateMidnight start = new DateMidnight(newdate);
         DateMidnight end = new DateMidnight(new Date());
         int days = Days.daysBetween(start, end).getDays();
-        System.out.println("số ngày"+days);
+        System.out.println("s? ngày"+days);
         return days;
     }
 
 
 }
+
