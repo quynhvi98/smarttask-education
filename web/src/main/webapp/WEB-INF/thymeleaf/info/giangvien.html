@@ -102,7 +102,7 @@
                             </div>
                             <div class="form-group chamcham">
                                 <label for="">Mã ngành giảng dạy</label>
-                                <span id ="view-maNganh"
+                                <span id="view-maNganh"
                                       th:text="${giangvien!= null ? giangvien.giaoVien.boMon.maNganh: ''}">truong@gmail.com</span>
                             </div>
 
@@ -113,7 +113,7 @@
                             </div>
                             <div class="form-group chamcham">
                                 <label for="">Địa chỉ</label>
-                                <span id= "view-userAddress" th:text="${giangvien != null ? giangvien.userAddress : ''}">Hà Nội</span>
+                                <span id="view-userAddress" th:text="${giangvien != null ? giangvien.userAddress : ''}">Hà Nội</span>
                             </div>
                             <div class="form-group chamcham">
                                 <label for="">Học hàm</label>
@@ -137,43 +137,43 @@
             </div>
             <div class="row gach-top">
                 <div class="col-md-8">
-                    <h4 class="title-sup-modal">
-                <span>
-                    Danh sách lớp đang giảng dạy
-                </span>
-                    </h4>
-                    <div class="table">
-                        <table>
-                            <thead class="fix-w text-center">
-                            <tr>
-                                <th>
-                                    STT
-                                </th>
-                                <th>
-                                    Mã lớp
-                                </th>
-                                <th class="uutien">
-                                    Tên lớp
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <th:block th:if="${giangvien}">
-                                <tr th:each="itm, k : ${giangvien}">
-                                    <td th:text="${k.count}" class="text-right">
-                                        1
-                                    </td>
-                                    <td th:text="${giangvien}">
-                                        CV-35/3-01.02
-                                    </td>
-                                    <td th:text="${giangvien}">
-                                        Lớp công nghệ thông tin
-                                    </td>
-                                </tr>
-                            </th:block>
-                            </tbody>
-                        </table>
-                    </div>
+                    <!--<h4 class="title-sup-modal">-->
+                    <!--<span>-->
+                    <!--Danh sách lớp đang giảng dạy-->
+                    <!--</span>-->
+                    <!--</h4>-->
+                    <!--<div class="table">-->
+                    <!--<table>-->
+                    <!--<thead class="fix-w text-center">-->
+                    <!--<tr>-->
+                    <!--<th>-->
+                    <!--STT-->
+                    <!--</th>-->
+                    <!--<th>-->
+                    <!--Mã lớp-->
+                    <!--</th>-->
+                    <!--<th class="uutien">-->
+                    <!--Tên lớp-->
+                    <!--</th>-->
+                    <!--</tr>-->
+                    <!--</thead>-->
+                    <!--<tbody>-->
+                    <!--<th:block th:if="${giangvien}">-->
+                    <!--<tr th:each="itm, k : ${giangvien}">-->
+                    <!--<td th:text="${k.count}" class="text-right">-->
+                    <!--1-->
+                    <!--</td>-->
+                    <!--<td th:text="${giangvien}">-->
+                    <!--CV-35/3-01.02-->
+                    <!--</td>-->
+                    <!--<td th:text="${giangvien}">-->
+                    <!--Lớp công nghệ thông tin-->
+                    <!--</td>-->
+                    <!--</tr>-->
+                    <!--</th:block>-->
+                    <!--</tbody>-->
+                    <!--</table>-->
+                    <!--</div>-->
                 </div>
                 <div class="col-md-4">
                     <h4 class="title-sup-modal"><span>Nhóm quyền:</span></h4>
@@ -194,33 +194,35 @@
             </div>
             </form>
             <textarea hidden id="size_max"></textarea>
-    </div>
-
-    <!-- Modal themnhansu-->
-    <div class="modal modal-full fade" id="suanhansu" role="dialog"
-         aria-labelledby="themnhansuLabel" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog" role="document">
-            <div class="text-center avantar">
-                <div class="card col-md-3">
-                    <form class="form-horizontal" id="form-update-avatar" role="form"
-                          method="post" enctype="multipart/form-data">
-                        <div>
-                            <div class="thumb" alt="User Pic" id="view-avatar-edit"
-                                 th:style="'background-image:url('+@{/avatar/}+${giangvien.userAvatar != null ? giangvien.userAvatar : 'default.png'} + ');'"></div>
-                        </div>
-                        <div class="form-group row">
-                            <input accept="image/jpeg, image/png" type="file" class="form-control" id="avatar"
-                                   name="avatarFile"/>
-                            <label class="form-control" for="avatar">
-                                Click để đổi ảnh đại diện
-                            </label>
-                        </div>
-                    </form>
-                    <form class="form-horizontal" id="form-update" role="form" method="post" enctype="multipart/form-data">
-                        <div class="article">
-                            <h1 ><input id="view-fullname-edit" th:name="fullName" style="color: black; text-align: center"/>
-                            </h1>
-                            <span>
+        </section>
+        </section>
+        <!-- Modal themnhansu-->
+        <div class="modal modal-full fade" id="suanhansu" role="dialog"
+             aria-labelledby="themnhansuLabel" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog" role="document">
+                <div class="text-center avantar">
+                    <div class="card col-md-3">
+                        <form class="form-horizontal" id="form-update-avatar" role="form"
+                              method="post" enctype="multipart/form-data">
+                            <div>
+                                <div class="thumb" alt="User Pic" id="view-avatar-edit"
+                                     th:style="'background-image:url('+@{/avatar/}+${giangvien.userAvatar != null ? giangvien.userAvatar : 'default.png'} + ');'"></div>
+                            </div>
+                            <div class="form-group row">
+                                <input accept="image/jpeg, image/png" type="file" class="form-control" id="avatar"
+                                       name="avatarFile"/>
+                                <label class="form-control" for="avatar">
+                                    Click để đổi ảnh đại diện
+                                </label>
+                            </div>
+                        </form>
+                        <form class="form-horizontal" id="form-update" role="form" method="post"
+                              enctype="multipart/form-data">
+                            <div class="article">
+                                <h1><input id="view-fullname-edit" th:name="fullName"
+                                           style="color: black; text-align: center"/>
+                                </h1>
+                                <span>
                                 <span>
                             <span class="xam" data-toggle="tooltip" data-placement="top" title="Ngày sinh">
                                 <i class="fa fa-birthday-cake" aria-hidden="true"></i></span>
@@ -229,156 +231,158 @@
                             </span>
                             </span>
 
-                            <span>
+                                <span>
                                    <span>
                                     <span class="xam" data-toggle="tooltip" data-placement="top" title="Giới tính">
                                          <i class="fa fa-venus-mars" aria-hidden="true"></i></span>
-                                    <input type="radio" th:name="userGender" id="gender-man" value="Nam" />Nam
-                                    <input type="radio" th:name="userGender" id="gender-woman" value="Nữ" />Nữ
+                                    <input type="radio" th:name="userGender" id="gender-man" value="Nam"/>Nam
+                                    <input type="radio" th:name="userGender" id="gender-woman" value="Nữ"/>Nữ
                                 </span>
                                 </span>
 
-                            <span>
+                                <span>
                                     <span class="xam" data-toggle="tooltip" data-placement="top" title="Số điện thoại">
                                     <i class="fa fa-phone" aria-hidden="true"></i></span>
                                     <input type="text" id="view-mobile-edit" th:name="userPhone" style="color: black"/>
                                 </span>
-                            <span>
+                                <span>
                                     <span class="xam" data-toggle="tooltip" data-placement="top" title="Thư điện tử">
                                         <i class="fa fa-envelope-o" aria-hidden="true"></i></span>
                                     <span
                                     ><input type="text" id="view-email-edit" th:name="userEmail" style="color: black"/></span>
                                 </span>
+                            </div>
+                    </div>
+                    <div class="col-md-6 p-25">
+                        <div class="form-group chamcham">
+                            <label for="">Tên truy cập</label>
+                            <span
+                            ><input type="text" id="view-userName-edit" th:name="userName" readonly/></span>
                         </div>
-                </div>
-                <div class="col-md-6 p-25">
-                    <div class="form-group chamcham">
-                        <label for="">Tên truy cập</label>
-                        <span
-                        ><input type="text" id="view-userName-edit" th:name="userName" readonly/></span>
-                    </div>
-                    <div class="form-group chamcham">
-                        <label for="">Mã </label>
-                        <span
-                        ><input type="text" id="view-maGiaoVien-edit" th:name="giaoVien.maGiaoVien" readonly/></span>
-                    </div>
-                    <div class="form-group chamcham">
-                        <label for="">Mã ngành giảng dạy</label>
-                        <span
-                        ><input type="text" id="view-maNganh-edit" th:name="boMon.maNganh" readonly/></span>
-                    </div>
+                        <div class="form-group chamcham">
+                            <label for="">Mã </label>
+                            <span
+                            ><input type="text" id="view-maGiaoVien-edit" th:name="giaoVien.maGiaoVien"
+                                    readonly/></span>
+                        </div>
+                        <div class="form-group chamcham">
+                            <label for="">Mã ngành giảng dạy</label>
+                            <span
+                            ><input type="text" id="view-maNganh-edit" th:name="boMon.maNganh" readonly/></span>
+                        </div>
 
-                    <div class="form-group chamcham">
-                        <label for="">Tên ngành giảng dạy</label>
-                        <span
-                        ><input type="text" id="view-tenNganh-edit" th:name="giaoVien.boMon.tenNganh" readonly/></span>
-                    </div>
-                    <div class="form-group chamcham">
-                        <label for="">Địa chỉ</label>
-                        <span><input type="text" id="view-userAddress-edit" th:name="userAddress"/></span>
-                    </div>
-                    <div class="form-group chamcham">
-                        <label for="">Học hàm</label>
-                        <span><input type="text" id="view-hocHam-edit" th:name="giaoVien.hocHam"/></span>
-                    </div>
-                    <div class="form-group chamcham">
-                        <label for="">Mô tả</label>
-                        <span><input type="text" id="view-moTa-edit" th:name="giaoVien.moTa"/></span>
-                    </div>
+                        <div class="form-group chamcham">
+                            <label for="">Tên ngành giảng dạy</label>
+                            <span
+                            ><input type="text" id="view-tenNganh-edit" th:name="giaoVien.boMon.tenNganh"
+                                    readonly/></span>
+                        </div>
+                        <div class="form-group chamcham">
+                            <label for="">Địa chỉ</label>
+                            <span><input type="text" id="view-userAddress-edit" th:name="userAddress"/></span>
+                        </div>
+                        <div class="form-group chamcham">
+                            <label for="">Học hàm</label>
+                            <span><input type="text" id="view-hocHam-edit" th:name="giaoVien.hocHam"/></span>
+                        </div>
+                        <div class="form-group chamcham">
+                            <label for="">Mô tả</label>
+                            <span><input type="text" id="view-moTa-edit" th:name="giaoVien.moTa"/></span>
+                        </div>
 
-                </div>
-                <div class="col-md-5 inline-block p-25">
-                    <div class="form-group">
-                        <button id="btn-update" class="btn btn-success" data-target="#suanhansu">Chỉnh sửa
-                            thông
-                            tin cá nhân
-                        </button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-sign-out"
-                                                                                              aria-hidden="true"></i>
-                            Thoát
-                        </button>
-                        </a>
+                    </div>
+                    <div class="col-md-5 inline-block p-25">
+                        <div class="form-group">
+                            <button id="btn-update" class="btn btn-success" data-target="#suanhansu">Chỉnh sửa
+                                thông
+                                tin cá nhân
+                            </button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-sign-out"
+                                                                                                  aria-hidden="true"></i>
+                                Thoát
+                            </button>
+                            </a>
+                        </div>
                     </div>
                 </div>
+                </form>
             </div>
-            </form>
         </div>
     </div>
-    </section>
-</div>
+    <div th:replace="fragments/footer :: footer">&nbsp;</div>
+    <aside class="control-sidebar control-sidebar-dark">
+        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+            <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+            <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="control-sidebar-home-tab">
+                <h3 class="control-sidebar-heading">Recent Activity</h3>
+                <ul class="control-sidebar-menu">
+                    <li>
+                        <a href="javascript:;">
+                            <i class="menu-icon fa fa-birthday-cake bg-red"></i>
 
-<div th:replace="fragments/footer :: footer">&nbsp;</div>
-<aside class="control-sidebar control-sidebar-dark">
-    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-        <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-        <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
-    </ul>
-    <div class="tab-content">
-        <div class="tab-pane active" id="control-sidebar-home-tab">
-            <h3 class="control-sidebar-heading">Recent Activity</h3>
-            <ul class="control-sidebar-menu">
-                <li>
-                    <a href="javascript:;">
-                        <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
 
-                        <div class="menu-info">
-                            <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
-
-                            <p>Will be 23 on April 24th</p>
-                        </div>
-                    </a>
-                </li>
-            </ul>
-            <h3 class="control-sidebar-heading">Tasks Progress</h3>
-            <ul class="control-sidebar-menu">
-                <li>
-                    <a href="javascript:;">
-                        <h4 class="control-sidebar-subheading">
-                            Custom Template Design
-                            <span class="pull-right-container">
+                                <p>Will be 23 on April 24th</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <h3 class="control-sidebar-heading">Tasks Progress</h3>
+                <ul class="control-sidebar-menu">
+                    <li>
+                        <a href="javascript:;">
+                            <h4 class="control-sidebar-subheading">
+                                Custom Template Design
+                                <span class="pull-right-container">
                     <span class="label label-danger pull-right">70%</span>
                   </span>
-                        </h4>
+                            </h4>
 
-                        <div class="progress progress-xxs">
-                            <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-                        </div>
-                    </a>
-                </li>
-            </ul>
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+            <div class="tab-pane" id="control-sidebar-settings-tab">
+                <form method="post">
+                    <h3 class="control-sidebar-heading">General Settings</h3>
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Report panel usage
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+                        <p>
+                            Some information about this general settings option
+                        </p>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
-        <div class="tab-pane" id="control-sidebar-settings-tab">
-            <form method="post">
-                <h3 class="control-sidebar-heading">General Settings</h3>
-                <div class="form-group">
-                    <label class="control-sidebar-subheading">
-                        Report panel usage
-                        <input type="checkbox" class="pull-right" checked>
-                    </label>
-                    <p>
-                        Some information about this general settings option
-                    </p>
-                </div>
-            </form>
-        </div>
-    </div>
-</aside>
-<div class="control-sidebar-bg"></div>
+    </aside>
+    <div class="control-sidebar-bg"></div>
 </div>
+
 </body>
 <script type="text/javascript" th:inline="javascript">
-    var base_url = [[@{/}]];
+    var base_url = [[@{
+        /}]];
         var sizeFile = 10;
         $(document).ready(function () {
-            if($("#view-gender-m").val() != undefined){
+            if ($("#view-gender-m").val() != undefined) {
                 document.getElementById("gender-man").checked = true;
             } else {
                 document.getElementById("gender-woman").checked = true;
             }
             $("#view-dob-edit").datepicker({
                 "autoclose": true,
-                "setDate" : new Date()
+                "setDate": new Date()
             });
         });
         $(function () {
@@ -391,7 +395,7 @@
 
         });
         $("#avatar").change(function () {
-            if(this.files[0].size / (1024*1024) > sizeFile){
+            if (this.files[0].size / (1024 * 1024) > sizeFile) {
                 var msg1 = "File tải lên không quá " + sizeFile + " MB";
                 alert(msg1);
                 return;
@@ -413,7 +417,7 @@
                 processData: false,
                 contentType: false,
                 type: 'POST',
-                success: function(data){
+                success: function (data) {
                     $('#result').html(data);
                 }
             });
@@ -448,7 +452,7 @@
                     success: function (result) {
                         $('#suanhansu').modal('hide');
                         notify_sucess('Sửa thông tin thành công', 'Cập nhật');
-                    },error: function (msg) {
+                    }, error: function (msg) {
                         notify_error('Sửa thất bại', 'Cập nhật');
                     }
                 });
