@@ -140,18 +140,19 @@ public class UserController {
                 user.setUserName("SV" + row.getCell(1).getStringCellValue());
                 user.setUserPassWord(passwordEncoder.encode("123456"));
                 user.setFullName(row.getCell(2).getStringCellValue());
+                user.setUserGender(row.getCell(3).getStringCellValue());
+                String ngaySinhStr = row.getCell(4).getStringCellValue();
                 user.setUserPhone(row.getCell(5).getStringCellValue());
                 user.setUserEmail(row.getCell(6).getStringCellValue());
                 user.setUserAddress(row.getCell(7).getStringCellValue());
-                user.setUserGender(row.getCell(3).getStringCellValue());
 
-                String ngaySinhStr = row.getCell(4).getStringCellValue();
                 Date ngaySinh = new SimpleDateFormat("dd/MM/yyyy").parse(ngaySinhStr);
 
-                String nnhStr = row.getCell(9).getStringCellValue();
+                String nnhStr = row.getCell(10).getStringCellValue();
                 Date nnh = new SimpleDateFormat("dd/MM/yyyy").parse(nnhStr);
 
                 user.setUserDOB(ngaySinh);
+
 
                 Role role = roleService.findById("sv01");
                 Set roles = new HashSet();
@@ -166,6 +167,10 @@ public class UserController {
 
                 KhoaVien khoaVien = khoaVienService.findById(khoaVienId);
                 sinhVien.setKhoaVien(khoaVien);
+
+                String maNganh = row.getCell(9).getStringCellValue();
+                BoMon boMon = boMonService.findById(maNganh);
+                sinhVien.setBoMon(boMon);
 
                 sinhVien.setUser(user);
                 // persist data into database in here
@@ -195,5 +200,15 @@ public class UserController {
         model.addAttribute("lstUser", lstUser);
         model.addAttribute("totalRecord", totalRecord);
         return "/user/user";
+    }
+    @GetMapping(value = "/user/timkiem/{id}")
+    public @ResponseBody
+    User search(@PathVariable("id") String id) {
+        User user = userService.findUserByUserName(id);
+        user.setLstBinhLuan(null);
+        user.setLstLike(null);
+        user.setLstBaiDang(null);
+        user.setRoles(null);
+        return user;
     }
 }

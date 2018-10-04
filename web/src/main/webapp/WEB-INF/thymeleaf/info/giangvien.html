@@ -89,6 +89,22 @@
                                 </span>
                             </div>
                         </div>
+                        <!--<div class="col-md-4">-->
+                            <!--&lt;!&ndash;<h4 class="title-sup-modal"><span>Nhóm quyền:</span></h4>&ndash;&gt;-->
+                            <!--<div class="table tree-dot">-->
+                                <!--<table class="tree-table">-->
+                                    <!--<thead>-->
+                                    <!--<tr>-->
+                                        <!--<th>-->
+                                            <!--<div class="form-group">-->
+                                                <!--<span/>Giảng viên</text>-->
+                                            <!--</div>-->
+                                        <!--</th>-->
+                                    <!--</tr>-->
+                                    <!--</thead>-->
+                                <!--</table>-->
+                            <!--</div>-->
+                        <!--</div>-->
                         <div class="col-md-6 p-25">
                             <div class="form-group chamcham">
                                 <label for="">Tên truy cập</label>
@@ -124,6 +140,7 @@
                                 <span id="view-moTa" th:text="${giangvien != null ? giangvien.giaoVien.moTa : ''}">Hà Nội</span>
                             </div>
                         </div>
+
                         <div class="col-md-5 inline-block p-25">
                             <div class="form-group">
                                 <button id="btn-edit" class="btn btn-success" data-target="#suanhansu">Chỉnh sửa thông
@@ -131,6 +148,7 @@
                                 </button>
                             </div>
                         </div>
+
                     </div>
 
                 </div>
@@ -175,22 +193,7 @@
                     <!--</table>-->
                     <!--</div>-->
                 </div>
-                <div class="col-md-4">
-                    <h4 class="title-sup-modal"><span>Nhóm quyền:</span></h4>
-                    <div class="table tree-dot">
-                        <table class="tree-table">
-                            <thead>
-                            <tr>
-                                <th>
-                                    <div class="form-group">
-                                        <span/>Giảng viên</text>
-                                    </div>
-                                </th>
-                            </tr>
-                            </thead>
-                        </table>
-                    </div>
-                </div>
+
             </div>
             </form>
             <textarea hidden id="size_max"></textarea>
