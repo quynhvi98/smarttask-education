@@ -82,13 +82,13 @@
 
             <form action="/admin/lophoc/tim-kiem" method="post">
                 <div class="input">
-                    <div class="label">Mã lớp</div>
-                    <input type="text" name="maLop" th:value="${maLop}"/>
+                    <div class="label">Tên giáo viên</div>
+                    <input type="text" name="fullName" th:value="${fullName}"/>
                     <br>
                 </div>
                 <div class="input">
-                    <div class="label">Phòng học</div>
-                    <input type="text" name="phongHoc" th:value="${phongHoc}"/><br>
+                    <div class="label">Môn Học</div>
+                    <input type="text" name="tenMonHoc" th:value="${tenMonHoc}"/><br>
                 </div>
                 <input type="submit"  class="submit" value="Tìm kiếm">
             </form>

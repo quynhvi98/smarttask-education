@@ -356,6 +356,16 @@
                                     form.submit();
                                 });
                             }
+                            if (responseJson.trim() == "trunglich") {
+                                swal({
+                                    title: 'Đăng ký không thành công!',
+                                    text: 'Bạn đã trùng lịch học',
+                                    type: 'error',
+                                    confirmButtonText: 'Ok',
+                                }).then(function (isConfirm) {
+                                    form.submit();
+                                });
+                            }
                             if (responseJson.trim() == "maxsv") {
                                 swal({
                                     title: 'Đăng ký không thành công!',
@@ -366,7 +376,6 @@
                                     form.submit();
                                 });
                             }
-
                             if (responseJson.trim() == "tontai") {
                                 swal({
                                     title: 'Đăng ký không thành công!',

@@ -26,6 +26,7 @@ package com.fpt.controller.student;
         import java.text.ParseException;
         import java.text.SimpleDateFormat;
         import java.util.*;
+        import java.util.stream.Collectors;
 
 @Controller
 public class StudentController {
@@ -59,7 +60,6 @@ public class StudentController {
             i++;
         }
         model.addAttribute("lopHocSV", lopHocSV);
-
         model.addAttribute("hocKi", "Danh sách các môn h?c trong kì: " + hocki);
         model.addAttribute("moiNhat", thongBaoService.thongBaoMoiNhatSV(user.getSinhVien().getMaSinhVien()));
         model.addAttribute("soLuongTBChuaXem",thongBaoService.soLuongTbChuaXemSV(user.getSinhVien().getMaSinhVien()));
@@ -94,38 +94,52 @@ public class StudentController {
         String id = request.getParameter("id");
         LopHoc hoc = lopHocService.findById(id);
         User user = (User) session.getAttribute("userInfo");
-        LopHoc lh01 = lopHocService.findById(id);
-        //ki?m tra th?i h?n l?p
-        int thoihan=checkThoiHan(lh01.getNgayBatDau());
-        if (thoihan > -10) {
-            response.getWriter().println("quahan");
+        List<LopHoc> lhs=lopHocService.listLopHocSinhVien(user.getSinhVien().getMaSinhVien());
+       
+        //kiểm tra xem lịch học có bị trùng không
+        boolean checkLH=false;
+        for (LopHoc lopHoc:lhs){
+            if(checkLichHoc( lopHoc.getNgayHoc().split(","),hoc.getNgayHoc().split(",")))
+            if(checkLichHoc(lopHoc.getCaHoc().split(","),hoc.getCaHoc().split(",")))
+                checkLH=true;
+          }
+
+    if(!checkLH) {
+    LopHoc lh01 = lopHocService.findById(id);
+    //kiểm tra thời hạn lớp
+    int thoihan = checkThoiHan(lh01.getNgayBatDau());
+    if (thoihan > -10) {
+        response.getWriter().println("quahan");
+    } else {
+        //Kiểm tra sv dã dang ký lớp khác cùng môn chưa
+        String bomon = lh01.getMonHoc().getMaMonHoc();
+        LopHoc lopHoc = lopHocService.getLopHocSvBm(user.getSinhVien().getMaSinhVien(), bomon);
+        if (lopHoc != null) {
+            response.getWriter().println("trungmon");
         } else {
-            //Ki?m tra sv dã dang ký l?p khác cùng môn chua
-            String bomon = lh01.getMonHoc().getMaMonHoc();
-            LopHoc lopHoc = lopHocService.getLopHocSvBm(user.getSinhVien().getMaSinhVien(), bomon);
-            if (lopHoc != null) {
-                response.getWriter().println("trungmon");
+            //kiểm tra lớp dã đủ sv chưa
+            if (lh01.getSinhViens().size() >= 50) {
+                response.getWriter().println("maxsv");
             } else {
-                //ki?m tra l?p dã d? sv chua
-                if(lh01.getSinhViens().size()>=50){
-                    response.getWriter().println("maxsv");
-                }else {
-                    //Ki?m tra sv dã t?n t?i trong l?p h?c chua
-                    LopHoc lopHoc01 = lopHocService.getLopHocSV(id, user.getSinhVien().getMaSinhVien());
-                    if (lopHoc01 == null) {
-                        LopHoc hoc1 = lopHocService.findById(id);
-                        Set<SinhVien> sinhVienSet = hoc1.getSinhViens();
-                        sinhVienSet.add(user.getSinhVien());
-                        hoc1.setMaLop(id);
-                        hoc1.setSinhViens(sinhVienSet);
-                        lopHocService.createlopSV(hoc1);
-                        response.getWriter().println("success");
-                    } else {
-                        response.getWriter().println("tontai");
-                    }
+                //Kiểm tra sv dã tồn tại trong lớp học chưa
+                LopHoc lopHoc01 = lopHocService.getLopHocSV(id, user.getSinhVien().getMaSinhVien());
+                if (lopHoc01 == null) {
+                    LopHoc hoc1 = lopHocService.findById(id);
+                    Set<SinhVien> sinhVienSet = hoc1.getSinhViens();
+                    sinhVienSet.add(user.getSinhVien());
+                    hoc1.setMaLop(id);
+                    hoc1.setSinhViens(sinhVienSet);
+                    lopHocService.createlopSV(hoc1);
+                    response.getWriter().println("success");
+                } else {
+                    response.getWriter().println("tontai");
                 }
             }
         }
+    }
+}else {
+    response.getWriter().println("trunglich");
+}
     }
 
     @PostMapping("/api/member")
@@ -163,7 +177,6 @@ public class StudentController {
         model.addAttribute("moiNhat",thongBaoService.thongBaoMoiNhatSV(user.getSinhVien().getMaSinhVien()));
         model.addAttribute("user", user);
         model.addAttribute("listLopHoc", lopHocService.listLopHocSinhVien(user.getSinhVien().getMaSinhVien()));
-
         session.removeAttribute("listmember");
         return "tuonglop/tuonglop";
     }
@@ -184,10 +197,15 @@ public class StudentController {
         DateMidnight start = new DateMidnight(newdate);
         DateMidnight end = new DateMidnight(new Date());
         int days = Days.daysBetween(start, end).getDays();
-        System.out.println("s? ngày"+days);
         return days;
     }
 
-
+  private boolean checkLichHoc(String arr1[], String arr2[]){
+        HashSet<String> hs = new HashSet<>();
+        for (int i = 0; i < arr1.length; i++)hs.add(arr1[i]);
+        for (int i = 0; i < arr2.length; i++)if (hs.contains(arr2[i]))
+        return true;
+        return false;
+    }
 }
 

@@ -35,7 +35,8 @@ public class LopHocServiceImpl implements LopHocService {
 
     @Override
     public List<LopHoc> listLopHocSinhVien(String msv) {
-        return lopHocDao.listLopHocSV(msv);
+
+        return lopHocDao.listLopHocSV(msv,ngayHienTai());
     }
 
     @Override
@@ -111,8 +112,14 @@ public class LopHocServiceImpl implements LopHocService {
     }
 
     @Override
-    public List<LopHoc> search(String maLop, String phongHoc) {
-        return lopHocDao.search(maLop,phongHoc);
+    public List<LopHoc> search(String fullName, String tenMonHoc) {
+        return lopHocDao.search(fullName,tenMonHoc);
+    }
+
+    @Override
+    public String ngayHienTai() {
+        String newdate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        return newdate;
     }
 
     @Override

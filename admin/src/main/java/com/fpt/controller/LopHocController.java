@@ -227,12 +227,12 @@ public class LopHocController {
 
     @PostMapping("/lophoc/tim-kiem")
     public String searchLopHoc(HttpServletRequest request, Model model) throws IOException, ParseException {
-        String maLop = request.getParameter("maLop");
-        String phongHoc = request.getParameter("phongHoc");
-        model.addAttribute("maLop", maLop);
-        model.addAttribute("phongHoc", phongHoc);
+        String fullName = request.getParameter("fullName");
+        String tenMonHoc = request.getParameter("tenMonHoc");
+        model.addAttribute("fullName", fullName);
+        model.addAttribute("tenMonHoc", tenMonHoc);
         List<KhoaVien> lstKhoaVien = khoaVienService.findAll();
-        List<LopHoc> lstLopHoc = lopHocService.search(maLop,phongHoc);
+        List<LopHoc> lstLopHoc = lopHocService.search(fullName,tenMonHoc);
         Long time = System.currentTimeMillis();
         model.addAttribute("lstKhoaVien", lstKhoaVien);
         model.addAttribute("lstLopHoc", lstLopHoc);
