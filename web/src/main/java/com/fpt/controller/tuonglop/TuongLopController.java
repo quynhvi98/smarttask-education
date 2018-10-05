@@ -190,6 +190,25 @@ public class TuongLopController {
         return "redirect:/tuonglop/" + maLop;
     }
 
+    @GetMapping("/tuonglop/findpost/{postid}")
+    public @ResponseBody
+    BaiDang findPost(@PathVariable("postid") Integer postId) {
+        BaiDang baiDang = baiDangService.findById(postId);
+        baiDang.setLopHoc(null);
+        baiDang.setLstComment(null);
+        baiDang.setLstLike(null);
+        baiDang.setUser(null);
+        return baiDang;
+    }
+
+    @PostMapping("/tuonglop/post/update")
+    public String updatePost(BaiDang baiDang){
+        BaiDang baiDangUpdate = baiDangService.findById(baiDang.getPostId());
+        baiDangUpdate.setContent(baiDang.getContent());
+        baiDangService.save(baiDangUpdate);
+        return "redirect:/tuonglop/" + maLop;
+    }
+
     public void upFile(MultipartFile file, String fileName, String location) throws IOException {
         String path = null;
         if (!file.isEmpty()) {

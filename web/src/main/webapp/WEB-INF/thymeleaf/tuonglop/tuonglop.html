@@ -66,8 +66,6 @@
                             <button class="btn btn-box-tool" data-widget="collapse"><i
                                     class="fa fa-minus"></i>
                             </button>
-                            <button class="btn btn-box-tool" data-toggle="tooltip" title="Mark as read">
-                                <i class="fa fa-remove"></i></button>
                         </div>
                     </div>
                     <form th:action="@{/tuonglop/addpost}" method="post" enctype="multipart/form-data">
@@ -104,9 +102,13 @@
                                       th:text="'Shared publicly - '+${#dates.format(bd.time, 'dd-MM-yyyy HH:mm a')}">Shared publicly - 7:30 PM Today</span>
                             </div>
                             <div class="box-tools">
-
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
-                                        class="fa fa-minus"></i>
+                                <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Mark as read">
+                                    <i class="fa fa-circle-o"></i></button>
+                                <button th:if="${user.userName eq bd.user.userName}" th:attr="postId=${bd.postId}"
+                                        type="button" class="btn btn-box-tool editPost" data-toggle="tooltip"
+                                        title="Edit post">
+                                    <a th:attr="postId=${bd.postId}"> <i
+                                            class="fa fa-pencil-square-o"></i></a>
                                 </button>
 
                                 <button th:if="${user.userName eq bd.user.userName}" th:attr="postId=${bd.postId}"
@@ -209,7 +211,7 @@
                         <h2 class="page-header">
                             <i class="fa fa-globe"></i> Thông tin lớp
                             <!--<small class="pull-right" th:text="${lopHoc != null ? lopHoc.ngayTao : ''}">Ngày mở lớp:-->
-                                <!--2/10/2014-->
+                            <!--2/10/2014-->
                             <!--</small>-->
                         </h2>
                     </div>
@@ -299,8 +301,53 @@
 
             </section>
         </div>
-    </div>
 
+
+        <div class="modal modal-full fade" id="themnhansu" role="dialog"
+             aria-labelledby="themnhansuLabel" data-backdrop="static" data-keyboard="false">
+            <section style="margin-top: 50px; margin-left: 240px;" class="invoice col-md-9">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h2 class="page-header">
+                            <i class="fa fa-globe"></i> Sửa bài viết
+                        </h2>
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- info row -->
+                <div class="row invoice-info">
+                    <form th:action="@{/tuonglop/post/update}" method="post">
+                        <div class="col-sm-12 invoice-col">
+                            <input id="postEditId" type="hidden" name="postId"/>
+                            <div class="form-group chamcham">
+                                <label for="">Nội dung: </label>
+                                <div class="box">
+                                    <div class="box-body pad">
+                                    <textarea id="contentEdit" name="content" class="textarea" placeholder="What's on your mine .-."
+                                              style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 50px;margin-left: 50px;" class="col-md-6 inline-block p-25">
+                            <div class="form-group">
+                                <div class="pull-right">
+                                    <button type="submit" class="btn btn-default">Chỉnh sửa</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal"><i
+                                            class="fa fa-sign-out"
+                                            aria-hidden="true"></i>
+                                        Thoát
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </section>
+        </div>
+    </div>
 
 
     <div th:replace="fragments/footer :: footer">&nbsp;</div>
@@ -406,6 +453,23 @@
 
     $('#infoClass').click(function () {
         $('#suanhansu').modal('show');
+    });
+
+    $('.editPost').click(function () {
+        var postId = $(this).attr("postId");
+        $('#themnhansu').modal('show');
+        $.ajax({
+            url: base_url + 'tuonglop/findpost/' + postId,
+            type: "get",
+            dataType: "text",
+            success: function (result) {
+                var rs = JSON.parse(result);
+                $('#postEditId').val(rs.postId);
+                $('#contentEdit').val(rs.content);
+            }, error: function (msg) {
+                alert("500 server error");
+            }
+        });
     });
     var base_url = [[@{/}]];
 </script>

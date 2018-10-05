@@ -44,7 +44,9 @@
                 <div class="box box-widget">
                     <div class="box-header with-border">
                         <div class="user-block">
-                            <img class="img-circle" th:src="@{/avatar/}+${user.userAvatar != null ? user.userAvatar : 'default.png'}" alt="User Image">
+                            <img class="img-circle"
+                                 th:src="@{/avatar/}+${user.userAvatar != null ? user.userAvatar : 'default.png'}"
+                                 alt="User Image">
                             <span class="username"><a href="#" th:text="${user.fullName}">Jonathan Burke Jr.</a></span>
                             <span class="description"
                                   th:text="'Shared publicly - '+${#dates.format(#dates.createNow(), 'dd-MM-yyyy HH:mm a')}">Shared publicly - 7:30 PM Today</span>
@@ -84,7 +86,9 @@
                     <div class="box box-widget">
                         <div class="box-header with-border">
                             <div class="user-block">
-                                <img class="img-circle" th:src="@{/avatar/}+${bd.user.userAvatar != null ? bd.user.userAvatar : 'default.png'}" alt="User Image">
+                                <img class="img-circle"
+                                     th:src="@{/avatar/}+${bd.user.userAvatar != null ? bd.user.userAvatar : 'default.png'}"
+                                     alt="User Image">
                                 <span class="username"><a href="#" th:text="${bd.user.fullName}">Jonathan Burke Jr.</a></span>
                                 <span class="description"
                                       th:text="'Shared publicly - '+${#dates.format(bd.time, 'dd-MM-yyyy HH:mm a')}">Shared publicly - 7:30 PM Today</span>
@@ -94,7 +98,12 @@
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
                                         class="fa fa-minus"></i>
                                 </button>
-
+                                <button th:if="${user.userName eq bd.user.userName}" th:attr="postId=${bd.postId}"
+                                        type="button" class="btn btn-box-tool editPost" data-toggle="tooltip"
+                                        title="Edit post">
+                                    <a th:attr="postId=${bd.postId}"> <i
+                                            class="fa fa-pencil-square-o"></i></a>
+                                </button>
                                 <button th:if="${user.userName eq bd.user.userName}" th:attr="postId=${bd.postId}"
                                         type="button" class="btn btn-box-tool" data-toggle="tooltip"
                                         title="Delete post">
@@ -133,7 +142,7 @@
                                 </i>
                                 Like
                             </button>
-                            <div  class="pull-right text-muted">
+                            <div class="pull-right text-muted">
                                 <span class="setLike" th:text="${#lists.size(bd.lstLike)}">0 likes - 2 comments</span>
                                 <span th:text="' likes - '+${#lists.size(bd.lstComment)}+' comments'"></span>
                             </div>
@@ -143,7 +152,9 @@
                         <th:block th:each="cm : ${bd.lstComment}">
                             <div class="box-footer box-comments">
                                 <div class="box-comment">
-                                    <img class="img-circle img-sm" th:src="@{/avatar/}+${cm.user.userAvatar != null ? bd.user.userAvatar : 'default.png'}" alt="User Image">
+                                    <img class="img-circle img-sm"
+                                         th:src="@{/avatar/}+${cm.user.userAvatar != null ? bd.user.userAvatar : 'default.png'}"
+                                         alt="User Image">
 
                                     <div class="comment-text">
 
@@ -168,7 +179,8 @@
                             <form th:action="@{/tuonglop/addcomment}" method="post">
                                 <input type="hidden" th:value="${bd.postId}" name="postId"/>
                                 <!--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
-                                <img class="img-responsive img-circle img-sm" th:src="@{/avatar/}+${user.userAvatar != null ? user.userAvatar : 'default.png'}"
+                                <img class="img-responsive img-circle img-sm"
+                                     th:src="@{/avatar/}+${user.userAvatar != null ? user.userAvatar : 'default.png'}"
                                      alt="Alt Text">
                                 <div class="img-push">
                                     <input name="content" type="text" class="form-control input-sm"
@@ -193,15 +205,60 @@
             </form>
 
             <!--</div>-->
+            <div class="modal modal-full fade" id="themnhansu" role="dialog"
+                 aria-labelledby="themnhansuLabel" data-backdrop="static" data-keyboard="false">
+                <section style="margin-top: 50px; margin-left: 240px;" class="invoice col-md-9">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h2 class="page-header">
+                                <i class="fa fa-globe"></i> Sửa bài viết
+                            </h2>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- info row -->
+                    <div class="row invoice-info">
+                        <form th:action="@{/tuonglop/post/update}" method="post">
+                            <div class="col-sm-12 invoice-col">
+                                <input id="postEditId" type="hidden" name="postId"/>
+                                <div class="form-group chamcham">
+                                    <label for="">Nội dung: </label>
+                                    <div class="box">
+                                        <div class="box-body pad">
+                                    <textarea id="contentEdit" name="content" class="textarea" placeholder="What's on your mine .-."
+                                              style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 50px;margin-left: 50px;" class="col-md-6 inline-block p-25">
+                                <div class="form-group">
+                                    <div class="pull-right">
+                                        <button type="submit" class="btn btn-default">Chỉnh sửa</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal"><i
+                                                class="fa fa-sign-out"
+                                                aria-hidden="true"></i>
+                                            Thoát
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </section>
+            </div>
 
         </div>
     </div>
 
+
     <div th:replace="fragments/footer :: footer">&nbsp;</div>
     <aside class="control-sidebar control-sidebar-dark">
         <!--<ul class="nav nav-tabs nav-justified control-sidebar-tabs">-->
-            <!--<li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>-->
-            <!--&lt;!&ndash;<li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>&ndash;&gt;-->
+        <!--<li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>-->
+        <!--&lt;!&ndash;<li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>&ndash;&gt;-->
         <!--</ul>-->
         <div class="tab-content">
             <div class="tab-pane active" id="control-sidebar-home-tab">
@@ -213,7 +270,8 @@
 
                             <div class="menu-info">
                                 <h4 class="control-sidebar-subheading" th:text="${tl.fileName}">Langdon's Birthday</h4>
-                                <p th:text="${#dates.format(tl.time, 'dd-MM-yyyy HH:mm a')}">Will be 23 on April 24th</p>
+                                <p th:text="${#dates.format(tl.time, 'dd-MM-yyyy HH:mm a')}">Will be 23 on April
+                                    24th</p>
                             </div>
 
                         </a>
@@ -222,7 +280,7 @@
             </div>
 
         </div>
-        <div id="myModal" class="modal">
+        <div id="myModal" class="modal1">
             <span class="close">&times;</span>
             <img class="modal-content" id="img01">
             <div id="caption"></div>
@@ -280,13 +338,32 @@
             success: (json) => {
                 if (json.trim() == "like") {
                     var totalLike = $(this).closest('.box-body').find($(".setLike")).text();
-                    $(this).closest('.box-body').find('.setLike').text(+totalLike+1);
+                    $(this).closest('.box-body').find('.setLike').text(+totalLike + 1);
                     $(this).find($(".fa")).removeClass("fa-thumbs-o-up").addClass("fa-thumbs-up").css("color", "#94B8FF");
                 } else if (json.trim() == "unlike") {
                     var totalLike = $(this).closest('.box-body').find($(".setLike")).text();
-                    $(this).closest('.box-body').find('.setLike').text(+totalLike-1);
+                    $(this).closest('.box-body').find('.setLike').text(+totalLike - 1);
                     $(this).find($(".fa")).removeClass("fa-thumbs-up").addClass("fa-thumbs-o-up").css("color", "");
                 }
+            }, error: function (msg) {
+                alert("500 server error");
+            }
+        });
+
+
+    });
+
+    $('.editPost').click(function () {
+        var postId = $(this).attr("postId");
+        $('#themnhansu').modal('show');
+        $.ajax({
+            url: base_url + 'tuonglop/findpost/' + postId,
+            type: "get",
+            dataType: "text",
+            success: function (result) {
+                var rs = JSON.parse(result);
+                $('#postEditId').val(rs.postId);
+                $('#contentEdit').val(rs.content);
             }, error: function (msg) {
                 alert("500 server error");
             }
