@@ -115,6 +115,7 @@ public class UserController {
             bm.setKhoaVien(null);
             bm.setLstMonHoc(null);
             bm.setLstGiaoVien(null);
+            bm.setLstSinhVien(null);
         }
         return lstBoMon;
     }
@@ -209,6 +210,30 @@ public class UserController {
         user.setLstLike(null);
         user.setLstBaiDang(null);
         user.setRoles(null);
+        if(user.getSinhVien()!=null){
+            user.getSinhVien().setLstDiem(null);
+            user.getSinhVien().setUser(null);
+            user.getSinhVien().setKhoaVien(null);
+            user.getSinhVien().setNhoms(null);
+            user.getSinhVien().setLstThongBao(null);
+            user.getSinhVien().setLstPheDuyet(null);
+            user.getSinhVien().setLstBaiTap(null);
+            user.getSinhVien().setLopHocs(null);
+            user.getSinhVien().getBoMon().setKhoaVien(null);
+            user.getSinhVien().getBoMon().setLstMonHoc(null);
+            user.getSinhVien().getBoMon().setLstGiaoVien(null);
+            user.getSinhVien().getBoMon().setLstSinhVien(null);
+        }else if(user.getGiaoVien()!=null){
+            user.getGiaoVien().setLstLopHoc(null);
+            user.getGiaoVien().setLstPheDuyet(null);
+            user.getGiaoVien().setLstThongBao(null);
+            user.getGiaoVien().setUser(null);
+            user.getGiaoVien().getBoMon().setLstSinhVien(null);
+            user.getGiaoVien().getBoMon().setLstGiaoVien(null);
+            user.getGiaoVien().getBoMon().setLstMonHoc(null);
+            user.getGiaoVien().getBoMon().setKhoaVien(null);
+        }
+
         return user;
     }
 }

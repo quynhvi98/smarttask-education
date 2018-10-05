@@ -408,14 +408,14 @@
             </div>
         </div>
 
-        <!-- Modal xemnhansu -->
-        <div class="modal modal-full fade" id="xemnhansu" role="dialog" aria-labelledby="xemnhansuLabel">
+        <!-- Modal xemgv -->
+        <div class="modal modal-full fade" id="xemnhansugv" role="dialog" aria-labelledby="xemnhansuLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                 aria-hidden="true">&times;</span></button>
-                        <h3 class="modal-title" id="xemnhansuLabel">
+                        <h3 class="modal-title">
                             Thông tin cá nhân
                         </h3>
                     </div>
@@ -426,94 +426,101 @@
                                     <div class="card col-md-3">
                                         <div>
                                             <div class="thumb" alt="User Pic"
-                                                 id="view-avatar">
+                                                 id="view-avatar-gv">
                                                 <!--th:style="'background-image:url('+@{/avatar/}+${user.userAvatar != null ? user.userAvatar : 'default.png'} + ');'"-->
                                             </div>
                                         </div>
                                         <div class="article">
-                                            <h1 id="viewfullname" name="fullName" readonly th:text="${user != null ? user.fullName : ''}">
+                                            <h1 id="viewfullnamegv" name="fullName" readonly
+                                                th:text="${user != null ? user.fullName : ''}">
                                                 Nguyễn Duy
                                                 Trường</h1>
                                             <span>
-                                                <span class="xam" data-toggle="tooltip" data-placement="top" title="Ngày sinh">
+                                                <span class="xam" data-toggle="tooltip" data-placement="top"
+                                                      title="Ngày sinh">
                                                     <i class="fa fa-birthday-cake" aria-hidden="true"></i>
                                                 </span>
-                                            <span>20/02/1985</span>
+                                            <span id="birthdaygv">20/02/1985</span>
                     </span>
                                             <span>
                       <span class="xam" data-toggle="tooltip" data-placement="top" title="Giới tính">
                         <i class="fa fa-venus-mars" aria-hidden="true"></i>
                       </span>
-                    <span>Nam</span>
+                    <span id="gendergv">Nam</span>
                     </span>
                                             <span>
                       <span class="xam" data-toggle="tooltip" data-placement="top" title="Số điện thoại">
                         <i class="fa fa-phone" aria-hidden="true"></i>
                       </span>
-                    <span>0978198420</span>
+                    <span id="phonegv">0978198420</span>
                     </span>
                                             <span>
                       <span class="xam" data-toggle="tooltip" data-placement="top" title="Thư điện tử">
                         <i class="fa fa-envelope-o" aria-hidden="true"></i>
                       </span>
-                    <span>truongnd1380@gmail.com</span>
+                    <span id="emailgv">truongnd1380@gmail.com</span>
                     </span>
                                         </div>
                                     </div>
                                     <div class="col-md-4 p-25">
                                         <div class="form-group chamcham">
                                             <label for="">Tên truy cập</label>
-                                            <span>Tên truy cập</span>
+                                            <span id="usernamegv">Tên truy cập</span>
                                         </div>
                                         <div class="form-group chamcham">
                                             <label for="">Mã nhân viên</label>
-                                            <span>Mã nhân viên</span>
+                                            <span id="manvgv"></span>
                                         </div>
                                         <div class="form-group chamcham">
-                                            <label for="">Vị trí công tác</label>
-                                            <span>Vị trí công tác</span>
-                                        </div>
-
-                                        <div class="form-group chamcham">
-                                            <label for="">Đơn vị công tác</label>
-                                            <span>Đơn vị công tác</span>
+                                            <label for="">Mã ngành</label>
+                                            <span id="manganhgv"></span>
                                         </div>
 
                                         <div class="form-group chamcham">
-                                            <label for="">Mã vị trí</label>
-                                            <span>Mã vị trí</span>
+                                            <label for="">Tên ngành</label>
+                                            <span id="tennganhgv"></span>
                                         </div>
 
                                         <div class="form-group chamcham">
-                                            <label for="">Trạng thái</label>
-                                            <span>Trạng thái</span>
+                                            <label for="">Địa chỉ</label>
+                                            <span id="diachigv">Mã vị trí</span>
                                         </div>
 
                                         <div class="form-group chamcham">
-                                            <label for="">Quyền hạn</label>
-                                            <span>Quyền hạn</span>
+                                            <label for="">Học hàm</label>
+                                            <span id="hochamviewgv"></span>
+                                        </div>
+
+                                        <div class="form-group chamcham">
+                                            <label for="">Mô tả</label>
+                                            <span id="motagv"></span>
+                                        </div>
+
+                                        <div class="form-group chamcham">
+                                            <label for="">Loại tài khoản</label>
+                                            <span id="loaitk"></span>
                                         </div>
                                     </div>
-                                    <div class="col-md-5 inline-block p-25">
+                                    <!--<div class="col-md-5 inline-block p-25">-->
 
-                                        <div class="form-group chamcham">
-                                            <label for="">Trình độ đào tạo</label>
-                                            <span>Trình độ đào tạo Trình độ đào tạo Trình độ đào tạo Trình độ đào tạo Trình độ đào tạo Trình độ đào tạo</span>
-                                        </div>
+                                    <!--<div class="form-group chamcham">-->
+                                    <!--<label for="">Trình độ đào tạo</label>-->
+                                    <!--<span>Trình độ đào tạo Trình độ đào tạo Trình độ đào tạo Trình độ đào tạo Trình độ đào tạo Trình độ đào tạo</span>-->
+                                    <!--</div>-->
 
-                                        <div class="form-group chamcham">
-                                            <label for="">Kiến thức</label>
-                                            <span>Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức</span>
-                                        </div>
+                                    <!--<div class="form-group chamcham">-->
+                                    <!--<label for="">Kiến thức</label>-->
+                                    <!--<span>Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức</span>-->
+                                    <!--</div>-->
 
-                                        <div class="form-group chamcham">
-                                            <label for="">Kinh nghiệm</label>
-                                            <span>Kinh nghiệm Kinh nghiệm Kinh nghiệm Kinh nghiệm Kinh nghiệm Kinh nghiệm Kinh nghiệm Kinh nghiệm Kinh nghiệm</span>
-                                        </div>
-                                    </div>
+                                    <!--<div class="form-group chamcham">-->
+                                    <!--<label for="">Kinh nghiệm</label>-->
+                                    <!--<span>Kinh nghiệm Kinh nghiệm Kinh nghiệm Kinh nghiệm Kinh nghiệm Kinh nghiệm Kinh nghiệm Kinh nghiệm Kinh nghiệm</span>-->
+                                    <!--</div>-->
+                                    <!--</div>-->
+                                    <!--</div>-->
+
                                 </div>
-
-                            </div>
                         </form>
                     </div>
                     <div class="modal-footer text-center">
@@ -527,11 +534,124 @@
         </div>
 
 
-        <!--test-->
-    </div>
+        <!-- Modal xemsv -->
+        <!--<div class="modal modal-full fade" id="xemnhansusv">-->
+            <!--<div class="modal-dialog" role="document">-->
+                <!--<div class="modal-content">-->
+                    <!--<div class="modal-header">-->
+                        <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span-->
+                                <!--aria-hidden="true">&times;</span></button>-->
+                        <!--<<h3 class="modal-title">-->
+                        <!--Thông tin cá nhân-->
+                    <!--</h3>-->
+                    <!--</div>-->
+                    <!--<div class="modal-body">-->
+                        <!--&lt;!&ndash;<form class="form-horizontal">&ndash;&gt;-->
+                        <!--<div class="row bg-xam">-->
+                            <!--<div class="text-center avantar">-->
+                                <!--<div class="card col-md-3">-->
+                                    <!--<div>-->
+                                        <!--<div class="thumb" alt="User Pic"-->
+                                             <!--id="view-avatar-sv">-->
+                                            <!--&lt;!&ndash;th:style="'background-image:url('+@{/avatar/}+${user.userAvatar != null ? user.userAvatar : 'default.png'} + ');'"&ndash;&gt;-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="article">-->
+                                        <!--<h1 id="viewfullnamesv" name="fullName">-->
+                                            <!--&lt;!&ndash;th:text="${user != null ? user.fullName : ''}">&ndash;&gt;-->
+                                            <!--Nguyễn Duy-->
+                                            <!--Trường</h1>-->
+                                        <!--<span>-->
+                                                <!--<span class="xam" data-toggle="tooltip" data-placement="top"-->
+                                                      <!--title="Ngày sinh">-->
+                                                    <!--<i class="fa fa-birthday-cake" aria-hidden="true"></i>-->
+                                                <!--</span>-->
+                                            <!--<span id="birthdaysv">20/02/1985</span>-->
+                    <!--</span>-->
+                                        <!--<span>-->
+                      <!--<span class="xam" data-toggle="tooltip" data-placement="top" title="Giới tính">-->
+                        <!--<i class="fa fa-venus-mars" aria-hidden="true"></i>-->
+                      <!--</span>-->
+                    <!--<span id="gendersv">Nam</span>-->
+                    <!--</span>-->
+                                        <!--<span>-->
+                      <!--<span class="xam" data-toggle="tooltip" data-placement="top" title="Số điện thoại">-->
+                        <!--<i class="fa fa-phone" aria-hidden="true"></i>-->
+                      <!--</span>-->
+                    <!--<span id="phonesv">0978198420</span>-->
+                    <!--</span>-->
+                                        <!--<span>-->
+                      <!--<span class="xam" data-toggle="tooltip" data-placement="top" title="Thư điện tử">-->
+                        <!--<i class="fa fa-envelope-o" aria-hidden="true"></i>-->
+                      <!--</span>-->
+                    <!--<span id="emailsv">truongnd1380@gmail.com</span>-->
+                    <!--</span>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="col-md-4 p-25">-->
+                                    <!--<div class="form-group chamcham">-->
+                                        <!--<label for="">Tên truy cập</label>-->
+                                        <!--<span id="usernamesv">Tên truy cập</span>-->
+                                    <!--</div>-->
+                                    <!--<div class="form-group chamcham">-->
+                                        <!--<label for="">Mã </label>-->
+                                        <!--<span id="manvsv">Mã</span>-->
+                                    <!--</div>-->
+                                    <!--<div class="form-group chamcham">-->
+                                        <!--<label for="">Mã ngành theo học</label>-->
+                                        <!--<span id="manganhsv">Vị trí công tác</span>-->
+                                    <!--</div>-->
 
-    <div th:replace="fragments/footer :: footer">&nbsp;</div>
+                                    <!--<div class="form-group chamcham">-->
+                                        <!--<label for="">Tên ngành theo học</label>-->
+                                        <!--<span id="tennganhsv">Đơn vị công tác</span>-->
+                                    <!--</div>-->
+
+                                    <!--<div class="form-group chamcham">-->
+                                        <!--<label for="">Địa chỉ</label>-->
+                                        <!--<span id="diachisv">Mã vị trí</span>-->
+                                    <!--</div>-->
+
+                                <!--</div>-->
+                                <!--&lt;!&ndash;<div class="col-md-5 inline-block p-25">&ndash;&gt;-->
+
+                                <!--&lt;!&ndash;<div class="form-group chamcham">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<label for="">Trình độ đào tạo</label>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<span>Trình độ đào tạo Trình độ đào tạo Trình độ đào tạo Trình độ đào tạo Trình độ đào tạo Trình độ đào tạo</span>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                                <!--&lt;!&ndash;<div class="form-group chamcham">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<label for="">Kiến thức</label>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<span>Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức Kiến thức</span>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                                <!--&lt;!&ndash;<div class="form-group chamcham">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<label for="">Kinh nghiệm</label>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<span>Kinh nghiệm Kinh nghiệm Kinh nghiệm Kinh nghiệm Kinh nghiệm Kinh nghiệm Kinh nghiệm Kinh nghiệm Kinh nghiệm</span>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                            <!--</div>-->
+
+                        <!--</div>-->
+                        <!--<div class="modal-footer text-center">-->
+                            <!--<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-sign-out"-->
+                                                                                                  <!--aria-hidden="true"></i>-->
+                                <!--Thoát-->
+                            <!--</button>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <!--&lt;!&ndash;test&ndash;&gt;-->
+        <!--</div>-->
+
+    </div>
 </div>
+<div th:replace="fragments/footer :: footer">&nbsp;</div>
+
 </body>
 <script th:inline="javascript">
     // $(function () {
@@ -635,34 +755,46 @@
     }
 
     $('.user-detail').click(function () {
-        if (checkView == 0) {
-            var itemId = $(this).attr("itemId");
-            $.ajax({
-                url: base_url + 'user/timkiem/' + itemId,
-                type: "get",
-                data: {id: itemId},
-                dataType: "text",
-                success: function (result) {
-                    var rs = JSON.parse(result);
-                    $('#viewfullname').text(rs.fullName);
-                    $('#giaoVienDtl').text(rs.giaoVien.user.fullName);
-                    $('#monHocDtl').text(rs.monHoc.tenMonHoc);
-                    $('#phongHocDtl').text(rs.phongHoc.tenPhong);
-                    $('#totalSvDtl').text(rs.sinhViens.length);
-                    $('#moTaDtl').text(rs.moTa);
-                    $('#ngayTaoDtl').text(moment(rs.ngayTao).format("MMM Do YY"));
-                    $('#ngayBDDTL').text(moment(rs.ngayBatDau).format("MMM Do YY"));
-                    $('#ngayKTDtl').text(moment(rs.ngayKetThuc).format("MMM Do YY"));
-                    checkView++;
+        var itemId = $(this).attr("itemId");
+        $('#xemnhansugv').modal('show');
+
+        $.ajax({
+            url: base_url + 'user/timkiem/' + itemId,
+            type: "get",
+            data: {id: itemId},
+            dataType: "text",
+            success: function (result) {
+                var rs = JSON.parse(result);
+
+                $('#viewfullnamegv').text(rs.fullName);
+                $('#birthdaygv').text(moment(rs.userDOB).format("MMM Do YY"));
+                $('#gendergv').text(rs.userGender);
+                $('#phonegv').text(rs.userPhone);
+                $('#emailgv').text(rs.userEmail);
+                $('#usernamegv').text(rs.userName);
+                $('#diachigv').text(rs.userAddress);
+                $('#view-avatar-gv').css('background-image','url(http://localhost:8080/avatar/'+(rs.userAvatar != null ? rs.userAvatar : 'default.png'));
+
+                if(rs.giaoVien != null){
+                    $('#manvgv').text(rs.giaoVien.maGiaoVien);
+                    $('#manganhgv').text(rs.giaoVien.boMon.maNganh);
+                    $('#tennganhgv').text(rs.giaoVien.boMon.tenNganh);
+                    $('#hochamviewgv').text(rs.giaoVien.hocHam);
+                    $('#motagv').text(rs.giaoVien.moTa);
+                    $('#loaitk').text("Giảng viên");
+                }else if(rs.sinhVien != null){
+                    $('#manvgv').text(rs.sinhVien.maSinhVien);
+                    $('#manganhgv').text(rs.sinhVien.boMon.maNganh);
+                    $('#tennganhgv').text(rs.sinhVien.boMon.tenNganh);
+                    $('#hochamviewgv').text("Không");
+                    $('#motagv').text("Không");
+                    $('#loaitk').text("Sinh viên");
+
                 }
-            });
-        }
+            }
+        });
     });
-    var checkView = 0;
 
-    var base_url = [[@{
-        /}]];
-
-    //
+    var base_url = [[@{/}]];
 </script>
 </html>
