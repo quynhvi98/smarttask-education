@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -55,6 +56,18 @@ public class LopHocController {
         GiaoVien giaoVien = giangVienService.findById(userInfo.getGiaoVien().getMaGiaoVien());
         LopHoc lopHoc = lopHocService.findById(maLop);
         List<SinhVien> sinhViens = sinhVienService.getListSinhVienbyLopHocId(maLop);
+        List<SinhVien> sv=new LinkedList<>();
+            for (SinhVien sinhVien : sinhViens) {
+                for (Diem diem : sinhVien.getLstDiem()) {
+                    if (diem.getLopHoc().getMaLop().equals(maLop)) {
+                    sv.add(sinhVien);
+                    }
+                }
+                }
+        for (SinhVien sinhVien:sv) {
+            sinhViens.remove(sinhVien);
+        }
+        System.out.println(sinhViens.size());
         String[] ngayHoc = lopHoc.getNgayHoc().split(",");
         String[] caHoc = lopHoc.getCaHoc().split(",");
         model.addAttribute("user", userInfo);
@@ -126,25 +139,61 @@ public class LopHocController {
     @PostMapping("/giangviendaylop/suadiem")
     public void suaDiem(HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model) {
         try {
+            Double diemLyThuyet=null;
+            Double diemThucHanh=null;
+            Double diemCuoiKi=null;
             String maSV = request.getParameter("maSV");
-            Double diemLyThuyet = Double.valueOf(request.getParameter("diemLyThuyet"));
-            String maDiem = request.getParameter("maDiem");
-            System.out.println();
-            Double diemThucHanh = Double.valueOf(request.getParameter("diemThucHanh"));
-            Double diemCuoiKi = Double.valueOf((request.getParameter("diemCuoiKi")));
             String maMonHoc = request.getParameter("maMonHoc");
             String maLopHoc = request.getParameter("maLopHoc");
-            if((diemCuoiKi <=10&& diemCuoiKi>=0)&&(diemLyThuyet <=10&& diemLyThuyet>=0)&&(diemThucHanh <=10&& diemThucHanh>=0)) {
-                System.out.println(maMonHoc + " " + diemLyThuyet + " " + diemThucHanh + " " + diemCuoiKi);
+            String maDiem = request.getParameter("maDiem");
+            try {
+                diemLyThuyet = Double.valueOf(request.getParameter("diemLyThuyet"));
+                diemThucHanh = Double.valueOf(request.getParameter("diemThucHanh"));
+                diemCuoiKi = Double.valueOf((request.getParameter("diemCuoiKi")));
+            }catch (Exception e){
+            }
+            if(diemCuoiKi==null||diemThucHanh==null||diemThucHanh==null){
                 User user = (User) session.getAttribute("userInfo");
                 Diem diem = diemService.findById(maDiem);
+                boolean check=true;
+                if(diemThucHanh!=null){
+                if((diemThucHanh >= 10 || diemThucHanh <= 0)) {
+                    check = false;
+                }
                 diem.setDiemThucHanh(diemThucHanh);
-                diem.setDiemLyThuyet(diemLyThuyet);
-                diem.setDiemCuoiKi(diemCuoiKi);
-                diemService.save(diem);
-                response.getWriter().println("success");
-            }else {
-                response.getWriter().println("saidiem");
+                }
+                if(diemLyThuyet!=null){
+                    if( (diemLyThuyet >= 10 || diemLyThuyet <= 0)){
+                        check=false;
+                    }
+                    diem.setDiemLyThuyet(diemLyThuyet);
+                }
+                if(diemCuoiKi!=null){
+                   if( (diemCuoiKi >= 10 || diemCuoiKi <= 0)){
+                check=false;
+                }
+                    diem.setDiemCuoiKi(diemCuoiKi);
+                }
+                if(check) {
+                    diemService.save(diem);
+                    response.getWriter().println("success");
+                }else {
+                    response.getWriter().println("saidiem");
+                }
+            }
+            else {
+                if ((diemCuoiKi <= 10 && diemCuoiKi >= 0) && (diemLyThuyet <= 10 && diemLyThuyet >= 0) && (diemThucHanh <= 10 && diemThucHanh >= 0)) {
+                    System.out.println(maMonHoc + " " + diemLyThuyet + " " + diemThucHanh + " " + diemCuoiKi);
+                    User user = (User) session.getAttribute("userInfo");
+                    Diem diem = diemService.findById(maDiem);
+                    diem.setDiemThucHanh(diemThucHanh);
+                    diem.setDiemLyThuyet(diemLyThuyet);
+                    diem.setDiemCuoiKi(diemCuoiKi);
+                    diemService.save(diem);
+                    response.getWriter().println("success");
+                } else {
+                    response.getWriter().println("saidiem");
+                }
             }
         }catch (Exception e){
             try {
@@ -156,5 +205,71 @@ public class LopHocController {
     }
 
 
+    @PostMapping("/giangviendaylop/themdiem")
+    public void themDiem(HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model) throws IOException {
+        Double diemLyThuyet=null;
+        Double diemThucHanh=null;
+        Double diemCuoiKi=null;
+        String maSV = request.getParameter("maSV");
+        String maMonHoc = request.getParameter("maMonHoc");
+        String maLopHoc = request.getParameter("maLopHoc");
+            try {
+                 diemLyThuyet = Double.valueOf(request.getParameter("diemLyThuyet"));
+                 diemThucHanh = Double.valueOf(request.getParameter("diemThucHanh"));
+                 diemCuoiKi = Double.valueOf((request.getParameter("diemCuoiKi")));
+            }catch (Exception e){
+            }
+        if(diemCuoiKi==null||diemThucHanh==null||diemThucHanh==null){
+            User user = (User) session.getAttribute("userInfo");
+            Diem diem = new Diem();
+            boolean check=true;
+            if(diemThucHanh!=null){
+                if((diemThucHanh >= 10 || diemThucHanh <= 0)) {
+                    check = false;
+                }
+                diem.setDiemThucHanh(diemThucHanh);
+            }
+            if(diemLyThuyet!=null){
+                if( (diemLyThuyet >= 10 || diemLyThuyet <= 0)){
+                    check=false;
+                }
+                diem.setDiemLyThuyet(diemLyThuyet);
+            }
+            if(diemCuoiKi!=null){
+                if( (diemCuoiKi >= 10 || diemCuoiKi <= 0)){
+                    check=false;
+                }
+                diem.setDiemCuoiKi(diemCuoiKi);
+            }
+            diem.setSinhVien(sinhVienService.getSinhVienId(maSV));
+            diem.setGiaoVien(user.getGiaoVien());
+            diem.setMonHoc(monHocService.findById(maMonHoc));
+            diem.setLopHoc(lopHocService.findById(maLopHoc));
+            if(check) {
+                diemService.save(diem);
+                response.getWriter().println("success");
+            }else {
+                response.getWriter().println("saidiem");
+            }
+           }else {
+
+            if ((diemCuoiKi <= 10 && diemCuoiKi >= 0) && (diemLyThuyet <= 10 && diemLyThuyet >= 0) && (diemThucHanh <= 10 && diemThucHanh >= 0)) {
+                System.out.println(maMonHoc + " " + diemLyThuyet + " " + diemThucHanh + " " + diemCuoiKi);
+                User user = (User) session.getAttribute("userInfo");
+                Diem diem = new Diem();
+                diem.setDiemThucHanh(diemThucHanh);
+                diem.setDiemLyThuyet(diemLyThuyet);
+                diem.setDiemCuoiKi(diemCuoiKi);
+                diem.setSinhVien(sinhVienService.getSinhVienId(maSV));
+                diem.setGiaoVien(user.getGiaoVien());
+                diem.setMonHoc(monHocService.findById(maMonHoc));
+                diem.setLopHoc(lopHocService.findById(maLopHoc));
+                diemService.save(diem);
+                response.getWriter().println("success");
+            } else {
+                response.getWriter().println("saidiem");
+            }
+        }
+    }
 
 }
