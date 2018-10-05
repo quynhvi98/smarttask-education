@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AdminLTE 2 | Starter</title>
+    <title>Smarttask Education</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/ionicons.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/AdminLTE.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/skin-blue.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/fixtintuc.css}">
 
     <script type="text/javascript" th:src="@{/js/jquery/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
@@ -24,6 +25,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -37,18 +39,18 @@
         <div  th:replace="fragments/sidebar :: aside">&nbsp;</div>
     </th:block>
     <div class="content-wrapper">
-        <div th:utext="${tinTuc.title}">
+        <div class="tieude"  th:utext="${tinTuc.title}">
         </div>
-        <div th:utext="'Ngày đăng: '+${#dates.format(tinTuc.time, 'dd/MM/yyyy')}">
+        <div class="ngaydang" th:utext="'Ngày đăng: '+${#dates.format(tinTuc.time, 'dd/MM/yyyy')}">
         </div>
-        <div style="text-align: left;" th:utext="${tinTuc.content}">
+        <div class="content" style="text-align: left;" th:utext="${tinTuc.content}">
 
         </div>
         <!-- /. box -->
     </div>
-
+    <div th:replace="fragments/footer :: footer">&nbsp;</div>
 </div>
-<div th:replace="fragments/footer :: footer">&nbsp;</div>
+
 
 </div>
 </body>

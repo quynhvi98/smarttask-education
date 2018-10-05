@@ -1,0 +1,12 @@
+.content-wrapper, .tieude{
+    font-size: 30px;
+    text-align: center;
+}
+.content-wrapper, .content{
+    font-size: 12px;
+    font-weight: lighter;
+}
+.content-wrapper, .ngaydang{
+    font-size: 13px;
+    font-weight: bold;
+}
