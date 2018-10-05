@@ -261,13 +261,11 @@
         swal({
             title: "Cảnh báo",
             text: "Bạn có chắc muốn xóa bài đăng này!",
-            type: "warning",
+            type: 'warning',
             showCancelButton: true,
-            confirmButtonClass: "btn-danger",
-            confirmButtonText: "Đồng ý",
-            cancelButtonText: "Thoát!",
-            // closeOnConfirm: false
-            // closeOnCancel: false
+            confirmButtonText: 'Đồng ý',
+            cancelButtonText: 'Thoát!',
+            reverseButtons: true
         }, function (isConfirm) {
             location.href = base_url + "tuonglop/deletepost/" + postId;
         });
