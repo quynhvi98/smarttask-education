@@ -33,7 +33,7 @@ public class BoMonController {
     }
 
     @PostMapping("/bomon/them-moi")
-    public void add(HttpServletRequest request,HttpServletResponse response) throws IOException {
+    public void addBoMon(HttpServletRequest request,HttpServletResponse response) throws IOException {
         try {
             String maBoMon = request.getParameter("maNganh");
             String tenBoMon = request.getParameter("tenNganh");
@@ -79,7 +79,7 @@ public class BoMonController {
     }
 
     @PostMapping("/bomon/cap-nhat")
-    public void edit(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void editBoMon(HttpServletRequest request, HttpServletResponse response) throws IOException {
         BoMon persist = null;
         KhoaVien khoaVien = null;
         try {

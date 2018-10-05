@@ -15,7 +15,7 @@ public interface LopHocService {
     List<LopHoc> searchGiaoVien(String giaovien,String bomon);
     List<LopHoc> searchLop(String lop,String bomon);
     List<LopHoc> findAll();
-    LopHoc getLopHocSV(String malop,String masv);
+    LopHoc getLopHocSV(String fullName,String tenMonHoc);
     int getTongTinSvKi(String masv,int ki);
     LopHoc getLopHocSvBm(String masv,String mabomon);
     void createlopSV(LopHoc lopHoc);
@@ -24,5 +24,6 @@ public interface LopHocService {
     List<LopHoc> listLopToiHan(String day1,String day2);
     Boolean checkTimeExits(String maGiaoVien, String kiHoc, String ngayHoc, String caHoc);
     List<LopHoc> search(String maLop,String phongHoc);
+    String ngayHienTai();
     Long count();
 }

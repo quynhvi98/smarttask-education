@@ -32,6 +32,7 @@ DROP TABLE IF EXISTS likes;
 DROP TABLE IF EXISTS diem_sinhvien;
 DROP TABLE IF EXISTS tai_lieu;
 DROP TABLE IF EXISTS tin_tuc;
+DROP TABLE IF EXISTS system_log;
 
 CREATE TABLE IF NOT EXISTS role (
   ma_quyen VARCHAR(255),
@@ -332,4 +333,11 @@ CREATE TABLE IF NOT EXISTS tin_tuc
     content text,
     time datetime,
     status int
+);
+
+CREATE TABLE IF NOT EXISTS system_log
+(
+    id bigint PRIMARY KEY AUTO_INCREMENT,
+    content text,
+    time datetime
 );

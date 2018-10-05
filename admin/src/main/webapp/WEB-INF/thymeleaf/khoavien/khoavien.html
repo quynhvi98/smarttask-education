@@ -82,7 +82,7 @@
             <!--<a href="#" class="submit">Tìm kiếm</a>-->
             <!-- <div class="submit"></div> -->
 
-            <form action="/admin/khoavien/tim-kiem" method="post">
+            <form th:action="@{/khoavien/tim-kiem}" method="post">
                 <div class="input">
                     <div class="label">Tên Khoa/viện</div>
                     <input type="text" name="tenKhoaVien" th:value="${tenKhoaVien}"/>

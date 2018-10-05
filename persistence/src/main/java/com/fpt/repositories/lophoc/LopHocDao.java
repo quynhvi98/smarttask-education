@@ -17,8 +17,8 @@ public interface LopHocDao extends CrudRepository<LopHoc, String>, LopHocDaoCust
     @Query(value = "select * from lop_hoc lh join mon_hoc mh where lh.ma_lop like concat('%',:lop,'%') and mh.ten_mon_hoc like concat('%',:mh,'%')",nativeQuery = true)
     List<LopHoc> listSearchLop(@Param("lop") String lop,@Param("mh") String mh);
 
-    @Query(value = "select * from lop_hoc join lop_sinhvien ls on lop_hoc.ma_lop = ls.ma_lop where ls.ma_sinh_vien=:msv",nativeQuery = true)
-    List<LopHoc> listLopHocSV(@Param("msv") String msv);
+    @Query(value = "select * from lop_hoc join lop_sinhvien ls on lop_hoc.ma_lop = ls.ma_lop where ls.ma_sinh_vien=:msv and lop_hoc.ngay_ket_thuc>=:ngayHienTai",nativeQuery = true)
+    List<LopHoc> listLopHocSV(@Param("msv") String msv,@Param("ngayHienTai") String ngayHienTai);
 
     @Query(value = "select * from lop_hoc  lh join lop_sinhvien ls on lh.ma_lop = ls.ma_lop where ls.ma_sinh_vien=:masv and lh.ma_lop=:malop" ,nativeQuery = true)
     LopHoc getLopHocSv(@Param("malop") String malop,@Param("masv") String masv);
@@ -35,6 +35,6 @@ public interface LopHocDao extends CrudRepository<LopHoc, String>, LopHocDaoCust
     @Query(value = "select * from lop_hoc join lop_sinhvien ls on lop_hoc.ma_lop = ls.ma_lop join mon_hoc h on lop_hoc.ma_mon_hoc = h.ma_mon_hoc where ls.ma_sinh_vien =:msv and  h.ma_ki=:ki" ,nativeQuery = true)
     List<LopHoc> getLopHocSvKi(@Param("msv") String msv,@Param("ki") int ki);
 
-    @Query(value = "select * from lop_hoc  lh where lh.ma_lop like concat('%',:maLop,'%') and lh.phong_hoc like  concat('%',:phongHoc,'%')" ,nativeQuery = true)
-    List<LopHoc> search(@Param("maLop") String maLop,@Param("phongHoc") String phongHoc);
+    @Query(value = "select * from lop_hoc  lh join giao_vien v on lh.ma_giao_vien = v.ma_giao_vien join user u on v.user_name = u.user_name join mon_hoc h on lh.ma_mon_hoc = h.ma_mon_hoc where u.full_name like concat('%',:fullName,'%') and h.ten_mon_hoc like  concat('%',:tenMonHoc,'%')" ,nativeQuery = true)
+    List<LopHoc> search(@Param("fullName") String fullName,@Param("tenMonHoc") String tenMonHoc);
 }

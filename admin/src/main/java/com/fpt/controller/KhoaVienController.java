@@ -31,8 +31,13 @@ public class KhoaVienController {
     }
 
     @PostMapping("/khoavien/them-moi")
-    public void add(KhoaVien khoaVien, HttpServletResponse response) throws IOException {
+    public void addKhoaVien(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String maVien = request.getParameter("maVien");
+        String tenVien = request.getParameter("tenVien");
         try {
+            KhoaVien khoaVien = new KhoaVien();
+            khoaVien.setMaVien(maVien);
+            khoaVien.setTenVien(tenVien);
             khoaVienService.create(khoaVien);
             response.getWriter().println("success");
         } catch (Exception e) {
@@ -41,11 +46,14 @@ public class KhoaVienController {
     }
 
     @PostMapping("/khoavien/cap-nhat")
-    public void edit(KhoaVien khoaVien, HttpServletResponse response) throws IOException {
+    public void editKhoaVien(HttpServletRequest request, HttpServletResponse response) throws IOException {
         KhoaVien persist = null;
+        String maVien = request.getParameter("maVien");
+        String tenVien = request.getParameter("tenVien");
         try {
-            persist = khoaVienService.findById(khoaVien.getMaVien());
-            persist.setTenVien(khoaVien.getTenVien());
+
+            persist = khoaVienService.findById(maVien);
+            persist.setTenVien(tenVien);
             khoaVienService.update(persist);
             response.getWriter().println("success");
         } catch (Exception e) {

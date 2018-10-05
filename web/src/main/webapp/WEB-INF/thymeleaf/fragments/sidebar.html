@@ -52,8 +52,13 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li th:each="lophoc : ${giaoVien.lstLopHoc}"><a th:href="@{/giangviendaylop/}+${lophoc.maLop}">
-                        <span th:text="${lophoc.maLop}">Lớp</span></a></li>
+                    <li th:each="lophoc : ${giaoVien.lstLopHoc}">
+                        <th:block th:if="${lophoc.trangThai}">
+                        <a th:href="@{/giangviendaylop/}+${lophoc.maLop}">
+                        <span th:text="${lophoc.maLop}">Lớp</span>
+                    </a>
+                        </th:block>
+                    </li>
                 </ul>
             </li>
             <li><a th:href="@{/mailbox}"><i class="fa fa-link"></i> <span>Mail</span></a></li>
