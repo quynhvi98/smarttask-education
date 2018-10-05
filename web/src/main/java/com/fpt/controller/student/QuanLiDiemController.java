@@ -58,13 +58,16 @@ public class QuanLiDiemController {
         model.addAttribute("tongMonHoc", monHocService.tongMonHocKiVaBoMon(userInfo.getSinhVien().getBoMon().getMaNganh(),kihoc));
         System.out.println("tổng môn học: "+monHocService.tongMonHocKiVaBoMon(userInfo.getSinhVien().getBoMon().getMaNganh(),kihoc));
         model.addAttribute("diem", diemService.listDiemKi(userInfo.getSinhVien().getMaSinhVien(),kihoc));
-        model.addAttribute("tongTin", lopHocService.getTongTinSvKi(userInfo.getSinhVien().getMaSinhVien(),kihoc));
         Double dtb=0.0;
         int count=0;
+        int not_passed =0;
         for (Diem diem : diemService.listDiemKi(userInfo.getSinhVien().getMaSinhVien(),kihoc)) {
-            dtb=dtb+((diem.getDiemCuoiKi()*2)+diem.getDiemThucHanh()+diem.getDiemLyThuyet())/4;
+            Double tbmon=((diem.getDiemCuoiKi()*2)+diem.getDiemThucHanh()+diem.getDiemLyThuyet())/4;
+            if(tbmon<4){not_passed =not_passed+ diem.getMonHoc().getTinChi(); }
+            dtb=dtb+tbmon;
             count++;
         }
+        model.addAttribute("tongTin", lopHocService.getTongTinSvKi(userInfo.getSinhVien().getMaSinhVien(),kihoc)-not_passed);
         model.addAttribute("GPA",((dtb/count)/10)*4);
         model.addAttribute("DTB",dtb/count);
         Diem diem=new Diem();
@@ -81,22 +84,23 @@ public class QuanLiDiemController {
     @RequestMapping("/thongtinki")
     public String ttki(HttpSession session, HttpServletRequest request, Model model) {
         int kihoc = Integer.parseInt(request.getParameter("ki"));
-        System.out.println("kì "+kihoc);
         User userInfo = (User) session.getAttribute("userInfo");
         SinhVien sinhVien = sinhVienService.findById(userInfo.getSinhVien().getMaSinhVien());
         model.addAttribute("sinhVien", sinhVien);
         model.addAttribute("kiHienTai", kihoc);
         model.addAttribute("user", userInfo);
         model.addAttribute("tongMonHoc", monHocService.tongMonHocKiVaBoMon(userInfo.getSinhVien().getBoMon().getMaNganh(),kihoc));
-        System.out.println("tổng môn học: "+monHocService.tongMonHocKiVaBoMon(userInfo.getSinhVien().getBoMon().getMaNganh(),kihoc));
-        model.addAttribute("diem", diemService.listDiemKi(userInfo.getSinhVien().getMaSinhVien(),kihoc));
-        model.addAttribute("tongTin", lopHocService.getTongTinSvKi(userInfo.getSinhVien().getMaSinhVien(),kihoc));
+         model.addAttribute("diem", diemService.listDiemKi(userInfo.getSinhVien().getMaSinhVien(),kihoc));
         Double dtb=0.0;
         int count=0;
+        int not_passed =0;
         for (Diem diem : diemService.listDiemKi(userInfo.getSinhVien().getMaSinhVien(),kihoc)) {
-             dtb=dtb+((diem.getDiemCuoiKi()*2)+diem.getDiemThucHanh()+diem.getDiemLyThuyet())/4;
+            Double tbmon=((diem.getDiemCuoiKi()*2)+diem.getDiemThucHanh()+diem.getDiemLyThuyet())/4;
+            if(tbmon<4){not_passed =not_passed+ diem.getMonHoc().getTinChi(); }
+             dtb=dtb+tbmon;
              count++;
         }
+        model.addAttribute("tongTin", lopHocService.getTongTinSvKi(userInfo.getSinhVien().getMaSinhVien(),kihoc)-not_passed);
         model.addAttribute("GPA",((dtb/count)/10)*4);
         model.addAttribute("DTB",dtb/count);
         Diem diem=new Diem();
@@ -107,6 +111,8 @@ public class QuanLiDiemController {
         model.addAttribute("ki", ki);
         return "student/thongtindiemvakihoc";
     }
+
+
 
     private int getKiHoc(Date ngaynhaphoc) {
         DateMidnight start = new DateMidnight(ngaynhaphoc);
