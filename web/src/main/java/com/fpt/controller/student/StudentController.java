@@ -60,7 +60,7 @@ public class StudentController {
             i++;
         }
         model.addAttribute("lopHocSV", lopHocSV);
-        model.addAttribute("hocKi", "Danh sách các môn h?c trong kì: " + hocki);
+        model.addAttribute("hocKi", "Danh sách các môn học trong kì: " + hocki);
         model.addAttribute("moiNhat", thongBaoService.thongBaoMoiNhatSV(user.getSinhVien().getMaSinhVien()));
         model.addAttribute("soLuongTBChuaXem",thongBaoService.soLuongTbChuaXemSV(user.getSinhVien().getMaSinhVien()));
         return "student/register_class";
