@@ -24,6 +24,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/lobibox.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap3-wysihtml5.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/editor.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/fixtintuc.css}">
     <!-- css overwrite -->
     <link rel="stylesheet" type="text/css" th:href="@{/css/overwrite.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/fixgiaodienadmin.css}">
@@ -68,40 +69,40 @@
     <div th:replace="fragments/header :: header">&nbsp;</div>
     <div class="content-wrapper">
         <!--<div layout:fragment="content">&nbsp;</div>-->
-        <section class="content-header">
-            <h1>
-                Quản lý bộ môn
-            </h1>
-            <ol class="breadcrumb">
-                <li>
-                    <a href="#">Trang chủ</a>
-                </li>
-                <li class="active">
-                    Quản lý bộ môn
-                </li>
-            </ol>
-        </section>
-        <div class="khung" data-width="5">
-            <div class="input">
-                <div class="label">Tên môn học</div>
-                <input type="text" value="">
-            </div>
+        <!--<section class="content-header">-->
+            <!--<h1>-->
+                <!--Quản lý bộ môn-->
+            <!--</h1>-->
+            <!--<ol class="breadcrumb">-->
+                <!--<li>-->
+                    <!--<a href="#">Trang chủ</a>-->
+                <!--</li>-->
+                <!--<li class="active">-->
+                    <!--Quản lý bộ môn-->
+                <!--</li>-->
+            <!--</ol>-->
+        <!--</section>-->
+        <!--<div class="khung" data-width="5">-->
+            <!--<div class="input">-->
+                <!--<div class="label">Tên môn học</div>-->
+                <!--<input type="text" value="">-->
+            <!--</div>-->
 
-            <div class="input">
-                <div class="label">Mã môn học</div>
-                <input type="text" value="">
-            </div>
+            <!--<div class="input">-->
+                <!--<div class="label">Mã môn học</div>-->
+                <!--<input type="text" value="">-->
+            <!--</div>-->
 
-            <a href="#" class="submit">Tìm kiếm</a>
-            <!-- <div class="submit"></div> -->
-        </div>
+            <!--<a href="#" class="submit">Tìm kiếm</a>-->
+            <!--&lt;!&ndash; <div class="submit"></div> &ndash;&gt;-->
+        <!--</div>-->
         </section>
         <th:block th:if="${type == 'view'}">
-            <div th:utext="${tinTuc.title}">
+            <div class="tieude" th:utext="${tinTuc.title}">
             </div>
-            <div th:utext="'Ngày đăng: '+${#dates.format(tinTuc.time, 'dd/MM/yyyy')}">
+            <div class="ngaydang" th:utext="'Ngày đăng: '+${#dates.format(tinTuc.time, 'dd/MM/yyyy')}">
             </div>
-            <div style="text-align: left;" th:utext="${tinTuc.content}">
+            <div class="content" style="text-align: left;" th:utext="${tinTuc.content}">
 
             </div>
         </th:block>
