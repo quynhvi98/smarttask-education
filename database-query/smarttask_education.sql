@@ -335,9 +335,27 @@ CREATE TABLE IF NOT EXISTS tin_tuc
     status int
 );
 
+
+
+
 CREATE TABLE IF NOT EXISTS system_log
 (
     id bigint PRIMARY KEY AUTO_INCREMENT,
     content text,
     time datetime
+);
+
+
+
+CREATE TABLE IF NOT EXISTS bai_tap_lon
+(
+  id bigint PRIMARY KEY AUTO_INCREMENT,
+  noi_dung text,
+  ngay_bat_dau datetime,
+  han_nop datetime,
+  ma_lop varchar(255),
+  ma_giao_vien varchar(255),
+  status varchar(255),
+  CONSTRAINT FK_bt_lop FOREIGN KEY (ma_lop) REFERENCES lop_hoc(ma_lop),
+  CONSTRAINT FK_bt_giao_vien FOREIGN KEY (ma_giao_vien) REFERENCES giao_vien(ma_giao_vien)
 );

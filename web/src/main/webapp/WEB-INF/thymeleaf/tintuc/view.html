@@ -20,6 +20,9 @@
     <script type="text/javascript" th:src="@{js/demo.js}"></script>
     <script type="text/javascript" th:src="@{/js/jquery/jquery.slimscroll.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/fastclick.js}"></script>
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:500" rel="stylesheet">
 
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -41,6 +44,7 @@
     <div class="content-wrapper">
         <div class="tieude"  th:utext="${tinTuc.title}">
         </div>
+        ------------------------------------------------------------------------------------------
         <div class="ngaydang" th:utext="'Ngày đăng: '+${#dates.format(tinTuc.time, 'dd/MM/yyyy')}">
         </div>
         <div class="content" style="text-align: left;" th:utext="${tinTuc.content}">

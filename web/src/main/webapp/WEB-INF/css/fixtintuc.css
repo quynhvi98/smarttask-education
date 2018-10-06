@@ -1,12 +1,18 @@
 .content-wrapper, .tieude{
-    font-size: 30px;
+    font-size: 49px;
     text-align: center;
 }
 .content-wrapper, .content{
-    font-size: 12px;
-    font-weight: lighter;
+    font-size: 18px;
+    font-weight: normal;
+    margin: 10px;
 }
 .content-wrapper, .ngaydang{
     font-size: 13px;
     font-weight: bold;
+}
+.content-wrapper{
+    background: #fff;
+    padding:0 15%;
+    font-family: 'Noto Sans',sans-serif;
 }

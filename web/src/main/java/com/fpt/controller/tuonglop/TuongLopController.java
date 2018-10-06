@@ -2,6 +2,7 @@ package com.fpt.controller.tuonglop;
 
 import com.fpt.entity.*;
 import com.fpt.services.baidang.BaiDangService;
+import com.fpt.services.baitaplon.BaiTapLonService;
 import com.fpt.services.binhluan.BinhLuanService;
 import com.fpt.services.giangvien.GiangVienService;
 import com.fpt.services.like.LikeService;
@@ -13,6 +14,7 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
@@ -29,7 +31,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -56,7 +61,8 @@ public class TuongLopController {
     private LikeService likeService;
     @Autowired
     private TaiLieuService taiLieuService;
-
+    @Autowired
+    private BaiTapLonService baiTapLonService;
     private final Logger logger = LoggerFactory.getLogger(TuongLopController.class);
 
     private String maLop = null;
@@ -83,6 +89,7 @@ public class TuongLopController {
         model.addAttribute("lopHoc", lopHoc);
         model.addAttribute("ngayHoc", ngayHoc);
         model.addAttribute("caHoc", caHoc);
+        model.addAttribute("maLop", maLop);
         if (user.getGiaoVien() != null) {
             GiaoVien giaoVien = giangVienService.findById(user.getGiaoVien().getMaGiaoVien());
             model.addAttribute("soLuongTBChuaXem", thongBaoService.soLuongTbChuaXemGV(user.getGiaoVien().getMaGiaoVien()));
@@ -202,7 +209,7 @@ public class TuongLopController {
     }
 
     @PostMapping("/tuonglop/post/update")
-    public String updatePost(BaiDang baiDang){
+    public String updatePost(BaiDang baiDang) {
         BaiDang baiDangUpdate = baiDangService.findById(baiDang.getPostId());
         baiDangUpdate.setContent(baiDang.getContent());
         baiDangService.save(baiDangUpdate);
@@ -257,5 +264,59 @@ public class TuongLopController {
             outputStream.close();
             return;
         }
+    }
+
+    @Autowired
+    private SimpMessagingTemplate simpMessagingTemplate;
+
+    @PostMapping("/api/taobt")
+    public void getSearchResultViaAjax(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException, ParseException {
+        String baiTap = request.getParameter("baiTap");
+        String ngayBatDau = request.getParameter("ngayBatDau");
+        String hanNop = request.getParameter("hanNop");
+        String maLop = request.getParameter("maLop");
+        String timeStart = request.getParameter("timeStart");
+        String timeEnd = request.getParameter("timeEnd");
+        User user = (User) session.getAttribute("userInfo");
+        response.getWriter().println("success");
+        ThongBaoSocket message = new ThongBaoSocket();
+        List<SinhVien> sinhViens = sinhVienService.getListSinhVienbyLopHocId(maLop);
+        BaiTapLon baiTap1 = new BaiTapLon();
+        baiTap1.setGiaoVien(user.getGiaoVien());
+        baiTap1.setLopHoc(lopHocService.findById(maLop));
+        baiTap1.setNgayBatDau(getDate(ngayBatDau, timeStart));
+        baiTap1.setNgayKetThuc(getDate(hanNop, timeEnd));
+        baiTap1.setNoiDung(baiTap);
+        baiTapLonService.create(baiTap1);
+        for (SinhVien sinhVien : sinhViens) {
+            message.setTitle("Thông báo Bài tập");
+            message.setContent("Lớp: " + maLop + " có " + baiTap + ", ngày bắt đầu: " + ngayBatDau + ", hạn nộp bài: " + hanNop);
+            message.setSender("Giáo viên");
+            String newdate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+            message.setTime(newdate);
+            message.setReceiver(sinhVien.getMaSinhVien());
+            ThongBao thongBaoSV = themThongBaoSV(message);
+            message.setId(String.valueOf(thongBaoSV.getId()));
+            this.simpMessagingTemplate.convertAndSend("/topic/public-" + message.getReceiver(), message);
+        }
+    }
+
+    public ThongBao themThongBaoSV(ThongBaoSocket message) {
+        ThongBao thongBao = new ThongBao();
+        thongBao.setSinhVien(sinhVienService.getSinhVienId(message.getReceiver()));
+        thongBao.setContent(message.getContent());
+        thongBao.setTime(message.getTime());
+        thongBao.setStatus("false");
+        thongBao.setTitle(message.getTitle());
+        thongBao.setSender(message.getSender());
+        ThongBao thongBao1 = thongBaoService.themThongBao(thongBao);
+        return thongBao1;
+    }
+
+
+    public Date getDate(String date, String time) throws ParseException {
+        date = date.replace('/', '-');
+        Date date1 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(date + " " + time + ":00");
+        return date1;
     }
 }
