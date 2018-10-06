@@ -362,19 +362,6 @@ private boolean checkHanBaiTap(Date day) throws ParseException {
         return check;
     }
 }
-    public static void main(String[] args) throws ParseException {
-         String dateStop = "2018-10-06 04:42:01";
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-M-dd HH:mm:ss");
-        Date d2 = null;
-
-
-            d2 = format.parse(dateStop);
-
-
-        boolean a=new TuongLopController().checkHanBaiTap(d2);
-        System.out.println(a);
-
-    }
 
     @RequestMapping(method = RequestMethod.POST, value = "/sinhvien/nopbai")
     @ResponseBody
@@ -386,9 +373,7 @@ private boolean checkHanBaiTap(Date day) throws ParseException {
         try {
             id = Integer.parseInt(request.getParameter("id"));
         }catch (Exception e){
-
         }
-
         if (!file.isEmpty()) {
             if(id==-1) {
                 suffix = file.getOriginalFilename().split("\\.")[1];
@@ -419,6 +404,4 @@ private boolean checkHanBaiTap(Date day) throws ParseException {
          BaiTap baiTap = baiTapService.findById(Id);
         downloadFile(response, baiTap.getFileName(), baiTap.getFileRealName(),"baitap");
     }
-
-
     }
