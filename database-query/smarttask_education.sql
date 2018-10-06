@@ -33,6 +33,8 @@ DROP TABLE IF EXISTS diem_sinhvien;
 DROP TABLE IF EXISTS tai_lieu;
 DROP TABLE IF EXISTS tin_tuc;
 DROP TABLE IF EXISTS system_log;
+DROP TABLE IF EXISTS bai_tap_lon;
+
 
 CREATE TABLE IF NOT EXISTS role (
   ma_quyen VARCHAR(255),
