@@ -5,7 +5,6 @@ package com.fpt.controller.student;
         import com.fpt.services.bomon.BoMonService;
         import com.fpt.services.lophoc.LopHocService;
         import com.fpt.services.monhoc.MonHocService;
-        import com.fpt.services.pheduyetlop.PheDuyetLopService;
         import com.fpt.services.sinhvien.SinhVienService;
         import com.fpt.services.thongbao.ThongBaoService;
         import com.fpt.services.user.UserService;
@@ -36,8 +35,6 @@ public class StudentController {
     @Autowired
     private SinhVienService sinhVienService;
 
-    @Autowired
-    private PheDuyetLopService pheDuyetLopService;
 
     @Autowired
     private MonHocService monHocService;
