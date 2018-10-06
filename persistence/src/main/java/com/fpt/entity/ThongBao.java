@@ -44,11 +44,6 @@ public class ThongBao {
     @JoinColumn(name = "ma_lop")
     private LopHoc lopHoc;
 
-    @ManyToOne
-    @JoinColumn(name = "ma_nhom")
-    private Nhom nhom;
-
-
     public String getStatus() {
         return status;
     }
@@ -125,11 +120,4 @@ public class ThongBao {
         this.lopHoc = lopHoc;
     }
 
-    public Nhom getNhom() {
-        return nhom;
-    }
-
-    public void setNhom(Nhom nhom) {
-        this.nhom = nhom;
-    }
 }

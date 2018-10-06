@@ -18,28 +18,24 @@ public class BaiTap {
     private int id;
 
     @Column(name = "ngay_tao")
-    private Date ngay_tao;
+    private Date ngayTao;
 
-    @Column(name = "path")
-    private String path;
+    @Column(name = "file_name")
+    private String fileName;
 
-    @ManyToOne
-    @JoinColumn(name = "ma_bai_viet")
-    private BaiViet baiViet;
+    @Column(name = "file_real_name")
+    private String fileRealName;
 
     @ManyToOne
     @JoinColumn(name = "ma_sinh_vien")
     private SinhVien sinhVien;
 
+    @ManyToOne
+    @JoinColumn(name = "ma_lop")
+    private LopHoc lopHoc;
+
+
     public BaiTap() {
-    }
-
-    public BaiViet getBaiViet() {
-        return baiViet;
-    }
-
-    public void setBaiViet(BaiViet baiViet) {
-        this.baiViet = baiViet;
     }
 
     public SinhVien getSinhVien() {
@@ -62,20 +58,35 @@ public class BaiTap {
         this.id = id;
     }
 
-    public Date getNgay_tao() {
-        return ngay_tao;
+    public Date getNgayTao() {
+        return ngayTao;
     }
 
-    public void setNgay_tao(Date ngay_tao) {
-        this.ngay_tao = ngay_tao;
+    public void setNgayTao(Date ngayTao) {
+        this.ngayTao = ngayTao;
     }
 
-    public String getPath() {
-        return path;
+    public String getFileName() {
+        return fileName;
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
+    public String getFileRealName() {
+        return fileRealName;
+    }
+
+    public void setFileRealName(String fileRealName) {
+        this.fileRealName = fileRealName;
+    }
+
+    public LopHoc getLopHoc() {
+        return lopHoc;
+    }
+
+    public void setLopHoc(LopHoc lopHoc) {
+        this.lopHoc = lopHoc;
+    }
 }

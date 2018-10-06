@@ -1,13 +1,7 @@
 package com.fpt.services.lophoc.impl;
 
-import com.fpt.entity.BoMon;
 import com.fpt.entity.LopHoc;
-import com.fpt.entity.MonHoc;
-import com.fpt.entity.PheDuyet;
-import com.fpt.repositories.bomon.BoMonDao;
 import com.fpt.repositories.lophoc.LopHocDao;
-import com.fpt.repositories.monhoc.MonHocDao;
-import com.fpt.repositories.pheduyet.PheDuyetDao;
 import com.fpt.services.lophoc.LopHocService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

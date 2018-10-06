@@ -1,9 +1,6 @@
 package com.fpt.services.lophoc;
 
-import com.fpt.entity.BoMon;
 import com.fpt.entity.LopHoc;
-import com.fpt.entity.MonHoc;
-import com.fpt.entity.PheDuyet;
 
 import java.util.List;
 

@@ -214,9 +214,7 @@ public class UserController {
             user.getSinhVien().setLstDiem(null);
             user.getSinhVien().setUser(null);
             user.getSinhVien().setKhoaVien(null);
-            user.getSinhVien().setNhoms(null);
             user.getSinhVien().setLstThongBao(null);
-            user.getSinhVien().setLstPheDuyet(null);
             user.getSinhVien().setLstBaiTap(null);
             user.getSinhVien().setLopHocs(null);
             user.getSinhVien().getBoMon().setKhoaVien(null);
@@ -225,7 +223,6 @@ public class UserController {
             user.getSinhVien().getBoMon().setLstSinhVien(null);
         }else if(user.getGiaoVien()!=null){
             user.getGiaoVien().setLstLopHoc(null);
-            user.getGiaoVien().setLstPheDuyet(null);
             user.getGiaoVien().setLstThongBao(null);
             user.getGiaoVien().setUser(null);
             user.getGiaoVien().getBoMon().setLstSinhVien(null);

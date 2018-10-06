@@ -143,7 +143,6 @@ public class LopHocController {
             gv.getUser().setLstBinhLuan(null);
             gv.getUser().setLstLike(null);
             gv.setLstLopHoc(null);
-            gv.setLstPheDuyet(null);
             gv.setLstThongBao(null);
         }
 
@@ -175,30 +174,23 @@ public class LopHocController {
         lopHoc.getGiaoVien().getUser().setLstBinhLuan(null);
         lopHoc.getGiaoVien().getUser().setLstBaiDang(null);
         lopHoc.getGiaoVien().setLstThongBao(null);
-        lopHoc.getGiaoVien().setLstPheDuyet(null);
         lopHoc.getGiaoVien().setLstLopHoc(null);
         lopHoc.getGiaoVien().setBoMon(null);
         lopHoc.getMonHoc().setKiHoc(null);
         lopHoc.getMonHoc().setLstLopHoc(null);
         lopHoc.getMonHoc().setBoMon(null);
-        lopHoc.setLstBaiViet(null);
-        lopHoc.setLstNhom(null);
-        lopHoc.setLstPheDuyet(null);
         lopHoc.setLstThongBao(null);
         lopHoc.setLstTaiLieu(null);
         lopHoc.setLstDiem(null);
         lopHoc.setLstBaiDang(null);
         lopHoc.getPhongHoc().setLopHocs(null);
 
-
         Set<SinhVien> lstSinhVien = lopHoc.getSinhViens();
         for (SinhVien sv : lstSinhVien){
             sv.setLopHocs(null);
             sv.setLstBaiTap(null);
-            sv.setLstPheDuyet(null);
             sv.setKhoaVien(null);
             sv.setLstThongBao(null);
-            sv.setNhoms(null);
             sv.setLstDiem(null);
             sv.setBoMon(null);
             sv.getUser().setRoles(null);
