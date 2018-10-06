@@ -7,6 +7,7 @@ import com.fpt.services.phonghoc.PhongHocService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,8 +21,9 @@ public class PhongHocServiceImpl implements PhongHocService {
     }
 
     @Override
-    public PhongHoc getAvailableClass(String[] ngayHoc, String[] caHoc) {
+    public List<PhongHoc> getAvailableClass(String[] ngayHoc, String[] caHoc) {
         List<PhongHoc> lstPhongHoc = (List<PhongHoc>) phongHocDao.findAll();
+        List<PhongHoc> result = new ArrayList<>();
         int checkExist = 0;
         for (int i = 0; i < lstPhongHoc.size(); i++) {
             if (lstPhongHoc.get(i).getLopHocs().size() > 0) {
@@ -36,14 +38,15 @@ public class PhongHocServiceImpl implements PhongHocService {
                         }
                     }
                     if (checkExist == 0) {
-                        return lstPhongHoc.get(i);
+                        result.add(lstPhongHoc.get(i)) ;
                     }
                 }
             }else {
-                return lstPhongHoc.get(i);
+                result.add(lstPhongHoc.get(i)) ;
             }
         }
-        return null;
+        result.forEach(phongHoc -> phongHoc.setLopHocs(null));
+        return result;
     }
 
     @Override

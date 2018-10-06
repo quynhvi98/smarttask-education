@@ -8,7 +8,7 @@ import java.util.List;
 public interface PhongHocService {
     List<PhongHoc> getAll();
 
-    PhongHoc getAvailableClass(String[] ngayHoc, String[] caHoc);
+    List<PhongHoc> getAvailableClass(String[] ngayHoc, String[] caHoc);
 
     PhongHoc findById(String phongHoc);
 }

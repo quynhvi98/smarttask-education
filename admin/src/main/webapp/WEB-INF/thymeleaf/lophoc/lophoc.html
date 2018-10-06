@@ -402,9 +402,10 @@
                                             <label for="" class="col-sm-3 control-label">Phòng học <span
                                                     class="red">(*)</span></label>
                                             <div class="col-md-9">
-                                                <input id="phongHoc" readonly required name="phongHoc" type="text"
-                                                       class="form-control"
-                                                       placeholder="Phòng học">
+                                                <select id="phongHoc" required name="phongHoc"
+                                                       class="form-control">
+                                                    <option value=""></option>
+                                                </select>
                                             </div>
                                             <p class="col-sm-offset-3 help-block red">Example block-level help text
                                                 here.</p>
@@ -757,7 +758,11 @@
             data: {ngayHoc: ngayHoc, caHoc: caHoc},
             // dataType: "text",
             success: function (result) {
-                $('#phongHoc').val(result);
+                var rs = JSON.parse(JSON.stringify(result));
+                $('#phongHoc').empty();
+                $.each(rs, function (i, obj) {
+                    $('#phongHoc').append("<option value='" + obj.id + "'>" + obj.tenPhong + "</option>");
+                });
             },
             error: function () {
                 alert("500 error");

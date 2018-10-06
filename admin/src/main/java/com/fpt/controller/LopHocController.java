@@ -89,7 +89,6 @@ public class LopHocController {
                 e.printStackTrace();
             }
 
-            phongHoc = phongHoc.split("-")[0];
             PhongHoc phongHocE = phongHocService.findById(phongHoc);
 
             LopHoc lopHoc = new LopHoc();
@@ -214,16 +213,11 @@ public class LopHocController {
 
     @GetMapping("/lophoc/getAvailableClass")
     public @ResponseBody
-    String getAvailableClass(@RequestParam(value="ngayHoc[]") String[] ngayHoc,
+    List<PhongHoc> getAvailableClass(@RequestParam(value="ngayHoc[]") String[] ngayHoc,
                              @RequestParam(value="caHoc[]") String[] caHoc ){
-        PhongHoc phongHoc = phongHocService.getAvailableClass(ngayHoc, caHoc);
-        return phongHoc != null ? (phongHoc.getId()+"-"+phongHoc.getTenPhong()) : "";
+        List<PhongHoc> lstPhongHoc = phongHocService.getAvailableClass(ngayHoc, caHoc);
+        return lstPhongHoc;
     }
-
-
-
-
-
 
     @PostMapping("/lophoc/tim-kiem")
     public String searchLopHoc(HttpServletRequest request, Model model) throws IOException, ParseException {
