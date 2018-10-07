@@ -16,16 +16,8 @@ DROP TABLE IF EXISTS giao_vien;
 DROP TABLE IF EXISTS lop_hoc;
 DROP TABLE IF EXISTS sinh_vien;
 DROP TABLE IF EXISTS lop_sinhvien;
-DROP TABLE IF EXISTS loai_bai_viet;
-DROP TABLE IF EXISTS bai_viet;
 DROP TABLE IF EXISTS bai_tap;
-DROP TABLE IF EXISTS nhom;
-DROP TABLE IF EXISTS chi_tiet_nhom;
-DROP TABLE IF EXISTS de_tai;
-DROP TABLE IF EXISTS chi_tiet_nhom_de_tai;
-DROP TABLE IF EXISTS nop_de_tai;
 DROP TABLE IF EXISTS thong_bao;
-DROP TABLE IF EXISTS phe_duyet;
 DROP TABLE IF EXISTS bai_dang;
 DROP TABLE IF EXISTS binh_luan;
 DROP TABLE IF EXISTS likes;
@@ -33,6 +25,8 @@ DROP TABLE IF EXISTS diem_sinhvien;
 DROP TABLE IF EXISTS tai_lieu;
 DROP TABLE IF EXISTS tin_tuc;
 DROP TABLE IF EXISTS system_log;
+DROP TABLE IF EXISTS bai_tap_lon;
+
 
 CREATE TABLE IF NOT EXISTS role (
   ma_quyen VARCHAR(255),
@@ -159,79 +153,16 @@ CREATE TABLE IF NOT EXISTS lop_sinhvien (
   CONSTRAINT FK_ma_sinh_vien FOREIGN KEY (ma_sinh_vien) REFERENCES sinh_vien(ma_sinh_vien)
 ) engine=InnoDB;
 
-CREATE TABLE IF NOT EXISTS loai_bai_viet (
-  ma_loai VARCHAR(255),
-  ten_loai VARCHAR(255),
-  PRIMARY KEY (ma_loai)
-) engine=InnoDB;
-
-CREATE TABLE IF NOT EXISTS bai_viet(
-  ma_bai_viet VARCHAR(255),
-  ten_bai_viet VARCHAR(255),
-  noi_dung VARCHAR(255),
-  trang_thai varchar (255),
-  ngay_tao datetime,
-  ma_lop VARCHAR(255),
-  ma_loai VARCHAR(255),
-  PRIMARY KEY (ma_bai_viet),
-  CONSTRAINT FK_ma_lop_bv FOREIGN KEY (ma_lop) REFERENCES lop_hoc(ma_lop),
-  CONSTRAINT FK_ma_loai FOREIGN KEY (ma_loai) REFERENCES loai_bai_viet(ma_loai)
-) engine=InnoDB;
-
 CREATE TABLE IF NOT EXISTS bai_tap(
   id BIGINT NOT NULL auto_increment,
   ngay_tao datetime,
-  path VARCHAR(255),
+  file_name VARCHAR(255),
+  file_real_name varchar(255),
   ma_sinh_vien VARCHAR(255),
-  ma_bai_viet VARCHAR(255),
+  ma_lop VARCHAR(255),
   PRIMARY KEY (id),
   CONSTRAINT FK_ma_sinh_vien_bt FOREIGN KEY (ma_sinh_vien) REFERENCES sinh_vien(ma_sinh_vien),
-  CONSTRAINT FK_ma_bai_viet FOREIGN KEY (ma_bai_viet) REFERENCES bai_viet(ma_bai_viet)
-) engine=InnoDB;
-
-CREATE TABLE IF NOT EXISTS nhom(
-  ma_nhom VARCHAR(255),
-  ten_nhom VARCHAR(255),
-  ngay_tao_nhom datetime,
-  ma_lop VARCHAR(255),
-  trang_thai varchar (255),
-  PRIMARY KEY (ma_nhom),
-  CONSTRAINT FK_ma_lop_nhom FOREIGN KEY (ma_lop) REFERENCES lop_hoc(ma_lop)
-) engine=InnoDB;
-
-CREATE TABLE IF NOT EXISTS chi_tiet_nhom(
-  id BIGINT NOT NULL auto_increment,
-  ma_nhom VARCHAR(255),
-  ma_sinh_vien VARCHAR(255),
-  PRIMARY KEY (id),
-  CONSTRAINT FK_ma_nhom FOREIGN KEY (ma_nhom) REFERENCES nhom(ma_nhom),
-  CONSTRAINT FK_ma_sinh_vien_nhom FOREIGN KEY (ma_sinh_vien) REFERENCES sinh_vien(ma_sinh_vien)
-) engine=InnoDB;
-
-CREATE TABLE IF NOT EXISTS de_tai(
-  ma_de_tai VARCHAR(255),
-  ten_de_tai VARCHAR(255),
-  PRIMARY KEY (ma_de_tai)
-) engine=InnoDB;
-
-CREATE TABLE IF NOT EXISTS chi_tiet_nhom_de_tai(
-  id BIGINT NOT NULL auto_increment,
-  ma_nhom VARCHAR(255),
-  ma_de_tai VARCHAR(255),
-  PRIMARY KEY (id),
-  CONSTRAINT FK_ma_nhom_de_tai FOREIGN KEY (ma_nhom) REFERENCES nhom(ma_nhom),
-  CONSTRAINT FK_ma_de_tai FOREIGN KEY (ma_de_tai) REFERENCES de_tai(ma_de_tai)
-) engine=InnoDB;
-
-CREATE TABLE IF NOT EXISTS nop_de_tai(
-  id BIGINT NOT NULL auto_increment,
-  ma_de_tai VARCHAR(255),
-  ngay_nop datetime,
-  path VARCHAR(255),
-  ma_nhom VARCHAR(255),
-  PRIMARY KEY (id),
-  CONSTRAINT FK_ma_nhom_nop_de_tai FOREIGN KEY (ma_nhom) REFERENCES nhom(ma_nhom),
-   CONSTRAINT FK_ma_nop_de_tai FOREIGN KEY (ma_de_tai) REFERENCES de_tai(ma_de_tai)
+  CONSTRAINT FK_ma_lop_bt FOREIGN KEY (ma_lop) REFERENCES lop_hoc(ma_lop)
 ) engine=InnoDB;
 
 CREATE TABLE IF NOT EXISTS thong_bao(
@@ -244,26 +175,11 @@ CREATE TABLE IF NOT EXISTS thong_bao(
   ma_giao_vien VARCHAR(255),
   ma_sinh_vien VARCHAR(255),
   ma_lop VARCHAR(255),
-  ma_nhom VARCHAR(255),
   PRIMARY KEY (id),
   CONSTRAINT FK_ma_giao_vien_thong_bao FOREIGN KEY (ma_giao_vien) REFERENCES giao_vien(ma_giao_vien),
   CONSTRAINT FK_ma_sinh_vien_thong_bao FOREIGN KEY (ma_sinh_vien) REFERENCES sinh_vien(ma_sinh_vien),
-  CONSTRAINT FK_ma_lop_hoc_thong_bao FOREIGN KEY (ma_lop) REFERENCES lop_hoc(ma_lop),
-  CONSTRAINT FK_ma_nhom_thong_bao FOREIGN KEY (ma_nhom) REFERENCES nhom(ma_nhom)
+  CONSTRAINT FK_ma_lop_hoc_thong_bao FOREIGN KEY (ma_lop) REFERENCES lop_hoc(ma_lop)
 ) engine=InnoDB;
-
-CREATE TABLE IF NOT EXISTS phe_duyet (
-  id BIGINT NOT NULL auto_increment,
-  status VARCHAR(255),
-  ma_giao_vien VARCHAR(255),
-  ma_sinh_vien VARCHAR(255),
-  ma_lop VARCHAR(255),
-  PRIMARY KEY (id),
-  CONSTRAINT FK_ma_giao_vien_phe_duyet FOREIGN KEY (ma_giao_vien) REFERENCES giao_vien(ma_giao_vien),
-  CONSTRAINT FK_ma_sinh_vien_phe_duyet FOREIGN KEY (ma_sinh_vien) REFERENCES sinh_vien(ma_sinh_vien),
-  CONSTRAINT FK_ma_lop_hoc_phe_duyet FOREIGN KEY (ma_lop) REFERENCES lop_hoc(ma_lop)
-) engine=InnoDB;
-
 
 CREATE TABLE IF NOT EXISTS bai_dang
 (
@@ -335,17 +251,12 @@ CREATE TABLE IF NOT EXISTS tin_tuc
     status int
 );
 
-
-
-
 CREATE TABLE IF NOT EXISTS system_log
 (
     id bigint PRIMARY KEY AUTO_INCREMENT,
     content text,
     time datetime
 );
-
-
 
 CREATE TABLE IF NOT EXISTS bai_tap_lon
 (

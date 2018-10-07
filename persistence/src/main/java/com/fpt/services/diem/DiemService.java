@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface DiemService {
   void careate(List<Diem> diem);
-Diem save(Diem diem);
+  Diem save(Diem diem);
   Diem  findById(String id);
   List<Diem> listDiemKi(String msv,int ki);
 }

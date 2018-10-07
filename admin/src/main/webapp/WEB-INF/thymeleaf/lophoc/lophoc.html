@@ -90,7 +90,7 @@
                     <div class="label">Môn Học</div>
                     <input type="text" name="tenMonHoc" th:value="${tenMonHoc}"/><br>
                 </div>
-                <input type="submit"  class="submit" value="Tìm kiếm">
+                <input type="submit" class="submit" value="Tìm kiếm">
             </form>
         </div>
         <h3 class="title">
@@ -160,9 +160,11 @@
                                             <i class="fa fa-search" aria-hidden="true"></i> Xem
                                         </a>
                                     </li>
-                                    <!--<li class="inline">-->
-                                    <!--<a href="#" class="xoa"><i class="fa fa-trash-o" aria-hidden="true"></i> Xóa</a>-->
-                                    <!--</li>-->
+                                    <li class="inline">
+                                        <a class="icon-edit" th:attr="itemId=${lh.maLop}"
+                                           data-toggle="modal"
+                                           data-target="#suanhansu"><i class="fa fa-pencil-square-o"
+                                                                       aria-hidden="true"></i> Sửa</a></li>
                                 </ul>
                             </div>
                         </td>
@@ -175,7 +177,7 @@
         </div>
         </section>
 
-        <!-- Modal themnhansu-->
+        <!-- Modal them lop hoc-->
         <div class="modal modal-full fade" id="themnhansu" role="dialog" aria-labelledby="themnhansuLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -253,7 +255,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="form-group">
+                                        <div hidden id="chonLichHoc" class="form-group">
                                             <label for="" class="col-sm-3 control-label">Ngày học</label>
 
                                             <div class="col-md-7">
@@ -361,7 +363,7 @@
                                                         Ca
                                                         <select class="caHoc"
                                                                 style="background-color: #DCDCDC"
-                                                                disabled  name="caHoc">
+                                                                disabled name="caHoc">
                                                             <option>1</option>
                                                             <option>2</option>
                                                             <option>3</option>
@@ -403,7 +405,7 @@
                                                     class="red">(*)</span></label>
                                             <div class="col-md-9">
                                                 <select id="phongHoc" required name="phongHoc"
-                                                       class="form-control">
+                                                        class="form-control">
                                                     <option value=""></option>
                                                 </select>
                                             </div>
@@ -440,7 +442,8 @@
                                         <div class="form-group">
                                             <label for="" class="col-sm-3 control-label">Ngày kết thúc</label>
                                             <div class="col-md-9">
-                                                <input type="date" required name="ngayKetThuc" class="form-control"
+                                                <input id="ngayKetThuc" readonly type="date" required name="ngayKetThuc"
+                                                       class="form-control"
                                                        placeholder="Ngày kết thúc"/>
                                             </div>
                                         </div>
@@ -464,7 +467,7 @@
             </div>
         </div>
 
-        <!-- Modal xemnhansu -->
+        <!-- Modal xem lop hoc -->
         <div class="modal modal-full fade" id="xemnhansu" role="dialog" aria-labelledby="xemnhansuLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -592,10 +595,174 @@
         <!--test-->
     </div>
 
+    <!-- Modal sua lop hoc-->
+    <div class="modal modal-full fade" id="suanhansu" role="dialog" aria-labelledby="suanhansuLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h3 class="modal-title" id="suanhansuLabel">
+                        Cập nhật
+                    </h3>
+                </div>
+                <div class="modal-body">
+                    <form id="form-capnhat" th:action="@{/lophoc/update}" class="form-horizontal">
+                        <div class="">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="" class="col-sm-3 control-label">Bộ môn</label>
+                                        <div class="col-md-9">
+                                            <input id="boMonEdit" readonly class="form-control"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="col-sm-3 control-label">Kì học</label>
+                                        <div class="col-md-9">
+                                            <input id="kiHocEdit" readonly class="form-control"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="col-sm-3 control-label">Môn học</label>
+                                        <div class="col-md-9">
+                                            <input id="monHocEdit" readonly class=" form-control"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="col-sm-3 control-label">Giảng viên</label>
+                                        <div class="col-md-9">
+                                            <input  id="giangVienCuEdit" readonly
+                                                    class=" form-control"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="col-sm-3 control-label">Giảng viên mới</label>
+                                        <div class="col-md-9">
+                                            <select required id="giangVienEdit" name="giangVienEdit"
+                                                    class="select2 form-control"
+                                                    title="Giảng viên mới">
+                                                <!--<option selected value=""><&#45;&#45;Chọn&ndash;&gt;</option>-->
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="col-sm-3 control-label">Lịch học</label>
+                                        <div class="col-md-9">
+                                            <span id="lichHocEdit">
+                                                <!--<option selected value=""><&#45;&#45;Chọn&ndash;&gt;</option>-->
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="" class="col-sm-3 control-label">Mã lớp học <span class="red">(*)</span></label>
+                                        <div class="col-md-9">
+                                            <input id="maLopEdit" name="maLopEdit" readonly type="text"
+                                                   class="form-control"
+                                                   placeholder="Mã lớp học">
+                                        </div>
+                                        <p class="col-sm-offset-3 help-block red">Example block-level help text
+                                            here.</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="col-sm-3 control-label">Phòng học <span
+                                                class="red">(*)</span></label>
+                                        <div class="col-md-9">
+                                            <input id="phongHocEdit" readonly
+                                                    class="form-control"/>
+                                        </div>
+                                        <p class="col-sm-offset-3 help-block red">Example block-level help text
+                                            here.</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="col-sm-3 control-label">Tín chỉ <span
+                                                class="red">(*)</span></label>
+                                        <div class="col-md-9">
+                                            <input id="tinChiEdit" readonly type="text"
+                                                   class="form-control">
+                                        </div>
+                                        <p class="col-sm-offset-3 help-block red">Example block-level help text
+                                            here.</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="col-sm-3 control-label">Mô tả</label>
+                                        <div class="col-md-9">
+                                                <textarea id="moTaEdit" readonly class="form-control" placeholder="Mô tả"
+                                                          rows="2"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="col-sm-3 control-label">Ngày bắt đầu</label>
+                                        <div class="col-md-9">
+                                            <input id="ngayBatDauEdit" type="date" readonly
+                                                   class="form-control"
+                                                   placeholder="Ngày bắt đầu">
+                                        </div>
+                                        <p class="col-sm-offset-3 help-block red">Example block-level help text
+                                            here.</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="col-sm-3 control-label">Ngày kết thúc</label>
+                                        <div class="col-md-9">
+                                            <input id="ngayKetThucEdit" readonly type="date"
+                                                   class="form-control"
+                                                   placeholder="Ngày kết thúc"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer text-center">
+                    <button type="button" id="btn-update" class="btn btn-primary"><i class="fa fa-plus-circle"
+                                                                                      aria-hidden="true"></i> Cập nhật
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-sign-out"
+                                                                                          aria-hidden="true"></i>
+                        Thoát
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div th:replace="fragments/footer :: footer">&nbsp;</div>
 </div>
 </body>
 <script th:inline="javascript">
+
+    $(document).ready(function () {
+        var today = new Date();
+        document.getElementById("ngayBatDau").setAttribute("min", fomatDate(today));
+
+    });
+
+    function fomatDate(date) {
+        var dd = date.getDate();
+        var mm = date.getMonth() + 1; //January is 0!
+        var yyyy = date.getFullYear();
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+
+        date = yyyy + '-' + mm + '-' + dd;
+        return date;
+    }
+
+    $('#ngayBatDau').on('input', function () {
+        var begin = new Date($('#ngayBatDau').val());
+        var end = new Date(begin.setMonth(begin.getMonth() + 6));
+        $('#ngayKetThuc').val(fomatDate(end));
+    });
+
     $('input:checkbox').on('change', function () {
         var numberOfChecked = $('input:checkbox:checked').length;
         if (numberOfChecked > parseInt(tinChi)) {
@@ -628,6 +795,7 @@
 
 
     $('#khoaVien').change(function () {
+        $('#chonLichHoc').show();
         var maKhoaVien = $(this).val();
         $.ajax({
             url: base_url + 'lophoc/getValueForBoMon',
@@ -785,50 +953,104 @@
 
 
     $('.lh-detail').click(function () {
-        if (checkView == 0) {
-            var itemId = $(this).attr("itemId");
-            $.ajax({
-                url: base_url + 'lophoc/timkiem/' + itemId,
-                type: "get",
-                data: {id: itemId},
-                dataType: "text",
-                success: function (result) {
-                    var rs = JSON.parse(result);
-                    $('#malopDtl').text(rs.maLop);
-                    $('#giaoVienDtl').text(rs.giaoVien.user.fullName);
-                    $('#monHocDtl').text(rs.monHoc.tenMonHoc);
-                    $('#phongHocDtl').text(rs.phongHoc.tenPhong);
-                    $('#totalSvDtl').text(rs.sinhViens.length);
-                    $('#moTaDtl').text(rs.moTa);
-                    $('#ngayTaoDtl').text(moment(rs.ngayTao).format("MMM Do YY"));
-                    $('#ngayBDDTL').text(moment(rs.ngayBatDau).format("MMM Do YY"));
-                    $('#ngayKTDtl').text(moment(rs.ngayKetThuc).format("MMM Do YY"));
 
-                    $.each(rs.sinhViens, function (i, obj) {
-                        $('#dsSinhVien tr:last')
-                            .after("<tr>" +
-                                "<td>" + (i + 1) + "</td>" +
-                                "<td>" + obj.maSinhVien + "</td>" +
-                                "<td>" + obj.user.fullName + "</td>" +
-                                "</tr>");
-                    });
+        var itemId = $(this).attr("itemId");
+        $.ajax({
+            url: base_url + 'lophoc/timkiem/' + itemId,
+            type: "get",
+            data: {id: itemId},
+            dataType: "text",
+            success: function (result) {
+                var rs = JSON.parse(result);
+                $('#malopDtl').text(rs.maLop);
+                $('#giaoVienDtl').text(rs.giaoVien.user.fullName);
+                $('#monHocDtl').text(rs.monHoc.tenMonHoc);
+                $('#phongHocDtl').text(rs.phongHoc.tenPhong);
+                $('#totalSvDtl').text(rs.sinhViens.length);
+                $('#moTaDtl').text(rs.moTa);
+                $('#ngayTaoDtl').text(moment(rs.ngayTao).format("DD/MM/YYYY"));
+                $('#ngayBDDTL').text(moment(rs.ngayBatDau).format("DD/MM/YYYY"));
+                $('#ngayKTDtl').text(moment(rs.ngayKetThuc).format("DD/MM/YYYY"));
 
-                    var ngayHoc = rs.ngayHoc.split(',');
-                    var caHoc = rs.caHoc.split(',');
+                $.each(rs.sinhViens, function (i, obj) {
+                    $('#dsSinhVien tr:last')
+                        .after("<tr>" +
+                            "<td>" + (i + 1) + "</td>" +
+                            "<td>" + obj.maSinhVien + "</td>" +
+                            "<td>" + obj.user.fullName + "</td>" +
+                            "</tr>");
+                });
 
-                    for (i = 0; i < ngayHoc.length - 1; i++) {
-                        $('#lichHoc tr:last')
-                            .after("<tr><td style='width: 70px'>Thứ " + ngayHoc[i] + ":</td>" +
-                                "<td>Ca " + caHoc[i] + "</td>" +
-                                "</tr>");
-                    }
-                    checkView++;
+                var ngayHoc = rs.ngayHoc.split(',');
+                var caHoc = rs.caHoc.split(',');
+                $('#lichHoc').empty();
+                for (i = 0; i < ngayHoc.length - 1; i++) {
+                    $('#lichHoc')
+                        .append("<tr><td style='width: 70px'>Thứ " + ngayHoc[i] + ":</td>" +
+                            "<td>Ca " + caHoc[i] + "</td>" +
+                            "</tr>");
                 }
-            });
-        }
+
+            }
+        });
     });
 
-    var checkView = 0;
+    $('.icon-edit').click(function () {
+        var itemId = $(this).attr("itemId");
+        $.ajax({
+            url: base_url + 'lophoc/findtoupdate/' + itemId,
+            type: "get",
+            data: {id: itemId},
+            dataType: "text",
+            success: function (result) {
+                var rs = JSON.parse(result);
+                var lopHoc = rs[0];
+                var lstGiaoVien = rs[1];
+                $('#boMonEdit').val(lopHoc.monHoc.boMon.tenNganh);
+                $('#kiHocEdit').val(lopHoc.monHoc.kiHoc.kiHoc);
+                $('#monHocEdit').val(lopHoc.monHoc.tenMonHoc);
+                $('#giangVienCuEdit').val(lopHoc.giaoVien.user.fullName);
+                $('#maLopEdit').val(lopHoc.maLop);
+                $('#phongHocEdit').val(lopHoc.phongHoc.tenPhong);
+                $('#tinChiEdit').val(lopHoc.monHoc.tinChi);
+                $('#moTaEdit').val(lopHoc.moTa);
+                $('#ngayBatDauEdit').val(fomatDate(new Date(lopHoc.ngayBatDau)));
+                $('#ngayKetThucEdit').val(fomatDate(new Date(lopHoc.ngayKetThuc)));
+
+                $.each(lstGiaoVien, function (i, obj) {
+                    $('#giangVienEdit').append("<option value='" + obj.maGiaoVien + "'>" + obj.user.fullName + "</option>");
+                });
+
+                var ngayHoc = lopHoc.ngayHoc.split(',');
+                var caHoc = lopHoc.caHoc.split(',');
+                $('#lichHocEdit').empty();
+                for (i = 0; i < ngayHoc.length - 1; i++) {
+                    $('#lichHocEdit')
+                        .append("<tr><td style='width: 70px'>Thứ " + ngayHoc[i] + ":</td>" +
+                            "<td>Ca " + caHoc[i] + "</td>" +
+                            "</tr>");
+                }
+
+            }
+        });
+    });
+
+    $('#btn-update').click(function () {
+        var data = $('#form-capnhat').serialize();
+        $.ajax({
+            url: base_url + 'lophoc/update',
+            type: "post",
+            data: data,
+            // dataType: "text",
+            success: function (result) {
+                notify_sucess("Cập nhật lớp học", "Cập nhật");
+            },
+            error: function () {
+                notify_error("Cập nhật lớp học", "Cập nhật");
+            }
+        });
+    });
+
     var tinChi = 0;
     var base_url = [[@{/}]];
     //

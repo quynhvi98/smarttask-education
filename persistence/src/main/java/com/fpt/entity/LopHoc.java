@@ -48,15 +48,6 @@ public class LopHoc {
     @Column(name = "ngay_ket_thuc")
     private Date ngayKetThuc;
 
-    @OneToMany(mappedBy = "lopHoc", fetch = FetchType.EAGER)
-    private Set<BaiViet> lstBaiViet;
-
-    @OneToMany(mappedBy = "lopHoc", fetch = FetchType.EAGER)
-    private Set<Nhom> lstNhom;
-
-    @OneToMany(mappedBy = "lopHoc", fetch = FetchType.EAGER)
-    private Set<PheDuyet> lstPheDuyet;
-
     @ManyToOne
     @JoinColumn(name = "ma_giao_vien")
     private GiaoVien giaoVien;
@@ -67,6 +58,10 @@ public class LopHoc {
 
     @OneToMany(mappedBy = "lopHoc", fetch = FetchType.EAGER)
     private Set<ThongBao> lstThongBao;
+
+    @OneToMany(mappedBy = "lopHoc", fetch = FetchType.EAGER)
+    @JsonIgnore
+    private Set<BaiTap> lstBaiTap;
 
     @ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
     @JoinTable(
@@ -96,6 +91,14 @@ public class LopHoc {
     public LopHoc() {
     }
 
+    public Set<BaiTap> getLstBaiTap() {
+        return lstBaiTap;
+    }
+
+    public void setLstBaiTap(Set<BaiTap> lstBaiTap) {
+        this.lstBaiTap = lstBaiTap;
+    }
+
     public String getNgayHoc() {
         return ngayHoc;
     }
@@ -110,30 +113,6 @@ public class LopHoc {
 
     public void setCaHoc(String caHoc) {
         this.caHoc = caHoc;
-    }
-
-    public Set<PheDuyet> getLstPheDuyet() {
-        return lstPheDuyet;
-    }
-
-    public void setLstPheDuyet(Set<PheDuyet> lstPheDuyet) {
-        this.lstPheDuyet = lstPheDuyet;
-    }
-
-    public Set<BaiViet> getLstBaiViet() {
-        return lstBaiViet;
-    }
-
-    public void setLstBaiViet(Set<BaiViet> lstBaiViet) {
-        this.lstBaiViet = lstBaiViet;
-    }
-
-    public Set<Nhom> getLstNhom() {
-        return lstNhom;
-    }
-
-    public void setLstNhom(Set<Nhom> lstNhom) {
-        this.lstNhom = lstNhom;
     }
 
     public GiaoVien getGiaoVien() {

@@ -15,4 +15,9 @@ public class BaiTapLonServicelmpl implements BaiTapLonService {
     public BaiTapLon create(BaiTapLon baiTapLon) {
         return baiTapLonDao.save(baiTapLon);
     }
+
+    @Override
+    public BaiTapLon findByMaLop(String maLop) {
+        return baiTapLonDao.findByMaLop(maLop);
+    }
 }

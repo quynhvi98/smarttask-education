@@ -194,26 +194,36 @@
                 </th:block>
 
             </div>
-            <!--<div class="col-sm-3" style="float: right;" >-->
+            <button class="btn btn-success" style="width: 250px" data-toggle="modal" data-target="#modalThemTaiLieu">
+                <a style="color: #fefefe"/>Thêm tài liệu
+            </button>
+            <div class="modal modal-full fade" id="modalThemTaiLieu" role="dialog">
+                <div class="modal-dialog">
 
-            <form th:action="@{/tuonglop/add-document}" method="post" enctype="multipart/form-data">
-                <input type="file" accept="application/msword, application/vnd.ms-excel,
-                 application/vnd.ms-powerpoint, text/plain, application/pdf" name="docFile"/>
-                <button type="submit" class="add-use">
-                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                    Thêm tài liệu
+                    <div class="modal-content" style="margin-right: -14px;">
+                        <div class="modal-body" style="text-align: center;">
+                            <div id='container'>
+                                <div class='panel panel-primary'>
+                                    <div class='panel-body'>
+                                        <span class="glyphicon glyphicon-cloud-upload"></span>
+                                        <h3>File uploader</h3>
+                                        <span id='result'></span><br>
+                                        <form th:action="@{/tuonglop/add-document}" method="post" enctype="multipart/form-data">
+                                            <input type="file" accept="application/msword, application/vnd.ms-excel,application/vnd.ms-powerpoint, text/plain, application/pdf" name="docFile" style="width: auto; padding-left: 10px"/>
+                                            <br>
+                                            <button type="submit" style="text-align: center" class='btn  btn-primary upload-btn'>
+                                                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                                Thêm tài liệu
 
-                </button>
-            </form>
-
-
-
-
-
-
-
-
-
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <a href="#0" id="info" class="info popup-trigger" title="info">Tạo bài tập</a>
 

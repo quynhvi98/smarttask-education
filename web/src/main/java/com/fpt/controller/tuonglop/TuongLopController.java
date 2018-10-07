@@ -2,6 +2,7 @@ package com.fpt.controller.tuonglop;
 
 import com.fpt.entity.*;
 import com.fpt.services.baidang.BaiDangService;
+import com.fpt.services.baitap.BaiTapService;
 import com.fpt.services.baitaplon.BaiTapLonService;
 import com.fpt.services.binhluan.BinhLuanService;
 import com.fpt.services.giangvien.GiangVienService;
@@ -63,6 +64,9 @@ public class TuongLopController {
     private TaiLieuService taiLieuService;
     @Autowired
     private BaiTapLonService baiTapLonService;
+
+    @Autowired
+    private BaiTapService baiTapService;
     private final Logger logger = LoggerFactory.getLogger(TuongLopController.class);
 
     private String maLop = null;
@@ -95,16 +99,27 @@ public class TuongLopController {
             model.addAttribute("soLuongTBChuaXem", thongBaoService.soLuongTbChuaXemGV(user.getGiaoVien().getMaGiaoVien()));
             model.addAttribute("moiNhat", thongBaoService.thongBaoMoiNhatGV(user.getGiaoVien().getMaGiaoVien()));
             model.addAttribute("giaoVien", giaoVien);
-//            model.addAttribute("user", user);
             return "tuonglop/tuonglopgv";
         }
         if (user.getSinhVien() != null) {
             SinhVien sinhVien = sinhVienService.findById(user.getSinhVien().getMaSinhVien());
             model.addAttribute("sinhVien", sinhVien);
+          BaiTap baiTap=  baiTapService.findBySVAndLop(user.getSinhVien().getMaSinhVien(),maLop);
+            BaiTapLon baiTapLon=baiTapLonService.findByMaLop(maLop);
+            if(baiTapLon!=null){
+                model.addAttribute("timeEnd", baiTapLon.getNgayKetThuc());
+                try {
+                    model.addAttribute("checkHan",checkHanBaiTap(baiTapLon.getNgayKetThuc()));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(baiTap!=null){
+                model.addAttribute("baiTap", baiTap);
+            }
             model.addAttribute("soLuongTBChuaXem", thongBaoService.soLuongTbChuaXemSV(user.getSinhVien().getMaSinhVien()));
             model.addAttribute("moiNhat", thongBaoService.thongBaoMoiNhatSV(user.getSinhVien().getMaSinhVien()));
-//            model.addAttribute("user", user);
-            model.addAttribute("listLopHoc", lopHocService.listLopHocSinhVien(user.getSinhVien().getMaSinhVien()));
+            model.addAttribute("baiTap", baiTapService.findBySVAndLop(user.getSinhVien().getMaSinhVien(),maLop));
             return "tuonglop/tuonglop";
         }
         return null;
@@ -221,12 +236,10 @@ public class TuongLopController {
         if (!file.isEmpty()) {
             byte[] bytes = file.getBytes();
             path = ResourceUtils.getFile("classpath:" + location).getPath();
-            BufferedOutputStream bout = new BufferedOutputStream(
-                    new FileOutputStream(path + "/" + fileName));
+            BufferedOutputStream bout = new BufferedOutputStream(new FileOutputStream(path + "/" + fileName));
             bout.write(bytes);
             bout.flush();
             bout.close();
-
         } else {
             System.out.println("File is empty!");
         }
@@ -319,4 +332,76 @@ public class TuongLopController {
         Date date1 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(date + " " + time + ":00");
         return date1;
     }
+
+
+private boolean checkHanBaiTap(Date day) throws ParseException {
+    String dateStart = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-M-dd HH:mm:ss");
+    Date d1 = format.parse(dateStart);
+    Date d2 = day;
+    boolean check=false;
+    try {
+        long diff = d2.getTime() - d1.getTime();
+        long diffSeconds = diff / 1000 % 60;
+        long diffMinutes = diff / (60 * 1000) % 60;
+        long diffHours = diff / (60 * 60 * 1000) % 24;
+        long diffDays = diff / (24 * 60 * 60 * 1000);
+        int[] a=new int[4];
+        a[0]= (int) diffDays;
+        a[1]= (int) diffHours;
+        a[2]= (int) diffMinutes;
+        a[3]= (int) diffSeconds;
+      if(a[0]<=0&&a[1]<=0&&a[2]<=0&&a[3]<=0){
+          check=false;
+      }else {
+          check=true;
+      }
+        return check;
+    } catch (Exception e) {
+        e.printStackTrace();
+        return check;
+    }
 }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/sinhvien/nopbai")
+    @ResponseBody
+    public void taoDiem(Model model, HttpServletRequest request, HttpSession session, HttpServletResponse response, @RequestParam("file") MultipartFile file) throws IOException {
+        String suffix = null;
+        User user = (User) session.getAttribute("userInfo");
+        String timeStart = request.getParameter("maLop");
+        int id= -1;
+        try {
+            id = Integer.parseInt(request.getParameter("id"));
+        }catch (Exception e){
+        }
+        if (!file.isEmpty()) {
+            if(id==-1) {
+                suffix = file.getOriginalFilename().split("\\.")[1];
+                String fileName = System.currentTimeMillis() + "." + suffix;
+                upFile(file, fileName, "baitap");
+                BaiTap baiTap = new BaiTap();
+                baiTap.setLopHoc(lopHocService.findById(maLop));
+                baiTap.setSinhVien(user.getSinhVien());
+                baiTap.setNgayTao(new Date());
+                baiTap.setFileName(file.getOriginalFilename());
+                baiTap.setFileRealName(fileName);
+                baiTapService.create(baiTap);
+            }else {
+                suffix = file.getOriginalFilename().split("\\.")[1];
+                String fileName = System.currentTimeMillis() + "." + suffix;
+                upFile(file, fileName, "baitap");
+                BaiTap baiTap = baiTapService.findById(id);
+                baiTap.setNgayTao(new Date());
+                baiTap.setFileName(file.getOriginalFilename());
+                baiTap.setFileRealName(fileName);
+                baiTapService.create(baiTap);
+            }
+        }
+    }
+
+    @RequestMapping("/tuonglop/download-bai-tap/{Id}")
+    public void downloadDocFile(HttpServletRequest request,HttpServletResponse response,@PathVariable("Id") Integer Id) throws IOException {
+         BaiTap baiTap = baiTapService.findById(Id);
+        downloadFile(response, baiTap.getFileName(), baiTap.getFileRealName(),"baitap");
+    }
+    }

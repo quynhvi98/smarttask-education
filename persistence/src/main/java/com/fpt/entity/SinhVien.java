@@ -26,23 +26,9 @@ public class SinhVien {
     @Column(name = "ngay_nhap_hoc")
     private Date ngayNhapHoc;
 
-
     @OneToMany(mappedBy = "sinhVien", fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<BaiTap> lstBaiTap;
-
-    @OneToMany(mappedBy = "sinhVien", fetch = FetchType.EAGER)
-    @JsonIgnore
-    private Set<PheDuyet> lstPheDuyet;
-
-    @ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "chi_tiet_nhom",
-            joinColumns = { @JoinColumn(name = "ma_sinh_vien") },
-            inverseJoinColumns = { @JoinColumn(name = "ma_nhom") }
-    )
-    @JsonIgnore
-    Set<Nhom> nhoms;
 
     @ManyToMany(mappedBy = "sinhViens", fetch = FetchType.EAGER)
     @JsonIgnore
@@ -96,14 +82,6 @@ public class SinhVien {
         this.ngayNhapHoc = ngayNhapHoc;
     }
 
-    public Set<PheDuyet> getLstPheDuyet() {
-        return lstPheDuyet;
-    }
-
-    public void setLstPheDuyet(Set<PheDuyet> lstPheDuyet) {
-        this.lstPheDuyet = lstPheDuyet;
-    }
-
     public Set<BaiTap> getLstBaiTap() {
         return lstBaiTap;
     }
@@ -118,14 +96,6 @@ public class SinhVien {
 
     public void setLstThongBao(Set<ThongBao> lstThongBao) {
         this.lstThongBao = lstThongBao;
-    }
-
-    public Set<Nhom> getNhoms() {
-        return nhoms;
-    }
-
-    public void setNhoms(Set<Nhom> nhoms) {
-        this.nhoms = nhoms;
     }
 
     public Set<LopHoc> getLopHocs() {
