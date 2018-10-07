@@ -9,6 +9,7 @@ import com.fpt.services.lophoc.LopHocService;
 import com.fpt.services.monhoc.MonHocService;
 import com.fpt.services.phonghoc.PhongHocService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -103,7 +104,7 @@ public class LopHocController {
             lopHoc.setCaHoc(caHocStr);
 
             lopHocService.taoLopHoc(lopHoc);
-        }else {
+        } else {
             throw new NullPointerException("Bạn phải chọn lịch học");
         }
     }
@@ -121,6 +122,18 @@ public class LopHocController {
         }
         return lstBoMon;
     }
+
+    @PostMapping("/lophoc/update")
+    @ResponseStatus(HttpStatus.OK)
+    public void updateLopHoc(HttpServletRequest request){
+        String maGiaoVien = request.getParameter("giangVienEdit");
+        String maLopEdit = request.getParameter("maLopEdit");
+        LopHoc lopHoc = lopHocService.findById(maLopEdit);
+        GiaoVien giaoVien = giangVienService.findById(maGiaoVien);
+        lopHoc.setGiaoVien(giaoVien);
+        lopHocService.capNhat(lopHoc);
+    }
+
 
     @GetMapping("/lophoc/getValueForMonHocAndGiangVien")
     public @ResponseBody
@@ -186,7 +199,7 @@ public class LopHocController {
         lopHoc.getPhongHoc().setLopHocs(null);
 
         Set<SinhVien> lstSinhVien = lopHoc.getSinhViens();
-        for (SinhVien sv : lstSinhVien){
+        for (SinhVien sv : lstSinhVien) {
             sv.setLopHocs(null);
             sv.setLstBaiTap(null);
             sv.setKhoaVien(null);
@@ -200,13 +213,15 @@ public class LopHocController {
             sv.getUser().setLstBinhLuan(null);
             sv.getUser().setLstBaiDang(null);
         }
+
+
         return lopHoc;
     }
 
     @GetMapping("/lophoc/getAvailableClass")
     public @ResponseBody
-    List<PhongHoc> getAvailableClass(@RequestParam(value="ngayHoc[]") String[] ngayHoc,
-                             @RequestParam(value="caHoc[]") String[] caHoc ){
+    List<PhongHoc> getAvailableClass(@RequestParam(value = "ngayHoc[]") String[] ngayHoc,
+                                     @RequestParam(value = "caHoc[]") String[] caHoc) {
         List<PhongHoc> lstPhongHoc = phongHocService.getAvailableClass(ngayHoc, caHoc);
         return lstPhongHoc;
     }
@@ -218,11 +233,92 @@ public class LopHocController {
         model.addAttribute("fullName", fullName);
         model.addAttribute("tenMonHoc", tenMonHoc);
         List<KhoaVien> lstKhoaVien = khoaVienService.findAll();
-        List<LopHoc> lstLopHoc = lopHocService.search(fullName,tenMonHoc);
+        List<LopHoc> lstLopHoc = lopHocService.search(fullName, tenMonHoc);
         Long time = System.currentTimeMillis();
         model.addAttribute("lstKhoaVien", lstKhoaVien);
         model.addAttribute("lstLopHoc", lstLopHoc);
         model.addAttribute("time", time);
         return "lophoc/lophoc";
     }
+
+    @GetMapping(value = "/lophoc/findtoupdate/{id}")
+    public @ResponseBody
+    Object[] findToUpdate(@PathVariable("id") String id) {
+        LopHoc lopHoc = lopHocService.findById(id);
+        List<GiaoVien> lstGiangVien = giangVienService.getLstGiangVienByMaNganh(lopHoc.getMonHoc().getBoMon().getMaNganh());
+
+        String[] ngayHoc = lopHoc.getNgayHoc().split(",");
+        String[] caHoc = lopHoc.getCaHoc().split(",");
+
+        int checkExist = 0;
+
+        List<GiaoVien> giaoVienUpdate = new ArrayList<>();
+
+        for (int i = 0; i < lstGiangVien.size(); i++) {
+            for (int j = 0; j < ngayHoc.length; j++) {
+                if (lopHocService.checkTimeExits(lstGiangVien.get(i).getMaGiaoVien(), lopHoc.getMonHoc().getKiHoc().getKiHoc(), ngayHoc[j], caHoc[j]))
+                    checkExist++;
+            }
+            if(checkExist <= 0){
+                giaoVienUpdate.add(lstGiangVien.get(i));
+            }else {
+                checkExist = 0;
+            }
+        }
+
+        for (GiaoVien giaoVien : giaoVienUpdate){
+            giaoVien.setLstThongBao(null);
+            giaoVien.setLstLopHoc(null);
+            giaoVien.setBoMon(null);
+            giaoVien.getUser().setLstBaiDang(null);
+            giaoVien.getUser().setLstBinhLuan(null);
+            giaoVien.getUser().setLstLike(null);
+            giaoVien.getUser().setSinhVien(null);
+            giaoVien.getUser().setRoles(null);
+            giaoVien.getUser().setGiaoVien(null);
+        }
+
+        lopHoc.getGiaoVien().getUser().setGiaoVien(null);
+        lopHoc.getGiaoVien().getUser().setSinhVien(null);
+        lopHoc.getGiaoVien().getUser().setRoles(null);
+        lopHoc.getGiaoVien().getUser().setLstLike(null);
+        lopHoc.getGiaoVien().getUser().setLstBinhLuan(null);
+        lopHoc.getGiaoVien().getUser().setLstBaiDang(null);
+        lopHoc.getGiaoVien().setLstThongBao(null);
+        lopHoc.getGiaoVien().setLstLopHoc(null);
+        lopHoc.getGiaoVien().setBoMon(null);
+        lopHoc.getMonHoc().getKiHoc().setLstMonHoc(null);
+        lopHoc.getMonHoc().setLstLopHoc(null);
+        lopHoc.getMonHoc().getBoMon().setLstSinhVien(null);
+        lopHoc.getMonHoc().getBoMon().setLstGiaoVien(null);
+        lopHoc.getMonHoc().getBoMon().setLstMonHoc(null);
+        lopHoc.getMonHoc().getBoMon().setKhoaVien(null);
+        lopHoc.setLstThongBao(null);
+        lopHoc.setLstTaiLieu(null);
+        lopHoc.setLstDiem(null);
+        lopHoc.setLstBaiDang(null);
+        lopHoc.getPhongHoc().setLopHocs(null);
+
+        Set<SinhVien> lstSinhVien = lopHoc.getSinhViens();
+        for (SinhVien sv : lstSinhVien) {
+            sv.setLopHocs(null);
+            sv.setLstBaiTap(null);
+            sv.setKhoaVien(null);
+            sv.setLstThongBao(null);
+            sv.setLstDiem(null);
+            sv.setBoMon(null);
+            sv.getUser().setRoles(null);
+            sv.getUser().setSinhVien(null);
+            sv.getUser().setGiaoVien(null);
+            sv.getUser().setLstLike(null);
+            sv.getUser().setLstBinhLuan(null);
+            sv.getUser().setLstBaiDang(null);
+        }
+
+        Object[] result = new Object[2];
+        result[0] = lopHoc;
+        result[1] = giaoVienUpdate;
+        return result;
+    }
+
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface LopHocService {
     LopHoc taoLopHoc(LopHoc lopHoc);
+    void capNhat(LopHoc lopHoc);
     List<LopHoc> listLopHoc();
     List<LopHoc> listLopHocSinhVien(String msv);
     LopHoc findById(String id);

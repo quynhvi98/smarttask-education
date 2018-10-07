@@ -23,6 +23,11 @@ public class LopHocServiceImpl implements LopHocService {
     }
 
     @Override
+    public void capNhat(LopHoc lopHoc) {
+        lopHocDao.save(lopHoc);
+    }
+
+    @Override
     public List<LopHoc> listLopHoc() {
         return lopHocDao.listLopHoc();
     }

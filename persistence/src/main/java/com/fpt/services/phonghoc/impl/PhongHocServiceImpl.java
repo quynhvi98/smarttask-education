@@ -39,6 +39,8 @@ public class PhongHocServiceImpl implements PhongHocService {
                     }
                     if (checkExist == 0) {
                         result.add(lstPhongHoc.get(i)) ;
+                    }else {
+                        checkExist = 0;
                     }
                 }
             }else {
