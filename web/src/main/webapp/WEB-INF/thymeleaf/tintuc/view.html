@@ -44,7 +44,6 @@
     <div class="content-wrapper">
         <div class="tieude"  th:utext="${tinTuc.title}">
         </div>
-        ------------------------------------------------------------------------------------------
         <div class="ngaydang" th:utext="'Ngày đăng: '+${#dates.format(tinTuc.time, 'dd/MM/yyyy')}">
         </div>
         <div class="content" style="text-align: left;" th:utext="${tinTuc.content}">
