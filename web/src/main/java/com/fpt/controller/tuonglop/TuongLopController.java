@@ -5,6 +5,7 @@ import com.fpt.services.baidang.BaiDangService;
 import com.fpt.services.baitap.BaiTapService;
 import com.fpt.services.baitaplon.BaiTapLonService;
 import com.fpt.services.binhluan.BinhLuanService;
+import com.fpt.services.diem.DiemService;
 import com.fpt.services.giangvien.GiangVienService;
 import com.fpt.services.like.LikeService;
 import com.fpt.services.lophoc.LopHocService;
@@ -34,10 +35,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Posted from Sep 13, 2018, 3:53 PM
@@ -64,9 +62,10 @@ public class TuongLopController {
     private TaiLieuService taiLieuService;
     @Autowired
     private BaiTapLonService baiTapLonService;
-
     @Autowired
     private BaiTapService baiTapService;
+
+
     private final Logger logger = LoggerFactory.getLogger(TuongLopController.class);
 
     private String maLop = null;
@@ -95,6 +94,29 @@ public class TuongLopController {
         model.addAttribute("caHoc", caHoc);
         model.addAttribute("maLop", maLop);
         if (user.getGiaoVien() != null) {
+            List<BaiTap> baiTaps=baiTapService.listBtAndLop(maLop);
+            List<SinhVien> sinhViens=sinhVienService.getListSinhVienbyLopHocId(maLop);
+            String soLuongSVNopBT=baiTaps.size()+"/"+sinhViens.size();
+            List<BaiTap> baiTaps1=new LinkedList<>();
+            baiTaps1.addAll(baiTaps);
+            for (SinhVien sinhVien:sinhViens) {
+                if (baiTaps.size() == 0) {
+                    BaiTap baiTap1 = new BaiTap();
+                    baiTap1.setSinhVien(sinhVien);
+                    baiTaps1.add(baiTap1);
+                } else
+                    for (BaiTap baiTap : baiTaps) {
+                        if (!baiTap.getSinhVien().equals(sinhVien)) {
+                            BaiTap baiTap1 = new BaiTap();
+                            baiTap1.setSinhVien(sinhVien);
+                            baiTaps1.add(baiTap1);
+                        }
+                    }
+
+            }
+            model.addAttribute("baiTap", baiTaps1);
+            model.addAttribute("soLuongSVNopBT", soLuongSVNopBT);
+            model.addAttribute("baiTapLon", baiTapLonService.findByMaLop(maLop));
             GiaoVien giaoVien = giangVienService.findById(user.getGiaoVien().getMaGiaoVien());
             model.addAttribute("soLuongTBChuaXem", thongBaoService.soLuongTbChuaXemGV(user.getGiaoVien().getMaGiaoVien()));
             model.addAttribute("moiNhat", thongBaoService.thongBaoMoiNhatGV(user.getGiaoVien().getMaGiaoVien()));
@@ -294,23 +316,44 @@ public class TuongLopController {
         response.getWriter().println("success");
         ThongBaoSocket message = new ThongBaoSocket();
         List<SinhVien> sinhViens = sinhVienService.getListSinhVienbyLopHocId(maLop);
-        BaiTapLon baiTap1 = new BaiTapLon();
-        baiTap1.setGiaoVien(user.getGiaoVien());
-        baiTap1.setLopHoc(lopHocService.findById(maLop));
-        baiTap1.setNgayBatDau(getDate(ngayBatDau, timeStart));
-        baiTap1.setNgayKetThuc(getDate(hanNop, timeEnd));
-        baiTap1.setNoiDung(baiTap);
-        baiTapLonService.create(baiTap1);
-        for (SinhVien sinhVien : sinhViens) {
-            message.setTitle("Thông báo Bài tập");
-            message.setContent("Lớp: " + maLop + " có " + baiTap + ", ngày bắt đầu: " + ngayBatDau + ", hạn nộp bài: " + hanNop);
-            message.setSender("Giáo viên");
-            String newdate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-            message.setTime(newdate);
-            message.setReceiver(sinhVien.getMaSinhVien());
-            ThongBao thongBaoSV = themThongBaoSV(message);
-            message.setId(String.valueOf(thongBaoSV.getId()));
-            this.simpMessagingTemplate.convertAndSend("/topic/public-" + message.getReceiver(), message);
+        BaiTapLon baiTap1 = baiTapLonService.findByMaLop(maLop);
+        if(baiTap1==null) {
+            baiTap1=new BaiTapLon();
+            baiTap1.setGiaoVien(user.getGiaoVien());
+            baiTap1.setLopHoc(lopHocService.findById(maLop));
+            baiTap1.setNgayBatDau(getDate(ngayBatDau, timeStart));
+            baiTap1.setNgayKetThuc(getDate(hanNop, timeEnd));
+            baiTap1.setNoiDung(baiTap);
+            baiTapLonService.create(baiTap1);
+            for (SinhVien sinhVien : sinhViens) {
+                message.setTitle("Thông báo Bài tập");
+                message.setContent("Lớp: " + maLop + " có " + baiTap + ", ngày bắt đầu: " + ngayBatDau + ", hạn nộp bài: " + hanNop);
+                message.setSender("Giáo viên");
+                String newdate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+                message.setTime(newdate);
+                message.setReceiver(sinhVien.getMaSinhVien());
+                ThongBao thongBaoSV = themThongBaoSV(message);
+                message.setId(String.valueOf(thongBaoSV.getId()));
+                this.simpMessagingTemplate.convertAndSend("/topic/public-" + message.getReceiver(), message);
+            }
+        }else {
+            String btcu=baiTap1.getNoiDung();
+            baiTap1.setNgayBatDau(getDate(ngayBatDau, timeStart));
+            baiTap1.setNgayKetThuc(getDate(hanNop, timeEnd));
+            baiTap1.setNoiDung(baiTap);
+            baiTapLonService.create(baiTap1);
+            for (SinhVien sinhVien : sinhViens) {
+                message.setTitle("Thông báo sửa bài tập");
+                message.setContent("Bài tập: " +btcu+" Được sửa thành: "+baiTap + ", ngày bắt đầu: " + ngayBatDau + ", hạn nộp bài: " + hanNop);
+                message.setSender("Giáo viên");
+                String newdate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+                message.setTime(newdate);
+                message.setReceiver(sinhVien.getMaSinhVien());
+                ThongBao thongBaoSV = themThongBaoSV(message);
+                message.setId(String.valueOf(thongBaoSV.getId()));
+                this.simpMessagingTemplate.convertAndSend("/topic/public-" + message.getReceiver(), message);
+            }
+
         }
     }
 

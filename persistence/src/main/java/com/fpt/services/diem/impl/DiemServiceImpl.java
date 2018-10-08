@@ -35,4 +35,6 @@ public class DiemServiceImpl implements DiemService {
     public List<Diem> listDiemKi(String msv, int ki) {
         return diemDao.listDiemKi(msv,ki);
     }
+
+
 }

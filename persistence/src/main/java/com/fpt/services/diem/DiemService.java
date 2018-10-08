@@ -10,4 +10,5 @@ public interface DiemService {
   Diem save(Diem diem);
   Diem  findById(String id);
   List<Diem> listDiemKi(String msv,int ki);
+
 }

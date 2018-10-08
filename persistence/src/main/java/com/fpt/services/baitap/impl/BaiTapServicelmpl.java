@@ -7,6 +7,8 @@ import com.fpt.services.baitap.BaiTapService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BaiTapServicelmpl implements BaiTapService {
     @Autowired
@@ -24,5 +26,10 @@ public class BaiTapServicelmpl implements BaiTapService {
     @Override
     public BaiTap findById(Integer id) {
         return baiTapDao.findOne(id);
+    }
+
+    @Override
+    public List<BaiTap> listBtAndLop(String maLop) {
+        return baiTapDao.listBtAndLop(maLop);
     }
 }

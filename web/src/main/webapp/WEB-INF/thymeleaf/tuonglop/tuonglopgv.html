@@ -33,6 +33,19 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -214,7 +227,6 @@
                                             <button type="submit" style="text-align: center" class='btn  btn-primary upload-btn'>
                                                 <i class="fa fa-plus-circle" aria-hidden="true"></i>
                                                 Thêm tài liệu
-
                                             </button>
                                         </form>
                                     </div>
@@ -225,22 +237,34 @@
                 </div>
             </div>
 
-            <a href="#0" id="info" class="info popup-trigger" title="info">Tạo bài tập</a>
+            <button class="btn btn-success" data-toggle="modal" data-target="#taoBT">
+                <a style="color: #fefefe"/>Tạo bài tập
+            </button>
 
-            <div class="popup" role="alert">
+            <div style="color: black" class="modal modal-full fade" id="taoBT" role="dialog">
 
+<style>
+    .popover.left {
+        z-index: 9999;
+    }
+</style>
                 <div id="date-picker-section" class="container">
-                    <div id="date-picker-container" style="margin-top: -24px">
-                        <div id="date-picker-dates" style=" margin-top: -20px;">
+                    <div id="date-picker-container" style="border-radius: 5px;margin-top: -24px">
+                        <div sz id="date-picker-dates" style=" border-radius: 5px;margin-top: -20px;">
                             <div style="width: 100%; margin-bottom: 15px; margin-top: 0px;">
                                 <p style="text-align: center">Bài tập</p>
-                                <input id="maLop" type="hidden" th:value="${maLop}" style="width: 80%; margin-left: 9%; height: 31px; box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15), 3px 3px 5px 0 rgba(0, 0, 0, 0.06); border-color: inherit; outline: none; /* width: 288px; */ height: 34px; border: none; margin-top: 1px; padding-left: 7px; float: left;"/>
+                                <input id="maLop" type="hidden" th:value="${maLop}" style="border-radius: 5px;width: 80%; margin-left: 9%; height: 31px; box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15), 3px 3px 5px 0 rgba(0, 0, 0, 0.06); border-color: inherit; outline: none; /* width: 288px; */ height: 34px; border: none; margin-top: 1px; padding-left: 7px; float: left;"/>
+                                <th:block th:if="${baiTapLon!=null}">
+                                    <input th:value="${baiTapLon.getNoiDung()}" id="baiTap" style="border-radius: 5px;width: 80%; margin-left: 9%; height: 31px; box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15), 3px 3px 5px 0 rgba(0, 0, 0, 0.06); border-color: inherit; outline: none; /* width: 288px; */ height: 34px; border: none; margin-top: 1px; padding-left: 7px; float: left;"/>
+                                </th:block>
+                                <th:block th:if="${baiTapLon==null}">
+                                    <input  id="baiTap" style="border-radius: 5px;width: 80%; margin-left: 9%; height: 31px; box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15), 3px 3px 5px 0 rgba(0, 0, 0, 0.06); border-color: inherit; outline: none; /* width: 288px; */ height: 34px; border: none; margin-top: 1px; padding-left: 7px; float: left;"/>
+                                </th:block>
 
-                                <input id="baiTap" style="width: 80%; margin-left: 9%; height: 31px; box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15), 3px 3px 5px 0 rgba(0, 0, 0, 0.06); border-color: inherit; outline: none; /* width: 288px; */ height: 34px; border: none; margin-top: 1px; padding-left: 7px; float: left;"/>
-                            </div>
+                             </div>
                             <div>
                                 <p style="text-align: center"> Ngày bắt đầu</p>
-                                <div id="date-picker-date-first" class="date-picker-date">
+                                <div style="border-radius: 5px;" id="date-picker-date-first" class="date-picker-date">
                                     24/12/2017
                                 </div>
                                 <div style="margin-left: 20px" class="form-group">
@@ -255,11 +279,11 @@
                             </div>
                             <div>
                                 <p style="text-align: center">Hạn nộp</p>
-                                <div id="date-picker-date" class="date-picker-date">
+                                <div style="border-radius: 5px;" id="date-picker-date" class="date-picker-date">
                                     28/12/2017
                                 </div>
                                 <div style="margin-left: 20px" class="form-group">
-                                    <div style="width: 110px; margin-bottom: 10px;"  class="input-group clockpicker" data-placement="left" data-align="top" data-autoclose="true">
+                                    <div  style="width: 110px; margin-bottom: 10px;"  class="input-group clockpicker" data-placement="left" data-align="top" data-autoclose="true">
                                         <input id="timeEnd" type="text" class="form-control" value="09:30">
                                         <span class="input-group-addon">
 				            <span class="glyphicon glyphicon-time"></span>
@@ -271,10 +295,18 @@
 
                         </div>
                         <div style="text-align: center;">
-                            <button style="width: 100px; " onclick="run()"  class="btn btn-success">
-                                Tạo bài tập
-                            </button>
-                            <button id="close" style="width: 100px;background: #ce563f" class="btn btn-error popup-close">
+                            <th:block th:if="${baiTapLon==null}">
+                                <button style="width: 100px; " onclick="run()"  class="btn btn-success">
+                                    Tạo bài tập
+                                </button>
+                            </th:block>
+                            <th:block th:if="${baiTapLon!=null}">
+                                <button style="width: 100px; " onclick="run()"  class="btn btn-success">
+                                    Sửa bài tập
+                                </button>
+                            </th:block>
+
+                            <button id="close" class="btn btn-success" style="width: 100px;background: #ce563f" data-dismiss="modal">
                                 Hủy
                             </button>
                         </div>
@@ -302,6 +334,7 @@
                 </div>
 
 
+
             </div>
 
 
@@ -310,7 +343,29 @@
 
 
 
+            <button class="btn btn-success" data-toggle="modal" data-target="#modalNhapDiem">
+                <a style="color: #fefefe"/>Quản lý bài tập
+            </button>
 
+
+            <div class="modal modal-full fade" id="modalNhapDiem" role="dialog">
+                <div class="modal-dialog" style="width: 74%">
+
+                    <div class="modal-content" style="max-width: 96%; width: 117%;">
+                        <div style="color: black" class="modal-header">
+                            <button  style="margin-top: -45px; margin-right: -369px;" type="button" class="close" data-dismiss="modal">
+                                &times;
+                            </button>
+                            <h3 class="modal-title">
+                               Quản lý bài tập
+                            </h3>
+                        </div>
+                        <div class="modal-body" style="text-align: center;">
+                            <div th:replace="student/register-member">&nbsp;</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
 
