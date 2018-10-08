@@ -191,7 +191,7 @@
 
                       </td>
                       <td class="mailbox-attachment"><i class="fa fa-paperclip"></i></td>
-                      <td class="mailbox-date" th:text="${thongBao.time}">28 mins ago</td>
+                      <td class="mailbox-date" th:text="${#dates.format(thongBao.getTime(), 'dd-MM-yyyy HH:mm a')}" >28 mins ago</td>
                     </tr>
                     </tbody>
                   </table>

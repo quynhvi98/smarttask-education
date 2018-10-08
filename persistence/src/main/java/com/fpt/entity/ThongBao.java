@@ -1,6 +1,7 @@
 package com.fpt.entity;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Posted from Sep 15, 2018, 4:11 PM
@@ -23,7 +24,7 @@ public class ThongBao {
     private String sender;
 
     @Column(name = "time")
-    private String time;
+    private Date time;
 
     @Column(name = "title")
     private String title;
@@ -60,11 +61,11 @@ public class ThongBao {
         this.sender = sender;
     }
 
-    public String getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 

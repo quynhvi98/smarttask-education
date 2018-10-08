@@ -357,11 +357,11 @@ public class TuongLopController {
         }
     }
 
-    public ThongBao themThongBaoSV(ThongBaoSocket message) {
+    public ThongBao themThongBaoSV(ThongBaoSocket message) throws ParseException {
         ThongBao thongBao = new ThongBao();
         thongBao.setSinhVien(sinhVienService.getSinhVienId(message.getReceiver()));
         thongBao.setContent(message.getContent());
-        thongBao.setTime(message.getTime());
+        thongBao.setTime(convertStringToDate(message.getTime()));
         thongBao.setStatus("false");
         thongBao.setTitle(message.getTitle());
         thongBao.setSender(message.getSender());
@@ -447,4 +447,10 @@ private boolean checkHanBaiTap(Date day) throws ParseException {
          BaiTap baiTap = baiTapService.findById(Id);
         downloadFile(response, baiTap.getFileName(), baiTap.getFileRealName(),"baitap");
     }
+
+
+    private Date convertStringToDate(String day) throws ParseException {
+        return new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(day);
     }
+
+}

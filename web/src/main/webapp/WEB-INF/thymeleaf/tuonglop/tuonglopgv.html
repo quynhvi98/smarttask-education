@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" style="  overflow-x:hidden;">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -207,7 +207,7 @@
                 </th:block>
 
             </div>
-            <button class="btn btn-success" style="width: 250px" data-toggle="modal" data-target="#modalThemTaiLieu">
+            <button  class="btn btn-success" style="width: 250px; margin-top: 20px;" data-toggle="modal" data-target="#modalThemTaiLieu">
                 <a style="color: #fefefe"/>Thêm tài liệu
             </button>
             <div class="modal modal-full fade" id="modalThemTaiLieu" role="dialog">
@@ -237,17 +237,17 @@
                 </div>
             </div>
 
-            <button class="btn btn-success" data-toggle="modal" data-target="#taoBT">
+            <button style="width: 250px; margin-top: 20px;" class="btn btn-success" data-toggle="modal" data-target="#taoBT">
                 <a style="color: #fefefe"/>Tạo bài tập
             </button>
 
             <div style="color: black" class="modal modal-full fade" id="taoBT" role="dialog">
 
-<style>
-    .popover.left {
-        z-index: 9999;
-    }
-</style>
+                <style>
+                    .popover.left {
+                        z-index: 9999;
+                    }
+                </style>
                 <div id="date-picker-section" class="container">
                     <div id="date-picker-container" style="border-radius: 5px;margin-top: -24px">
                         <div sz id="date-picker-dates" style=" border-radius: 5px;margin-top: -20px;">
@@ -261,7 +261,7 @@
                                     <input  id="baiTap" style="border-radius: 5px;width: 80%; margin-left: 9%; height: 31px; box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15), 3px 3px 5px 0 rgba(0, 0, 0, 0.06); border-color: inherit; outline: none; /* width: 288px; */ height: 34px; border: none; margin-top: 1px; padding-left: 7px; float: left;"/>
                                 </th:block>
 
-                             </div>
+                            </div>
                             <div>
                                 <p style="text-align: center"> Ngày bắt đầu</p>
                                 <div style="border-radius: 5px;" id="date-picker-date-first" class="date-picker-date">
@@ -343,7 +343,7 @@
 
 
 
-            <button class="btn btn-success" data-toggle="modal" data-target="#modalNhapDiem">
+            <button style="width: 250px; margin-top: 20px;" class="btn btn-success" data-toggle="modal" data-target="#modalNhapDiem">
                 <a style="color: #fefefe"/>Quản lý bài tập
             </button>
 
@@ -357,7 +357,7 @@
                                 &times;
                             </button>
                             <h3 class="modal-title">
-                               Quản lý bài tập
+                                Quản lý bài tập
                             </h3>
                         </div>
                         <div class="modal-body" style="text-align: center;">
@@ -564,6 +564,9 @@
             imageHeight: 200,
             showConfirmButton: false,
         });
+        $('#close').click();
+        $('#myModal').hide();
+        $('.modal-backdrop').hide();
         $.ajax({
             type: "POST",
             data: {baiTap: baiTap,ngayBatDau:ngayBatDau,hanNop:hanNop,maLop:maLop,timeStart:timeStart,timeEnd:timeEnd},

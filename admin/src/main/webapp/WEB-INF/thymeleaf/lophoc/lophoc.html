@@ -145,9 +145,9 @@
                         <td th:text="${lh.phongHoc.tenPhong}"></td>
                         <td th:text="${lh.giaoVien.user.fullName}"></td>
                         <td th:text="${lh.moTa}"></td>
-                        <td th:text="${lh.ngayBatDau}"></td>
-                        <td th:text="${lh.ngayKetThuc}"></td>
-                        <td th:text="${lh.ngayTao}"></td>
+                        <td th:text="${#dates.format(lh.ngayBatDau, 'dd-MM-yyyy') }"></td>
+                        <td th:text="${#dates.format(lh.ngayKetThuc, 'dd-MM-yyyy') }"></td>
+                        <td th:text="${#dates.format(lh.ngayTao, 'dd-MM-yyyy') }"></td>
                         <td class="text-center">
                             <div class="dropdown bacham">
                                 <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">

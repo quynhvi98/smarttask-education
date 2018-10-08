@@ -42,7 +42,7 @@ public class SocketController {
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
     @MessageMapping("/chat.sendMessage")
-    public void sendMessage(@Payload ThongBaoSocket message) {
+    public void sendMessage(@Payload ThongBaoSocket message) throws ParseException {
         List<SinhVien>sinhViens=sinhVienService.listSVki(message.getKi());
         System.out.println("soki "+sinhViens.size());
         ThongBao thongBaoGV=themThongBaoGV(message);
@@ -72,7 +72,7 @@ public class SocketController {
 
     @Scheduled(cron = "0 0 6 * * *")
 // @Scheduled(fixedRate = 100000)
-    public void greeting() throws InterruptedException {
+    public void greeting() throws InterruptedException, ParseException {
         //Thread.sleep(1000);
         String day1=lopHocService.tinhNgayHetHan(10);
         String day2=lopHocService.tinhNgayHetHan(11);
@@ -127,11 +127,13 @@ public class SocketController {
             }
         }
     }
-    public ThongBao themThongBaoGV(ThongBaoSocket message){
+    public ThongBao themThongBaoGV(ThongBaoSocket message) throws ParseException {
         ThongBao thongBao=new ThongBao();
         thongBao.setGiaoVien(giangVienService.findById(message.getReceiver()));
         thongBao.setContent(message.getContent());
-        thongBao.setTime(message.getTime());
+        Date date1 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(message.getTime());
+
+        thongBao.setTime(convertStringToDate(message.getTime()));
         thongBao.setStatus("false");
         thongBao.setTitle(message.getTitle());
         thongBao.setSender(message.getSender());
@@ -140,16 +142,20 @@ public class SocketController {
     }
 
 
-    public ThongBao themThongBaoSV(ThongBaoSocket message){
+    public ThongBao themThongBaoSV(ThongBaoSocket message) throws ParseException {
         ThongBao thongBao=new ThongBao();
         thongBao.setSinhVien(sinhVienService.getSinhVienId(message.getReceiver()));
         thongBao.setContent(message.getContent());
-        thongBao.setTime(message.getTime());
+        thongBao.setTime(convertStringToDate(message.getTime()));
         thongBao.setStatus("false");
         thongBao.setTitle(message.getTitle());
         thongBao.setSender(message.getSender());
         ThongBao thongBao1=  thongBaoService.themThongBao(thongBao);
         return thongBao1;
+    }
+
+    private Date convertStringToDate(String day) throws ParseException {
+        return new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(day);
     }
 
 }

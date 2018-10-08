@@ -33,7 +33,15 @@
                                 <a th:href="@{/tuonglop/download-bai-tap/}+${bt.id}" class="list-group-item table-content">
                                     <div class="media table-content-cell" style="width: 60%">
                                         <div class="media-left">
-                                            <img class="media-object img-circle" th:src="@{/avatar/}+${bt.getSinhVien().getUser().getUserAvatar() != null ? bt.getSinhVien().getUser().getUserAvatar() : 'default.png'}" style="max-height: 40px; ">
+
+<style>
+    .img-circle {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+</style>
+                                            <img class="media-object img-circle" th:src="@{/avatar/}+${bt.getSinhVien().getUser().getUserAvatar() != null ? bt.getSinhVien().getUser().getUserAvatar() : 'default.png'}" style="width: 40px; height: 40px; ">
                                         </div>
                                         <div class="media-body" style="min-width: 158px; padding-left: 25px;">
                                             <p th:text="${bt.getSinhVien().getUser().getFullName()}" class="media-heading"> Nguyễn Văn B</p>
@@ -53,6 +61,14 @@
                                 <a href="#" class="list-group-item table-content">
                                     <div class="media table-content-cell" style="width: auto">
                                         <div class="media-left">
+
+                                            <style>
+                                                .img-circle {
+                                                    width: 50px;
+                                                    height: 50px;
+                                                    border-radius: 50%;
+                                                }
+                                            </style>
                                             <img class="media-object img-circle" th:src="@{/avatar/}+${bt.getSinhVien().getUser().getUserAvatar() != null ? bt.getSinhVien().getUser().getUserAvatar() : 'default.png'}" style="max-height: 40px; ">
                                         </div>
                                         <div class="media-body" style="width: 197%; padding-left: 25px;">
