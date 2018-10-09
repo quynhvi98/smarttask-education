@@ -29,6 +29,10 @@ public interface LopHocDao extends CrudRepository<LopHoc, String>, LopHocDaoCust
     @Query(value = "select * from lop_hoc lh where lh.ngay_bat_dau>=:day1 and lh.ngay_bat_dau<:day2 " ,nativeQuery = true)
     List<LopHoc> listLopToiHan(@Param("day1") String day1,@Param("day2") String day2);
 
+    @Query(value = "select * from lop_hoc lh where lh.ngay_ket_thuc<=:day and lh.trang_thai='true'" ,nativeQuery = true)
+    List<LopHoc> listDongLop(@Param("day") String day);
+
+
     @Query(value = "from LopHoc lh where lh.giaoVien.maGiaoVien = :mgv",nativeQuery = false)
     List<LopHoc> getListLopHoc( @Param("mgv") String maGiaoVien);
 

@@ -87,6 +87,11 @@ public class LopHocServiceImpl implements LopHocService {
     }
 
     @Override
+    public List<LopHoc> listDongLop(String day) {
+        return lopHocDao.listDongLop(day);
+    }
+
+    @Override
     public Boolean checkTimeExits(String maGiaoVien, String kiHoc, String ngayHoc, String caHoc) {
         List<Object[]> lstLichHoc = lopHocDao.getSchedule(maGiaoVien, kiHoc);
 

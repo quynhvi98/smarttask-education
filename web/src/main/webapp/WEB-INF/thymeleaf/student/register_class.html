@@ -182,6 +182,7 @@
                                                         </thead>
                                                         <tbody>
                                                         <tr th:each="lophoc,k : ${monhoc.getLstLopHoc()}">
+                                                            <th:block th:if="${lophoc.trangThai}">
                                                             <td th:text="${k.index+1}"></td>
                                                             <td style="width: 7%;" th:text="${lophoc.maLop}"></td>
                                                             <td th:text="${lophoc.getGiaoVien().getUser().getFullName()}"></td>
@@ -234,6 +235,7 @@
 
 
                                                             </td>
+                                                            </th:block>
                                                         </tr>
                                                         </tbody>
                                                     </table>

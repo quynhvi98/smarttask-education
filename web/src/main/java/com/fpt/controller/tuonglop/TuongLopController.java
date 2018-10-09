@@ -5,6 +5,7 @@ import com.fpt.services.baidang.BaiDangService;
 import com.fpt.services.baitap.BaiTapService;
 import com.fpt.services.baitaplon.BaiTapLonService;
 import com.fpt.services.binhluan.BinhLuanService;
+import com.fpt.services.config.ConfigService;
 import com.fpt.services.diem.DiemService;
 import com.fpt.services.giangvien.GiangVienService;
 import com.fpt.services.like.LikeService;
@@ -64,7 +65,8 @@ public class TuongLopController {
     private BaiTapLonService baiTapLonService;
     @Autowired
     private BaiTapService baiTapService;
-
+    @Autowired
+    private ConfigService configService;
 
     private final Logger logger = LoggerFactory.getLogger(TuongLopController.class);
 
@@ -303,7 +305,6 @@ public class TuongLopController {
 
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
-
     @PostMapping("/api/taobt")
     public void getSearchResultViaAjax(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException, ParseException {
         String baiTap = request.getParameter("baiTap");
@@ -326,9 +327,9 @@ public class TuongLopController {
             baiTap1.setNoiDung(baiTap);
             baiTapLonService.create(baiTap1);
             for (SinhVien sinhVien : sinhViens) {
-                message.setTitle("Thông báo Bài tập");
-                message.setContent("Lớp: " + maLop + " có " + baiTap + ", ngày bắt đầu: " + ngayBatDau + ", hạn nộp bài: " + hanNop);
-                message.setSender("Giáo viên");
+                message.setTitle(setTitle("titleBaiTap"));
+                message.setContent(setContent("contentBaiTap",maLop,baiTap,"",  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(baiTap1.getNgayBatDau()),new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(baiTap1.getNgayKetThuc())));
+                message.setSender("Giáo viên: "+user.getGiaoVien().getUser().getFullName());
                 String newdate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
                 message.setTime(newdate);
                 message.setReceiver(sinhVien.getMaSinhVien());
@@ -343,9 +344,9 @@ public class TuongLopController {
             baiTap1.setNoiDung(baiTap);
             baiTapLonService.create(baiTap1);
             for (SinhVien sinhVien : sinhViens) {
-                message.setTitle("Thông báo sửa bài tập");
-                message.setContent("Bài tập: " +btcu+" Được sửa thành: "+baiTap + ", ngày bắt đầu: " + ngayBatDau + ", hạn nộp bài: " + hanNop);
-                message.setSender("Giáo viên");
+                message.setTitle(setTitle("titleSuaBaiTap"));
+                message.setContent(setContent("contentSuaBaiTap",maLop,btcu,baiTap,  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(baiTap1.getNgayBatDau()),new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(baiTap1.getNgayKetThuc())));
+                message.setSender("Giáo viên: "+user.getGiaoVien().getUser().getFullName());
                 String newdate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
                 message.setTime(newdate);
                 message.setReceiver(sinhVien.getMaSinhVien());
@@ -353,7 +354,6 @@ public class TuongLopController {
                 message.setId(String.valueOf(thongBaoSV.getId()));
                 this.simpMessagingTemplate.convertAndSend("/topic/public-" + message.getReceiver(), message);
             }
-
         }
     }
 
@@ -451,6 +451,23 @@ private boolean checkHanBaiTap(Date day) throws ParseException {
 
     private Date convertStringToDate(String day) throws ParseException {
         return new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(day);
+    }
+
+    public String getConfig(String name){
+        return configService.findByName(name).getConfigType();
+    }
+    public String setTitle(String name){
+        return  getConfig(name);
+    }
+    public String setContent(String name,String tenLop,String baiTap,String baiTapMoi,String ngayBatDau,String hanNop){
+
+        String text=getConfig(name);
+        text = text.replace("[tenlop]", tenLop);
+        text = text.replace("[baitap]", baiTap);
+        text = text.replace("[ngaybatdau]", ngayBatDau);
+        text = text.replace("[hannop]", hanNop);
+        text = text.replace("[baitapmoi]", baiTapMoi);
+        return text;
     }
 
 }

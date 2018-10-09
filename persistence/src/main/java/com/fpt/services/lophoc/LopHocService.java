@@ -20,6 +20,7 @@ public interface LopHocService {
     List<LopHoc> getListLopHoc(String maGiaoVien);
     String tinhNgayHetHan(int soNgay);
     List<LopHoc> listLopToiHan(String day1,String day2);
+    List<LopHoc> listDongLop(String day);
     Boolean checkTimeExits(String maGiaoVien, String kiHoc, String ngayHoc, String caHoc);
     List<LopHoc> search(String maLop,String phongHoc);
     String ngayHienTai();
