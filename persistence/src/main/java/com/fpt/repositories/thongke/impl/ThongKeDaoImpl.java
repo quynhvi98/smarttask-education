@@ -48,4 +48,31 @@ public class ThongKeDaoImpl implements ThongKeDao {
         }
         return lstThongKe;
     }
+
+    @Override
+    public List<Object> getLstLopByMaGiaoVien(String maGv) {
+        String sql = "select ten_mon_hoc, ma_lop, ten_phong, ngay_hoc, ca_hoc " +
+                "from lop_hoc " +
+                "join giao_vien v on lop_hoc.ma_giao_vien = v.ma_giao_vien " +
+                "join mon_hoc h on lop_hoc.ma_mon_hoc = h.ma_mon_hoc " +
+                "join phong_hoc ph on lop_hoc.phong_hoc = ph.id " +
+                "where v.ma_giao_vien = '"+maGv+"'";
+        Query query = entityManager.createNativeQuery(sql);
+        List<Object> lstObj = query.getResultList();
+        return lstObj;
+    }
+
+    @Override
+    public List<Object> getLstLopByMaSinhVien(String id) {
+        String sql = "select h2.ten_mon_hoc, h.ma_lop, ph.ten_phong, h.ngay_hoc, h.ca_hoc " +
+                "from lop_sinhvien ls " +
+                "join lop_hoc h on ls.ma_lop = h.ma_lop " +
+                "join sinh_vien v on ls.ma_sinh_vien = v.ma_sinh_vien " +
+                "join mon_hoc h2 on h.ma_mon_hoc = h2.ma_mon_hoc " +
+                "join phong_hoc ph on h.phong_hoc = ph.id " +
+                "where v.ma_sinh_vien = '"+id+"'";
+        Query query = entityManager.createNativeQuery(sql);
+        List<Object> lstObj = query.getResultList();
+        return lstObj;
+    }
 }

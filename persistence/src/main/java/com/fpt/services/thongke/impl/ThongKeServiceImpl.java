@@ -18,4 +18,14 @@ public class ThongKeServiceImpl implements ThongKeService {
     public List<ThongKe> getThongKe(String kiHoc) {
         return thongKeDao.getThongKe(kiHoc);
     }
+
+    @Override
+    public List<Object> getLstLopByMaGiaoVien(String maGv) {
+        return thongKeDao.getLstLopByMaGiaoVien(maGv);
+    }
+
+    @Override
+    public List<Object> getLstLopByMaSinhVien(String id) {
+        return thongKeDao.getLstLopByMaSinhVien(id);
+    }
 }

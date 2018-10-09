@@ -6,6 +6,7 @@ import com.fpt.services.giangvien.GiangVienService;
 import com.fpt.services.khoavien.KhoaVienService;
 import com.fpt.services.role.RoleService;
 import com.fpt.services.sinhvien.SinhVienService;
+import com.fpt.services.thongke.ThongKeService;
 import com.fpt.services.user.UserService;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -13,6 +14,8 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.joda.time.DateMidnight;
+import org.joda.time.Months;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -44,6 +47,8 @@ public class UserController {
     private KhoaVienService khoaVienService;
     @Autowired
     private GiangVienService giangVienService;
+    @Autowired
+    private ThongKeService thongKeService;
 
     @GetMapping("/user")
     public String base(Model model) {
@@ -204,12 +209,13 @@ public class UserController {
     }
     @GetMapping(value = "/user/timkiem/{id}")
     public @ResponseBody
-    User search(@PathVariable("id") String id) {
+    Object[] search(@PathVariable("id") String id) {
         User user = userService.findUserByUserName(id);
         user.setLstBinhLuan(null);
         user.setLstLike(null);
         user.setLstBaiDang(null);
         user.setRoles(null);
+        Object[] result = new Object[3];
         if(user.getSinhVien()!=null){
             user.getSinhVien().setLstDiem(null);
             user.getSinhVien().setUser(null);
@@ -221,6 +227,11 @@ public class UserController {
             user.getSinhVien().getBoMon().setLstMonHoc(null);
             user.getSinhVien().getBoMon().setLstGiaoVien(null);
             user.getSinhVien().getBoMon().setLstSinhVien(null);
+            List<Object> dsLopTheoHoc = thongKeService.getLstLopByMaSinhVien(user.getSinhVien().getMaSinhVien());
+            Integer kiHoc = getKiHoc(user.getSinhVien().getNgayNhapHoc());
+            result[0] = user;
+            result[1] = dsLopTheoHoc;
+            result[2] = kiHoc;
         }else if(user.getGiaoVien()!=null){
             user.getGiaoVien().setLstLopHoc(null);
             user.getGiaoVien().setLstThongBao(null);
@@ -229,8 +240,20 @@ public class UserController {
             user.getGiaoVien().getBoMon().setLstGiaoVien(null);
             user.getGiaoVien().getBoMon().setLstMonHoc(null);
             user.getGiaoVien().getBoMon().setKhoaVien(null);
+            List<Object> dsLopGiangDay = thongKeService.getLstLopByMaGiaoVien(user.getGiaoVien().getMaGiaoVien());
+            result[0] = user;
+            result[1] = dsLopGiangDay;
         }
 
-        return user;
+        return result;
     }
+
+    private int getKiHoc(Date ngaynhaphoc) {
+        DateMidnight start = new DateMidnight(ngaynhaphoc);
+        DateMidnight end = new DateMidnight(new Date());
+        int months = Months.monthsBetween(start,end).getMonths();
+        int thangDu = months % 6;
+        return (thangDu > 0) ? (months / 6 +1) : (months/6);
+    }
+
 }

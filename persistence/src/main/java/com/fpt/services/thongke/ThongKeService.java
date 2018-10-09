@@ -6,4 +6,7 @@ import java.util.List;
 
 public interface ThongKeService {
     List<ThongKe> getThongKe(String kiHoc);
+    List<Object> getLstLopByMaGiaoVien(String maGv);
+
+    List<Object> getLstLopByMaSinhVien(String id);
 }
