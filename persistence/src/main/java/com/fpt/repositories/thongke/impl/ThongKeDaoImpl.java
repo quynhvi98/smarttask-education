@@ -21,20 +21,19 @@ public class ThongKeDaoImpl implements ThongKeDao {
     @Override
     public List<ThongKe> getThongKe(String kiHoc) {
         List<ThongKe> lstThongKe = new ArrayList<>();
-        String sql = "select  v.ten_vien,\n" +
-                "    bm.ten_nganh,\n" +
-                "    (select count(giao_vien.ma_giao_vien) from giao_vien where h.ma_nganh = bm.ma_nganh) as slgiaovien,\n" +
-                "    (select count(*) from sinh_vien sv where sv.ma_nganh = bm.ma_nganh" +
-                "    and date_sub(date_sub(now(), interval "+6*(Integer.parseInt(kiHoc)-1)+" month ), INTERVAL "+6*Integer.parseInt(kiHoc)+" MONTH) <= sv.ngay_nhap_hoc) as slsinhvien,\n" +
-                "    (select count(h2.ma_lop) from lop_hoc where h.ma_mon_hoc = h.ma_mon_hoc) as slphonghoc,\n" +
-                "    (select sum(h.tin_chi) from mon_hoc where h.ma_ki = "+kiHoc+") as sltinchi\n" +
-                "    from bo_mon bm\n" +
-                "    join khoa_vien v on bm.ma_vien = v.ma_vien\n" +
-                "    join mon_hoc h on bm.ma_nganh = h.ma_nganh\n" +
-                "    join ki_hoc kh on h.ma_ki = kh.id\n" +
-                "    join lop_hoc h2 on h.ma_mon_hoc = h2.ma_mon_hoc\n" +
-                "    join phong_hoc ph on h2.phong_hoc = ph.id\n" +
-                "    where ma_ki = " + kiHoc;
+        String sql = "select  kv.ten_vien,\n" +
+                "        bm.ten_nganh,\n" +
+                "        (select count(*) from giao_vien where giao_vien.ma_nganh = bm.ma_nganh) as slgiaovien,\n" +
+                "        (select count(*) from sinh_vien sv where sv.ma_nganh = bm.ma_nganh and date_sub(date_sub(now(), interval 6 month ), INTERVAL 12 MONTH) <= sv.ngay_nhap_hoc) as slsinhvien,\n" +
+                "        (select count(*) from lop_hoc where lh.ma_mon_hoc = mh.ma_mon_hoc) as slphonghoc,\n" +
+                "        (select sum(mh.tin_chi) from mon_hoc where mh.ma_ki = " + kiHoc + ") as sltinchi\n" +
+                "from bo_mon bm\n" +
+                "         join khoa_vien kv on bm.ma_vien = kv.ma_vien\n" +
+                "         join mon_hoc mh on bm.ma_nganh = mh.ma_nganh\n" +
+                "         join ki_hoc kh on mh.ma_ki = kh.id\n" +
+                "         join lop_hoc lh on mh.ma_mon_hoc = lh.ma_mon_hoc\n" +
+                "         join phong_hoc ph on lh.phong_hoc = ph.id\n" +
+                "where ma_ki = " + kiHoc + " group by bm.ma_nganh;\n";
         Query query = entityManager.createNativeQuery(sql);
         List<Object> lstObj = query.getResultList();
         try {

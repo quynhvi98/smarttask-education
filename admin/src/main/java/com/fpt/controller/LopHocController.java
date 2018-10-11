@@ -167,13 +167,25 @@ public class LopHocController {
 
     @GetMapping("/lophoc/checkTimeExits")
     public @ResponseBody
-    boolean checkTimeExits(HttpServletRequest request, HttpServletResponse response) {
+    GiaoVien checkTimeExits(HttpServletRequest request) {
         String ngayHoc = request.getParameter("ngayHoc");
         String caHoc = request.getParameter("caHoc");
-        String maGiaoVien = request.getParameter("maGiaoVien");
+//        String maGiaoVien = request.getParameter("maGiaoVien");
         String kiHoc = request.getParameter("kiHoc");
-        Boolean isExits = lopHocService.checkTimeExits(maGiaoVien, kiHoc, ngayHoc, caHoc);
-        return isExits;
+        String maNganh = request.getParameter("maNganh");
+//        Boolean isExits = lopHocService.checkTimeExits(maGiaoVien, kiHoc, ngayHoc, caHoc);
+        GiaoVien giaoVien = lopHocService.getGiaoVienDeTaoLop(maNganh, kiHoc, ngayHoc, caHoc);
+        giaoVien.setBoMon(null);
+        giaoVien.setLstLopHoc(null);
+        giaoVien.setLstThongBao(null);
+        giaoVien.getUser().setGiaoVien(null);
+        giaoVien.getUser().setRoles(null);
+        giaoVien.getUser().setSinhVien(null);
+        giaoVien.getUser().setLstLike(null);
+        giaoVien.getUser().setLstBinhLuan(null);
+        giaoVien.getUser().setLstBinhLuan(null);
+        giaoVien.getUser().setLstBaiDang(null);
+        return giaoVien;
     }
 
     @GetMapping(value = "/lophoc/timkiem/{id}")

@@ -1,6 +1,8 @@
 package com.fpt.services.lophoc.impl;
 
+import com.fpt.entity.GiaoVien;
 import com.fpt.entity.LopHoc;
+import com.fpt.repositories.giangvien.GiangVienDao;
 import com.fpt.repositories.lophoc.LopHocDao;
 import com.fpt.services.lophoc.LopHocService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,8 @@ import java.util.*;
 public class LopHocServiceImpl implements LopHocService {
     @Autowired
     private LopHocDao lopHocDao;
-
+    @Autowired
+    private GiangVienDao giangVienDao;
 
     @Override
     public LopHoc taoLopHoc(LopHoc lopHoc) {
@@ -35,7 +38,7 @@ public class LopHocServiceImpl implements LopHocService {
     @Override
     public List<LopHoc> listLopHocSinhVien(String msv) {
 
-        return lopHocDao.listLopHocSV(msv,ngayHienTai());
+        return lopHocDao.listLopHocSV(msv, ngayHienTai());
     }
 
     @Override
@@ -67,7 +70,7 @@ public class LopHocServiceImpl implements LopHocService {
     public String tinhNgayHetHan(int soNgay) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
-        String time=dateFormat.format(date);
+        String time = dateFormat.format(date);
 
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
@@ -76,14 +79,14 @@ public class LopHocServiceImpl implements LopHocService {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        cal.add(Calendar.DATE,+soNgay);
+        cal.add(Calendar.DATE, +soNgay);
         String wantedDate = sdf.format(cal.getTime());
         return wantedDate;
     }
 
     @Override
     public List<LopHoc> listLopToiHan(String day1, String day2) {
-        return lopHocDao.listLopToiHan(day1,day2);
+        return lopHocDao.listLopToiHan(day1, day2);
     }
 
     @Override
@@ -93,12 +96,12 @@ public class LopHocServiceImpl implements LopHocService {
 
     @Override
     public Boolean checkTimeExits(String maGiaoVien, String kiHoc, String ngayHoc, String caHoc) {
+
         List<Object[]> lstLichHoc = lopHocDao.getSchedule(maGiaoVien, kiHoc);
 
         String[] arrLichHoc = null;
         String[] arrNgayHoc = null;
         String[] arrCaHoc = null;
-
 
         for (int i = 0; i < lstLichHoc.size(); i++) {
             arrLichHoc = Arrays.copyOf(lstLichHoc.get(i), lstLichHoc.get(i).length, String[].class);
@@ -113,11 +116,12 @@ public class LopHocServiceImpl implements LopHocService {
         }
 
         return false;
+
     }
 
     @Override
     public List<LopHoc> search(String fullName, String tenMonHoc) {
-        return lopHocDao.search(fullName,tenMonHoc);
+        return lopHocDao.search(fullName, tenMonHoc);
     }
 
     @Override
@@ -132,6 +136,36 @@ public class LopHocServiceImpl implements LopHocService {
     }
 
     @Override
+    public GiaoVien getGiaoVienDeTaoLop(String maNganh, String kiHoc, String ngayHoc, String caHoc) {
+        List<GiaoVien> lstGiaoVien = giangVienDao.getLstGiangVienByMaNganh(maNganh);
+        for (GiaoVien gv : lstGiaoVien) {
+            int slot = 0;
+            for (LopHoc lopHoc : gv.getLstLopHoc()) {
+                slot += lopHoc.getNgayHoc().length();
+            }
+            gv.setSlot(slot);
+        }
+        Collections.sort(lstGiaoVien, new Comparator<GiaoVien>() {
+            @Override
+            public int compare(GiaoVien o1, GiaoVien o2) {
+                if(o1.getSlot() > o2.getSlot())
+                    return 1;
+                else if (o1.getSlot() < o2.getSlot())
+                    return -1;
+                else
+                    return 0;
+            }
+        });
+        for (GiaoVien gv : lstGiaoVien) {
+            if(!checkTimeExits(gv.getMaGiaoVien(),kiHoc, ngayHoc, caHoc)){
+                return gv;
+            }
+        }
+        return null;
+    }
+
+
+    @Override
     public List<LopHoc> findAll() {
         return (List<LopHoc>) lopHocDao.findAll();
     }
@@ -143,9 +177,9 @@ public class LopHocServiceImpl implements LopHocService {
 
     @Override
     public int getTongTinSvKi(String masv, int ki) {
-        int tongTin=0;
-        for (LopHoc lopHoc: lopHocDao.getLopHocSvKi(masv,ki)){
-          tongTin=tongTin+ lopHoc.getMonHoc().getTinChi();
+        int tongTin = 0;
+        for (LopHoc lopHoc : lopHocDao.getLopHocSvKi(masv, ki)) {
+            tongTin = tongTin + lopHoc.getMonHoc().getTinChi();
         }
         return tongTin;
     }

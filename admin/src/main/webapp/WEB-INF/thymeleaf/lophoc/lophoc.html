@@ -248,11 +248,8 @@
                                         <div class="form-group">
                                             <label for="" class="col-sm-3 control-label">Giảng viên</label>
                                             <div class="col-md-9">
-                                                <select required id="giangVien" name="giangVien"
-                                                        class="select2 form-control"
-                                                        title="Giảng viên">
-                                                    <!--<option selected value=""><&#45;&#45;Chọn&ndash;&gt;</option>-->
-                                                </select>
+                                                <input required id="giangVien"  class="form-control" readonly/>
+                                                <input type="hidden" id="giangVienHid" name="giangVien"/>
                                             </div>
                                         </div>
                                         <div hidden id="chonLichHoc" class="form-group">
@@ -773,7 +770,7 @@
             var dayHid = $('.ngayHocHid');
             var ngayHoc = $(cbNgayHoc[cbNgayHoc.index(this)]).val();
             var stt = $(cbNgayHoc).index(this);
-
+            var maNganh = $('#boMon').val();
             if ($(this).is(":checked")) {
                 $(caHoc[cbNgayHoc.index(this)]).prop('disabled', false);
                 $(caHoc[cbNgayHoc.index(this)]).css("background-color", "");
@@ -781,13 +778,13 @@
                 var caHoc = $(caHoc[cbNgayHoc.index(this)]).val();
                 var maGiaoVien = $('#giangVien').val();
                 var kiHoc = $('#kiHoc').val();
-                checkTimeExits(ngayHoc, caHoc, maGiaoVien, kiHoc, stt);
+                checkTimeExits(ngayHoc, caHoc, maGiaoVien, kiHoc, stt, maNganh);
 
             } else {
                 $(caHoc[cbNgayHoc.index(this)]).prop('disabled', 'disabled');
                 $(caHoc[cbNgayHoc.index(this)]).css("background-color", "#DCDCDC");
                 $(dayHid).val('');
-                checkTimeExits(0, 0, maGiaoVien, 0, stt);
+                checkTimeExits(0, 0, 0, 0, stt, maNganh);
             }
         }
 
@@ -834,9 +831,6 @@
                 $.each(rs[0], function (i, obj) {
                     $('#monHoc').append("<option value='" + obj.maMonHoc + "' tinchi='" + obj.tinChi + "'>" + obj.tenMonHoc + "</option>");
                 });
-                $.each(rs[1], function (i, obj) {
-                    $('#giangVien').append("<option value='" + obj.maGiaoVien + "'>" + obj.user.fullName + "</option>");
-                });
                 getCode();
 
             }
@@ -847,13 +841,13 @@
         var valid = $("#form-themmoi").parsley();
         valid.validate();
         if (valid.isValid()) {
-            var check = true;
-            for (i = 0; i < allowSubmit.length; i++) {
-                if (allowSubmit[i] == false)
-                    check = false;
-            }
+            // var check = true;
+            // for (i = 0; i < allowSubmit.length; i++) {
+            //     if (allowSubmit[i] == false)
+            //         check = false;
+            // }
 
-            if (check) {
+            // if (check) {
                 var data = $('#form-themmoi').serialize();
                 $.ajax({
                     url: base_url + 'lophoc/them-moi',
@@ -869,10 +863,10 @@
                     }
                 });
             }
-        }
+        // }
     });
 
-    var allowSubmit = [true, true, true, true, true];
+    // var allowSubmit = [true, true, true, true, true];
 
 
     $('.caHoc').on("change", function () {
@@ -890,21 +884,25 @@
         checkTimeExits(ngayHoc, caHoc, maGiaoVien, kiHoc, stt);
     });
 
-    function checkTimeExits(ngayHoc, caHoc, maGiaoVien, kiHoc, value) {
+    function checkTimeExits(ngayHoc, caHoc, maGiaoVien, kiHoc, value, maNganh) {
         var error = $('.errorSub');
         $.ajax({
             url: base_url + 'lophoc/checkTimeExits',
             type: "get",
-            data: {ngayHoc: ngayHoc, caHoc: caHoc, maGiaoVien: maGiaoVien, kiHoc: kiHoc},
+            data: {ngayHoc: ngayHoc, caHoc: caHoc, maGiaoVien: maGiaoVien, kiHoc: kiHoc, maNganh: maNganh},
             dataType: "text",
             success: function (result) {
                 var rs = JSON.parse(result);
-                allowSubmit[value] = !rs;
-                if (rs == 1) $(error[value]).show();
-                else $(error[value]).hide();
+                if(rs!=null){
+                    $('#giangVien').val(rs.user.fullName);
+                    $('#giangVienHid').val(rs.maGiaoVien);
+                }else {
+                    $('#giangVien').val('');
+                    $('#giangVienHid').val('');
+                }
             },
-            error: function () {
-                alert("lỗi server");
+            error: function (msg) {
+
             }
         });
         getAvailableClass();
@@ -933,7 +931,7 @@
                 });
             },
             error: function () {
-                alert("500 error");
+
             }
         });
     }

@@ -40,6 +40,16 @@ public class GiaoVien {
     public GiaoVien() {
     }
 
+    @Transient
+    private int slot;
+
+    public int getSlot() {
+        return slot;
+    }
+
+    public void setSlot(int slot) {
+        this.slot = slot;
+    }
 
     public Set<ThongBao> getLstThongBao() {
         return lstThongBao;

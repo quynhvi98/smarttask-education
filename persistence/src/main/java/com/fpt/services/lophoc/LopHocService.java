@@ -1,5 +1,6 @@
 package com.fpt.services.lophoc;
 
+import com.fpt.entity.GiaoVien;
 import com.fpt.entity.LopHoc;
 
 import java.util.List;
@@ -25,4 +26,5 @@ public interface LopHocService {
     List<LopHoc> search(String maLop,String phongHoc);
     String ngayHienTai();
     Long count();
+    GiaoVien getGiaoVienDeTaoLop(String maNganh, String kiHoc, String ngayHoc, String caHoc);
 }
