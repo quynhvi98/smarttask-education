@@ -98,7 +98,7 @@ public class LopHocController {
             lopHoc.setGiaoVien(giaoVien);
             lopHoc.setPhongHoc(phongHocE);
             lopHoc.setMoTa(moTa);
-            lopHoc.setTrangThai("3");
+            lopHoc.setTrangThai("0");
             lopHoc.setNgayBatDau(ngayBatDau);
             lopHoc.setNgayKetThuc(ngayKetThuc);
             lopHoc.setNgayHoc(ngayHocStr);
@@ -176,17 +176,22 @@ public class LopHocController {
         String maNganh = request.getParameter("maNganh");
 //        Boolean isExits = lopHocService.checkTimeExits(maGiaoVien, kiHoc, ngayHoc, caHoc);
         GiaoVien giaoVien = lopHocService.getGiaoVienDeTaoLop(maNganh, kiHoc, ngayHoc, caHoc);
-        giaoVien.setBoMon(null);
-        giaoVien.setLstLopHoc(null);
-        giaoVien.setLstThongBao(null);
-        giaoVien.getUser().setGiaoVien(null);
-        giaoVien.getUser().setRoles(null);
-        giaoVien.getUser().setSinhVien(null);
-        giaoVien.getUser().setLstLike(null);
-        giaoVien.getUser().setLstBinhLuan(null);
-        giaoVien.getUser().setLstBinhLuan(null);
-        giaoVien.getUser().setLstBaiDang(null);
-        return giaoVien;
+        if(giaoVien!=null){
+            giaoVien.setBoMon(null);
+            giaoVien.setLstLopHoc(null);
+            giaoVien.setLstThongBao(null);
+            giaoVien.getUser().setGiaoVien(null);
+            giaoVien.getUser().setRoles(null);
+            giaoVien.getUser().setSinhVien(null);
+            giaoVien.getUser().setLstLike(null);
+            giaoVien.getUser().setLstBinhLuan(null);
+            giaoVien.getUser().setLstBinhLuan(null);
+            giaoVien.getUser().setLstBaiDang(null);
+            return giaoVien;
+        }else {
+            return null;
+        }
+
     }
 
     @GetMapping(value = "/lophoc/timkiem/{id}")

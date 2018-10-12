@@ -53,7 +53,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li th:each="lophoc : ${giaoVien.lstLopHoc}">
-                        <th:block th:if="${lophoc.trangThai}">
+                        <th:block th:if="${lophoc.trangThai=='1'}">
                         <a th:href="@{/giangviendaylop/}+${lophoc.maLop}">
                         <span th:text="${lophoc.maLop}">Lớp</span>
                     </a>
