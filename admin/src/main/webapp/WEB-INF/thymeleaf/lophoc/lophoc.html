@@ -784,7 +784,7 @@
                 $(caHoc[cbNgayHoc.index(this)]).prop('disabled', 'disabled');
                 $(caHoc[cbNgayHoc.index(this)]).css("background-color", "#DCDCDC");
                 $(dayHid).val('');
-                checkTimeExits(0, 0, 0, 0, stt, maNganh);
+                checkTimeExits('', '', '', '', '', '');
             }
         }
 
@@ -893,8 +893,9 @@
             data: {ngayHoc: ngayHoc, caHoc: caHoc, maGiaoVien: maGiaoVien, kiHoc: kiHoc, maNganh: maNganh},
             dataType: "text",
             success: function (result) {
-                var rs = JSON.parse(result);
-                if(rs!=null){
+
+                if(result != ""){
+                    var rs = JSON.parse(result);
                     $('#giangVien').val(rs.user.fullName);
                     $('#giangVienHid').val(rs.maGiaoVien);
                 }else {
