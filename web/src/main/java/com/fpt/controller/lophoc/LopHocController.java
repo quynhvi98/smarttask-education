@@ -81,6 +81,7 @@ public class LopHocController {
         String[] caHoc = lopHoc.getCaHoc().split(",");
         model.addAttribute("user", userInfo);
         model.addAttribute("giaoVien", giaoVien);
+
         model.addAttribute("lopHoc", lopHoc);
         model.addAttribute("SV", sinhViens);
         model.addAttribute("ngayHoc", ngayHoc);

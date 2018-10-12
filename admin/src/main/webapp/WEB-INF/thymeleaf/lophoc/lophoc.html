@@ -784,7 +784,7 @@
                 $(caHoc[cbNgayHoc.index(this)]).prop('disabled', 'disabled');
                 $(caHoc[cbNgayHoc.index(this)]).css("background-color", "#DCDCDC");
                 $(dayHid).val('');
-                checkTimeExits(0, 0, 0, 0, stt, maNganh);
+                checkTimeExits('', '', '', '', '', '');
             }
         }
 
@@ -881,7 +881,8 @@
         var caHoc = $(ca[ca.index(this)]).val();
         var maGiaoVien = $('#giangVien').val();
         var kiHoc = $('#kiHoc').val();
-        checkTimeExits(ngayHoc, caHoc, maGiaoVien, kiHoc, stt);
+        var maNganh = $('#boMon').val();
+        checkTimeExits(ngayHoc, caHoc, maGiaoVien, kiHoc, stt, maNganh);
     });
 
     function checkTimeExits(ngayHoc, caHoc, maGiaoVien, kiHoc, value, maNganh) {
@@ -892,8 +893,9 @@
             data: {ngayHoc: ngayHoc, caHoc: caHoc, maGiaoVien: maGiaoVien, kiHoc: kiHoc, maNganh: maNganh},
             dataType: "text",
             success: function (result) {
-                var rs = JSON.parse(result);
-                if(rs!=null){
+
+                if(result != ""){
+                    var rs = JSON.parse(result);
                     $('#giangVien').val(rs.user.fullName);
                     $('#giangVienHid').val(rs.maGiaoVien);
                 }else {
