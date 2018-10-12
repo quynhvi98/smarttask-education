@@ -31,11 +31,8 @@ package com.fpt.controller.student;
 public class StudentController {
     @Autowired
     private LopHocService lopHocService;
-
     @Autowired
     private SinhVienService sinhVienService;
-
-
     @Autowired
     private MonHocService monHocService;
     @Autowired
@@ -68,6 +65,8 @@ public class StudentController {
         User user = (User) session.getAttribute("userInfo");
         model.addAttribute("user", user);
         model.addAttribute("moiNhat", thongBaoService.thongBaoMoiNhatGV(user.getGiaoVien().getMaGiaoVien()));
+
+        model.addAttribute("listSinhVien", sinhVienService.listSV());
         return "student/register-member";
     }
 
@@ -184,9 +183,10 @@ public class StudentController {
         DateMidnight end = new DateMidnight(new Date());
         int months = Months.monthsBetween(start,end).getMonths();
         int thangDu = months % 6;
-        return (thangDu > 0) ? (months / 6 +1) : (months/6);
-    }
+        int ki=(thangDu > 0) ? (months / 6 +1) : (months/6);
 
+        return ki>0 ? ki:1;
+    }
 
     private int checkThoiHan(Date ngaybatdau) {
         Date date = ngaybatdau;
