@@ -27,6 +27,11 @@ public class DiemServiceImpl implements DiemService {
     }
 
     @Override
+    public void delete(Diem diem) {
+         diemDao.delete(diem);
+    }
+
+    @Override
     public Diem findById(String id) {
         return diemDao.findOne(id);
     }
@@ -34,6 +39,11 @@ public class DiemServiceImpl implements DiemService {
     @Override
     public List<Diem> listDiemKi(String msv, int ki) {
         return diemDao.listDiemKi(msv,ki);
+    }
+
+    @Override
+    public List<Diem> listDiemSVandLop(String msv, String maLop) {
+        return diemDao.listDiemSVandLop(msv,maLop);
     }
 
 

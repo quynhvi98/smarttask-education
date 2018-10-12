@@ -9,6 +9,7 @@ import com.fpt.services.diem.DiemService;
 import com.fpt.services.lophoc.LopHocService;
 import com.fpt.services.monhoc.MonHocService;
 import com.fpt.services.sinhvien.SinhVienService;
+import com.fpt.services.thongbao.ThongBaoService;
 import org.joda.time.DateMidnight;
 import org.joda.time.Months;
 import org.slf4j.Logger;
@@ -40,6 +41,8 @@ public class QuanLiDiemController {
     private MonHocService monHocService;
     @Autowired
     private LopHocService lopHocService;
+    @Autowired
+    private ThongBaoService thongBaoService;
     private final Logger logger = LoggerFactory.getLogger(UserInfoController.class);
     @Component
     public class ThymeMath {
@@ -58,6 +61,10 @@ public class QuanLiDiemController {
         model.addAttribute("tongMonHoc", monHocService.tongMonHocKiVaBoMon(userInfo.getSinhVien().getBoMon().getMaNganh(),kihoc));
         System.out.println("tổng môn học: "+monHocService.tongMonHocKiVaBoMon(userInfo.getSinhVien().getBoMon().getMaNganh(),kihoc));
         model.addAttribute("diem", diemService.listDiemKi(userInfo.getSinhVien().getMaSinhVien(),kihoc));
+        User user = (User) session.getAttribute("userInfo");
+        model.addAttribute("soLuongTBChuaXem",thongBaoService.soLuongTbChuaXemSV(user.getSinhVien().getMaSinhVien()));
+        model.addAttribute("moiNhat",thongBaoService.thongBaoMoiNhatSV(user.getSinhVien().getMaSinhVien()));
+
         Double dtb=0.0;
         int count=0;
         int not_passed =0;
@@ -90,7 +97,11 @@ public class QuanLiDiemController {
         model.addAttribute("kiHienTai", kihoc);
         model.addAttribute("user", userInfo);
         model.addAttribute("tongMonHoc", monHocService.tongMonHocKiVaBoMon(userInfo.getSinhVien().getBoMon().getMaNganh(),kihoc));
-         model.addAttribute("diem", diemService.listDiemKi(userInfo.getSinhVien().getMaSinhVien(),kihoc));
+        model.addAttribute("diem", diemService.listDiemKi(userInfo.getSinhVien().getMaSinhVien(),kihoc));
+        User user = (User) session.getAttribute("userInfo");
+        model.addAttribute("soLuongTBChuaXem",thongBaoService.soLuongTbChuaXemSV(user.getSinhVien().getMaSinhVien()));
+        model.addAttribute("moiNhat",thongBaoService.thongBaoMoiNhatSV(user.getSinhVien().getMaSinhVien()));
+
         Double dtb=0.0;
         int count=0;
         int not_passed =0;
@@ -119,6 +130,7 @@ public class QuanLiDiemController {
         DateMidnight end = new DateMidnight(new Date());
         int months = Months.monthsBetween(start,end).getMonths();
         int thangDu = months % 6;
-        return (thangDu > 0) ? (months / 6 +1) : (months/6);
+        int ki=(thangDu > 0) ? (months / 6 +1) : (months/6);
+        return ki> 0 ? ki:1;
     }
 }
