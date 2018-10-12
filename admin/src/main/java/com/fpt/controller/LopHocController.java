@@ -98,7 +98,7 @@ public class LopHocController {
             lopHoc.setGiaoVien(giaoVien);
             lopHoc.setPhongHoc(phongHocE);
             lopHoc.setMoTa(moTa);
-            lopHoc.setTrangThai("3");
+            lopHoc.setTrangThai("0");
             lopHoc.setNgayBatDau(ngayBatDau);
             lopHoc.setNgayKetThuc(ngayKetThuc);
             lopHoc.setNgayHoc(ngayHocStr);
