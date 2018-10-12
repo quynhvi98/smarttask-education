@@ -74,7 +74,6 @@ body {
     margin: 0 auto;
     padding: 40px;
     background: white;
-    max-width: 500px;
     box-shadow: 0 0 100px 0 rgba(0, 0, 0, 0.2), 30px 30px 50px 0 rgba(0, 0, 0, 0.06);
 }
 

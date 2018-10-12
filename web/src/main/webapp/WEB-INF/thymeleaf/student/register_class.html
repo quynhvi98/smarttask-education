@@ -23,7 +23,7 @@
           href="https://cdn.jsdelivr.net/sweetalert2/latest/sweetalert2.min.css"/>
     <script src="https://cdn.jsdelivr.net/sweetalert2/latest/sweetalert2.min.js"></script>
 
-
+    <link href="https://fonts.googleapis.com/css?family=Niramit|Open+Sans+Condensed:300|Roboto" rel="stylesheet">
 </head>
 <style>
     .skin-blue sidebar-mini modal-open {
@@ -73,6 +73,9 @@
         -o-transition: 0.2s ease-out;
         -ms-transition: 0.2s ease-out;
         transition: 0.2s ease-out;
+    }
+    body{
+        font-family: 'Roboto', sans-serif;
     }
 </style>
 <body class="hold-transition skin-blue sidebar-mini" style="padding-right: 0px;">
@@ -182,7 +185,7 @@
                                                         </thead>
                                                         <tbody>
                                                         <tr th:each="lophoc,k : ${monhoc.getLstLopHoc()}">
-                                                            <th:block th:if="${lophoc.trangThai}">
+                                                            <th:block th:if="${lophoc.trangThai!='3'}">
                                                             <td th:text="${k.index+1}"></td>
                                                             <td style="width: 7%;" th:text="${lophoc.maLop}"></td>
                                                             <td th:text="${lophoc.getGiaoVien().getUser().getFullName()}"></td>
@@ -256,8 +259,9 @@
             <th:block th:if="${#lists.isEmpty(listMonHoc)}">
                 <h5>Hiện tại chưa có môn</h5>
             </th:block>
-    </div>
+
     </section>
+    </div>
 </div>
 <div th:replace="fragments/footer :: footer">&nbsp;</div>
 <aside class="control-sidebar control-sidebar-dark">

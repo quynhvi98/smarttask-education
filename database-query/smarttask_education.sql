@@ -261,6 +261,9 @@ CREATE TABLE IF NOT EXISTS system_log
 CREATE TABLE IF NOT EXISTS bai_tap_lon
 (
   id bigint PRIMARY KEY AUTO_INCREMENT,
+  bai_tap varchar(255),
+  file_name VARCHAR(255),
+  file_real_name varchar(255),
   noi_dung text,
   ngay_bat_dau datetime,
   han_nop datetime,
@@ -270,3 +273,7 @@ CREATE TABLE IF NOT EXISTS bai_tap_lon
   CONSTRAINT FK_bt_lop FOREIGN KEY (ma_lop) REFERENCES lop_hoc(ma_lop),
   CONSTRAINT FK_bt_giao_vien FOREIGN KEY (ma_giao_vien) REFERENCES giao_vien(ma_giao_vien)
 );
+
+
+
+

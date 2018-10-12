@@ -72,81 +72,82 @@ public class TuongLopController {
 
     private String maLop = null;
 
-    @RequestMapping("/tuonglop/{maLop}")
-    public String tuongLop(@PathVariable("maLop") String maLop, HttpSession session, Model model) {
-        this.maLop = maLop;
-        User user = (User) session.getAttribute("userInfo");
-        List<BaiDang> lstBaiDang = baiDangService.findByMaLop(maLop);
-        List<Integer> lstPostId = new ArrayList<>();
-        List<Like> lstLike = likeService.getLikeByUser(user.getUserName());
-        for (Like like : lstLike) {
-            lstPostId.add(like.getBaiDang().getPostId());
-        }
-        List<TaiLieu> lstTaiLieu = taiLieuService.findAllByMaLop(maLop);
-        LopHoc lopHoc = lopHocService.findById(maLop);
-        String[] ngayHoc = lopHoc.getNgayHoc().split(",");
-        String[] caHoc = lopHoc.getCaHoc().split(",");
+        @RequestMapping("/tuonglop/{maLop}")
+        public String tuongLop(@PathVariable("maLop") String maLop, HttpSession session, Model model) {
+            this.maLop = maLop;
+            User user = (User) session.getAttribute("userInfo");
+            List<BaiDang> lstBaiDang = baiDangService.findByMaLop(maLop);
+            List<Integer> lstPostId = new ArrayList<>();
+            List<Like> lstLike = likeService.getLikeByUser(user.getUserName());
+            for (Like like : lstLike) {
+                lstPostId.add(like.getBaiDang().getPostId());
+            }
+            List<TaiLieu> lstTaiLieu = taiLieuService.findAllByMaLop(maLop);
+            LopHoc lopHoc = lopHocService.findById(maLop);
+            String[] ngayHoc = lopHoc.getNgayHoc().split(",");
+            String[] caHoc = lopHoc.getCaHoc().split(",");
 
-        model.addAttribute("lstPostId", lstPostId);
-        model.addAttribute("lstBaiDang", lstBaiDang);
-        model.addAttribute("user", user);
-        model.addAttribute("lstTaiLieu", lstTaiLieu);
-        model.addAttribute("lopHoc", lopHoc);
-        model.addAttribute("ngayHoc", ngayHoc);
-        model.addAttribute("caHoc", caHoc);
-        model.addAttribute("maLop", maLop);
-        if (user.getGiaoVien() != null) {
-            List<BaiTap> baiTaps=baiTapService.listBtAndLop(maLop);
-            List<SinhVien> sinhViens=sinhVienService.getListSinhVienbyLopHocId(maLop);
-            String soLuongSVNopBT=baiTaps.size()+"/"+sinhViens.size();
-            List<BaiTap> baiTaps1=new LinkedList<>();
-            baiTaps1.addAll(baiTaps);
-            for (SinhVien sinhVien:sinhViens) {
-                if (baiTaps.size() == 0) {
-                    BaiTap baiTap1 = new BaiTap();
-                    baiTap1.setSinhVien(sinhVien);
-                    baiTaps1.add(baiTap1);
-                } else
-                    for (BaiTap baiTap : baiTaps) {
-                        if (!baiTap.getSinhVien().equals(sinhVien)) {
-                            BaiTap baiTap1 = new BaiTap();
-                            baiTap1.setSinhVien(sinhVien);
-                            baiTaps1.add(baiTap1);
+            model.addAttribute("lstPostId", lstPostId);
+            model.addAttribute("lstBaiDang", lstBaiDang);
+            model.addAttribute("user", user);
+            model.addAttribute("lstTaiLieu", lstTaiLieu);
+            model.addAttribute("lopHoc", lopHoc);
+            model.addAttribute("ngayHoc", ngayHoc);
+            model.addAttribute("caHoc", caHoc);
+            model.addAttribute("maLop", maLop);
+            if (user.getGiaoVien() != null) {
+                List<BaiTap> baiTaps=baiTapService.listBtAndLop(maLop);
+                List<SinhVien> sinhViens=sinhVienService.getListSinhVienbyLopHocId(maLop);
+                String soLuongSVNopBT=baiTaps.size()+"/"+sinhViens.size();
+                List<BaiTap> baiTaps1=new LinkedList<>();
+                baiTaps1.addAll(baiTaps);
+                for (SinhVien sinhVien:sinhViens) {
+                    if (baiTaps.size() == 0) {
+                        BaiTap baiTap1 = new BaiTap();
+                        baiTap1.setSinhVien(sinhVien);
+                        baiTaps1.add(baiTap1);
+                    } else
+                        for (BaiTap baiTap : baiTaps) {
+                            if (!baiTap.getSinhVien().equals(sinhVien)) {
+                                BaiTap baiTap1 = new BaiTap();
+                                baiTap1.setSinhVien(sinhVien);
+                                baiTaps1.add(baiTap1);
+                            }
                         }
-                    }
 
-            }
-            model.addAttribute("baiTap", baiTaps1);
-            model.addAttribute("soLuongSVNopBT", soLuongSVNopBT);
-            model.addAttribute("baiTapLon", baiTapLonService.findByMaLop(maLop));
-            GiaoVien giaoVien = giangVienService.findById(user.getGiaoVien().getMaGiaoVien());
-            model.addAttribute("soLuongTBChuaXem", thongBaoService.soLuongTbChuaXemGV(user.getGiaoVien().getMaGiaoVien()));
-            model.addAttribute("moiNhat", thongBaoService.thongBaoMoiNhatGV(user.getGiaoVien().getMaGiaoVien()));
-            model.addAttribute("giaoVien", giaoVien);
-            return "tuonglop/tuonglopgv";
-        }
-        if (user.getSinhVien() != null) {
-            SinhVien sinhVien = sinhVienService.findById(user.getSinhVien().getMaSinhVien());
-            model.addAttribute("sinhVien", sinhVien);
-          BaiTap baiTap=  baiTapService.findBySVAndLop(user.getSinhVien().getMaSinhVien(),maLop);
-            BaiTapLon baiTapLon=baiTapLonService.findByMaLop(maLop);
-            if(baiTapLon!=null){
-                model.addAttribute("timeEnd", baiTapLon.getNgayKetThuc());
-                try {
-                    model.addAttribute("checkHan",checkHanBaiTap(baiTapLon.getNgayKetThuc()));
-                } catch (ParseException e) {
-                    e.printStackTrace();
                 }
+                model.addAttribute("baiTap", baiTaps1);
+                model.addAttribute("soLuongSVNopBT", soLuongSVNopBT);
+                model.addAttribute("baiTapLon", baiTapLonService.findByMaLop(maLop));
+                GiaoVien giaoVien = giangVienService.findById(user.getGiaoVien().getMaGiaoVien());
+                model.addAttribute("soLuongTBChuaXem", thongBaoService.soLuongTbChuaXemGV(user.getGiaoVien().getMaGiaoVien()));
+                model.addAttribute("moiNhat", thongBaoService.thongBaoMoiNhatGV(user.getGiaoVien().getMaGiaoVien()));
+                model.addAttribute("giaoVien", giaoVien);
+                return "tuonglop/tuonglopgv";
             }
-            if(baiTap!=null){
-                model.addAttribute("baiTap", baiTap);
+            if (user.getSinhVien() != null) {
+                SinhVien sinhVien = sinhVienService.findById(user.getSinhVien().getMaSinhVien());
+                model.addAttribute("sinhVien", sinhVien);
+                BaiTap baiTap=  baiTapService.findBySVAndLop(user.getSinhVien().getMaSinhVien(),maLop);
+                BaiTapLon baiTapLon=baiTapLonService.findByMaLop(maLop);
+                if(baiTapLon!=null){
+                    model.addAttribute("timeEnd", baiTapLon.getNgayKetThuc());
+                    try {
+                        model.addAttribute("checkHan",checkHanBaiTap(baiTapLon.getNgayKetThuc()));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if(baiTap!=null){
+                    model.addAttribute("baiTap", baiTap);
+                }
+                model.addAttribute("baiTapLon", baiTapLonService.findByMaLop(maLop));
+                model.addAttribute("soLuongTBChuaXem", thongBaoService.soLuongTbChuaXemSV(user.getSinhVien().getMaSinhVien()));
+                model.addAttribute("moiNhat", thongBaoService.thongBaoMoiNhatSV(user.getSinhVien().getMaSinhVien()));
+                model.addAttribute("baiTap", baiTapService.findBySVAndLop(user.getSinhVien().getMaSinhVien(),maLop));
+                return "tuonglop/tuonglop";
             }
-            model.addAttribute("soLuongTBChuaXem", thongBaoService.soLuongTbChuaXemSV(user.getSinhVien().getMaSinhVien()));
-            model.addAttribute("moiNhat", thongBaoService.thongBaoMoiNhatSV(user.getSinhVien().getMaSinhVien()));
-            model.addAttribute("baiTap", baiTapService.findBySVAndLop(user.getSinhVien().getMaSinhVien(),maLop));
-            return "tuonglop/tuonglop";
-        }
-        return null;
+            return null;
     }
 
     @PostMapping("/tuonglop/addpost")
@@ -306,8 +307,9 @@ public class TuongLopController {
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
     @PostMapping("/api/taobt")
-    public void getSearchResultViaAjax(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException, ParseException {
+    public void getSearchResultViaAjax(@RequestParam("file") MultipartFile file,HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException, ParseException {
         String baiTap = request.getParameter("baiTap");
+        String noiDung = request.getParameter("noiDung");
         String ngayBatDau = request.getParameter("ngayBatDau");
         String hanNop = request.getParameter("hanNop");
         String maLop = request.getParameter("maLop");
@@ -315,6 +317,13 @@ public class TuongLopController {
         String timeEnd = request.getParameter("timeEnd");
         User user = (User) session.getAttribute("userInfo");
         response.getWriter().println("success");
+        String suffix = null;
+
+                suffix = file.getOriginalFilename().split("\\.")[1];
+                String fileName = System.currentTimeMillis() + "." + suffix;
+                upFile(file, fileName, "baitap");
+
+
         ThongBaoSocket message = new ThongBaoSocket();
         List<SinhVien> sinhViens = sinhVienService.getListSinhVienbyLopHocId(maLop);
         BaiTapLon baiTap1 = baiTapLonService.findByMaLop(maLop);
@@ -324,7 +333,11 @@ public class TuongLopController {
             baiTap1.setLopHoc(lopHocService.findById(maLop));
             baiTap1.setNgayBatDau(getDate(ngayBatDau, timeStart));
             baiTap1.setNgayKetThuc(getDate(hanNop, timeEnd));
-            baiTap1.setNoiDung(baiTap);
+            baiTap1.setNoiDung(noiDung);
+            baiTap1.setBaiTap(baiTap);
+            baiTap1.setFileName(file.getOriginalFilename());
+            baiTap1.setFileRealName(fileName);
+
             baiTapLonService.create(baiTap1);
             for (SinhVien sinhVien : sinhViens) {
                 message.setTitle(setTitle("titleBaiTap"));
@@ -342,6 +355,12 @@ public class TuongLopController {
             baiTap1.setNgayBatDau(getDate(ngayBatDau, timeStart));
             baiTap1.setNgayKetThuc(getDate(hanNop, timeEnd));
             baiTap1.setNoiDung(baiTap);
+            baiTap1.setNoiDung(noiDung);
+            baiTap1.setBaiTap(baiTap);
+            if(file!=null) {
+                baiTap1.setFileName(file.getOriginalFilename());
+                baiTap1.setFileRealName(fileName);
+            }
             baiTapLonService.create(baiTap1);
             for (SinhVien sinhVien : sinhViens) {
                 message.setTitle(setTitle("titleSuaBaiTap"));
@@ -355,6 +374,7 @@ public class TuongLopController {
                 this.simpMessagingTemplate.convertAndSend("/topic/public-" + message.getReceiver(), message);
             }
         }
+
     }
 
     public ThongBao themThongBaoSV(ThongBaoSocket message) throws ParseException {
@@ -448,6 +468,11 @@ private boolean checkHanBaiTap(Date day) throws ParseException {
         downloadFile(response, baiTap.getFileName(), baiTap.getFileRealName(),"baitap");
     }
 
+    @RequestMapping("/tuonglop/download-tai-lieu-bt/{Id}")
+    public void downloadTaiLieuBt(HttpServletRequest request,HttpServletResponse response,@PathVariable("Id") String Id) throws IOException {
+        BaiTapLon baiTapLon = baiTapLonService.findByMaLop(maLop);
+        downloadFile(response,baiTapLon.getFileName(), baiTapLon.getFileRealName(),"baitap");
+    }
 
     private Date convertStringToDate(String day) throws ParseException {
         return new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").parse(day);

@@ -3,6 +3,9 @@ package com.fpt.controller.lophoc;
 import com.fpt.controller.UserInfoController;
 import com.fpt.controller.lophoc.ExcelView;
 import com.fpt.entity.*;
+import com.fpt.services.baitap.BaiTapService;
+import com.fpt.services.baitaplon.BaiTapLonService;
+import com.fpt.services.config.ConfigService;
 import com.fpt.services.diem.DiemService;
 import com.fpt.services.giangvien.GiangVienService;
 import com.fpt.services.lophoc.LopHocService;
@@ -25,6 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -49,7 +53,12 @@ public class LopHocController {
     private DiemService diemService;
     @Autowired
     private MonHocService monHocService;
-
+    @Autowired
+    private BaiTapLonService baiTapLonService;
+    @Autowired
+    private BaiTapService baiTapService;
+    @Autowired
+    private ConfigService configService;
     @RequestMapping("/giangviendaylop/{maLop}")
     public String userProfile(HttpSession session, @PathVariable("maLop") String maLop, HttpServletRequest request, Model model) {
         User userInfo = (User) session.getAttribute("userInfo");
@@ -270,6 +279,60 @@ public class LopHocController {
                 response.getWriter().println("saidiem");
             }
         }
+    }
+
+
+    @RequestMapping("/quanlybaitap/{maLop}")
+    public String quanLyBaiTap(@PathVariable("maLop") String maLop, HttpSession session, Model model) {
+        User user = (User) session.getAttribute("userInfo");
+
+        LopHoc lopHoc = lopHocService.findById(maLop);
+        String[] ngayHoc = lopHoc.getNgayHoc().split(",");
+        String[] caHoc = lopHoc.getCaHoc().split(",");
+
+
+        model.addAttribute("user", user);
+
+        model.addAttribute("lopHoc", lopHoc);
+
+        model.addAttribute("maLop", maLop);
+        if (user.getGiaoVien() != null) {
+            List<BaiTap> baiTaps=baiTapService.listBtAndLop(maLop);
+            List<SinhVien> sinhViens=sinhVienService.getListSinhVienbyLopHocId(maLop);
+            String soLuongSVNopBT=baiTaps.size()+"/"+sinhViens.size();
+            List<BaiTap> baiTaps1=new LinkedList<>();
+            baiTaps1.addAll(baiTaps);
+            for (SinhVien sinhVien:sinhViens) {
+                boolean check=true;
+                if (baiTaps.size() == 0) {
+                    BaiTap baiTap1 = new BaiTap();
+                    baiTap1.setSinhVien(sinhVien);
+                    baiTaps1.add(baiTap1);
+                } else {
+                    for (BaiTap baiTap : baiTaps) {
+                        if (baiTap.getSinhVien().equals(sinhVien)) {
+                            check = false;
+                        }
+                    }
+                if(check){
+                    BaiTap baiTap1 = new BaiTap();
+                    baiTap1.setSinhVien(sinhVien);
+                    baiTaps1.add(baiTap1);
+                }
+                }
+
+
+            }
+            model.addAttribute("baiTap", baiTaps1);
+            model.addAttribute("soLuongSVNopBT", soLuongSVNopBT);
+            model.addAttribute("baiTapLon", baiTapLonService.findByMaLop(maLop));
+            model.addAttribute("soLuongTBChuaXem", thongBaoService.soLuongTbChuaXemGV(user.getGiaoVien().getMaGiaoVien()));
+            model.addAttribute("moiNhat", thongBaoService.thongBaoMoiNhatGV(user.getGiaoVien().getMaGiaoVien()));
+            model.addAttribute("giaoVien", giangVienService.findById(user.getGiaoVien().getMaGiaoVien()));
+            return "giaovien_giangday/quanlybaitap";
+        }
+
+        return null;
     }
 
 }

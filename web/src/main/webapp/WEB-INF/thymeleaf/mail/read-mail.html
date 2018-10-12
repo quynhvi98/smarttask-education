@@ -135,12 +135,12 @@
               </div>
               <!-- /.mailbox-controls -->
               <div class="mailbox-read-message">
-                <p th:text="${'Hello '+user.getFullName()+','}"> </p>
+                <p th:text="${'Xin chào: '+user.getFullName()+','}"> </p>
 
                 <p th:text="${mail.getContent()}"></p>
 
 
-                <p>Thanks,<br th:text="${user.getFullName()}" ></p>
+                <!--<p>Thanks,<br th:text="${user.getFullName()}" ></p>-->
               </div>
               <!-- /.mailbox-read-message -->
             </div>

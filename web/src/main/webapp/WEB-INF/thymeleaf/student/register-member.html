@@ -8,98 +8,128 @@
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
     <link type="text/css" th:href="@{/css/student/register_member.css}" rel="stylesheet"/>
-    <!--<meta th:name="${_csrf.parameterName}" th:value="${_csrf.token}">-->
+    <style>
+        body{
+            background-color: #222d32;
+        }
+    </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <!--<input id="token" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
-<div class="wrapper" style="background-color: #ffffff;">
+<div class="wrapper" style="background-color: rgb(255, 255, 255); height: auto; min-height: 100%; border-radius: 10px;">
     <section class="content">
-<th:block th:if="${baiTapLon==null}">
-    <p style="color: black">Hiên tại chưa có bài tập nào</p>
-</th:block>
+        <button style="" class="btn btn-success" data-toggle="modal" data-target="#taoBT">
+            <a style="color: #fefefe"/>Tạo bài tập
+        </button>
+        <th:block th:if="${baiTapLon==null}">
+            <h3 style="color: black;text-align: center">Hiện tại chưa có bài tập nào</h3>
+        </th:block>
         <th:block th:if="${baiTapLon!=null}">
-        <div class="listsv" style="border: none">
-            <div style="width: 100%;height: 100px;background-color: white;color: black">
-                <p th:text="${'Tên bài tập: '+baiTapLon.getNoiDung()}"></p>
-                <p th:text="${'Được giao vào '+ #dates.format(baiTapLon.getNgayBatDau(), 'dd-MM-yyyy HH:mm a')+' và hạn nộp vào '+#dates.format(baiTapLon.getNgayKetThuc(), 'dd-MM-yyyy HH:mm a')}"></p>
-                <p th:text="${'Số lượng sinh viên nộp bài (Đã nộp/tổng số): '+soLuongSVNopBT}"></p>
+            <div class="listsv" style="border: none">
+                <div style="width: 100%;height: 130px;background-color: white;color: black">
+                    <div>
+                        <p style="text-align: center" th:text="${'Tên bài tập: '+baiTapLon.getBaiTap()}"></p>
+                    </div>
+
+                    <div>
+                        <p style="text-align: center" th:text="${'Nội dung bài tập bài tập: '+baiTapLon.getNoiDung()}"></p>
+                    </div>
+                    <div>
+                        <p style="text-align: center"
+                           th:text="${'Được giao vào '+ #dates.format(baiTapLon.getNgayBatDau(), 'dd-MM-yyyy HH:mm a')+' và hạn nộp vào '+#dates.format(baiTapLon.getNgayKetThuc(), 'dd-MM-yyyy HH:mm a')}"></p>
+                    </div>
+                    <div>
+                        <p style="text-align: center"
+                           th:text="${'Số lượng sinh viên nộp bài (Đã nộp/tổng số): '+soLuongSVNopBT}"></p>
+                    </div>
+                </div>
+                <table style="border: none" id="example" class="table  table-bordered">
+                    <tbody id="tb">
+                    <tr th:each="bt : ${baiTap}" style=" border: none !important;">
+                        <td style="border: none">
+                            <div class="md-checkbox">
+                                <th:block th:if="${bt.id!=0}">
+                                    <a style="border-color: white; box-shadow: rgba(152, 146, 146, 0.12) 0 0 9px 6px;"
+                                       th:href="@{/tuonglop/download-bai-tap/}+${bt.id}"
+                                       class="list-group-item table-content">
+                                        <div class="media table-content-cell" style="width: 80%;">
+                                            <div class="media-left">
+
+                                                <style>
+                                                    .img-circle {
+                                                        width: 50px;
+                                                        height: 50px;
+                                                        border-radius: 50%;
+                                                    }
+                                                </style>
+                                                <img class="media-object img-circle"
+                                                     th:src="@{/avatar/}+${bt.getSinhVien().getUser().getUserAvatar() != null ? bt.getSinhVien().getUser().getUserAvatar() : 'default.png'}"
+                                                     style="width: 40px; height: 40px; ">
+                                            </div>
+                                            <div class="media-body" style="min-width: 184px; padding-left: 25px;">
+                                                <p th:text="${bt.getSinhVien().getUser().getFullName()}"
+                                                   class="media-heading"> Nguyễn Văn B</p>
+
+                                                <span th:text="${bt.getSinhVien().getMaSinhVien()}"
+                                                      class="notification-location"> anv322@fpt.edu.vn </span>
+                                            </div>
+                                            <div class="media-right" style="padding-top: 10px; width: 225%;">
+                                                <span th:text="${bt.getFileName()}"
+                                                      style="float: left; text-align: center; min-width: 100%;"
+                                                      class="notification-location"> anv322@fpt.edu.vn </span>
+                                            </div>
+                                        </div>
+
+                                        <div style="text-align: center;" class="list-remove-btn table-content-cell"
+                                             th:text="${#dates.format(bt.getNgayTao(), 'dd-MM-yyyy HH:mm a')}">Thêm
+                                        </div>
+                                    </a>
+                                </th:block>
+
+                                <th:block th:if="${bt.id==0}">
+                                    <a style="border-color: white; box-shadow: rgba(152, 146, 146, 0.12) 0 0 9px 6px;"
+                                       href="#"
+                                       class="list-group-item table-content">
+                                        <div class="media table-content-cell" style="width: 80%;">
+                                            <div class="media-left">
+
+                                                <style>
+                                                    .img-circle {
+                                                        width: 50px;
+                                                        height: 50px;
+                                                        border-radius: 50%;
+                                                    }
+                                                </style>
+                                                <img class="media-object img-circle"
+                                                     th:src="@{/avatar/}+${bt.getSinhVien().getUser().getUserAvatar() != null ? bt.getSinhVien().getUser().getUserAvatar() : 'default.png'}"
+                                                     style="width: 40px; height: 40px; ">
+                                            </div>
+                                            <div class="media-body" style="min-width: 158px; padding-left: 25px;">
+                                                <p th:text="${bt.getSinhVien().getUser().getFullName()}"
+                                                   class="media-heading"> Nguyễn Văn B</p>
+
+                                                <span th:text="${bt.getSinhVien().getMaSinhVien()}"
+                                                      class="notification-location"> anv322@fpt.edu.vn </span>
+                                            </div>
+                                            <div class="media-right" style="padding-top: 10px; width: 225%;">
+                                                <span class="notification-location"
+                                                      style="float: left; text-align: center; min-width: 100%;color: red;">Chưa hoàn thành </span>
+                                            </div>
+                                        </div>
+
+                                        <div style="text-align: center;color: red"
+                                             class="list-remove-btn table-content-cell">Chưa hoàn thành
+                                        </div>
+                                    </a>
+                                </th:block>
+
+
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
-            <table style="border: none" id="example" class="table  table-bordered">
-                <tbody id="tb">
-                <tr th:each="bt : ${baiTap}" style=" border: none !important;">
-                    <td style="border: none">
-                        <div class="md-checkbox">
-                            <th:block th:if="${bt.id!=0}">
-                                <a th:href="@{/tuonglop/download-bai-tap/}+${bt.id}" class="list-group-item table-content">
-                                    <div class="media table-content-cell" style="width: 60%">
-                                        <div class="media-left">
-
-<style>
-    .img-circle {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-    }
-</style>
-                                            <img class="media-object img-circle" th:src="@{/avatar/}+${bt.getSinhVien().getUser().getUserAvatar() != null ? bt.getSinhVien().getUser().getUserAvatar() : 'default.png'}" style="width: 40px; height: 40px; ">
-                                        </div>
-                                        <div class="media-body" style="min-width: 158px; padding-left: 25px;">
-                                            <p th:text="${bt.getSinhVien().getUser().getFullName()}" class="media-heading"> Nguyễn Văn B</p>
-
-                                            <span th:text="${bt.getSinhVien().getMaSinhVien()}" class="notification-location"> anv322@fpt.edu.vn </span>
-                                        </div>
-                                        <div class="media-right" style="padding-top: 10px; width: 197%; padding-left: 163px;">
-                                            <span th:text="${bt.getFileName()}" class="notification-location"> anv322@fpt.edu.vn </span>
-
-                                        </div>
-                                    </div>
-
-                                    <div style="padding-left: 200px" class="list-remove-btn table-content-cell" th:text="${#dates.format(bt.getNgayTao(), 'dd-MM-yyyy HH:mm a')}">Thêm</div>
-                                </a>
-                            </th:block>
-                            <th:block th:if="${bt.id==0}">
-                                <a href="#" class="list-group-item table-content">
-                                    <div class="media table-content-cell" style="width: auto">
-                                        <div class="media-left">
-
-                                            <style>
-                                                .img-circle {
-                                                    width: 50px;
-                                                    height: 50px;
-                                                    border-radius: 50%;
-                                                }
-                                            </style>
-                                            <img class="media-object img-circle" th:src="@{/avatar/}+${bt.getSinhVien().getUser().getUserAvatar() != null ? bt.getSinhVien().getUser().getUserAvatar() : 'default.png'}" style="max-height: 40px; ">
-                                        </div>
-                                        <div class="media-body" style="width: 197%; padding-left: 25px;">
-                                            <p th:text="${bt.getSinhVien().getUser().getFullName()}" class="media-heading"> Nguyễn Văn B</p>
-
-                                            <span th:text="${bt.getSinhVien().getMaSinhVien()}" class="notification-location"> anv322@fpt.edu.vn </span>
-                                        </div>
-                                        <div class="media-right" style="padding-top: 10px; width: 197%; padding-left: 222px;">
-                                          <th:block th:if="${bt.getFileName()!=null}">
-                                              <span  th:text="${bt.getFileName()}" class="notification-location"> anv322@fpt.edu.vn </span>
-                                          </th:block>
-                                            <th:block th:if="${bt.getFileName()==null}">
-                                                <span  class="notification-location" style="color: red;float: left;width: 104px">Chưa hoàn thành </span>
-                                            </th:block>
-                                        </div>
-                                    </div>
-                                    <th:block th:if="${bt.getNgayTao()!=null}">
-                                        <div style="padding-left: 200px" class="list-remove-btn table-content-cell" th:text="${#dates.format(bt.getNgayTao(), 'dd-MM-yyyy HH:mm a')}">Thêm</div>
-                                    </th:block>
-                                    <th:block th:if="${bt.getNgayTao()==null}">
-                                        <div style="padding-left: 200px;color: red" class="list-remove-btn table-content-cell" >Chưa hoàn thành</div>
-                                    </th:block>
-                                 </a>
-                            </th:block>
-
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
         </th:block>
     </section>
 </div>
@@ -159,7 +189,7 @@
                     $('.inbox-widget').append(listitem);
                 }
             })
-        }
+    }
 </script>
 
 

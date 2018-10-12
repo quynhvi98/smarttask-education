@@ -671,7 +671,7 @@ a.h4.tieudecongviec-chat.text-center span:before {
     text-align: left; }
 .chamcham label {
     width: 110px;
-    color: #6c757d; }
+    color: black; }
 
 .checkselect [aria-selected="true"]:before {
     font-family: FontAwesome;

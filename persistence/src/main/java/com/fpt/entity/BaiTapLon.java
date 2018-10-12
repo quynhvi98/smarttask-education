@@ -14,6 +14,14 @@ public class BaiTapLon implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Integer id;
+    @Column(name = "file_name")
+    private String fileName;
+
+    @Column(name = "file_real_name")
+    private String fileRealName;
+
+    @Column(name = "bai_tap")
+    private String baiTap;
 
     @Column(name = "noi_dung")
     private String noiDung;
@@ -37,6 +45,31 @@ public class BaiTapLon implements Serializable {
 
 
     public BaiTapLon() {
+    }
+
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getFileRealName() {
+        return fileRealName;
+    }
+
+    public void setFileRealName(String fileRealName) {
+        this.fileRealName = fileRealName;
+    }
+
+    public String getBaiTap() {
+        return baiTap;
+    }
+
+    public void setBaiTap(String baiTap) {
+        this.baiTap = baiTap;
     }
 
     public String getStatus() {

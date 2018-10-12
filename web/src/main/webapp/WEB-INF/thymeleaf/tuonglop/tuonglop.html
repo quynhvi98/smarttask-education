@@ -49,13 +49,15 @@
 
                         <div style="margin-top: -20px;width: 271px; background-color: #ffffff; margin-left: -38px; border-radius: 3px; box-shadow: 0 1px 1px rgba(0,0,0,0.1);">
                             <button style="margin-top: 10px; margin-left: 82px; margin-bottom: 10px" id="infoClass" class="btn btn-success">
-                                <a style="color: #fefefe"/>Thông tin lớp học</a>
+                                <a style="color: #fefefe"/>Thông tin lớp</a>
                             </button>
                             <th:block th:if="${checkHan==false}">
-                                <h3 style="text-align: center;">Đã nộp bài</h3>
                                 <ul style="margin-left: 45px;" class="control-sidebar-menu">
-                                    <li th:if="${baiTap!=null}" >
-                                        <a th:href="@{/tuonglop/download-bai-tap/}+${baiTap.id}">
+                                    <li style="margin-left: -61px" th:if="${baiTap!=null}" >
+                                        <h5 style="text-align: center;" th:text="${'Bài tập: '+baiTapLon.getBaiTap()}"></h5>
+                                        <h5 style="text-align: center;" th:text="${'Nội dung: '+baiTapLon.getNoiDung()}"></h5>
+                                        <h3 style="text-align: center;">Đã nộp bài</h3>
+                                        <a style="margin-left: 58px" th:href="@{/tuonglop/download-bai-tap/}+${baiTap.id}">
                                             <i class="menu-icon fa fa-file bg-red"></i>
                                             <div style="width: 100%" class="menu-info">
                                                 <h4 class="control-sidebar-subheading" th:text="${baiTap.fileName}"></h4>
@@ -64,13 +66,18 @@
                                             </div>
                                         </a>
                                     </li>
+                                    <li style="margin-left: -61px;padding-bottom: 20px" th:if="${baiTap==null}" >
+                                        <h5 style="text-align: center;" th:text="${'Bài tập: '+baiTapLon.getBaiTap()}"></h5>
+                                        <h5 style="text-align: center;" th:text="${'Nội dung: '+baiTapLon.getNoiDung()}"></h5>
+                                        <h3 style="text-align: center;">Đã hết hạn nộp bài</h3>
+                                    </li>
                                 </ul>
                             </th:block>
                             <th:block th:if="${timeEnd!=null&&checkHan==true}">
                                 <div>
                                     <div  style="padding-top: 11px; height: 71px; width: 97%; margin-left: 4px; background: blanchedalmond;" id="js-timer" class="timer" role="timer" aria-label="A timer, counting down to {{eventName}}" data-endtime="2020-01-03 07:30:00">
 
-      <span class="timer__item" id="timer-days">
+            <span class="timer__item" id="timer-days">
 				<span class="timer__value"></span>
 				<span class="timer__label">Ngày</span>
 			</span><!--/.timer__item-->
@@ -96,6 +103,11 @@
 				</span>
 			    </span>
                                     </div>
+                                    <div style="text-align: center">
+                                        <a style="text-align: center;" th:href="@{/tuonglop/download-tai-lieu-bt/}+${baiTapLon.id}" th:text="${'File đính kèm: '+baiTapLon.getFileName()}"></a>
+                                    </div>
+                                    <h5 style="text-align: center;" th:text="${'Bài tập: '+baiTapLon.getBaiTap()}"></h5>
+                                    <h5 style="text-align: center;" th:text="${'Nội dung: '+baiTapLon.getNoiDung()}"></h5>
                                     <h3 id="trangThai" style="text-align: center;"></h3>
                                     <ul style="margin-left: 45px;" class="control-sidebar-menu">
                                         <li th:if="${baiTap!=null}" >
@@ -606,6 +618,8 @@
 </html>
 
 <script>
+
+
     var days1 = document.getElementById( 'timer-days' );
     var hours1 = document.getElementById( 'timer-hours' );
     var minutes1 = document.getElementById( 'timer-minutes' );
@@ -642,8 +656,15 @@
             clearInterval(x);
             document.getElementById("js-timer").style.display = "none";
             document.getElementById("bt").style.display = "none";
-
-            document.getElementById("trangThai").innerHTML = "Đã nộp bài"
+            var bt="";
+            var sss='[[${baiTap}]]';
+            if(sss==""){
+                bt="Bài tập đã hết hạn";
+            }
+            else {
+                bt="Đã nộp bài";
+            };
+            document.getElementById("trangThai").innerHTML = bt;
 
             days1.querySelector('.timer__value').innerHTML = 0;
             hours1.querySelector('.timer__value').innerHTML = 0;
@@ -770,7 +791,7 @@
         var id='';
         var myEle = document.getElementById("idBaiTap");
         if(myEle != null) {
-           id= myEle.value;
+            id= myEle.value;
         }
         var oMyForm = new FormData();
         oMyForm.append("file", files[0]);

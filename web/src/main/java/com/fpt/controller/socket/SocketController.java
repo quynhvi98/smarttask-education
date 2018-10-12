@@ -98,12 +98,12 @@ public class SocketController {
         String day2=lopHocService.tinhNgayHetHan(11);
         List<LopHoc>dongLop=lopHocService.listDongLop(day);
         for (LopHoc lopHoc:dongLop) {
-            lopHoc.setTrangThai("false");
+            lopHoc.setTrangThai("2");
             lopHocService.capNhat(lopHoc);
         }
         List<LopHoc> lopHocs=lopHocService.listLopToiHan(day1,day2);
         for (LopHoc lopHoc:lopHocs) {
-            lopHoc.setTrangThai("true");
+            lopHoc.setTrangThai("1");
             lopHocService.capNhat(lopHoc);
             if(lopHoc.getSinhViens().size()>Integer.parseInt(getSlSv("soLuongSV")[0])) {
                 String name=lopHoc.getMaLop();
@@ -131,7 +131,7 @@ public class SocketController {
                 }
             }
             else {
-                lopHoc.setTrangThai("false");
+                lopHoc.setTrangThai("3");
                 lopHocService.capNhat(lopHoc);
                 String name=lopHoc.getMaLop();
                 String time= String.valueOf(lopHoc.getNgayBatDau());
