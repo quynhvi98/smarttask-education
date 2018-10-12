@@ -881,7 +881,8 @@
         var caHoc = $(ca[ca.index(this)]).val();
         var maGiaoVien = $('#giangVien').val();
         var kiHoc = $('#kiHoc').val();
-        checkTimeExits(ngayHoc, caHoc, maGiaoVien, kiHoc, stt);
+        var maNganh = $('#boMon').val();
+        checkTimeExits(ngayHoc, caHoc, maGiaoVien, kiHoc, stt, maNganh);
     });
 
     function checkTimeExits(ngayHoc, caHoc, maGiaoVien, kiHoc, value, maNganh) {
