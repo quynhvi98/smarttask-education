@@ -23,8 +23,7 @@
           href="https://cdn.jsdelivr.net/sweetalert2/latest/sweetalert2.min.css"/>
     <script src="https://cdn.jsdelivr.net/sweetalert2/latest/sweetalert2.min.js"></script>
 
-    <link href="https://fonts.googleapis.com/css?family=Niramit|Open+Sans+Condensed:300|Roboto" rel="stylesheet">
-</head>
+    </head>
 <style>
     .skin-blue sidebar-mini modal-open {
         padding-right: 0px;
@@ -74,9 +73,7 @@
         -ms-transition: 0.2s ease-out;
         transition: 0.2s ease-out;
     }
-    body{
-        font-family: 'Roboto', sans-serif;
-    }
+
 </style>
 <body class="hold-transition skin-blue sidebar-mini" style="padding-right: 0px;">
 
@@ -188,8 +185,7 @@
                                                             <th:block th:if="${lophoc.trangThai!='3'}">
                                                             <td th:text="${k.index+1}"></td>
                                                             <td style="width: 7%;" th:text="${lophoc.maLop}"></td>
-                                                            <td th:text="${lophoc.getGiaoVien().getUser().getFullName()}"></td>
-                                                            <td th:text="${lophoc.moTa}">
+                                                            <td th:text="${lophoc.getGiaoVien().getUser().getFullName()}"></td><td style="width: 7%;" th:text="${lophoc.moTa}">
                                                             <td th:text="${lophoc.getPhongHoc().getTenPhong()}">
                                                             <td>
                                                                 <div id="content">

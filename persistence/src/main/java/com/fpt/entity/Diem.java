@@ -105,4 +105,20 @@ public class Diem {
     public void setLopHoc(LopHoc lopHoc) {
         this.lopHoc = lopHoc;
     }
+
+
+    @Override
+    public boolean equals (Object object) {
+        boolean result = false;
+        if (object == null || object.getClass() != getClass()) {
+            result = false;
+        } else {
+            Diem diem = (Diem) object;
+            if (this.sinhVien.equals(diem.getSinhVien()) && this.lopHoc.equals(diem.getLopHoc())) {
+                result = true;
+            }
+
+        }
+        return result;
+    }
 }

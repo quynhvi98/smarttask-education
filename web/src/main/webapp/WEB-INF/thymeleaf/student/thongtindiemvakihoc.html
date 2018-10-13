@@ -77,13 +77,24 @@
                 <div class="col-sm-4 invoice-col">
                     <div class="form-group chamcham">
                         <label for="" > Điểm trung bình trên thang 10 : </label>
-                        <span th:text="${#numbers.formatDecimal(DTB == null ? 0 : DTB, 0, 2)}"></span>
+                        <th:block th:if="${DTB>0.0}">
+                            <span th:text="${#numbers.formatDecimal( DTB, 0, 2)}"></span>
+                        </th:block>
+                        <th:block th:if="${DTB<=0.0}">
+                            <span>0</span>
+                        </th:block>
+
                     </div>
 
                     <div class="form-group chamcham">
                         <label for="">Điểm GPA: </label>
-                        <span th:text="${#numbers.formatDecimal(GPA == null ? 0 : GPA, 0, 2)}"></span>
-                    </div>
+                        <th:block th:if="${GPA>0.0}">
+                            <span th:text="${#numbers.formatDecimal(GPA == '0.0' ? 0 : GPA, 0, 2)}"></span>
+                        </th:block>
+                        <th:block th:if="${GPA<=0.0}">
+                            <span>0</span>
+                        </th:block>
+                      </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group chamcham">

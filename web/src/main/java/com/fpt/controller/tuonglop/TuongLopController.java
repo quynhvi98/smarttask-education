@@ -1,5 +1,6 @@
 package com.fpt.controller.tuonglop;
 
+import com.fpt.controller.socket.SocketController;
 import com.fpt.entity.*;
 import com.fpt.services.baidang.BaiDangService;
 import com.fpt.services.baitap.BaiTapService;
@@ -67,7 +68,8 @@ public class TuongLopController {
     private BaiTapService baiTapService;
     @Autowired
     private ConfigService configService;
-
+    @Autowired
+    private SimpMessagingTemplate simpMessagingTemplate;
     private final Logger logger = LoggerFactory.getLogger(TuongLopController.class);
 
     private String maLop = null;
@@ -152,7 +154,7 @@ public class TuongLopController {
 
     @PostMapping("/tuonglop/addpost")
     public String addPost(@RequestParam("postContent") String postContent, HttpSession session,
-                          @RequestParam("upFile") MultipartFile file) throws IOException {
+                          @RequestParam("upFile") MultipartFile file) throws IOException, ParseException {
         BaiDang baiDang = new BaiDang();
         baiDang.setContent(postContent);
 
@@ -173,6 +175,7 @@ public class TuongLopController {
         }
         baiDang.setStatus(1);
         baiDangService.save(baiDang);
+        thongBaoBaiDang(baiDang);
         return "redirect:/tuonglop/" + maLop;
     }
 
@@ -304,8 +307,39 @@ public class TuongLopController {
         }
     }
 
-    @Autowired
-    private SimpMessagingTemplate simpMessagingTemplate;
+    private void thongBaoBaiDang(BaiDang baiDang) throws ParseException {
+
+        List<SinhVien> sinhViens = sinhVienService.getListSinhVienbyLopHocId(baiDang.getLopHoc().getMaLop());
+      if(baiDang.getUser().getSinhVien()!=null){
+          sinhViens.remove(baiDang.getUser().getSinhVien());
+      }
+        ThongBaoSocket message = new ThongBaoSocket();
+        if(baiDang.getUser().getGiaoVien()==null){
+            message.setTitle("Bài đăng mới");
+            message.setContent(baiDang.getUser().getFullName()+" đã đăng bài trong tường lớp. ");
+            message.setSender(baiDang.getUser().getFullName());
+            String newdate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+            message.setTime(newdate);
+            System.out.println(baiDang.getLopHoc().getGiaoVien().getMaGiaoVien());
+            message.setReceiver(baiDang.getLopHoc().getGiaoVien().getMaGiaoVien());
+            ThongBao thongBaoSV =themThongBaoGV(message);
+            message.setId(String.valueOf(thongBaoSV.getId()));
+            this.simpMessagingTemplate.convertAndSend("/topic/public-" + message.getReceiver(), message);
+
+        }
+
+        for (SinhVien sinhVien : sinhViens) {
+            message.setTitle("Bài đăng mới");
+            message.setContent(baiDang.getUser().getFullName()+" đã đăng bài trong tường lớp. ");
+            message.setSender(baiDang.getUser().getFullName());
+            String newdate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+            message.setTime(newdate);
+            message.setReceiver(sinhVien.getMaSinhVien());
+            ThongBao thongBaoSV = themThongBaoSV(message);
+            message.setId(String.valueOf(thongBaoSV.getId()));
+            this.simpMessagingTemplate.convertAndSend("/topic/public-" + message.getReceiver(), message);
+        }
+    }
     @PostMapping("/api/taobt")
     public void getSearchResultViaAjax(@RequestParam("file") MultipartFile file,HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException, ParseException {
         String baiTap = request.getParameter("baiTap");
@@ -485,7 +519,6 @@ private boolean checkHanBaiTap(Date day) throws ParseException {
         return  getConfig(name);
     }
     public String setContent(String name,String tenLop,String baiTap,String baiTapMoi,String ngayBatDau,String hanNop){
-
         String text=getConfig(name);
         text = text.replace("[tenlop]", tenLop);
         text = text.replace("[baitap]", baiTap);
@@ -494,5 +527,15 @@ private boolean checkHanBaiTap(Date day) throws ParseException {
         text = text.replace("[baitapmoi]", baiTapMoi);
         return text;
     }
-
+    public ThongBao themThongBaoGV(ThongBaoSocket message) throws ParseException {
+        ThongBao thongBao=new ThongBao();
+        thongBao.setGiaoVien(giangVienService.findById(message.getReceiver()));
+        thongBao.setContent(message.getContent());
+        thongBao.setTime(new Date());
+        thongBao.setStatus("false");
+        thongBao.setTitle(message.getTitle());
+        thongBao.setSender(message.getSender());
+        ThongBao thongBao1=  thongBaoService.themThongBao(thongBao);
+        return thongBao1;
+    }
 }

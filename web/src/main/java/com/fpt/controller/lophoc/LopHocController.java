@@ -15,6 +15,8 @@ import com.fpt.services.thongbao.ThongBaoService;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.joda.time.DateMidnight;
+import org.joda.time.Months;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -111,9 +114,8 @@ public class LopHocController {
     public void taoDiem(Model model, HttpServletRequest request, HttpSession session, HttpServletResponse response, @RequestParam("file") MultipartFile excelfile) {
         String maMonHoc = request.getParameter("maMonHoc");
         String maLopHoc = request.getParameter("maLopHoc");
-        System.out.println(maMonHoc);
         User user = (User) session.getAttribute("userInfo");
-        if(lopHocService.findById(maLopHoc).getLstDiem().size()==0) {
+
             try {
                 List<Diem> diems = new ArrayList<>();
                 int i = 0;
@@ -131,19 +133,31 @@ public class LopHocController {
                     diem.setGiaoVien(user.getGiaoVien());
                     diem.setMonHoc(monHocService.findById(maMonHoc));
                     diem.setLopHoc(lopHocService.findById(maLopHoc));
+                    List<Diem> diems1=diemService.listDiemSVandLop(msv,maLopHoc);
+                    for (Diem diem1:diems1) {
+                        if(diem1.getSinhVien().getMaSinhVien().equals(diem.getSinhVien().getMaSinhVien())&&diem1.getLopHoc().getMaLop().equals(diem.getLopHoc().getMaLop())){
+                            System.out.println(diem1.getSinhVien().getUser().getFullName());
+                            diemService.delete(diem1);
+                        }
+                    }
                     diems.add(diem);
                 }
                 workbook.close();
                 diemService.careate(diems);
-                SinhVien sinhVien = sinhVienService.getSinhVienId("D001");
-                for (Diem diem : sinhVien.getLstDiem()) {
-                    System.out.println("diem: " + diem.getDiemLyThuyet());
-                }
                 response.getWriter().println("success");
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
+
+    }
+
+    private int getKiHoc(Date ngaynhaphoc) {
+        DateMidnight start = new DateMidnight(ngaynhaphoc);
+        DateMidnight end = new DateMidnight(new Date());
+        int months = Months.monthsBetween(start,end).getMonths();
+        int thangDu = months % 6;
+        int ki=(thangDu > 0) ? (months / 6 +1) : (months/6);
+        return ki> 0 ? ki:1;
     }
 
     @PostMapping("/giangviendaylop/suadiem")
@@ -214,7 +228,6 @@ public class LopHocController {
         }
     }
 
-
     @PostMapping("/giangviendaylop/themdiem")
     public void themDiem(HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model) throws IOException {
         Double diemLyThuyet=null;
@@ -262,7 +275,6 @@ public class LopHocController {
                 response.getWriter().println("saidiem");
             }
            }else {
-
             if ((diemCuoiKi <= 10 && diemCuoiKi >= 0) && (diemLyThuyet <= 10 && diemLyThuyet >= 0) && (diemThucHanh <= 10 && diemThucHanh >= 0)) {
                 System.out.println(maMonHoc + " " + diemLyThuyet + " " + diemThucHanh + " " + diemCuoiKi);
                 User user = (User) session.getAttribute("userInfo");
@@ -286,16 +298,11 @@ public class LopHocController {
     @RequestMapping("/quanlybaitap/{maLop}")
     public String quanLyBaiTap(@PathVariable("maLop") String maLop, HttpSession session, Model model) {
         User user = (User) session.getAttribute("userInfo");
-
         LopHoc lopHoc = lopHocService.findById(maLop);
         String[] ngayHoc = lopHoc.getNgayHoc().split(",");
         String[] caHoc = lopHoc.getCaHoc().split(",");
-
-
         model.addAttribute("user", user);
-
         model.addAttribute("lopHoc", lopHoc);
-
         model.addAttribute("maLop", maLop);
         if (user.getGiaoVien() != null) {
             List<BaiTap> baiTaps=baiTapService.listBtAndLop(maLop);
@@ -321,8 +328,6 @@ public class LopHocController {
                     baiTaps1.add(baiTap1);
                 }
                 }
-
-
             }
             model.addAttribute("baiTap", baiTaps1);
             model.addAttribute("soLuongSVNopBT", soLuongSVNopBT);
