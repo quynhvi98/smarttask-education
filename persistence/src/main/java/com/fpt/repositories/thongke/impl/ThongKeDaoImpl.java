@@ -26,7 +26,7 @@ public class ThongKeDaoImpl implements ThongKeDao {
                 "        (select count(*) from giao_vien where giao_vien.ma_nganh = bm.ma_nganh) as slgiaovien,\n" +
                 "        (select count(*) from sinh_vien sv where sv.ma_nganh = bm.ma_nganh and date_sub(date_sub(now(), interval 6 month ), INTERVAL 12 MONTH) <= sv.ngay_nhap_hoc) as slsinhvien,\n" +
                 "        (select count(*) from lop_hoc where lh.ma_mon_hoc = mh.ma_mon_hoc) as slphonghoc,\n" +
-                "        (select sum(mh.tin_chi) from mon_hoc where mh.ma_ki = " + kiHoc + ") as sltinchi\n" +
+                "        (select sum(mh1.tin_chi) from mon_hoc mh1 where mh1.ma_ki = " + kiHoc + ") as sltinchi\n" +
                 "from bo_mon bm\n" +
                 "         join khoa_vien kv on bm.ma_vien = kv.ma_vien\n" +
                 "         join mon_hoc mh on bm.ma_nganh = mh.ma_nganh\n" +

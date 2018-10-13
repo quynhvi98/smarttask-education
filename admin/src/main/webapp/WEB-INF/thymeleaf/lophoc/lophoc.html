@@ -762,7 +762,7 @@
 
     $('input:checkbox').on('change', function () {
         var numberOfChecked = $('input:checkbox:checked').length;
-        if (numberOfChecked > parseInt(tinChi)) {
+        if (numberOfChecked > (parseInt(tinChi)+1)) {
             this.checked = false;
         } else {
             var cbNgayHoc = $('.cbNgayHoc');
@@ -890,7 +890,7 @@
         $.ajax({
             url: base_url + 'lophoc/checkTimeExits',
             type: "get",
-            data: {ngayHoc: ngayHoc, caHoc: caHoc, maGiaoVien: maGiaoVien, kiHoc: kiHoc, maNganh: maNganh},
+            data: {ngayHoc: ngayHoc, caHoc: caHoc, kiHoc: kiHoc, maNganh: maNganh},
             dataType: "text",
             success: function (result) {
 
