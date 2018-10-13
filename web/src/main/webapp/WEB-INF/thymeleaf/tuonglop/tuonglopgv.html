@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" style="  overflow-x:hidden;">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smarttask Education</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/ionicons.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/AdminLTE.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/skin-blue.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/imageresource.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lobibox.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/sweetalert.css}"/>
+
+    <script type="text/javascript" th:src="@{/js/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/adminlte.min.js}"></script>
+    <!--<script type="text/javascript" th:src="@{/js/demo.js}"></script>-->
+    <script type="text/javascript" th:src="@{/js/jquery/jquery.slimscroll.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/fastclick.js}"></script>
+    <script type="text/javascript" th:src="@{/js/trongtran.js}"></script>
+    <script type="text/javascript" th:src="@{/js/sweetalert.js}"></script>
+    <script type="text/javascript" th:src="@{/js/lobibox.js}"></script>
+    <script type="text/javascript" th:src="@{/js/lobibox.min.js}"></script>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/sweetalert2/latest/sweetalert2.min.css"/>
+    <script src="https://cdn.jsdelivr.net/sweetalert2/latest/sweetalert2.min.js"></script>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <div th:replace="fragments/header :: header">&nbsp;</div>
+    <div th:replace="fragments/sidebar :: aside">&nbsp;</div>
+
+    <div class="content-wrapper">
+        <div class="row p-40">
+            <div class="col-md-9">
+                <div class="box box-widget">
+                    <div class="box-header with-border">
+                        <div class="user-block">
+                            <img class="img-circle"
+                                 th:src="@{/avatar/}+${user.userAvatar != null ? user.userAvatar : 'default.png'}"
+                                 alt="User Image">
+                            <span class="username"><a href="#" th:text="${user.fullName}">Jonathan Burke Jr.</a></span>
+                            <span class="description"
+                                  th:text="'Shared publicly - '+${#dates.format(#dates.createNow(), 'dd-MM-yyyy HH:mm a')}">Shared publicly - 7:30 PM Today</span>
+                        </div>
+                        <div class="box-tools">
+
+                            <button class="btn btn-box-tool" data-widget="collapse"><i
+                                    class="fa fa-minus"></i>
+                            </button>
+                            <button class="btn btn-box-tool" data-toggle="tooltip" title="Mark as read">
+                                <i class="fa fa-remove"></i></button>
+                        </div>
+                    </div>
+                    <form th:action="@{/tuonglop/addpost}" method="post" enctype="multipart/form-data">
+                        <!--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
+                        <div class="box-body">
+                            <div class="box">
+                                <div class="box-body pad">
+                                    <textarea name="postContent" class="textarea" placeholder="What's on your mine .-."
+                                              style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                </div>
+                            </div>
+                            <div class="pull-right">
+                                <button type="submit" class="btn btn-primary btn-sm btn-flat">Đăng bài</button>
+                            </div>
+                            <div class="pull-right">
+                                <input type="file" name="upFile"/>
+                            </div>
+
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            <div class="col-md-9">
+                <th:block th:each="bd : ${lstBaiDang}">
+                    <div class="box box-widget">
+                        <div class="box-header with-border">
+                            <div class="user-block">
+                                <img class="img-circle"
+                                     th:src="@{/avatar/}+${bd.user.userAvatar != null ? bd.user.userAvatar : 'default.png'}"
+                                     alt="User Image">
+                                <span class="username"><a href="#" th:text="${bd.user.fullName}">Jonathan Burke Jr.</a></span>
+                                <span class="description"
+                                      th:text="'Shared publicly - '+${#dates.format(bd.time, 'dd-MM-yyyy HH:mm a')}">Shared publicly - 7:30 PM Today</span>
+                            </div>
+                            <div class="box-tools">
+
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                        class="fa fa-minus"></i>
+                                </button>
+                                <button th:if="${user.userName eq bd.user.userName}" th:attr="postId=${bd.postId}"
+                                        type="button" class="btn btn-box-tool editPost" data-toggle="tooltip"
+                                        title="Edit post">
+                                    <a th:attr="postId=${bd.postId}"> <i
+                                            class="fa fa-pencil-square-o"></i></a>
+                                </button>
+                                <button th:if="${user.userName eq bd.user.userName}" th:attr="postId=${bd.postId}"
+                                        type="button" class="btn btn-box-tool" data-toggle="tooltip"
+                                        title="Delete post">
+                                    <a th:attr="postId=${bd.postId}" class=" deletePost"> <i
+                                            class="fa fa-remove"></i></a>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div th:text="${bd.content}">
+
+                            </div>
+                            <div class="attachment-block clearfix">
+                                <th:block th:if="${bd.fileName != null}">
+                                    <th:block
+                                            th:if="${bd.imageSuffix == 'jpg' || bd.imageSuffix == 'jpeg' || bd.imageSuffix == 'png'}">
+                                        <img class="attachment-img myImg" th:src="@{/post/}+${bd.fileRealName}"
+                                             th:alt="${bd.content}">
+                                    </th:block>
+                                    <th:block
+                                            th:if="${bd.imageSuffix != 'jpg' && bd.imageSuffix != 'jpeg' && bd.imageSuffix != 'png'}">
+                                        <a th:href="@{/tuonglop/download-post-file/}+${bd.postId}"
+                                           th:text="${bd.fileName}"></a>
+                                    </th:block>
+                                </th:block>
+                            </div>
+                            <!--<button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share-->
+                            <!--</button>-->
+                            <button class="btn btn-default btn-xs btnLike" th:attr="postId=${bd.postId}">
+                                <input type="hidden" class="totalLike" th:value="${#lists.size(bd.lstLike)}"/>
+                                <input type="hidden" class="totalComment" th:value="${#lists.size(bd.lstComment)}"/>
+                                <i th:if="${!#lists.contains(lstPostId, bd.postId)}" class="fa fa-thumbs-o-up">
+                                </i>
+                                <i th:if="${#lists.contains(lstPostId, bd.postId)}" class="fa fa-thumbs-up"
+                                   style="color: #94B8FF;">
+                                </i>
+                                Like
+                            </button>
+                            <div class="pull-right text-muted">
+                                <span class="setLike" th:text="${#lists.size(bd.lstLike)}">0 likes - 2 comments</span>
+                                <span th:text="' likes - '+${#lists.size(bd.lstComment)}+' comments'"></span>
+                            </div>
+
+
+                        </div>
+                        <th:block th:each="cm : ${bd.lstComment}">
+                            <div class="box-footer box-comments">
+                                <div class="box-comment">
+                                    <img class="img-circle img-sm"
+                                         th:src="@{/avatar/}+${cm.user.userAvatar != null ? bd.user.userAvatar : 'default.png'}"
+                                         alt="User Image">
+
+                                    <div class="comment-text">
+
+                                        <span class="text-muted pull-right"
+                                              th:text="${#dates.format(cm.time, 'dd-MM-yyyy HH:mm a')}">8:03 PM Today</span>
+
+                                        <span class="username" th:text="${cm.user.fullName}">
+                        Maria Gonzales
+                      </span>
+                                        <div th:text="${cm.content}">
+                                            It is a long established fact that a reader will be distracted
+                                            by the readable content of a page when looking at its layout.
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </th:block>
+                        <div class="box-footer">
+                            <form th:action="@{/tuonglop/addcomment}" method="post">
+                                <input type="hidden" th:value="${bd.postId}" name="postId"/>
+                                <!--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
+                                <img class="img-responsive img-circle img-sm"
+                                     th:src="@{/avatar/}+${user.userAvatar != null ? user.userAvatar : 'default.png'}"
+                                     alt="Alt Text">
+                                <div class="img-push">
+                                    <input name="content" type="text" class="form-control input-sm"
+                                           placeholder="Press enter to post comment">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </th:block>
+
+            </div>
+            <button  class="btn btn-success" style="width: 250px; margin-top: 20px;" data-toggle="modal" data-target="#modalThemTaiLieu">
+                <a style="color: #fefefe"/>Thêm tài liệu
+            </button>
+            <div class="modal modal-full fade" id="modalThemTaiLieu" role="dialog">
+                <div class="modal-dialog">
+
+                    <div class="modal-content" style="margin-right: -14px;">
+                        <div class="modal-body" style="text-align: center;">
+                            <div id='container'>
+                                <div class='panel panel-primary'>
+                                    <div class='panel-body'>
+                                        <span class="glyphicon glyphicon-cloud-upload"></span>
+                                        <h3>File uploader</h3>
+                                        <span id='result'></span><br>
+                                        <form th:action="@{/tuonglop/add-document}" method="post" enctype="multipart/form-data">
+                                            <input type="file" accept="application/msword, application/vnd.ms-excel,application/vnd.ms-powerpoint, text/plain, application/pdf" name="docFile" style="width: auto; padding-left: 10px"/>
+                                            <br>
+                                            <button type="submit" style="text-align: center" class='btn  btn-primary upload-btn'>
+                                                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                                Thêm tài liệu
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+            <!--</div>-->
+            <div class="modal modal-full fade" id="themnhansu" role="dialog"
+                 aria-labelledby="themnhansuLabel" data-backdrop="static" data-keyboard="false">
+                <section style="margin-top: 50px; margin-left: 240px;" class="invoice col-md-9">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h2 class="page-header">
+                                <i class="fa fa-globe"></i> Sửa bài viết
+                            </h2>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- info row -->
+                    <div class="row invoice-info">
+                        <form th:action="@{/tuonglop/post/update}" method="post">
+                            <div class="col-sm-12 invoice-col">
+                                <input id="postEditId" type="hidden" name="postId"/>
+                                <div class="form-group chamcham">
+                                    <label for="">Nội dung: </label>
+                                    <div class="box">
+                                        <div class="box-body pad">
+                                    <textarea id="contentEdit" name="content" class="textarea" placeholder="What's on your mine .-."
+                                              style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 50px;margin-left: 50px;" class="col-md-6 inline-block p-25">
+                                <div class="form-group">
+                                    <div class="pull-right">
+                                        <button type="submit" class="btn btn-default">Chỉnh sửa</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal"><i
+                                                class="fa fa-sign-out"
+                                                aria-hidden="true"></i>
+                                            Thoát
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </section>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div th:replace="fragments/footer :: footer">&nbsp;</div>
+    <aside class="control-sidebar control-sidebar-dark">
+        <!--<ul class="nav nav-tabs nav-justified control-sidebar-tabs">-->
+        <!--<li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>-->
+        <!--&lt;!&ndash;<li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>&ndash;&gt;-->
+        <!--</ul>-->
+        <div class="tab-content">
+            <div class="tab-pane active" id="control-sidebar-home-tab">
+                <h3 class="control-sidebar-heading">Tài liệu chung </h3>
+                <ul class="control-sidebar-menu">
+                    <li th:if="${!#lists.isEmpty(lstTaiLieu)}" th:each="tl : ${lstTaiLieu}">
+                        <a th:href="@{/tuonglop/download-doc-file/}+${tl.docId}">
+                            <i class="menu-icon fa fa-file bg-red"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading" th:text="${tl.fileName}">Langdon's Birthday</h4>
+                                <p th:text="${#dates.format(tl.time, 'dd-MM-yyyy HH:mm a')}">Will be 23 on April
+                                    24th</p>
+                            </div>
+
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <div id="myModal" class="modal1">
+            <span class="close">&times;</span>
+            <img class="modal-content" id="img01">
+            <div id="caption"></div>
+        </div>
+    </aside>
+    <div class="control-sidebar-bg"></div>
+
+</div>
+
+
+<!--<input id="token" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
+<script th:inline="javascript">
+
+
+    // Get the modal
+    var modal = document.getElementById('myModal');
+    var modalImg = document.getElementById("img01");
+    var captionText = document.getElementById("caption");
+    $('.myImg').click(function () {
+        modal.style.display = "block";
+        modalImg.src = this.src;
+        captionText.innerHTML = this.alt;
+    });
+
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    $('.deletePost').click(function (e) {
+        var postId = $(this).attr("postId");
+        swal({
+            title: "Cảnh báo",
+            text: "Bạn có chắc muốn xóa bài đăng này!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Đồng ý',
+            cancelButtonText: 'Thoát!',
+            reverseButtons: true
+        }, function (isConfirm) {
+            location.href = base_url + "tuonglop/deletepost/" + postId;
+        });
+    });
+
+    $('.btnLike').click(function () {
+        var postId = $(this).attr("postId");
+        $.ajax({
+            url: base_url + 'tuonglop/like/' + postId,
+            type: "get",
+            dataType: "text",
+            success: (json) => {
+                if (json.trim() == "like") {
+                    var totalLike = $(this).closest('.box-body').find($(".setLike")).text();
+                    $(this).closest('.box-body').find('.setLike').text(+totalLike + 1);
+                    $(this).find($(".fa")).removeClass("fa-thumbs-o-up").addClass("fa-thumbs-up").css("color", "#94B8FF");
+                } else if (json.trim() == "unlike") {
+                    var totalLike = $(this).closest('.box-body').find($(".setLike")).text();
+                    $(this).closest('.box-body').find('.setLike').text(+totalLike - 1);
+                    $(this).find($(".fa")).removeClass("fa-thumbs-up").addClass("fa-thumbs-o-up").css("color", "");
+                }
+            }, error: function (msg) {
+                alert("500 server error");
+            }
+        });
+
+
+    });
+
+    $('.editPost').click(function () {
+        var postId = $(this).attr("postId");
+        $('#themnhansu').modal('show');
+        $.ajax({
+            url: base_url + 'tuonglop/findpost/' + postId,
+            type: "get",
+            dataType: "text",
+            success: function (result) {
+                var rs = JSON.parse(result);
+                $('#postEditId').val(rs.postId);
+                $('#contentEdit').val(rs.content);
+            }, error: function (msg) {
+                alert("500 server error");
+            }
+        });
+    });
+    var base_url = [[@{/}]];
+</script>
+
+</body>
+</html>
+
+
+

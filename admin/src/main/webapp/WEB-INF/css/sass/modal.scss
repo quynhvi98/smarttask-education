@@ -1,0 +1,74 @@
+.modal.modal-full {
+  padding-left: 0 !important;
+
+  .modal-dialog {
+    width: 98%;
+  }
+
+  .modal-header {
+    background: $primary-color;
+    color: $white;
+  }
+
+  .table {
+    min-width: unset !important;
+
+    thead tr th {
+      white-space: nowrap;
+    }
+  }
+
+  .form-horizontal {
+    .form-group {
+      margin-left: 0;
+      margin-right: 0;
+
+      input[type="file"] {
+        display: none;
+      }
+
+      .labelFile {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: normal;
+      }
+    }
+
+    .select2.select2-container {
+      width: 100% !important;
+    }
+  }
+}
+.modal-footer.text-center {
+  text-align: center;
+}
+.modal-body form.form-horizontal .row .form-group {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.modal-body .table {
+  min-width: unset;
+}
+
+.modal-body .table th {
+  white-space: nowrap;
+}
+
+h4.title-sup-modal {
+  min-height: 40px;
+}
+
+.col-md-8 h4.title-sup-modal span {
+  padding-top: 4px;
+}
+
+h4.title-sup-modal span {
+  display: inline-block;
+  padding-top: 8px;
+  font-weight: bold;
+}
+.modal-body {
+  padding-bottom: 0;
+}

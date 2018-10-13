@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smarttask Education</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/ionicons.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/AdminLTE.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/_all-skins.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/dataTables.bootstrap.min.css}">
+
+    <script type="text/javascript" th:src="@{/js/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/adminlte.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery/jquery.slimscroll.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/fastclick.js}"></script>
+    <script type="text/javascript" th:src="@{/js/demo.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap/dataTables.bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery/jquery.dataTables.min.js}"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/sweetalert2/latest/sweetalert2.min.css"/>
+    <script src="https://cdn.jsdelivr.net/sweetalert2/latest/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/sweetalert2/latest/sweetalert2.min.css"/>
+    <script src="https://cdn.jsdelivr.net/sweetalert2/latest/sweetalert2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/parsley/parsley.js}"></script>
+
+
+    <link type="text/css" th:href="@{/css/student/lop_giang_day.css}" rel="stylesheet"/>
+
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <div th:replace="fragments/header :: header">&nbsp;</div>
+    <div th:replace="fragments/sidebar :: aside">&nbsp;</div>
+
+    <div class="content-wrapper">
+        <!--code vào đây :D-->
+        <section class="invoice">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2 class="page-header">
+                        <i class="fa fa-globe"></i> Thông tin lớp
+                        <small class="pull-right" th:text="${lopHoc != null ? lopHoc.ngayTao : ''}">Ngày mở lớp:
+                            2/10/2014
+                        </small>
+                    </h2>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- info row -->
+            <div class="row invoice-info">
+                <div class="col-sm-4 invoice-col">
+                    <div class="form-group chamcham">
+                        <label for="">Tên môn học: </label>
+                        <span th:text="${lopHoc != null ? lopHoc.monHoc.tenMonHoc : ''}"
+                        > Hệ quản trị cơ sở dữ liệu</span>
+                    </div>
+                    <div class="form-group chamcham">
+                        <label for="">Số lượng tín chỉ: </label>
+                        <span th:text="${lopHoc != null ? lopHoc.monHoc.tinChi : ''}"
+                        > 3</span>
+                    </div>
+                    <div class="form-group chamcham">
+                        <label for="">Học kì: </label>
+                        <span th:text="${lopHoc != null ? lopHoc.monHoc.kiHoc.kiHoc : ''}"
+                        > 1</span>
+                    </div>
+
+                    <div class="form-group chamcham">
+                        <label for="">Mã lớp: </label>
+                        <span th:text="${lopHoc != null ? lopHoc.maLop : ''}"
+                        > Lớp C1608G1</span>
+                    </div>
+                    <div class="form-group chamcham">
+                        <label for="">Tên giảng viên: </label>
+                        <span th:text="${giaoVien.getUser().getFullName()}"></span>
+                    </div>
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4 invoice-col">
+                    <div class="form-group chamcham">
+                        <label for="">Phòng học: </label>
+                        <span th:text="${lopHoc != null ? lopHoc.phongHoc.tenPhong : ''}"
+                        > 206</span>
+                    </div>
+                    <div class="form-group chamcham">
+                        <label for="">Ngày bắt đầu: </label>
+                        <span th:text="${lopHoc != null ? #dates.format(lopHoc.ngayBatDau, 'dd-MM-yyyy')  : ''}"
+                        > 20/10/2018</span>
+                    </div>
+                    <div class="form-group chamcham">
+                        <label for=""> Ngày kết thúc: </label>
+                        <span th:text="${lopHoc != null ? #dates.format(lopHoc.ngayKetThuc, 'dd-MM-yyyy')   : ''}"
+                        >20/2/2019</span>
+                    </div>
+
+                    <div class="form-group chamcham">
+                        <label for="">Ghi chú: </label>
+                        <span th:text="${lopHoc != null ? lopHoc.moTa : ''}"> FPT</span>
+                    </div>
+                </div>
+                <!-- /.col -->
+                <div class="col-md-4">
+                    <div class="form-group chamcham">
+                        <label for="">Ca học: </label>
+                    </div>
+                    <div class="table tree-dot" style="border: none; box-shadow: none;">
+                        <table id="lichHoc" class="tree-table">
+                            <thead>
+
+                            </thead>
+                            <tbody>
+                            <tr>
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-4 invoice-col">
+                    <div class="col-md-5 inline-block p-25">
+                        <a class="form-group">
+                            <button id="btn-edit" style="margin-top: 10px;width: 113px" class="btn btn-success">
+                                <a style="color: #fefefe" th:href="@{/tuonglop/}+${lopHoc.maLop}"/>Diễn đàn lớp
+                            </button>
+                            <button style="margin-top: 10px;width: 113px" class="btn btn-success">
+                                <a style="color: #fefefe" th:href="@{/quanlybaitap/}+${lopHoc.maLop}"/>Quản lý bài tập
+                            </button>
+
+                            <button style="margin-top: 10px;width: 113px;" class="btn btn-success" data-toggle="modal" data-target="#modalNhapDiem">
+                                <a style="color: #fefefe"/>Nhập điểm
+                            </button>
+                        </a>
+
+
+                    </div>
+                </div>
+                <!-- /.col -->
+            </div>
+        </section>
+
+        <section class="content-header">
+            <h1>
+                Danh sách sinh viên
+            </h1>
+
+
+
+
+            <div class="modal modal-full fade" id="modalNhapDiem" role="dialog">
+                <div class="modal-dialog">
+
+                    <div class="modal-content" style="margin-right: -14px;">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                &times;
+                            </button>
+                            <h3 class="modal-title">
+                                Nhập điểm
+                            </h3>
+                        </div>
+                        <div class="modal-body" style="text-align: center;">
+                            <h5><a th:href="${'/web/downloadExcel?maLop='+lopHoc.maLop}"
+                                   th:text="${'Download Excel '+ lopHoc.maLop }"> </a></h5>
+                            <!--<input type="file" name="file" id="fileLoader"/>-->
+                            <!--<input type="button" id="fileSubmit" value="Upload"/>-->
+                            <div id='container'>
+                                <div class='panel panel-primary'>
+                                    <div class='panel-body'>
+                                        <span class="glyphicon glyphicon-cloud-upload"></span>
+                                        <h3>File uploader</h3>
+                                        <span id='result'></span><br>
+                                        <button style="width: 70px" class='btn  btn-primary upload-btn'>File</button>
+                                        <input type='file' name='file' id='upload-file' multiple>
+                                        <button class='btn  btn-primary ' type="button" id="fileSubmit" value="Upload">Upload</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <style>
+                                #upload-file {
+                                    display: none;
+                                }
+
+                                .glyphicon {
+                                    font-size: 4em
+                                }
+
+                                #container {
+                                    padding-bottom: 20px;
+                                    /* margin-top: -28px; */
+                                    /* margin: 8em; */
+                                    width: 36%;
+                                    /* text-align: center; */
+                                    margin-left: 31%;
+                                }
+
+                                /*body {*/
+                                /*text-align: center;*/
+                                /*font-family: 'Raleway', sans-serif;*/
+                                /*}*/
+
+                            </style>
+                            <script>$('.upload-btn').on('click', function () {
+                                $('#upload-file').click();
+                            })
+                            $('#upload-file').on('change', function () {
+                                var files = $(this).get(0).files;
+                                var result = document.createElement('p');
+                                $('#result').html('your file size is: ' + files[0].size / 1000 + ' kbytes(' + files[0].size + ' bytes)');
+                            })</script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <input id="maLopHoc" type="hidden" th:value="${lopHoc.maLop}"/>
+            <input id="maMonHoc" type="hidden" th:value="${lopHoc.monHoc.maMonHoc }"/>
+            <!--<input id="token" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
+
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <table id="example2" class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Mã SV</th>
+                                    <th>Tên sinh viên</th>
+                                    <th>Email</th>
+                                    <th>Ðiểm lý thuyết</th>
+                                    <th>Ðiểm thực hành</th>
+                                    <th>Ðiểm cuối kì</th>
+                                    <th>Chức năng</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr th:each=" sinhvien,k : ${SV}">
+
+                                    <td class="text-right">
+                                        1
+                                    </td>
+                                    <td th:text="${sinhvien.maSinhVien}">SV-00</td>
+                                    <td th:text="${sinhvien.user.fullName}">Nguy?n Van A</td>
+                                    <td th:text="${sinhvien.user.userEmail}">nguyenvana@gmail.com</td>
+                                    <td>Chưa có điểm</td>
+                                    <td>Chưa có điểm</td>
+                                    <td>Chưa có điểm</td>
+
+                                    <td class="text-center">
+                                        <div class="dropdown bacham">
+                                            <a href="#" data-toggle="dropdown" aria-haspopup="true"
+                                               aria-expanded="true">
+                                                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                                            </a>
+                                            <ul class="dropdown-menu dropdown-menu-right">
+
+                                                <li class="inline">
+                                                    <a class="icon-remove" data-toggle="modal" data-target="#s" th:attrappend="data-target=${'add'+sinhvien.maSinhVien}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> thêm điểm</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+
+                                        <div class="modal modal-full fade" id="s" role="dialog"
+                                             th:attrappend="id=${'add'+sinhvien.maSinhVien}">
+                                            <div class="modal-dialog">
+                                                <!-- Modal content-->i
+                                                <div class="modal-content" style="margin-right: -14px;">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal">
+                                                            &times;
+                                                        </button>
+                                                        <h3 class="modal-title" >
+                                                            Thêm Điểm
+                                                        </h3>
+                                                    </div>
+                                                    <div class="modal-body"
+                                                         style="padding-bottom: 20px; padding: 0px; padding-bottom: 32px; text-align: center; width: 57%; margin-left: 20%;">
+                                                        <form th:id="${'themdiem'+sinhvien.maSinhVien}" class="form-horizontal">
+                                                            <input name="maSV" type="hidden"  th:value="${sinhvien.maSinhVien}"/>
+                                                            <input name="maMonHoc" type="hidden"  th:value="${lopHoc.monHoc.maMonHoc}"/>
+                                                            <input name="maLopHoc" type="hidden"  th:value="${lopHoc.maLop}"/>
+                                                            <div style="margin-top: 50px"
+                                                                 class="form-group">
+                                                                <label class="col-sm-3 control-label">Điểm lý thuyết <span
+                                                                        class="red">  </span></label>
+                                                                <div class="col-md-9">
+                                                                    <input
+                                                                            name="diemLyThuyet" type="text"
+                                                                            class="form-control"
+                                                                    >
+                                                                </div>
+                                                            </div>
+                                                            <br/>
+                                                            <div style="margin-top: 50px"
+                                                                 class="form-group">
+                                                                <label class="col-sm-3 control-label">Điểm thực hành <span
+                                                                        class="red">  </span></label>
+                                                                <div class="col-md-9">
+                                                                    <input
+                                                                            name="diemThucHanh" type="text"
+                                                                            class="form-control"
+                                                                    >
+                                                                </div>
+
+                                                            </div>
+                                                            <br/>
+                                                            <div style="margin-top: 50px"
+                                                                 class="form-group">
+                                                                <label class="col-sm-3 control-label">Điểm cuối kì <span
+                                                                        class="red">  </span></label>
+                                                                <div class="col-md-9">
+                                                                    <input
+                                                                            name="diemCuoiKi" type="text"
+                                                                            class="form-control"
+                                                                    >
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                        <button th:id="${sinhvien.maSinhVien}" onclick="themDiem(this.id)" style=" margin-left: 14%; margin-top: 20px;" type="button" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i>Thêm điểm
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </td>
+                                </tr>
+
+
+
+
+                                <tr th:each=" diem,k : ${lopHoc.getLstDiem()}">
+                                    <td class="text-right">
+                                        1
+                                    </td>
+                                    <td th:text="${diem.getSinhVien().getMaSinhVien()}">SV-00</td>
+                                    <td th:text="${diem.getSinhVien().getUser().getFullName()}">Nguy?n Van A</td>
+                                    <td th:text="${diem.getSinhVien().getUser().getUserEmail()}">nguyenvana@gmail.com</td>
+
+                                    <td th:text="${diem.getDiemLyThuyet()}">123</td>
+                                    <td th:text="${diem.getDiemThucHanh()}">123</td>
+                                    <td th:text="${diem.getDiemCuoiKi()}">123</td>
+
+                                    <td class="text-center">
+                                        <div class="dropdown bacham">
+                                            <a href="#" data-toggle="dropdown" aria-haspopup="true"
+                                               aria-expanded="true">
+                                                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                                            </a>
+                                            <ul class="dropdown-menu dropdown-menu-right">
+                                                <li class="inline">
+                                                    <a class="icon-remove" data-toggle="modal" data-target="#myModal" th:attrappend="data-target=${'edit'+diem.getSinhVien().getMaSinhVien()}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Thông tin điểm</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="modal modal-full fade" id="myModal" role="dialog"
+                                             th:attrappend="id=${'edit'+diem.getSinhVien().getMaSinhVien()}">
+                                            <div class="modal-dialog">
+                                                <!-- Modal content-->i
+                                                <div class="modal-content" style="margin-right: -14px;">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal">
+                                                            &times;
+                                                        </button>
+                                                        <h3 class="modal-title" id="suanhansuLabel">
+                                                            Thông tin điểm
+                                                        </h3>
+                                                    </div>
+                                                    <div class="modal-body"
+                                                         style="padding-bottom: 20px; padding: 0px; padding-bottom: 32px; width: 72%; padding-left: 21%;">
+                                                        <th:block th:if="${#lists.isEmpty(diem)}">
+                                                            <p>Hiện tại sv chưa có điểm</p>
+                                                        </th:block>
+                                                        <th:block th:if="${!#lists.isEmpty(diem)}">
+                                                            <form th:id="${'suadiem'+diem.getSinhVien().getMaSinhVien()}" class="form-horizontal">
+                                                                <input name="maSV" type="hidden"  th:value="${diem.getSinhVien().getMaSinhVien()}"/>
+                                                                <input name="maMonHoc" type="hidden"  th:value="${lopHoc.monHoc.maMonHoc}"/>
+                                                                <input name="maLopHoc" type="hidden"  th:value="${lopHoc.maLop}"/>
+                                                                <input name="maDiem" type="hidden"  th:value="${diem.getId()}"/>
+                                                                <div style="margin-top: 50px"
+                                                                     class="form-group">
+                                                                    <label class="col-sm-3 control-label">Điểm lý thuyết <span
+                                                                            class="red">  </span></label>
+                                                                    <div class="col-md-9">
+                                                                        <input th:value="${diem.getDiemLyThuyet()}"
+                                                                               id="diemLyThuyet"
+                                                                               name="diemLyThuyet" type="text"
+                                                                               class="form-control"
+                                                                        >
+                                                                    </div>
+                                                                </div>
+                                                                <br/>
+                                                                <div style="margin-top: 50px"
+                                                                     class="form-group">
+                                                                    <label class="col-sm-3 control-label">Điểm thực hành <span
+                                                                            class="red">  </span></label>
+                                                                    <div class="col-md-9">
+                                                                        <input th:value="${diem.getDiemThucHanh()}"
+                                                                               name="diemThucHanh" type="text"
+                                                                               class="form-control"
+                                                                        >
+                                                                    </div>
+
+                                                                </div>
+                                                                <br/>
+                                                                <div style="margin-top: 50px"
+                                                                     class="form-group">
+                                                                    <label class="col-sm-3 control-label">Điểm cuối kì <span
+                                                                            class="red">  </span></label>
+                                                                    <div class="col-md-9">
+                                                                        <input th:value="${diem.getDiemCuoiKi()}"
+                                                                               name="diemCuoiKi" type="text"
+                                                                               class="form-control"
+                                                                        >
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                            <br/>
+                                                            <!--<button name="edit" onclick="toggle_inputs()">S?a di?m</button>-->
+                                                            <button th:id="${diem.getSinhVien().getMaSinhVien()}" onclick="ff(this.id)" style=" margin-left: 14%; margin-top: 20px;" type="button" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i>Cập nhật
+                                                            </button>
+                                                        </th:block>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tbody>
+                            </table>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+
+                    <!-- /.box -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </section>
+
+    </div>
+    <div th:replace="fragments/footer :: footer">&nbsp;</div>
+    <aside class="control-sidebar control-sidebar-dark">
+        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+            <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+            <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="control-sidebar-home-tab">
+                <h3 class="control-sidebar-heading">Recent Activity</h3>
+                <ul class="control-sidebar-menu">
+                    <li>
+                        <a href="javascript:;">
+                            <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+
+                                <p>Will be 23 on April 24th</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <h3 class="control-sidebar-heading">Tasks Progress</h3>
+                <ul class="control-sidebar-menu">
+                    <li>
+                        <a href="javascript:;">
+                            <h4 class="control-sidebar-subheading">
+                                Custom Template Design
+                                <span class="pull-right-container">
+                    <span class="label label-danger pull-right">70%</span>
+                  </span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+            <div class="tab-pane" id="control-sidebar-settings-tab">
+                <form method="post">
+                    <h3 class="control-sidebar-heading">General Settings</h3>
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Report panel usage
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+                        <p>
+                            Some information about this general settings option
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </aside>
+    <div class="control-sidebar-bg"></div>
+</div>
+
+</body>
+<script type="text/javascript" th:inline="javascript" >
+    $(function () {
+        $('#example2').DataTable()
+        $('#example3').DataTable({
+            'paging'      : true,
+            'lengthChange': false,
+            'searching'   : false,
+            'ordering'    : true,
+            'info'        : true,
+            'autoWidth'   : false
+        })
+
+        var ngayHoc = [[${ngayHoc}]];
+        var caHoc = [[${caHoc}]];
+        for (i = 0; i < ngayHoc.length; i++) {
+            $('#lichHoc tr:last')
+                .after("<tr><td style='width: 70px'>Thứ " + ngayHoc[i] + ":</td>" +
+                    "<td>Ca " + caHoc[i] + "</td>" +
+                    "</tr>");
+        }
+    });
+    function ff(id) {
+        swal({
+            imageUrl: 'https://cdn.dribbble.com/users/563824/screenshots/4268258/untitled_180_3.gif',
+            imageHeight: 200,
+            showConfirmButton: false,
+        });
+        // var token = document.getElementById('token1').value;
+        var valid = $("#suadiem"+id).parsley();
+        valid.validate();
+        if (valid.isValid()) {
+            var data = $('#suadiem'+id).serialize();
+            $.ajax({
+                url:  '/web/giangviendaylop/suadiem',
+                type: "post",
+                // headers: {'X-CSRF-Token': token},
+                data: data,
+                dataType: "text",
+                success: function (result) {
+
+                    if (result.trim() === "saidiem") {
+
+                        swal({
+                            title: 'Cập nhật không thành công',
+                            text: 'Bạn đã nhập sai điểm',
+                            type: 'warning',
+                            confirmButtonText: 'Ok',
+                        }).then(function () {
+
+
+                        });
+                    }
+
+                    if (result.trim() === "success") {
+                        $('.close').click();
+                        swal({
+                            title: 'Cập nhật thành công',
+                            text: '',
+                            type: 'success',
+                            confirmButtonText: 'Ok',
+                        }).then(function () {
+                            location.reload(true);
+
+                        });
+                    } if (result.trim() === "error") {
+                        $('.close').click();
+                        swal({
+                            title: 'Cập nhật thất bại',
+                            text: '',
+                            type: 'error',
+                            confirmButtonText: 'Ok',
+                        }).then(function () {
+                            if (isConfirm) {
+                            }
+                            form.submit();
+                        });
+                    }
+                }
+            });
+        }
+    };
+
+    function themDiem(id) {
+        swal({
+            imageUrl: 'https://cdn.dribbble.com/users/563824/screenshots/4268258/untitled_180_3.gif',
+            imageHeight: 200,
+            showConfirmButton: false,
+        });
+        // var token = document.getElementById('token1').value;
+        var valid = $("#themdiem"+id).parsley();
+        valid.validate();
+        if (valid.isValid()) {
+            var data = $('#themdiem'+id).serialize();
+            $.ajax({
+                url:  '/web/giangviendaylop/themdiem',
+                type: "post",
+                // headers: {'X-CSRF-Token': token},
+                data: data,
+                dataType: "text",
+                success: function (result) {
+
+                    if (result.trim() === "saidiem") {
+
+                        swal({
+                            title: 'Thêm điểm không thành công',
+                            text: 'Bạn đã nhập sai điểm',
+                            type: 'warning',
+                            confirmButtonText: 'Ok',
+                        }).then(function () {
+
+
+                        });
+                    }
+
+                    if (result.trim() === "success") {
+                        $('.close').click();
+                        swal({
+                            title: 'Thêm điểm thành công',
+                            text: '',
+                            type: 'success',
+                            confirmButtonText: 'Ok',
+                        }).then(function () {
+                            location.reload(true);
+
+                        });
+                    } if (result.trim() === "error") {
+                        $('.close').click();
+                        swal({
+                            title: 'Thêm điểm thất bại',
+                            text: '',
+                            type: 'error',
+                            confirmButtonText: 'Ok',
+                        }).then(function () {
+                            if (isConfirm) {
+                            }
+                            form.submit();
+                        });
+                    }
+                }
+            });
+        }
+    };
+    var files = [];
+    $(document)
+        .on(
+            "change",
+            "#upload-file",
+            function (event) {
+                files = event.target.files;
+            })
+
+    $(document)
+        .on(
+            "click",
+            "#fileSubmit",
+            function () {
+                processUpload();
+            })
+
+    function processUpload() {
+        swal({
+            imageUrl: 'https://cdn.dribbble.com/users/419257/screenshots/1724076/scanningwoohoo.gif',
+            imageHeight: 200,
+            showConfirmButton: false,
+        });
+        var maLopHoc = document.getElementById('maLopHoc').value;
+        var mmh = document.getElementById('maMonHoc').value;
+        // var token = document.getElementById('token').value;
+        var oMyForm = new FormData();
+        oMyForm.append("file", files[0]);
+        oMyForm.append("maMonHoc", mmh);
+        oMyForm.append("maLopHoc", maLopHoc);
+        $
+            .ajax({
+                dataType: 'json',
+                url: "/web/upfile",
+                data: oMyForm,
+                // headers: {'X-CSRF-Token': token},
+                type: "POST",
+                enctype: 'multipart/form-data',
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    alert(123);
+
+                },
+                error: function (result) {
+                    location.reload(true);
+                    // swal({
+                    //     title: 'Ðang ký thành công!',
+                    //     text: '',
+                    //     type: 'success',
+                    //     confirmButtonText: 'Ok',
+                    // }).then(function () {
+                    //     if (isConfirm) {
+                    //         location.reload(true);
+                    //     }
+                    //     form.submit();
+                    // });
+                }
+
+            });
+    }
+
+</script>
+
+</html>

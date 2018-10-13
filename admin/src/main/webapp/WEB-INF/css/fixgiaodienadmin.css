@@ -1,0 +1,40 @@
+.khung {
+    position: relative;
+    overflow: hidden;
+    padding: 0.5% 11% 0% 0.5%;
+    background-color: #f7f7f7;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    min-width: 820px;
+    min-height: 50px;
+}
+.title {
+    position: relative;
+    margin-bottom: 15px;
+    overflow: hidden;
+    padding-left: 10px;
+}
+.table{
+    margin-left: 10px;
+    width: 98.5%;
+}
+aside.main-sidebar .slimScrollDiv .sidebar{
+    padding: 5px;
+}
+.main-header{
+    background-color: #009999;
+}
+.add-use{
+    margin-right: 16px;
+}
+.strong{
+    padding-left: 10px;
+}
+
+.avantar {
+    padding-left: 25%;
+}
+.col-sm-344{
+    color: red;
+    height: 10px;
+    width: auto;
+}

@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đổi mật khẩu</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/font-awesome-animation.min.css}"/>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/ionicons.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/AdminLTE.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/_all-skins.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/dataTables.bootstrap.min.css}">
+
+    <script type="text/javascript" th:src="@{/js/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/adminlte.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery/jquery.slimscroll.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/fastclick.js}"></script>
+    <script type="text/javascript" th:src="@{/js/demo.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap/dataTables.bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery/jquery.dataTables.min.js}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/sweetalert2/latest/sweetalert2.min.css"/>
+    <script src="https://cdn.jsdelivr.net/sweetalert2/latest/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/sweetalert2/latest/sweetalert2.min.css"/>
+    <script src="https://cdn.jsdelivr.net/sweetalert2/latest/sweetalert2.min.js"></script>
+
+    <!--<link rel="stylesheet" type="text/css" th:href="@{/css/parsley.css}"/>-->
+
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+
+    <script type="text/javascript" th:src="@{/js/parsley/parsley.js}"></script>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+    <div th:replace="fragments/header :: header">&nbsp;</div>
+    <th:block th:if="${user.getGiaoVien()!=null}">
+        <div th:replace="fragments/sidebar :: aside">&nbsp;</div> </th:block>
+    <th:block th:if="${user.getSinhVien()!=null}">
+        <div th:replace="fragments/sidebarsv :: aside">&nbsp;</div>
+    </th:block>
+
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="well">
+                <strong>Đổi mật khẩu</strong>
+            </div>
+
+            <form class="form-horizontal" id="formChangePassword">
+                <div class="form-group">
+                    <div class="col-sm-2 control-label" > Mật khẩu cũ (*)</div>
+                    <div class="col-sm-6" style="width: 82%;">
+                        <input style="float: left;   width: 529px;" type="password" class="form-control" id="password"  name="password" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-2 control-label" > Mật khẩu mới (*)</div>
+                    <div class="col-sm-6" style="width: 82%;">
+                        <input style="float: left;   width: 529px;" type="password" class="form-control" id="NewPassword"  name="newPassword" />
+                        <div style="margin-top: 8px; margin-left: 10px; float: left;" id="Length" class="glyphicon glyphicon-remove"></div>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-2 control-label" > Nhập lại mật khẩu (*)</div>
+                    <div class="col-sm-6" style="width: 82%;">
+                        <input style="float: left;   width: 529px;" type="password" class="form-control" id="passwordRepeat"  name="passwordRepeat" />
+                        <div style="margin-top: 8px; margin-left: 10px; float: left;" id="Length1" class="glyphicon glyphicon-remove"></div>
+
+                    </div>
+                </div>
+                <div>
+                    <div class="col-sm-2 control-label" >Ghi chú</div>
+                    <div class="col-sm-6">
+                        <span >Mật khẩu bao gồm: chữ thường, chữ hoa, số và ký tự đặc biệt @#$%^&+=, độ dài từ 6 - 20 ký tự</span>
+                    </div>
+                </div>
+                <br> <br>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <button onclick="ff()" type="button" class="btn btn-success" id="btnUpdate">Cập nhật</button>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+    <div th:replace="fragments/footer :: footer">&nbsp;</div>
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Create the tabs -->
+        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+            <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+            <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <!-- Home tab content -->
+            <div class="tab-pane" id="control-sidebar-home-tab">
+                <h3 class="control-sidebar-heading">Recent Activity</h3>
+                <ul class="control-sidebar-menu">
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+
+                                <p>Will be 23 on April 24th</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-user bg-yellow"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
+
+                                <p>New phone +1(800)555-1234</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
+
+                                <p>nora@example.com</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-file-code-o bg-green"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
+
+                                <p>Execution time 5 seconds</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <!-- /.control-sidebar-menu -->
+
+                <h3 class="control-sidebar-heading">Tasks Progress</h3>
+                <ul class="control-sidebar-menu">
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Custom Template Design
+                                <span class="label label-danger pull-right">70%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Update Resume
+                                <span class="label label-success pull-right">95%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Laravel Integration
+                                <span class="label label-warning pull-right">50%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Back End Framework
+                                <span class="label label-primary pull-right">68%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <!-- /.control-sidebar-menu -->
+
+            </div>
+            <!-- /.tab-pane -->
+            <!-- Stats tab content -->
+            <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+            <!-- /.tab-pane -->
+            <!-- Settings tab content -->
+            <div class="tab-pane" id="control-sidebar-settings-tab">
+                <form method="post">
+                    <h3 class="control-sidebar-heading">General Settings</h3>
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Report panel usage
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+
+                        <p>
+                            Some information about this general settings option
+                        </p>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Allow mail redirect
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+
+                        <p>
+                            Other sets of options are available
+                        </p>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Expose author name in posts
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+
+                        <p>
+                            Allow the user to show his name in blog posts
+                        </p>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <h3 class="control-sidebar-heading">Chat Settings</h3>
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Show me as online
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Turn off notifications
+                            <input type="checkbox" class="pull-right">
+                        </label>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Delete chat history
+                            <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
+                        </label>
+                    </div>
+                    <!-- /.form-group -->
+                </form>
+            </div>
+            <!-- /.tab-pane -->
+        </div>
+    </aside>
+    <div class="control-sidebar-bg"></div>
+</div>
+
+
+<script type="text/javascript" th:inline="javascript" >
+    var ps='';
+    var checkpasswordRepeat=false;
+    var checknewPassword=false;
+    function passwordRepeat() {
+        var password = $(this).val();
+        if(ps==password){
+            document.getElementById("Length1").style.color = 'green';
+            document.getElementById("Length1").innerHTML="";
+            $("#Length1").removeClass(password.length > 0 ? "glyphicon-remove" : "glyphicon-ok");
+            $("#Length1").addClass(password.length > 0 ? "glyphicon-ok" : "glyphicon-remove");
+            checkpasswordRepeat=true;
+        }else {
+            document.getElementById("Length1").style.color = 'red';
+            document.getElementById("Length1").innerHTML="Mât khẩu không khớp";
+            checkpasswordRepeat=false;
+        }
+    }
+
+    function ValidatePassword() {
+        var rules = [{
+            Pattern: "[A-Z]",
+            Target: "UpperCase"
+            },
+            {
+                Pattern: "[a-z]",
+                Target: "LowerCase"
+            },
+            {
+                Pattern: "[0-9]",
+                Target: "Numbers"
+            },
+            {
+                Pattern: "[!@@#$%^&*]",
+                Target: "Symbols"
+            }
+        ];
+        ps=$(this).val();
+        var password = $(this).val();
+        var check=true;
+        if(password.length < 7){
+            document.getElementById("Length").style.color = 'red';
+            document.getElementById("Length").innerHTML="Mât khẩu phải có độ dài ít nhất 7 kí tự";
+            check=false;
+            checknewPassword=false;
+        }
+        if (!new RegExp(rules[0].Pattern).test(password)) {
+            document.getElementById("Length").style.color = 'red';
+            document.getElementById("Length").innerHTML="Mât khẩu có ít nhất một chữ hoa";
+            check=false;
+            checknewPassword=false;
+        }
+        else {
+            if (!new RegExp(rules[1].Pattern).test(password)) {
+                document.getElementById("Length").style.color = 'red';
+                document.getElementById("Length").innerHTML="Mât khẩu có ít nhất một chữ thường";
+                check=false;
+                checknewPassword=false;
+            }else {
+                if (!new RegExp(rules[2].Pattern).test(password)) {
+                    document.getElementById("Length").style.color = 'red';
+                    document.getElementById("Length").innerHTML="Mât khẩu có ít nhất một chữ số";
+                    check=false;
+                    checknewPassword=false;
+                }else {
+                    if (!new RegExp(rules[3].Pattern).test(password)) {
+                        document.getElementById("Length").style.color = 'red';
+                        document.getElementById("Length").innerHTML="Mât khẩu có ít nhất một kí tự đặc biệt";
+                        check=false;
+                        checknewPassword=false;
+                    };
+                }
+            }
+        }
+        if(check){
+            document.getElementById("Length").innerHTML="";
+            $("#Length").removeClass(password.length > 0 ? "glyphicon-remove" : "glyphicon-ok");
+            $("#Length").addClass(password.length > 0 ? "glyphicon-ok" : "glyphicon-remove");
+            document.getElementById("Length").style.color = 'green';
+            checknewPassword=true;
+        }
+    }
+    $(document).ready(function() {
+        $("#NewPassword").on('keyup', ValidatePassword)
+    });
+
+
+    $(document).ready(function() {
+        $("#passwordRepeat").on('keyup', passwordRepeat)
+    });
+
+
+    function ff() {
+        if (checkpasswordRepeat&&checknewPassword) {
+            var valid = $("#formChangePassword").parsley();
+            valid.validate();
+            if (valid.isValid()) {
+                var data = $('#formChangePassword').serialize();
+                swal({
+                    imageUrl: 'https://cdn.dribbble.com/users/563824/screenshots/4268258/untitled_180_3.gif',
+                    imageHeight: 200,
+                    showConfirmButton: false,
+                });
+                $.ajax({
+                    url: '/web/api/doimatkhau',
+                    type: "post",
+                    data: data,
+                    dataType: "text",
+                    success: function (result) {
+                        if (result.trim() === "success") {
+                            swal({
+                                title: 'Đổi mật khẩu thành công',
+                                text: '',
+                                type: 'success',
+                                confirmButtonText: 'Ok',
+                            }).then(function () {
+                                if (isConfirm) {
+                                }
+                                form.submit();
+                            });
+                        } else {
+                            swal({
+                                title: 'Đổi mật khẩu thất bại',
+                                text: 'Mật khẩu cũ không chính xác',
+                                type: 'error',
+                                confirmButtonText: 'Ok',
+                            }).then(function () {
+                                if (isConfirm) {
+                                }
+                                form.submit();
+                            });
+                        }
+                    }
+                });
+            }
+        }else {
+            swal({
+                title: 'Vui lòng nhập thông tin hợp lệ',
+                text: '',
+                type: 'warning',
+                confirmButtonText: 'Ok',
+            }).then(function () {
+                if (isConfirm) {
+                }
+                form.submit();
+            });
+        }
+        ;
+
+    }
+</script>
+
+<style>
+
+    .glyphicon-remove {
+        color: red;
+    }
+
+    .glyphicon-ok {
+        color: green;
+    }
+</style>
+
+
+
+</body>
+</html>
+

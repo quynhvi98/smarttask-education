@@ -1,0 +1,64 @@
+.primary-color {
+    color: $primary-color;
+}
+.danger-color {
+    color: $danger-color;
+}
+.success-color {
+    color: $success-color;
+}
+.warning-color {
+    color: $warning-color;
+}
+.complete{
+
+  &.warning {
+      background-color: $warning-color;
+  }
+  &.danger {
+      background-color: $danger-color;
+  }
+  &.success {
+      background-color: $success-color;
+  }
+}
+input.form-control.thoihan {
+    color:  #fff;
+    padding:  2px;
+    border-radius: 4px !important;
+    &.danger{
+      background-color: $danger-color;
+      border: solid 1px $danger;
+    }
+    &.success{
+      background-color: $success-color;
+      border: solid 1px $success;
+    }
+    &.warning {
+        background-color: $warning-color;
+        border: solid 1px $warning;
+    }
+
+}
+.alert.alert-success {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left:  8px;
+    padding-right: 8px;
+    background: $success-color !important;
+    border: none;
+}
+.red {
+    color: $danger;
+}
+.lobibox-notify.lobibox-notify-warning{
+  background-color: $warning-color !important;
+  border-color: $warning !important;
+  color: #002a31 !important;
+}
+.lobibox-notify.lobibox-notify-success{
+  background-color: $success-color !important;
+  border-color: $success !important;
+}

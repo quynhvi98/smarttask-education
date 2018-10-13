@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" style="  overflow-x:hidden;">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smarttask Education</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/ionicons.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/AdminLTE.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/skin-blue.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/imageresource.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lobibox.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/sweetalert.css}"/>
+
+    <script type="text/javascript" th:src="@{/js/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/adminlte.min.js}"></script>
+    <!--<script type="text/javascript" th:src="@{/js/demo.js}"></script>-->
+    <script type="text/javascript" th:src="@{/js/jquery/jquery.slimscroll.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/fastclick.js}"></script>
+    <script type="text/javascript" th:src="@{/js/trongtran.js}"></script>
+    <script type="text/javascript" th:src="@{/js/sweetalert.js}"></script>
+    <script type="text/javascript" th:src="@{/js/lobibox.js}"></script>
+    <script type="text/javascript" th:src="@{/js/lobibox.min.js}"></script>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/sweetalert2/latest/sweetalert2.min.css"/>
+    <script src="https://cdn.jsdelivr.net/sweetalert2/latest/sweetalert2.min.js"></script>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+<style>
+    body{
+        background-color: #222d32;
+    }
+</style>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <div th:replace="fragments/header :: header">&nbsp;</div>
+    <div th:replace="fragments/sidebar :: aside">&nbsp;</div>
+
+    <div class="content-wrapper">
+        <div class="row p-40">
+            <div class="col-md-9" style="width: 96%; margin: 2%;  border-radius: 10px;">
+                <div th:replace="student/register-member">&nbsp;</div>
+            </div>
+
+
+
+            <div style="color: black" class="modal modal-full fade" id="taoBT" role="dialog">
+
+                <style>
+                    .popover.left {
+                        z-index: 9999;
+                    }
+                </style>
+                <div id="date-picker-section" class="container">
+                    <div id="date-picker-container" style="border-radius: 5px;margin-top: -24px">
+                        <div sz id="date-picker-dates" style=" border-radius: 5px;margin-top: -20px;">
+                            <div style="width: 100%; margin-bottom: 15px; margin-top: 0px;">
+                                <p style="text-align: center">Bài tập</p>
+                                <input id="maLop" type="hidden" th:value="${maLop}" style="border-radius: 5px;width: 80%; margin-left: 9%; height: 31px; box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15), 3px 3px 5px 0 rgba(0, 0, 0, 0.06); border-color: inherit; outline: none; /* width: 288px; */ height: 34px; border: none; margin-top: 1px; padding-left: 7px; float: left;"/>
+                                <th:block th:if="${baiTapLon!=null}">
+                                    <input th:value="${baiTapLon.getBaiTap()}" id="baiTap" style="border-radius: 5px;width: 80%; margin-left: 9%; height: 31px; box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15), 3px 3px 5px 0 rgba(0, 0, 0, 0.06); border-color: inherit; outline: none; /* width: 288px; */ height: 34px; border: none; margin-top: 1px; padding-left: 7px; float: left;"/>
+                                </th:block>
+                                <th:block th:if="${baiTapLon==null}">
+                                    <input  id="baiTap" style="border-radius: 5px;width: 80%; margin-left: 9%; height: 31px; box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15), 3px 3px 5px 0 rgba(0, 0, 0, 0.06); border-color: inherit; outline: none; /* width: 288px; */ height: 34px; border: none; margin-top: 1px; padding-left: 7px; float: left;"/>
+                                </th:block>
+
+                            </div>
+                            <div style="width: 100%; margin-bottom: 15px; margin-top: 0px;">
+                                <p style="text-align: center">Nội dung</p>
+                                <th:block th:if="${baiTapLon!=null}">
+                                    <input th:value="${baiTapLon.getNoiDung()}" id="noiDung" style="border-radius: 5px;width: 80%; margin-left: 9%; height: 31px; box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15), 3px 3px 5px 0 rgba(0, 0, 0, 0.06); border-color: inherit; outline: none; /* width: 288px; */ height: 34px; border: none; margin-top: 1px; padding-left: 7px; float: left;"/>
+                                </th:block>
+                                <th:block th:if="${baiTapLon==null}">
+                                    <input  id="noiDung" style="border-radius: 5px;width: 80%; margin-left: 9%; height: 31px; box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15), 3px 3px 5px 0 rgba(0, 0, 0, 0.06); border-color: inherit; outline: none; /* width: 288px; */ height: 34px; border: none; margin-top: 1px; padding-left: 7px; float: left;"/>
+                                </th:block>
+
+                            </div>
+                            <div style="width: 100%; margin-bottom: 15px; margin-top: 0px;">
+                                <p style="text-align: center">Tệp đính kèm</p>
+
+
+                                <form enctype="multipart/form-data" method="POST">
+                                    <label for="file">
+                                        <div type="button" class="up-file">
+                                            <i class="fa fa-upload"></i>
+                                            <span id="file-name">File đính kèm...</span>
+                                        </div>
+                                        <input  id="file" name="file" required="" type="file" style="display: none">
+                                    </label>
+                                </form>
+                            </div>
+                            <div>
+                                <p style="text-align: center"> Ngày bắt đầu</p>
+                                <div style="border-radius: 5px;" id="date-picker-date-first" class="date-picker-date">
+                                    24/12/2017
+                                </div>
+                                <div style="margin-left: 20px" class="form-group">
+                                    <div  style="width: 110px; margin-bottom: 10px;"  class="input-group clockpicker" data-placement="left" data-align="top" data-autoclose="true">
+                                        <input id="timeStart" type="text" class="form-control" value="09:30">
+                                        <span class="input-group-addon">
+				            <span class="glyphicon glyphicon-time"></span>
+			                    </span>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div>
+                                <p style="text-align: center">Hạn nộp</p>
+                                <div style="border-radius: 5px;" id="date-picker-date" class="date-picker-date">
+                                    28/12/2017
+                                </div>
+                                <div style="margin-left: 20px" class="form-group">
+                                    <div  style="width: 110px; margin-bottom: 10px;"  class="input-group clockpicker" data-placement="left" data-align="top" data-autoclose="true">
+                                        <input id="timeEnd" type="text" class="form-control" value="09:30">
+                                        <span class="input-group-addon">
+				            <span class="glyphicon glyphicon-time"></span>
+			                    </span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div style="text-align: center;">
+                            <th:block th:if="${baiTapLon==null}">
+                                <button style="width: 100px; " onclick="run()"  class="btn btn-success">
+                                    Tạo bài tập
+                                </button>
+                            </th:block>
+                            <th:block th:if="${baiTapLon!=null}">
+                                <button style="width: 100px; " onclick="run()"  class="btn btn-success">
+                                    Sửa bài tập
+                                </button>
+                            </th:block>
+
+                            <button id="close" class="btn btn-success" style="width: 100px;background: #ce563f" data-dismiss="modal">
+                                Hủy
+                            </button>
+                        </div>
+                        <div id="date-picker-modal" style="z-index: 3;" class="hidden-2">
+                            <div id="date-picker-top-bar">
+                                <div id="date-picker-previous-month" class="date-picker-change-month">&lsaquo;</div>
+                                <div id="date-picker-month">December 17</div>
+                                <div id="date-picker-next-month" class="date-picker-change-month">&rsaquo;</div>
+                            </div>
+                            <div id="date-picker-exit">&times;</div>
+                            <table id="date-picker">
+                                <tr id="date-picker-weekdays">
+                                    <th>S</th>
+                                    <th>M</th>
+                                    <th>T</th>
+                                    <th>W</th>
+                                    <th>T</th>
+                                    <th>F</th>
+                                    <th>S</th>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+
+
+    <div th:replace="fragments/footer :: footer">&nbsp;</div>
+    <aside class="control-sidebar control-sidebar-dark">
+        <!--<ul class="nav nav-tabs nav-justified control-sidebar-tabs">-->
+        <!--<li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>-->
+        <!--&lt;!&ndash;<li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>&ndash;&gt;-->
+        <!--</ul>-->
+
+        <div id="myModal" class="modal1">
+            <span class="close">&times;</span>
+            <img class="modal-content" id="img01">
+            <div id="caption"></div>
+        </div>
+    </aside>
+    <div class="control-sidebar-bg"></div>
+
+</div>
+
+
+
+<script type="text/javascript" th:src="@{/js/baitap/baitap.js}"></script>
+<link rel="stylesheet" type="text/css" th:href="@{/css/baitap/baitap.css}"/>
+<script type="text/javascript" th:src="@{/js/baitap/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/baitap/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/baitap/bootstrap-clockpicker.min.js}"></script>
+<link rel="stylesheet" type="text/css" th:href="@{/css/baitap/bootstrap.min.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/css/baitap/bootstrap-clockpicker.min.css}"/>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+    function run() {
+        var baiTap = document.getElementById("baiTap").value;
+        var noiDung = document.getElementById("noiDung").value;
+        var timeStart = document.getElementById("timeStart").value;
+        var timeEnd = document.getElementById("timeEnd").value;
+        var maLop = document.getElementById("maLop").value;
+        var ngayBatDau = $('#date-picker-date-first').text();
+        var hanNop = $('#date-picker-date').text();
+        var files =   $("#file").get(0).files[0];
+
+
+        var oMyForm = new FormData();
+        oMyForm.append("file", files);
+        oMyForm.append("noiDung", noiDung);
+        oMyForm.append("baiTap", baiTap);
+        oMyForm.append("timeStart", timeStart);
+        oMyForm.append("timeEnd", timeEnd);
+        oMyForm.append("maLop", maLop);
+        oMyForm.append("ngayBatDau", ngayBatDau);
+        oMyForm.append("hanNop", hanNop);
+        if(files!=null){
+        swal({
+            imageUrl: 'https://cdn.dribbble.com/users/563824/screenshots/4268258/untitled_180_3.gif',
+            imageHeight: 200,
+            showConfirmButton: false,
+        });
+        $('#close').click();
+        $('#myModal').hide();
+        $('.modal-backdrop').hide();
+        $.ajax({
+            type: "POST",
+            data: oMyForm,
+            url:  base_url+"api/taobt",
+            enctype: 'multipart/form-data',
+            processData: false,
+            contentType: false,
+            success: function (responseJson) {
+                if (responseJson.trim() == "success") {
+                    location.reload(true);
+                }
+            }
+        });
+
+
+    }
+    }
+
+
+    var base_url = [[@{/}]];
+
+
+</script>
+
+
+
+
+
+
+
+<style type="text/css">
+
+    body{
+        background-color: #222d32;
+    }
+
+    .navbar h3 {
+        color: #f5f5f5;
+        margin-top: 14px;
+    }
+    .hljs-pre {
+        background: #f8f8f8;
+        padding: 3px;
+    }
+    .footer {
+        border-top: 1px solid #eee;
+        margin-top: 40px;
+        padding: 40px 0;
+    }
+
+    .pull-center {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    @media (min-width: 768px) {
+        .container {
+            max-width: 730px;
+        }
+    }
+    @media (max-width: 767px) {
+        .pull-center {
+            float: right;
+        }
+    }
+</style>
+
+
+
+
+<script type="text/javascript">
+    $('.clockpicker').clockpicker()
+        .find('input').change(function(){
+        console.log(this.value);
+    });
+    var input = $('#single-input').clockpicker({
+        placement: 'bottom',
+        align: 'left',
+        autoclose: true,
+        'default': 'now'
+    });
+
+    // Manually toggle to the minutes view
+    $('#check-minutes').click(function(e){
+        // Have to stop propagation here
+        e.stopPropagation();
+        input.clockpicker('show')
+            .clockpicker('toggleView', 'minutes');
+    });
+    if (/mobile/i.test(navigator.userAgent)) {
+        $('input').prop('readOnly', true);
+    }
+</script>
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500">
+
+<style>
+
+    /* Input css */
+    div.up-file {
+        width: 310px;
+        height: 45px;
+        border: 0;
+        text-align: left;
+        padding: 0;
+        display: flex;
+        border-radius: 4px;
+        cursor: pointer;
+        background-color: #6592c4;
+        font-size: 14px;
+        transition: background 0.4s;
+        margin-left: 142px;
+    }
+
+    i.fa.fa-upload {
+        width: 45px;
+        height: 45px;
+        line-height: 45px;
+        text-align: center;
+        background-color: rgba(0, 0, 0, 0.22);
+        color: rgba(255, 255, 255, 0.84);
+        border-radius: 4px 0px 0px 4px;
+        margin-right: 10px;
+        min-width: 45px;
+    }
+
+    div.up-file span {
+        display: inline-block;
+        width: 100%;
+        height: 45px;
+        line-height: 45px;
+        max-width: 100%;
+        overflow: hidden;
+        color: #fff;
+        text-align: center;
+        margin-left: -46px
+    }
+
+    div.up-file:hover {
+        background-color: #333;
+    }
+</style>
+
+<script>
+    window.console = window.console || function(t) {};
+</script>
+
+
+
+<script>
+    if (document.location.search.match(/type=embed/gi)) {
+        window.parent.postMessage("resize", "*");
+    }
+</script>
+
+
+</head>
+
+
+
+<script src="//static.codepen.io/assets/common/stopExecutionOnTimeout-41c52890748cd7143004e05d3c5f786c66b19939c4500ce446314d1748483e13.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+
+
+<script>
+    $(document).ready(function () {
+        $('#file').change(function (e) {
+            var fileName = e.target.files[0].name;
+            $('#file-name').html(fileName);
+        });
+    });
+</script>
+
+
+
+
+
+
+

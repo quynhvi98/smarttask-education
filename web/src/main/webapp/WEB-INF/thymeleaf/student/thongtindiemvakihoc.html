@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smarttask Education</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/ionicons.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/AdminLTE.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/_all-skins.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/dataTables.bootstrap.min.css}">
+
+    <script type="text/javascript" th:src="@{/js/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/adminlte.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery/jquery.slimscroll.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/fastclick.js}"></script>
+    <script type="text/javascript" th:src="@{/js/demo.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap/dataTables.bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery/jquery.dataTables.min.js}"></script>
+
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+
+
+<div class="wrapper">
+    <div th:replace="fragments/header :: header">&nbsp;</div>
+    <div th:replace="fragments/sidebarsv :: aside">&nbsp;</div>
+    <div class="content-wrapper">
+        <div class="well" style="height: 79px;">
+            <div>
+                <div class="form-group">
+                    <label style="margin-top: -4px;" for="" class="col-sm-3 control-label">Chọn kì học: </label>
+                    <div class="col-md-9">
+            <select style="margin-left: -170px; margin-top: -11px; width: 101px;" class="select form-control" id="Ultra" onchange="run()">
+                <option th:text="${'Kì: '+kiHienTai}"  th:value="${kiHienTai}">Chọn kì</option>
+                <option  th:each="k : ${ki}"  th:value="${k}" th:text="${'Kì: '+k}">
+
+                </option>
+            </select>
+            </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div name="ki 1">
+        <!--kì 1-->
+        <section class="invoice">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2 class="page-header" th:text="${'Thông tin lượng tín chỉ và điểm trong kì: '+kiHienTai}">
+                        <i class="fa fa-globe"></i> Thông tin lượng tín chỉ và điểm trong kì I
+                        <small class="pull-right" >Ngày bắt đầu kì: 2/10/2014</small>
+                    </h2>
+                </div>
+            </div>
+            <div class="row invoice-info">
+                <div class="col-sm-4 invoice-col">
+                    <div class="form-group chamcham">
+                        <label for="">Tổng số môn học: </label>
+                        <span th:text="${tongMonHoc}"></span>
+                    </div>
+                    <div class="form-group chamcham">
+                        <label for="">Số tín chỉ đã học: </label>
+                        <span th:text="${tongTin}"></span>
+                    </div>
+                </div>
+                <div class="col-sm-4 invoice-col">
+                    <div class="form-group chamcham">
+                        <label for="" > Điểm trung bình trên thang 10 : </label>
+                        <th:block th:if="${DTB>0.0}">
+                            <span th:text="${#numbers.formatDecimal( DTB, 0, 2)}"></span>
+                        </th:block>
+                        <th:block th:if="${DTB<=0.0}">
+                            <span>0</span>
+                        </th:block>
+
+                    </div>
+
+                    <div class="form-group chamcham">
+                        <label for="">Điểm GPA: </label>
+                        <th:block th:if="${GPA>0.0}">
+                            <span th:text="${#numbers.formatDecimal(GPA == '0.0' ? 0 : GPA, 0, 2)}"></span>
+                        </th:block>
+                        <th:block th:if="${GPA<=0.0}">
+                            <span>0</span>
+                        </th:block>
+                      </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group chamcham">
+                        <label for="">Ghi chú: </label>
+                        <th:block th:if="${tongTin<15}">
+                            <span style="color: red" th:text="${' Bạn chưa học đủ số tín chỉ trong môn này ('+tongTin+'/15)'}"></span>
+                        </th:block>
+                        <th:block th:if="${tongTin>=15}">
+                            <span style="color: #00acd6" th:text="${' Bạn đã học đủ số tín chỉ trong kì này ('+tongTin+'/15)'}"></span>
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-header">
+            <h1  th:text="${'Danh sách điểm các môn kì: '+kiHienTai}">Danh sách điểm các môn kì I</h1>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-body">
+                            <th:block th:if="${!#lists.isEmpty(diem)}">
+
+                            <table id="example2" class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Môn học</th>
+                                    <th>Số tín chỉ</th>
+                                    <th>Điểm lí thuyết</th>
+                                    <th>Điểm thực hành</th>
+                                    <th>Điểm bài tập lớn</th>
+                                    <th>Điểm trung bình</th>
+                                    <th>Trạng thái</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!--<th:block th:if="${sinhvien != null}">-->
+                                <tr th:each="diem,k : ${diem}">
+                                        <td th:text="${k.index+1}">1</td>
+                                        <td th:text="${diem.getMonHoc().getTenMonHoc()}">Hệ quản trị cơ sở dữ liệu</td>
+                                        <td th:text="${diem.getMonHoc().getTinChi()}">3</td>
+                                        <td th:text="${diem.getDiemLyThuyet()}">7</td>
+                                        <td th:text="${diem.getDiemThucHanh()}">8</td>
+                                        <td th:text="${diem.getDiemCuoiKi()}">9</td>
+                                        <th:block th:with="result=${(diem.getDiemLyThuyet() + diem.getDiemThucHanh()+diem.getDiemCuoiKi())/3}">
+                                        <td th:text="${#numbers.formatDecimal(result == null ? 0 : result, 0, 2)}" >7.0</td>
+                                        <th:block th:if="${result>4&&diem.getDiemLyThuyet()>0&&diem.getDiemThucHanh()>0&&diem.getDiemCuoiKi()>0}">
+                                            <td style="color: #00a65a">Thông qua</td>
+                                        </th:block>
+                                        <th:block th:if="${!(result>4&&diem.getDiemLyThuyet()>0&&diem.getDiemThucHanh()>0&&diem.getDiemCuoiKi()>0)}">
+                                            <td style="color: red">Chưa thông qua</td>
+                                        </th:block>
+                                    </th:block>
+
+                                    </tr>
+
+                                <tbody>
+                            </table>
+                            </th:block>
+                            <th:block th:if="${#lists.isEmpty(diem)}">
+                                <p>Hiện tại chưa có điểm cho môn học nào</p>
+                            </th:block>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        </div>
+    </div>
+    <div th:replace="fragments/footer :: footer">&nbsp;</div>
+    <aside class="control-sidebar control-sidebar-dark">
+        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+            <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+            <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="control-sidebar-home-tab">
+                <h3 class="control-sidebar-heading">Recent Activity</h3>
+                <ul class="control-sidebar-menu">
+                    <li>
+                        <a href="javascript:;">
+                            <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+
+                                <p>Will be 23 on April 24th</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <h3 class="control-sidebar-heading">Tasks Progress</h3>
+                <ul class="control-sidebar-menu">
+                    <li>
+                        <a href="javascript:;">
+                            <h4 class="control-sidebar-subheading">
+                                Custom Template Design
+                                <span class="pull-right-container">
+                    <span class="label label-danger pull-right">70%</span>
+                  </span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+            <div class="tab-pane" id="control-sidebar-settings-tab">
+                <form method="post">
+                    <h3 class="control-sidebar-heading">General Settings</h3>
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Report panel usage
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+                        <p>
+                            Some information about this general settings option
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </aside>
+    <div class="control-sidebar-bg"></div>
+</div>
+
+
+</div>
+
+<script type="text/javascript" th:inline="javascript" >
+    // $(function () {
+    //     $('#example2').DataTable()
+    //     $('#example3').DataTable({
+    //         'paging'      : true,
+    //         'lengthChange': false,
+    //         'searching'   : false,
+    //         'ordering'    : true,
+    //         'info'        : true,
+    //         'autoWidth'   : false
+    //     })
+    //
+    // });
+
+    function run() {
+        var id= (document.getElementById("Ultra").value);
+            window.location.replace("/web/thongtinki?ki="+id);
+    }
+
+
+</script>
+</body>
+</html>

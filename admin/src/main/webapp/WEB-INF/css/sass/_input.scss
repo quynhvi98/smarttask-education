@@ -1,0 +1,343 @@
+.input {
+    min-width: 130px;
+    position: relative;
+    float: left;
+    box-sizing: border-box;
+    border: 1px solid rgba(0,0,0,0.1);
+    background-color: $white;
+    border-radius: 4px;
+    margin-right: 1%;
+    margin-bottom: 1%;
+    width: 18%;
+    input,
+    select {
+      position: relative;
+      font-size: 16px;
+      padding: 19px 10px 8px;
+      border: none;
+      width: 100%;
+      border-radius: 4px;
+    }
+
+    select {
+      padding-left: 5px;
+    }
+
+    .label {
+      position: absolute;
+      text-transform: uppercase;
+      font-size: 12px;
+      padding: 0;
+      font-weight: normal;
+      top: 7px;
+      left: 10px;
+      z-index: 999;
+      color: $gray9;
+    }
+
+    &.nho {
+      min-width: 10% !important;
+    }
+  }
+
+  .submit {
+    position: absolute;
+    color: $white;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 15px;
+    right: 20px;
+    // top: 20px;
+    bottom: 20px;
+    width: 100px;
+    background-color: $primary-color;
+    padding: 14px 0;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+  }
+
+  &.fix-khung {
+    padding-right: 0;
+
+    .submit {
+      right: 15px;
+      width: 19%;
+      position: unset;
+      float: left;
+    }
+  }
+
+
+.form-horizontal {
+  .form-group {
+    margin-left: 0;
+    margin-right: 0;
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .labelFile {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: normal;
+    }
+  }
+
+  .select2.select2-container {
+    width: 100% !important;
+  }
+}
+
+.bacham {
+  width: 30px;
+  margin: auto;
+
+  .dropdown-menu {
+    &.dropdown-menu-right {
+      text-align: center;
+      min-width: 0;
+      right: 100%;
+      top: -50%;
+      white-space: nowrap;
+      padding-left: 5px;
+      padding-right: 5px;
+      margin-right: -5px;
+    }
+
+    > li > a {
+      padding: 0 5px 1px;
+      border: solid 1px $e;
+      background: $f5;
+      border-radius: 4px;
+
+      &:hover {
+        color: $primary-color;
+        background: $white;
+        border-color: $c;
+      }
+    }
+
+    > .divider {
+      min-width: 100%;
+      margin: 5px 0 0;
+    }
+
+    li.inline {
+      position: relative;
+      display: inline-block;
+      // margin-bottom: 5px;
+      a {
+        width: auto;
+      }
+
+      &:first-child:before {
+        display: none;
+      }
+    }
+
+    .block {
+      display: block;
+    }
+
+    > li > a > {
+      .fa,
+      .glyphicon,
+      .ion {
+        margin-right: 5px;
+      }
+    }
+    box-shadow: 1px 1px 8px -2px rgba(0, 0, 0, 0.2);
+    border-color: #ddd;
+  }
+
+  > a {
+    color: $dark;
+    text-decoration: none;
+
+    &:hover {
+      color: $primary-color;
+    }
+
+    > i {
+      width: 100%;
+    }
+  }
+}
+
+.chamcham {
+  border-bottom: dotted 1px $e;
+  margin-bottom: 8px;
+  padding-bottom: 3px;
+  display: table;
+  width: 100%;
+  text-align: left;
+
+  input {
+    height: auto;
+    padding: 0 8px;
+    color: $dark;
+    display: table-cell;
+    text-align: left;
+  }
+
+  label,
+  span {
+    margin-bottom: 2px;
+    display: table-cell;
+    text-align: left;
+  }
+
+  label {
+    width: 110px;
+    color: $gray;
+  }
+}
+
+.checkselect [aria-selected="true"]:before {
+  font-family: FontAwesome;
+  content: "\f14a";
+  margin-right: 8px;
+  margin-left: 3px;
+}
+
+.checkselect [aria-selected="false"]:before {
+  font-family: FontAwesome;
+  content: "\f096";
+  margin-right: 8px;
+  margin-left: 3px;
+}
+
+th {
+  .check {
+    &:before {
+      color: $primary-color30;
+    }
+
+    &:hover {
+      &:before {
+        color: $white;
+      }
+    }
+  }
+}
+
+.check {
+  cursor: pointer;
+
+  input[type=checkbox] {
+    display: none;
+  }
+
+  &:before {
+    content: "\f096";
+    font-family: FontAwesome;
+    font-size: 14px;
+  }
+
+  &:hover {
+    &:before {
+      color: $primary-color;
+    }
+  }
+
+  &.tick:before {
+    content: "\f14a";
+    font-size: 13px;
+  }
+}
+
+.table {
+  .select2-container.select2-container--default {
+    width: 100% !important;
+
+    .select2-selection--single {
+      background: transparent;
+      height: auto;
+      padding: 8px 12px 4px;
+      border: solid 1px $primary-color20;
+      text-align: left;
+
+      .select2-selection__arrow {
+        height: 24px;
+        color: $white;
+
+        b {
+          color: $white;
+          border-color: $white transparent transparent transparent;
+        }
+      }
+
+      .select2-selection__rendered {
+        color: $white;
+        height: auto;
+        line-height: 1;
+        padding: 0;
+      }
+    }
+  }
+}
+
+.table td a.button-light {
+  width: auto;
+  display: inline-block;
+  color: $gray;
+  padding: 1px 6px;
+  line-height: 1;
+  border-radius: 3px;
+  border-color: $c;
+  background: $f5;
+
+  i {
+    margin-right: 3px;
+  }
+}
+
+.table td a.button-light:hover {
+  background: $white;
+  border-color: $c;
+  color: $primary-color;
+}
+
+.bacham .dropdown-menu.dropdown-menu-right:before {
+  content: "\f0da";
+  right: -5px;
+  top: 6px;
+  position: absolute;
+  font-family: FontAwesome;
+  color: $white;
+  text-shadow: 1px 0 0 #c7c7c7;
+}
+.ranges {
+    position:  absolute;
+    right: 2px;
+    bottom: 100%;
+    margin-bottom:  8px;
+    overflow:  hidden;
+    white-space: nowrap;
+    .btn-sm {
+        padding:  1px 10px;
+        &.btn-success {
+          background-color: $primary-color;
+          border-color: $primary-color-border;
+          &:hover{
+            background-color: $primary-color20;
+            border-color: $primary-color;
+          }
+      }
+    }
+}
+.daterangepicker td.in-range {
+    background-color: $primary-color40;
+}
+.daterangepicker td.active,
+.daterangepicker td.active:hover {
+    background-color: $primary-color;
+}
+.daterangepicker td.available:hover,
+.daterangepicker th.available:hover{
+  background-color: $primary-color;
+}

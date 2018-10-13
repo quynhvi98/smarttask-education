@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Smarttask Education</title>
+
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-3.3.7/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/login.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/flag-icon/flag-icon.css}" />
+
+<script type="text/javascript" th:src="@{/js/jquery-3.3.1/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap-3.3.7/bootstrap.min.js}"></script>
+
+
+<style type="text/css">
+	.padding25 {
+		padding: 15px 0;
+	}
+	
+	.em15{
+		font-size: 1.5em;
+		font-weight: bold;
+	}
+	
+	.form-group a:hover {
+		text-decoration:none; 
+	}
+</style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
+    <script type="text/javascript">
+        function notify() {
+            $.notify("Access granted", "error");
+        }
+    </script>
+</head>
+<body>
+
+	<div class="container">
+
+		<form class="form-signin" th:action="@{/login}" method="post">
+			<div class="form-group padding25">
+				<!-- <h2 class="form-signin-heading pull-left" th:text="#{login.title}">Please sign in</h2> -->
+				<span class="pull-left em15">Đăng nhập hệ thống</span>
+				<a class="flag-icon flag-icon-us pull-right em15"></a>
+				<span class="pull-right">&nbsp;</span>
+				<a  class="flag-icon flag-icon-vn pull-right em15"></a>
+
+			</div>
+			<!--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
+			<div class="form-group">
+				<label for="username" class="sr-only">User name</label>
+				<input type="text" id="username" name="userName" class="form-control" required autofocus>
+			</div>
+			<div class="form-group">
+				<label for="password" class="sr-only">Password</label>
+				<input type="password" id="password" name="userPassWord" class="form-control" required>
+			</div>
+
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+		</form>
+        <p th:if="${param.error}"  class="error">Tài khoản hoặc mật khẩu nhập không đúng</p>
+		<p th:if="${param.logout}" class="success">You have been logged out</p>
+	</div>
+	<!-- /container -->
+</body>
+</html>

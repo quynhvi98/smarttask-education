@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smarttask Education</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/ionicons.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/AdminLTE.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/skin-blue.min.css}">
+
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+</head>
+<body>
+<header class="main-header">
+    <a href="#" class="logo">
+        <img th:src=@{/img/logo.png} height="30" width="147"/>
+    </a>
+    <nav class="navbar navbar-static-top" role="navigation">
+        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+            <span class="sr-only">Toggle navigation</span>
+        </a>
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                <li class="dropdown messages-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-envelope-o"></i>
+                        <span class="label label-success">4</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="header">You have 4 messages</li>
+                        <li>
+                            <ul class="menu">
+                                <li>
+                                    <a href="#">
+                                        <div class="pull-left">
+                                            <img class="img-circle" th:src="@{/avatar/}+${user.userAvatar != null ? user.userAvatar : 'default.png'}" alt="User Image">
+                                        </div>
+                                        <h4>
+                                            Support Team
+                                            <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                        </h4>
+                                        <p>Why not buy a new awesome theme?</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="footer"><a href="#">See All Messages</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown notifications-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-bell-o"></i>
+                        <span id="chuong" th:text="${soLuongTBChuaXem}" class="label label-warning">10</span>
+                    </a>
+                    <ul id="tb" class="dropdown-menu">
+                        <!--<li class="header">You have 10 notifications</li>-->
+
+                        <li th:each="tbm : ${moiNhat}">
+                            <ul class="menu">
+                                <li>
+                                    <a style="height: 39px;" th:href="${'/web/mailbox/read-mail?id=' + tbm.id}">
+                                        <i class="fa fa-users text-aqua"></i>
+                                        <th:block th:if="${tbm.status}">
+                                            <p style="margin-top: -20px; margin-left: 24px; font-size: 15px;" th:text="${tbm.title+' ('+tbm.sender+')'}">
+                                        </th:block>
+                                        <th:block th:if="${!tbm.status}">
+                                            <p style="margin-top: -20px; margin-left: 24px; font-size: 15px;    font-weight: 600;" th:text="${tbm.title+' ('+tbm.sender+')'}">
+                                        </th:block>
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+
+
+                        <li class="footer"><a th:href="@{/mailbox}">View all</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown tasks-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-flag-o"></i>
+                        <span class="label label-danger">9</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="header">You have 9 tasks</li>
+                        <li>
+                            <ul class="menu">
+                                <li>
+                                    <a href="#">
+                                        <h3>
+                                            Design some buttons
+                                            <small class="pull-right">20%</small>
+                                        </h3>
+                                        <div class="progress xs">
+                                            <div class="progress-bar progress-bar-aqua" style="width: 20%"
+                                                 role="progressbar"
+                                                 aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                <span class="sr-only">20% Complete</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="footer">
+                            <a href="#">View all tasks</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown user user-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <img class="user-image" th:src="@{/avatar/}+${user.userAvatar != null ? user.userAvatar : 'default.png'}" alt="User Image">
+                        <span class="hidden-xs" th:text="${user != null ? user.fullName : ''}">Trần Văn Admin</span>
+
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="user-header">
+                            <!--<img th:src="@{/img/user2-160x160.jpg}" class="img-circle" alt="User Image">-->
+                            <img class="img-circle" th:src="@{/avatar/}+${user.userAvatar != null ? user.userAvatar : 'default.png'}" alt="User Image">
+                            <p th:text="${user != null ? user.fullName : ''}">
+                                Trần Văn Admin - Student
+                            <p th:text="${user != null ? user.userEmail : ''}" style="font-size: 13px">Member since Nov. 2012</p>
+                            </p>
+                        </li>
+                        <li class="user-footer">
+                            <div class="pull-left">
+                                <a th:href="@{/info}" class="btn btn-default btn-flat">Thông tin</a>
+                            </div>
+                            <div class="pull-left" style="padding-left: 3px">
+                                <a th:href="@{/doimatkhau}" class="btn btn-default btn-flat">Đổi mật khẩu</a>
+                            </div>
+                            <div class="pull-right">
+                                <a th:href="@{/logout}" class="btn btn-default btn-flat">Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                </li>
+            </ul>
+        </div>
+        <th:block th:if="${user.getGiaoVien()!=null}">
+            <input id="username" type="hidden" th:value="${user.getGiaoVien().getMaGiaoVien()}"/>
+        </th:block>
+        <th:block th:if="${user.getSinhVien()!=null}">
+            <input id="username" type="hidden" th:value="${user.getSinhVien().getMaSinhVien()}"/>
+        </th:block>
+    </nav>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/1.1.28/howler.min.js"></script>
+    <script>
+        var stompClient = null;
+        var username = document.getElementById('username').value;
+        var socket = new SockJS('http://localhost:8080/web/ws');
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, onConnected);
+
+        function onConnected() {
+            stompClient.subscribe('/topic/public-'+username, onMessageReceived);
+            stompClient.send("/app/chat.addUser",
+                {},
+                JSON.stringify({sender: username, type: 'JOIN'})
+            )
+
+            function onError() {
+                console.log("error " + error);
+            }
+
+            function onMessageReceived(payload) {
+                playSound();
+                var message = JSON.parse(payload.body);
+                var a = '<li> <ul class="menu"> <li> <a style="height: 39px;"  href="/web/mailbox/read-mail?id='+message.id+'> <i  style="float: left; class="fa fa-users text-aqua"></i>' +'<p style="margin-top: -15px; margin-left: 24px; font-size: 15px;">'+ message.title+' - ('+message.sender+')'+'</p></a></li></ul></li>';
+                var node = document.getElementById('chuong');
+                var txt = parseInt(node.textContent || node.innerText);
+                document.getElementById('chuong').innerHTML = txt + 1;
+                document.getElementById('tb').innerHTML = a + document.getElementById('tb').innerHTML;
+                var myEle = document.getElementById("table");
+                if (myEle != null) {
+                    var tb = '<tr >' +
+                        '<td><input style="margin-left: 5px;position: absolute;opacity: 1;" type="checkbox"></td>\n' +
+                        '<td class="mailbox-star"><a href="#"><i class="fa fa-star-o text-yellow"></i></a></td>\n' +
+                        '<td class="mailbox-name"><a href="/mailbox/readmail">' +
+                        message.sender + '</a></td>\n' +
+                        '<td class="mailbox-subject">' +
+                        '<a href="/web/mailbox/read-mail?id=' +
+                        message.id + '" style="float: left">' +
+                        message.title + '</a>\n' +
+                        '<p style="padding-left: 18px; margin-left: 73px;font-weight: 700;width: 339px; overflow: hidden; /* display: inline-block; */ text-overflow: ellipsis; white-space: nowrap;" th:text="${thongBao.content}">' +
+                        message.content +
+                        '</p>\n' +
+                        '</td>\n' +
+                        '<td class="mailbox-attachment"><i class="fa fa-paperclip"></i></td>\n' +
+                        '<td class="mailbox-date">' +
+                        message.time +
+                        '</td>\n' +
+                        '</tr>';
+                    document.getElementById('table').innerHTML = tb + document.getElementById('table').innerHTML;
+                }
+            }
+        }
+
+        window.onload = init;
+        var sound;
+
+        function init() {
+            sound = new Howl({
+                urls: ['https://notificationsounds.com/soundfiles/15de21c670ae7c3f6f3f1f37029303c9/file-sounds-1085-definite.mp3'],
+                onload: function () {
+                    console.log("Loaded asset ");
+                    button.disabled = false; // enable the play sound button
+                }
+            });
+        }
+
+        function playSound() {
+            sound.play();
+        }
+
+    </script>
+
+</header>
+
+
+
+
+<script type="text/javascript" th:src="@{/js/jquery/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/adminlte.min.js}"></script>
+</body>
+</html>

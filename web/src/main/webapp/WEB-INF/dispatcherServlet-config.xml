@@ -11,7 +11,7 @@
           class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
         <constructor-arg ref="servletContext"/>
         <property name="characterEncoding" value="UTF-8"/>
-        <property name="prefix" value="/thymeleaf/"/>
+        <property name="prefix" value="WEB-INF/thymeleaf/"/>
         <property name="suffix" value=".html"/>
         <property name="templateMode" value="HTML5"/>
         <property name="cacheable" value="false"/>
@@ -23,9 +23,16 @@
         <property name="characterEncoding" value="UTF-8"/>
         <property name="templateEngine" ref="templateEngine"/>
     </bean>
-    <!--<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">-->
-        <!--<property name="maxInMemorySize" value="100000"/>-->
-    <!--</bean>-->
-
-    <mvc:resources mapping="/*" location="/resources/"/>
+    <!--<mvc:resources mapping="/**" location="WEB-INF/" />-->
+    <mvc:resources mapping="/css/**" location="WEB-INF/css/" />
+    <mvc:resources mapping="/js/**" location="WEB-INF/js/" />
+    <mvc:resources mapping="/img/**" location="WEB-INF/img/" />
+    <mvc:resources mapping="/fonts/**" location="WEB-INF/fonts/" />
+    <mvc:resources mapping="/post/**" location="classpath:post/" />
+    <mvc:resources mapping="/doc/**" location="classpath:doc/" />
+    <mvc:resources mapping="/avatar/**" location="classpath:avatar/" />
+    <mvc:resources mapping="/baitap/**" location="classpath:baitap/" />
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    <property name="maxInMemorySize" value="100000"/>
+    </bean>
 </beans>

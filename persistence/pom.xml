@@ -61,6 +61,17 @@
             <artifactId>spring-boot-starter-jdbc</artifactId>
             <version>RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.7.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.7.3</version>
+        </dependency>
     </dependencies>
     <profiles>
         <profile>
@@ -71,7 +82,7 @@
             <properties>
                 <jdbc.driver>com.mysql.jdbc.Driver</jdbc.driver>
                 <jdbc.url>
-                    jdbc:mysql://localhost:3306/smarttask_education
+                    jdbc:mysql://localhost:3306/smarttask_education?useSSL=false
                 </jdbc.url>
                 <jdbc.username>root</jdbc.username>
                 <jdbc.password>root</jdbc.password>

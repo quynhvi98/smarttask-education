@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký lớp</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/ionicons.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/AdminLTE.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/skin-blue.min.css}">
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <link type="text/css" th:href="@{/css/student/main_register_class.css}" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/sweetalert2/latest/sweetalert2.min.css"/>
+    <script src="https://cdn.jsdelivr.net/sweetalert2/latest/sweetalert2.min.js"></script>
+
+    </head>
+<style>
+    .skin-blue sidebar-mini modal-open {
+        padding-right: 0px;
+    }
+
+    .skin-blue .sidebar-form .btn {
+        color: #999;
+        border-top-left-radius: 0;
+        border-top-right-radius: 2px;
+        border-bottom-right-radius: 2px;
+        border-bottom-left-radius: 0;
+        margin-top: 1px;
+    }
+
+    .form-group > div {
+        margin-left: 10%;
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .content {
+        min-height: 250px;
+        padding: 0px;
+        margin-right: auto;
+        margin-left: auto;
+        padding-left: 0px;
+        padding-right: 0px;
+        padding-top: 15px;
+    }
+
+    .btndk {
+        /* background-color: #03A9F4; */
+        line-height: 24px;
+        position: relative;
+        padding: 5px 22px;
+        border: 0;
+        margin: 4px;
+        cursor: pointer;
+        border-radius: 2px;
+        text-transform: uppercase;
+        text-decoration: none;
+        outline: none !important;
+        -webkit-transition: 0.2s ease-out;
+        -moz-transition: 0.2s ease-out;
+        -o-transition: 0.2s ease-out;
+        -ms-transition: 0.2s ease-out;
+        transition: 0.2s ease-out;
+    }
+
+</style>
+<body class="hold-transition skin-blue sidebar-mini" style="padding-right: 0px;">
+
+<!--<input id="token" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
+<div class="wrapper">
+    <div th:replace="fragments/header :: header">&nbsp;</div>
+    <div th:replace="fragments/sidebarsv :: aside">&nbsp;</div>
+    <div class="content-wrapper">
+        <section class="content">
+
+            <h3 th:text="${hocKi}"></h3>
+
+            <th:block th:if="${!#lists.isEmpty(listMonHoc)}">
+                <div class="table">
+                    <table class="tree-table">
+                        <thead class="fix-w text-center">
+                        <tr>
+                            <th class="wpx-60">
+                                <div>STT</div>
+                            </th>
+                            <th>
+                                <div>Tên môn học</div>
+                            </th>
+                            <th>
+                                <div>Số lượng tín chỉ</div>
+                            </th>
+                            <th>
+                                <div>Học kì</div>
+                            </th>
+                            <th>
+                                <div class="text-center">Đăng ký</div>
+                            </th>
+                        </tr>
+                        </thead>
+
+                        <tbody class="text-center">
+
+                        <tr th:each="monhoc,i : ${listMonHoc}">
+                            <td th:text="${i.index+1}"></td>
+                            <td th:text="${monhoc.tenMonHoc}">
+                            <td th:text="${monhoc.tinChi}">
+                            <td th:text="${monhoc.getKiHoc().getKiHoc()}">
+                            <td class="text-center">
+                                <button class="btndk" data-toggle="modal" data-target="#myModal"
+                                        th:attrappend="data-target=${monhoc.maMonHoc}">Đăng ký
+                                </button>
+
+                                <div class="modal modal-full fade" id="myModal" role="dialog"
+                                     th:attrappend="id=${monhoc.maMonHoc}">
+                                    <div class="modal-dialog">
+                                        <!-- Modal content-->i
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;
+                                                </button>
+                                                <h3 class="modal-title" id="suanhansuLabel">
+                                                    Đăng ký
+                                                </h3>
+                                            </div>
+                                            <div class="modal-body"
+                                                 style="padding-bottom: 20px; padding: 0px;padding-bottom: 32px;">
+                                                <th:block th:if="${#lists.isEmpty(monhoc.getLstLopHoc())}">
+                                                    <p>Hiện tại chưa có lớp học nào</p>
+                                                </th:block>
+                                                <th:block th:if="${!#lists.isEmpty(monhoc.getLstLopHoc())}">
+
+                                                    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                                                        <thead class="fix-w text-center">
+                                                        <tr>
+                                                            <th class="wpx-60">
+                                                                <div>STT</div>
+                                                            </th>
+                                                            <th>
+                                                                <div>
+                                                                    <div>Tên lớp</div>
+                                                                </div>
+                                                            </th>
+                                                            <th>
+                                                                <div>Tên giáo viên</div>
+                                                            </th>
+                                                            <th>
+                                                                <div>Ghi chú</div>
+                                                            </th>
+                                                            <th>
+                                                                <div>Phòng học</div>
+                                                            </th>
+                                                            <th>
+                                                                <div>Lịch học</div>
+                                                            </th>
+                                                            <th>
+                                                                <div>Ngày bắt đầu</div>
+                                                            </th>
+                                                            <th>
+                                                                <div>Ngày kết thúc</div>
+                                                            </th>
+                                                            <th>
+                                                                <div>Bộ môn</div>
+                                                            </th>
+                                                            <th>
+                                                                <div>Số sinh viên đăng ký</div>
+                                                            </th>
+                                                            <th>
+                                                                <div>Đăng ký</div>
+                                                            </th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr th:each="lophoc,k : ${monhoc.getLstLopHoc()}">
+                                                            <th:block th:if="${lophoc.trangThai!='3'}">
+                                                            <td th:text="${k.index+1}"></td>
+                                                            <td style="width: 7%;" th:text="${lophoc.maLop}"></td>
+                                                            <td th:text="${lophoc.getGiaoVien().getUser().getFullName()}"></td><td style="width: 7%;" th:text="${lophoc.moTa}">
+                                                            <td th:text="${lophoc.getPhongHoc().getTenPhong()}">
+                                                            <td>
+                                                                <div id="content">
+                                                                    <div class="help-tip">
+                                                                        <p th:id="${i.index+1+''+k.index+1}"></p>
+                                                                    </div>
+                                                                </div>
+                                                                <script >
+                                                                    var ngayHoc = '[[${lophoc.ngayHoc}+0]]';
+                                                                    var caHoc = '[[${lophoc.caHoc}+0]]';
+                                                                    var html = '';
+                                                                    var array = JSON.parse("[" + ngayHoc.toString() + "]");
+                                                                    var array1 = JSON.parse("[" + caHoc.toString() + "]");
+                                                                    console.log(array);
+                                                                    for (i = 0; i < array.length - 1; i++) {
+                                                                        html = html + 'Thứ: ' + array[i] + ' - Ca: ' + array1[i] + ' <br/> '
+                                                                    }
+                                                                    document.getElementById([[${i.index+1+''+k.index+1}]]).innerHTML = html;
+                                                                </script>
+                                                            </td>
+                                                            <td th:text="${#dates.format(lophoc.getNgayBatDau(),'dd-MMM-yyyy')}"></td>
+                                                            <td th:text="${#dates.format(lophoc.getNgayKetThuc(),'dd-MMM-yyyy')}"></td>
+                                                            <td th:text="${lophoc.getMonHoc().getTenMonHoc()}"></td>
+                                                            <td th:text="${lophoc.getSinhViens().size()}">
+                                                            <td>
+                                                                <div th:id="${i.index+1+''+lophoc.maLop}">
+
+                                                                </div>
+                                                                <script type="text/javascript" th:inline="javascript" >
+                                                                    var lopHoc ='[[${lopHocSV}]]';
+                                                                    var array = JSON.parse("[" + lopHoc.toString() + "]");
+                                                                    var dem=0;
+                                                                    var maLop ='[[${lophoc.maLop}]]';
+                                                                    var array1 =  array[0];
+                                                                    for (i = 0; i < array1.length; i++) {
+                                                                        if(array1[i]==maLop.replace(/['"]+/g, '')){
+                                                                            dem++;
+                                                                        }
+                                                                    }
+                                                                    if(dem==0){
+                                                                        document.getElementById([[${i.index+1+''+lophoc.maLop}]]).innerHTML ='<button class="btndk" id="'+maLop.replace(/['"]+/g, '')+'" onclick="dk(this.id)">Đăng ký</button>';
+                                                                    }else {
+                                                                        document.getElementById([[${i.index+1+''+lophoc.maLop}]]).innerHTML ='<button class="btndk" id="'+maLop.replace(/['"]+/g, '')+'" >Đã đăng ký</button>';
+                                                                    }
+                                                                </script>
+
+
+                                                            </td>
+                                                            </th:block>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </th:block>
+                                                <!--<button th:id="${lophoc.maLop}" onclick="reply_click(this.id)" class="btn btn-info eBtn"  type="button" style="margin-bottom: 20px;margin-top: 14px">Đăng ký</button>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        </tbody>
+
+                    </table>
+                </div>
+            </th:block>
+            <th:block th:if="${#lists.isEmpty(listMonHoc)}">
+                <h5>Hiện tại chưa có môn</h5>
+            </th:block>
+
+    </section>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer">&nbsp;</div>
+<aside class="control-sidebar control-sidebar-dark">
+    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+        <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+        <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="control-sidebar-home-tab">
+            <h3 class="control-sidebar-heading">Recent Activity</h3>
+            <ul class="control-sidebar-menu">
+                <li>
+                    <a href="javascript:;">
+                        <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+                        <div class="menu-info">
+                            <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+                            <p>Will be 23 on April 24th</p>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+            <h3 class="control-sidebar-heading">Tasks Progress</h3>
+            <ul class="control-sidebar-menu">
+                <li>
+                    <a href="javascript:;">
+                        <h4 class="control-sidebar-subheading">
+                            Custom Template Design
+                            <span class="pull-right-container">
+                    <span class="label label-danger pull-right">70%</span>
+                  </span>
+                        </h4>
+
+                        <div class="progress progress-xxs">
+                            <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+        <div class="tab-pane" id="control-sidebar-settings-tab">
+            <form method="post">
+                <h3 class="control-sidebar-heading">General Settings</h3>
+                <div class="form-group">
+                    <label class="control-sidebar-subheading">
+                        Report panel usage
+                        <input type="checkbox" class="pull-right" checked>
+                    </label>
+                    <p>
+                        SoPage Header Optional descriptionme information about this general settings option
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+</aside>
+<div class="control-sidebar-bg"></div>
+</div>
+<script type="text/javascript" th:src="@{/js/jquery/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/adminlte.min.js}"></script>
+
+
+<script type="text/javascript" th:inline="javascript">
+    function dk(id) {
+        // var token = document.getElementById('token').value;
+        var base_url = [[@{
+            /}]];
+            swal({
+                title: "Bạn muốn đăng ký lớp học",
+                text: "",
+                type: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Đăng ký',
+                cancelButtonText: 'Hủy',
+                reverseButtons: true
+            }).then(function (isConfirm) {
+                if (isConfirm) {
+                    swal({
+                        imageUrl: 'https://cdn.dribbble.com/users/563824/screenshots/4268258/untitled_180_3.gif',
+                        imageHeight: 200,
+                        showConfirmButton: false,
+                    });
+                    $.ajax({
+                        // headers: {'X-CSRF-Token': token},
+                        type: "POST",
+                        data: {id: id},
+                        url: base_url + "api/dangkylop",
+                        success: function (responseJson) {
+
+                            if (responseJson.trim() == "quahan") {
+                                swal({
+                                    title: 'Đăng ký không thành công!',
+                                    text: 'Đã quá thời hạn đăng ký lớp',
+                                    type: 'error',
+                                    confirmButtonText: 'Ok',
+                                }).then(function (isConfirm) {
+                                    form.submit();
+                                });
+                            }
+                            if (responseJson.trim() == "trunglich") {
+                                swal({
+                                    title: 'Đăng ký không thành công!',
+                                    text: 'Bạn đã trùng lịch học',
+                                    type: 'error',
+                                    confirmButtonText: 'Ok',
+                                }).then(function (isConfirm) {
+                                    form.submit();
+                                });
+                            }
+                            if (responseJson.trim() == "maxsv") {
+                                swal({
+                                    title: 'Đăng ký không thành công!',
+                                    text: 'Lớp đã đủ số lượng thành viên',
+                                    type: 'error',
+                                    confirmButtonText: 'Ok',
+                                }).then(function (isConfirm) {
+                                    form.submit();
+                                });
+                            }
+                            if (responseJson.trim() == "tontai") {
+                                swal({
+                                    title: 'Đăng ký không thành công!',
+                                    text: 'Bạn đã có trong danh sách lớp',
+                                    type: 'error',
+                                    confirmButtonText: 'Ok',
+                                }).then(function (isConfirm) {
+
+                                    form.submit();
+                                });
+                            }
+                            if (responseJson.trim() == "trungmon") {
+                                swal({
+                                    title: 'Đăng ký không thành công!',
+                                    text: 'Bạn chỉ có thể đăng ký 1 lớp cho 1 môn',
+                                    type: 'error',
+                                    confirmButtonText: 'Ok',
+                                }).then(function (isConfirm) {
+
+                                    form.submit();
+                                });
+                            }
+
+                            if (responseJson.trim() == "success") {
+                                swal({
+                                    title: 'Đăng ký thành công!',
+                                    text: '',
+                                    type: 'success',
+                                    confirmButtonText: 'Ok',
+                                }).then(function () {
+                                    if (isConfirm) {
+                                        location.reload(true);
+                                    }
+                                    form.submit();
+                                });
+                            }
+                            // } else {
+                            //     swal("Cancelled", "Đăng ký thất bại", "error");
+                            // }
+                        }
+                    });
+                } else {
+                }
+            });
+        }
+        ;
+</script>
+
+<style>
+    .swal2-modal .swal2-styled {
+        font-size: 13px;
+        border: 0;
+        border-radius: 3px;
+        box-shadow: none;
+        color: #fff;
+        /* cursor: pointer; */
+        /* font-size: 17px; */
+        font-weight: 500;
+        margin: 15px 5px 0;
+        width: 113px;
+        padding: 10px 32px;
+    }
+
+</style>
+
+</body>
+</html>
+
+
+

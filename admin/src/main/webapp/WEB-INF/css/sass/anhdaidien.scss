@@ -1,0 +1,35 @@
+.khunganh {
+  border: solid 1px $c;
+  width: auto;
+  display: inline-block;
+  padding: 10px;
+  background: $white;
+}
+
+.anhdaidien {
+  max-width: 100%;
+  min-width: 260px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 0;
+
+  &:before {
+    content: "Chưa có ảnh đại diện";
+    padding-top: 50%;
+    padding-bottom: 50%;
+    width: 100%;
+    display: block;
+    background: $c;
+    text-align: center;
+  }
+
+  img {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: auto;
+    z-index: 9;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
